@@ -32,7 +32,7 @@
                 <TabItem Header="TREASURY">
                 </TabItem>
                 <TabItem Header="BANK">
-                    <UserControls:GoldGrid/>
+                    <UserControls:StashControl/>
                 </TabItem>
                 <TabItem Header="MOTD">
                 </TabItem>
