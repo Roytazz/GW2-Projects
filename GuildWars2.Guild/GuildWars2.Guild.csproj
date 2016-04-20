@@ -36,6 +36,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dragablz, Version=0.0.3.160, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.160\lib\net45\Dragablz.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
@@ -53,6 +65,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -76,6 +89,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Grids\GoldGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Palette.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PaletteSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StashControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,6 +116,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\DBManager.cs" />
+    <Compile Include="Classes\Palette\CommandImplementation.cs" />
+    <Compile Include="Classes\Palette\SwatchesProvider.cs" />
+    <Compile Include="Controls\Grids\GoldGrid.xaml.cs">
+      <DependentUpon>GoldGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Palette.xaml.cs">
+      <DependentUpon>Palette.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PaletteSelector.xaml.cs">
+      <DependentUpon>PaletteSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StashControl.xaml.cs">
+      <DependentUpon>StashControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -94,6 +145,22 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201604191937229_InitialCreate.cs" />
+    <Compile Include="Migrations\201604191937229_InitialCreate.Designer.cs">
+      <DependentUpon>201604191937229_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201806349_Expanded LogEntry.cs" />
+    <Compile Include="Migrations\201604201806349_Expanded LogEntry.Designer.cs">
+      <DependentUpon>201604201806349_Expanded LogEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201927227_Update LogEntry.cs" />
+    <Compile Include="Migrations\201604201927227_Update LogEntry.Designer.cs">
+      <DependentUpon>201604201927227_Update LogEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Converter\ToUpperCasingColors.cs" />
+    <Compile Include="Model\GoldEntry.cs" />
+    <Compile Include="Model\StashViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,11 +174,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201604191937229_InitialCreate.resx">
+      <DependentUpon>201604191937229_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201806349_Expanded LogEntry.resx">
+      <DependentUpon>201604201806349_Expanded LogEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201927227_Update LogEntry.resx">
+      <DependentUpon>201604201927227_Update LogEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -129,6 +207,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\guild_wars_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\gold_coin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\copper_coin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\silver_coin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
