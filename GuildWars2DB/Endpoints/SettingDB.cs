@@ -6,6 +6,7 @@ namespace GuildWars2DB
 {
     public class SettingDB
     {
+#pragma warning disable CSE0003
         public static List<WorldBoss> GetWorldBosses() {
             return new List<WorldBoss>();
         }
@@ -26,5 +27,6 @@ namespace GuildWars2DB
         public static string GetAppPath() {
             return string.Empty;
         }
+#pragma warning restore CSE0003
     }
 }

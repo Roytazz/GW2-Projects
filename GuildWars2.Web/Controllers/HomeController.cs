@@ -8,11 +8,12 @@ namespace GuildWars2.Web.Controllers
 {
     public class HomeController : Controller
     {
+#pragma warning disable CSE0003
         public IActionResult Index()
         {
             return View();
         }
-
+        
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -31,5 +32,6 @@ namespace GuildWars2.Web.Controllers
         {
             return View();
         }
+#pragma warning restore CSE0003
     }
 }
