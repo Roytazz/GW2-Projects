@@ -89,7 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\Grids\GoldGrid.xaml">
+    <Page Include="Controls\GoldControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -120,8 +120,10 @@
     <Compile Include="Classes\DBManager.cs" />
     <Compile Include="Classes\Palette\CommandImplementation.cs" />
     <Compile Include="Classes\Palette\SwatchesProvider.cs" />
-    <Compile Include="Controls\Grids\GoldGrid.xaml.cs">
-      <DependentUpon>GoldGrid.xaml</DependentUpon>
+    <Compile Include="Classes\Reflection.cs" />
+    <Compile Include="Classes\Updater.cs" />
+    <Compile Include="Controls\GoldControl.xaml.cs">
+      <DependentUpon>GoldControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Palette.xaml.cs">
       <DependentUpon>Palette.xaml</DependentUpon>
@@ -157,6 +159,18 @@
     <Compile Include="Migrations\201604201927227_Update LogEntry.Designer.cs">
       <DependentUpon>201604201927227_Update LogEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604211853245_AddedLogProps.cs" />
+    <Compile Include="Migrations\201604211853245_AddedLogProps.Designer.cs">
+      <DependentUpon>201604211853245_AddedLogProps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604211859418_SimplifyLogs.cs" />
+    <Compile Include="Migrations\201604211859418_SimplifyLogs.Designer.cs">
+      <DependentUpon>201604211859418_SimplifyLogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604211918362_RevertTypeChange.cs" />
+    <Compile Include="Migrations\201604211918362_RevertTypeChange.Designer.cs">
+      <DependentUpon>201604211918362_RevertTypeChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Converter\ToUpperCasingColors.cs" />
     <Compile Include="Model\GoldEntry.cs" />
@@ -182,6 +196,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604201927227_Update LogEntry.resx">
       <DependentUpon>201604201927227_Update LogEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604211853245_AddedLogProps.resx">
+      <DependentUpon>201604211853245_AddedLogProps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604211859418_SimplifyLogs.resx">
+      <DependentUpon>201604211859418_SimplifyLogs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604211918362_RevertTypeChange.resx">
+      <DependentUpon>201604211918362_RevertTypeChange.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

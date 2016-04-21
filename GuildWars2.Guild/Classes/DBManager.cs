@@ -11,7 +11,7 @@ namespace GuildWars2Guild.Classes
         public static void AddLog(LogEntry log) {
             using(var db = new GW2DBContext()) {
                 if(!db.Log.Any(dbLog => dbLog.LogID == log.LogID)) {
-                    db.Log.Add(new DBLogEntry(log));
+                    db.Log.Add(Refection.CopyFrom(new DBLogEntry(), log));
                     db.SaveChanges();
                 }
             }
@@ -35,7 +35,7 @@ namespace GuildWars2Guild.Classes
             foreach(var log in newLogs) {
                 if(log.Coins > 0) {
                 }
-                dbLogs.Add(new DBLogEntry(log));
+                dbLogs.Add(Refection.CopyFrom(new DBLogEntry(), log));
                 
             }
           return dbLogs;
@@ -59,21 +59,6 @@ namespace GuildWars2Guild.Classes
     class DBLogEntry : LogEntry
     {
         public DBLogEntry() { }
-
-        public DBLogEntry(LogEntry log) {
-            Coins = log.Coins;
-            Count = log.Count;
-            ItemID = log.ItemID;
-            LogID = log.LogID;
-            MOTD = log.MOTD;
-            Time = log.Time;
-            Type = log.Type;
-            User = log.User;
-            Action = log.Action;
-            InvitedBy = log.InvitedBy;
-            Operation = log.Operation;
-            UpgradeID = log.UpgradeID;
-        }
 
         [Key]
         public int ID { get; set; }
