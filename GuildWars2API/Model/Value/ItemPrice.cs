@@ -22,7 +22,8 @@ namespace GuildWars2API.Model.Value
             }
         }
 
-        public ItemPrice() : this(0) {
+        public ItemPrice() {
+            TotalCoins = 0;
         }
 
         public ItemPrice(int totalCoins) {
@@ -37,6 +38,12 @@ namespace GuildWars2API.Model.Value
 
         public void Add(int coins) {
             TotalCoins = TotalCoins + coins;
+        }
+
+        public void Subtract(ItemPrice price) => Subtract(price.TotalCoins);
+
+        public void Subtract(int coins) {
+            TotalCoins = TotalCoins - coins;
         }
 
         internal void Add(int coins, int procentDeduction) {
@@ -61,5 +68,7 @@ namespace GuildWars2API.Model.Value
         public static bool operator <(ItemPrice e1, ItemPrice e2) => e1.CompareTo(e2) < 0;
 
         public static bool operator >(ItemPrice e1, ItemPrice e2) => e1.CompareTo(e2) > 0;
+
+        
     }
 }

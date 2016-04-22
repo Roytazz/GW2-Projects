@@ -83,7 +83,7 @@
         </DataTemplate>
     </UserControl.Resources>
     <StackPanel>
-        <materialDesign:Card Margin="5,5,5,5" Background="{DynamicResource GrayAccent}">
+        <materialDesign:Card Margin="5,5,5,5" Background="{StaticResource GrayAccent}">
             <DockPanel>
                 <local:Palette Width="200" />
                 <StackPanel VerticalAlignment="Center" Margin="20">

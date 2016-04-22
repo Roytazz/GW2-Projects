@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="GuildWars2Guild.Controls.StashControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:usercontrol="clr-namespace:GuildWars2Guild.Controls"
+             xmlns:viewModel="clr-namespace:GuildWars2Guild.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <dockablz:Layout>
+            <dragablz:TabablzControl BorderBrush="{DynamicResource PrimaryHueDarkBrush}">
+                <TabItem Header="GOLD">
+                    <usercontrol:GoldControl>
+                        <usercontrol:GoldControl.DataContext>
+                            <viewModel:StashViewModel/>
+                        </usercontrol:GoldControl.DataContext>
+                    </usercontrol:GoldControl>
+                </TabItem>
+                <TabItem Header="ITEMS">
+                </TabItem>
+            </dragablz:TabablzControl>
+        </dockablz:Layout>
+    </Grid>
+</UserControl>
