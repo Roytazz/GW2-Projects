@@ -52,8 +52,8 @@ artifacts/
 *.pdb
 *.pgc
 *.pgd
-*.png
-*.ico
+*.wav
+*.mp3
 *.rsp
 *.sbr
 *.tlb
@@ -212,5 +212,3 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-/GuildWars2/Resources/Images
-/GuildWars2/Resources/Sounds
