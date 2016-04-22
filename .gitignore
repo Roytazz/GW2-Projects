@@ -212,4 +212,5 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-/GuildWars2/Resources
+/GuildWars2/Resources/Images
+/GuildWars2/Resources/Sounds
