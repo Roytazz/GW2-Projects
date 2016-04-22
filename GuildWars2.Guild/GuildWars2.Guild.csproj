@@ -109,6 +109,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Widgets\ItemValueDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -117,6 +121,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\Widgets\ItemValueDisplay.xaml.cs">
+      <DependentUpon>ItemValueDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Sorting\ColumnSort.cs" />
     <Compile Include="Classes\DBManager.cs" />
     <Compile Include="Classes\Palette\CommandImplementation.cs" />
     <Compile Include="Classes\Palette\SwatchesProvider.cs" />
@@ -174,7 +182,11 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Converter\ToUpperCasingColors.cs" />
     <Compile Include="Model\GoldEntry.cs" />
+    <Compile Include="Model\Sorting\DateSort.cs" />
+    <Compile Include="Model\Sorting\GoldSort.cs" />
+    <Compile Include="Model\Sorting\ICustomSorter.cs" />
     <Compile Include="Model\StashViewModel.cs" />
+    <Compile Include="Model\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

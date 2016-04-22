@@ -3,12 +3,10 @@ using GuildWars2API.Model.Value;
 
 namespace GuildWars2Guild.Model
 {
-    class GoldEntry
+    class GoldEntry : LogEntry
     {
-        public ItemPrice Value => new ItemPrice(LogEntry.Coins);
+        public ItemPrice Value => new ItemPrice(Coins);
 
-        public string DateString => LogEntry.Time.ToShortTimeString() + " " + LogEntry.Time.ToLongDateString();
-
-        public LogEntry LogEntry { get; set; }
+        public string DateString => Time.ToString("H:mm - d MMM \\'yy");
     }
 }

@@ -1,55 +1,82 @@
-﻿using GuildWars2API.Model.Guild;
+﻿using GuildWars2API.Model.Value;
 using GuildWars2Guild.Classes;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Windows.Data;
 
 namespace GuildWars2Guild.Model
 {
-    class StashViewModel : INotifyPropertyChanged
+    class StashViewModel : ViewModelBase
     {
-        private List<LogEntry> _log;
+        private List<GoldEntry> _log;
         private GoldEntry _selectedRow;
+
+        public GoldEntry SelectedRow
+        {
+            get { return _selectedRow; }
+            set {
+                _selectedRow = value;
+                NotifyPropertyChanged("MemberTotal");
+                NotifyPropertyChanged("GoldLogMember");
+                NotifyPropertyChanged("SelectedMember");
+            }
+        }
+
+        public string SelectedMember
+        {
+            get {
+                if(SelectedRow != null) {
+                    return SelectedRow.User;
+                }
+                return "Total";
+            }
+        }
+            
+        public ItemPrice MemberTotal
+        {
+            get {
+                if(SelectedRow != null) {
+                    return GetSubTotal(SelectedRow.User);
+                }
+                return null;
+            }
+        }
+
+        public ListCollectionView GoldLogTotal { get; set; }
 
         public ObservableCollection<GoldEntry> GoldLogMember {
             get {
                 if(SelectedRow != null) {
-                    var results = new ObservableCollection<GoldEntry>(GetGoldEntries().Where(entry => entry.LogEntry.User.Equals(SelectedRow.LogEntry.User)).ToList());
+                    var results = new ObservableCollection<GoldEntry>(_log.Where(entry => entry.User.Equals(SelectedRow.User)).ToList());
                     return results;
                 }
                 return new ObservableCollection<GoldEntry>();
             }
         }
-        public ObservableCollection<GoldEntry> GoldLogTotal { get; set; }
-
-        public GoldEntry SelectedRow {
-            get { return _selectedRow; }
-            set { _selectedRow = value; NotifyPropertyChanged("GoldLogMember"); }
-        }
-
+        
         public StashViewModel() {
-            _log = DBManager.GetLogEntries();
-            GoldLogTotal = new ObservableCollection<GoldEntry>(GetGoldEntries());
+            var stashEntries = DBManager.GetLogEntries("stash").Where(entry => entry.Coins > 0).ToList();
+
+            _log = new List<GoldEntry>();
+            stashEntries.ForEach(entry => { _log.Add(Refection.CopyFrom(new GoldEntry(), entry)); });
+
+            GoldLogTotal = new ListCollectionView(_log);
         }
 
-        private List<GoldEntry> GetGoldEntries() {
-            var stachEntries = _log.Where(entry => entry.Type.Equals("stash") && entry.Coins > 0);
+        private ItemPrice GetSubTotal(string username) {
+            var goldEntries = _log.Where(entry => entry.User.Equals(username));
 
-            var goldEntries = new List<GoldEntry>();
-            foreach(var goldEntry in stachEntries) {
-                goldEntries.Add(new GoldEntry() { LogEntry = goldEntry });
+            var total = new ItemPrice();
+            foreach(var entry in goldEntries) {
+                if(entry.Operation.Equals("deposit")) {
+                    total.Add(entry.Coins);
+                }
+                else {
+                    total.Subtract(entry.Coins);
+                }
             }
-            return goldEntries;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "") {
-            if(PropertyChanged != null) {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            return total;
         }
     }
 }

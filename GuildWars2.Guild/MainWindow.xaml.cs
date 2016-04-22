@@ -8,8 +8,8 @@ namespace GuildWars2Guild
     /// </summary>
     public partial class MainWindow : MetroWindow {
         public MainWindow() {
-            //DBManager.ClearLogs();
-            //Updater.Update();
+            //Classes.DBManager.ClearLogs();
+            //Classes.Updater.Update();
             InitializeComponent();
         }
         

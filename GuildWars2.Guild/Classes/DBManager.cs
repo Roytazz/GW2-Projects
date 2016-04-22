@@ -47,6 +47,12 @@ namespace GuildWars2Guild.Classes
             }
         }
 
+        public static List<LogEntry> GetLogEntries(string type) {
+            using(var db = new GW2DBContext()) {
+                return db.Log.Where(entry => entry.Type.Equals(type)).ToList().Cast<LogEntry>().ToList();
+            }
+        }
+
         public static void ClearLogs() {
             using(var db = new GW2DBContext()) {
                 var items = db.Log.ToList();
