@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:UserControls="clr-namespace:GuildWars2.Controls"
-        GlowBrush="{DynamicResource AccentColorBrush}" BorderThickness="0"
+        GlowBrush="{DynamicResource AccentColorBrush}" BorderThickness="0" Icon="/GuildWars2;component\Resources\Images\Icons\guild_wars_icon.ico"
         WindowStartupLocation="CenterScreen" ShowIconOnTitleBar="True" Title="Guild Wars Vault"
         Height="576" Width="1024" UseLayoutRounding="True" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>

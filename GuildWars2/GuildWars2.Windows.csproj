@@ -205,15 +205,9 @@
     <Resource Include="Resources\Images\Icons\waypoint_hover.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Icons\fighting.png" />
     <Resource Include="Resources\Images\Icons\guild_wars_icon.png" />
-    <Resource Include="Resources\Images\Icons\dragonite_ore.png" />
-    <Resource Include="Resources\Images\Icons\gilded_strongbox.png" />
     <Resource Include="Resources\Images\Other\Warning_quaggan_icon.png" />
-    <Resource Include="Resources\Images\Icons\guild_wars_icon_bg.ico" />
-    <Resource Include="Resources\Images\Icons\guild_wars_icon_bg.png" />
     <Resource Include="Resources\Images\Icons\guild_wars_icon.ico" />
-    <Content Include="Resources\Images\Icons\guild_wars_logo.svg" />
     <Content Include="Resources\Sounds\Notification1.wav" />
     <Content Include="Resources\Sounds\Notification2.mp3" />
     <Content Include="Resources\Sounds\Notification3.mp3" />
