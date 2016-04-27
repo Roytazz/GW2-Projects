@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:sorting="clr-namespace:GuildWars2Guild.Model.Sorting"
+             xmlns:sorting="clr-namespace:GuildWars2Guild.Classes.MVVM.Sorting"
              xmlns:widgets="clr-namespace:GuildWars2Guild.Controls.Widgets"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:GuildWars2Guild"
+             xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:GuildWars2Guild.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
@@ -15,10 +16,10 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="65*"/>
-            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding GoldLogTotal}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}"
+        <DataGrid CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding MainCollectionView}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}" 
                   Grid.Column="0" materialDesign:DataGridAssist.CellPadding="8,6,6,6" materialDesign:DataGridAssist.ColumnHeaderPadding="6" sorting:CustomSortBehaviour.AllowCustomSort="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding User}" Header="User" />
@@ -35,10 +36,10 @@
         </DataGrid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
+                <RowDefinition Height="55*"/>
+                <RowDefinition Height="45*"/>
             </Grid.RowDefinitions>
-            <GroupBox Grid.Row="0" Header="{Binding SelectedMember}" Margin="7" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+            <GroupBox Grid.Row="0" Header="{Binding SelectedMember}" Margin="10" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="90*"/>
@@ -59,18 +60,16 @@
                             <DataGridTextColumn Binding="{Binding DateString}" Header="Date" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Rectangle Grid.Row="1" Fill="Red" Margin="-5,0,-5,0"/>
+                    <Rectangle Grid.Row="1" Fill="{DynamicResource PrimaryHueMidBrush}" Margin="-5,0,-5,0"/>
                     <Viewbox Grid.Row="2" Margin="0,0,0,-5" HorizontalAlignment="Left">
                         <StackPanel Grid.Row="2" Orientation="Horizontal" >
-                            <TextBlock Text="Total Gold Donated: " Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" VerticalAlignment="Center" />
+                            <TextBlock Text="Total Gold Donated: " Foreground="White" VerticalAlignment="Center" />
                             <widgets:ItemValueDisplay Value="{Binding MemberTotal}" />
                         </StackPanel>
                     </Viewbox>
                 </Grid>
             </GroupBox>
-            <GroupBox Grid.Row="1" Header="Filters" Margin="6" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-
-            </GroupBox>
+            <widgets:GoldFilter Grid.Row="1"/>
         </Grid>
     </Grid>
 </UserControl>

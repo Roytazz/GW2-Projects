@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace GuildWars2Guild.Model.Sorting
+namespace GuildWars2Guild.Classes.MVVM.Sorting
 {
     public class CustomSortBehaviour
     {

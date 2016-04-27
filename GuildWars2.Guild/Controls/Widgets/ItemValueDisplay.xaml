@@ -7,11 +7,11 @@
              mc:Ignorable="d" x:Name="window"
              d:DesignHeight="100" d:DesignWidth="300">
     <StackPanel Orientation="Horizontal">
-        <TextBlock Text="{Binding ElementName=window, Path=Value.Gold}" VerticalAlignment="Center"/>
+        <TextBlock Text="{Binding ElementName=window, Path=Value.Gold}" VerticalAlignment="Center" Foreground="White"/>
         <Image Source="/GuildWars2Guild;component/Resources/Images/gold_coin.png"/>
-        <TextBlock Text="{Binding ElementName=window, Path=Value.Silver}" VerticalAlignment="Center" />
+        <TextBlock Text="{Binding ElementName=window, Path=Value.Silver}" VerticalAlignment="Center" Foreground="White" />
         <Image Source="/GuildWars2Guild;component/Resources/Images/silver_coin.png"/>
-        <TextBlock Text="{Binding ElementName=window, Path=Value.Copper}" VerticalAlignment="Center" />
+        <TextBlock Text="{Binding ElementName=window, Path=Value.Copper}" VerticalAlignment="Center" Foreground="White" />
         <Image Source="/GuildWars2Guild;component/Resources/Images/copper_coin.png"/>
     </StackPanel>
 </UserControl>

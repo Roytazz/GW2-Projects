@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GuildWars2Guild.Controls
 {
     /// <summary>
-    /// Interaction logic for Palette.xaml
+    /// Interaction logic for ItemControl.xaml
     /// </summary>
-    public partial class Palette : UserControl
+    public partial class ItemControl : UserControl
     {
-        public Palette() {
+        public ItemControl() {
             InitializeComponent();
         }
     }

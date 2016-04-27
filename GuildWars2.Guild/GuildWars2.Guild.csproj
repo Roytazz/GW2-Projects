@@ -93,11 +93,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Palette.xaml">
+    <Page Include="Controls\ItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LotteryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\GoldFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\Palette.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\PaletteSelector.xaml">
+    <Page Include="Controls\PaletteSelectorControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -113,6 +125,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Widgets\NumericTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,29 +137,41 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\MVVM\CommandHandler.cs" />
+    <Compile Include="Controls\ItemControl.xaml.cs">
+      <DependentUpon>ItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LotteryControl.xaml.cs">
+      <DependentUpon>LotteryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\GoldFilter.xaml.cs">
+      <DependentUpon>GoldFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\ItemValueDisplay.xaml.cs">
       <DependentUpon>ItemValueDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Sorting\ColumnSort.cs" />
+    <Compile Include="Classes\MVVM\Sorting\ColumnSort.cs" />
     <Compile Include="Classes\DBManager.cs" />
-    <Compile Include="Classes\Palette\CommandImplementation.cs" />
-    <Compile Include="Classes\Palette\SwatchesProvider.cs" />
+    <Compile Include="Classes\SwatchesProvider.cs" />
     <Compile Include="Classes\Reflection.cs" />
     <Compile Include="Classes\Updater.cs" />
     <Compile Include="Controls\GoldControl.xaml.cs">
       <DependentUpon>GoldControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Palette.xaml.cs">
+    <Compile Include="Controls\Widgets\Palette.xaml.cs">
       <DependentUpon>Palette.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PaletteSelector.xaml.cs">
-      <DependentUpon>PaletteSelector.xaml</DependentUpon>
+    <Compile Include="Controls\PaletteSelectorControl.xaml.cs">
+      <DependentUpon>PaletteSelectorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\StashControl.xaml.cs">
       <DependentUpon>StashControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\NumericTextBox.xaml.cs">
+      <DependentUpon>NumericTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -180,13 +208,16 @@
       <DependentUpon>201604211918362_RevertTypeChange.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Converter\ToUpperCasingColors.cs" />
+    <Compile Include="Classes\MVVM\Converter\ToUpperCasingColors.cs" />
     <Compile Include="Model\GoldEntry.cs" />
-    <Compile Include="Model\Sorting\DateSort.cs" />
-    <Compile Include="Model\Sorting\GoldSort.cs" />
-    <Compile Include="Model\Sorting\ICustomSorter.cs" />
-    <Compile Include="Model\StashViewModel.cs" />
-    <Compile Include="Model\ViewModelBase.cs" />
+    <Compile Include="Classes\MVVM\Sorting\DateSort.cs" />
+    <Compile Include="Classes\MVVM\Sorting\GoldSort.cs" />
+    <Compile Include="Classes\MVVM\Sorting\ICustomSorter.cs" />
+    <Compile Include="Model\ItemEntry.cs" />
+    <Compile Include="Model\ViewModel\FilterViewModel.cs" />
+    <Compile Include="Model\ViewModel\StashItemViewModel.cs" />
+    <Compile Include="Model\ViewModel\StashGoldViewModel.cs" />
+    <Compile Include="Model\ViewModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -255,6 +286,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\guild_wars_icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

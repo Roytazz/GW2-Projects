@@ -1,4 +1,4 @@
-﻿using GuildWars2Guild.Classes.Palette;
+﻿using GuildWars2Guild.Classes.MVVM;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using System.Collections.Generic;
@@ -10,11 +10,11 @@ namespace GuildWars2Guild.Controls
     /// <summary>
     /// Interaction logic for PaletteSelector.xaml
     /// </summary>
-    public partial class PaletteSelector : UserControl
+    public partial class PaletteSelectorControl : UserControl
     {
-        public IEnumerable<Swatch> Swatches => Classes.Palette.SwatchesProvider.GetSwatches();
+        public IEnumerable<Swatch> Swatches => Classes.SwatchesProvider.GetSwatches();
 
-        public PaletteSelector() {
+        public PaletteSelectorControl() {
             InitializeComponent();
         }
 
@@ -22,12 +22,12 @@ namespace GuildWars2Guild.Controls
             new PaletteHelper().SetLightDark(isDark);
         }
 
-        public ICommand ApplyPrimaryCommand { get; } = new CommandImplementation(o => ApplyPrimary((Swatch)o));
+        public ICommand ApplyPrimaryCommand { get; } = new PaletteCommandHandler(o => ApplyPrimary((Swatch)o));
         private static void ApplyPrimary(Swatch swatch) {
             new PaletteHelper().ReplacePrimaryColor(swatch);
         }
 
-        public ICommand ApplyAccentCommand { get; } = new CommandImplementation(o => ApplyAccent((Swatch)o));
+        public ICommand ApplyAccentCommand { get; } = new PaletteCommandHandler(o => ApplyAccent((Swatch)o));
         private static void ApplyAccent(Swatch swatch) {
             new PaletteHelper().ReplaceAccentColor(swatch);
         }

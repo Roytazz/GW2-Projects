@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace GuildWars2Guild.Model
+namespace GuildWars2Guild.Model.ViewModel
 {
-    class ViewModelBase : INotifyPropertyChanged
+    abstract class ViewModelBase<T> : INotifyPropertyChanged
     {
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "") {

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace GuildWars2Guild.Model.Converter
+namespace GuildWars2Guild.Classes.MVVM.Converter
 {
     public class ToUpperCasingColors : IValueConverter
     {

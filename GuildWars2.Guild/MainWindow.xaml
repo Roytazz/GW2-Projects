@@ -4,10 +4,10 @@
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:UserControls="clr-namespace:GuildWars2Guild.Controls"
+        xmlns:userControls="clr-namespace:GuildWars2Guild.Controls"
         GlowBrush="{DynamicResource AccentColorBrush}" BorderThickness="0"
         WindowStartupLocation="CenterScreen" ShowIconOnTitleBar="True" Title="Frostgorge Champ Train [FGCT]"
-        Height="576" Width="1024" UseLayoutRounding="True">
+        Height="576" Width="1024" UseLayoutRounding="True" MinWidth="768" MinHeight="500">
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
             <Image Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="6,2,6,2" 
@@ -18,7 +18,7 @@
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
             <Controls:Flyout x:Name="SettingsFlyout" Header="Settings" Position="Right" Theme="Accent" Width="530">
-                <UserControls:Settings x:Name="Settings" />
+                <userControls:Settings x:Name="Settings" />
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
@@ -32,9 +32,12 @@
                 <TabItem Header="TREASURY">
                 </TabItem>
                 <TabItem Header="BANK">
-                    <UserControls:StashControl/>
+                    <userControls:StashControl/>
                 </TabItem>
                 <TabItem Header="MOTD">
+                </TabItem>
+                <TabItem Header="LOTTERY">
+                    <userControls:LotteryControl/>
                 </TabItem>
             </dragablz:TabablzControl>
         </dockablz:Layout>

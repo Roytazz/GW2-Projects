@@ -1,20 +1,36 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Classes.Palette
+namespace GuildWars2Guild.Classes.MVVM
 {
-    /// <summary>
-    /// No WPF project is complete without it's own version of this.
-    /// </summary>
-    public class CommandImplementation : ICommand
+    public class CommandHandler : ICommand
+    {
+        private Action _action;
+
+        public CommandHandler(Action action) {
+            _action = action;
+        }
+        
+#pragma warning disable CS0067
+        public event EventHandler CanExecuteChanged;
+#pragma warning restore CS0067
+
+        public bool CanExecute(object parameter) => true;
+
+        public void Execute(object parameter) {
+            _action();
+        }
+    }
+
+    public class PaletteCommandHandler : ICommand
     {
         private readonly Action<object> _execute;
         private readonly Func<object, bool> _canExecute;
 
-        public CommandImplementation(Action<object> execute) : this(execute, null) {
+        public PaletteCommandHandler(Action<object> execute) : this(execute, null) {
         }
 
-        public CommandImplementation(Action<object> execute, Func<object, bool> canExecute) {
+        public PaletteCommandHandler(Action<object> execute, Func<object, bool> canExecute) {
             if(execute == null)
                 throw new ArgumentNullException(nameof(execute));
 

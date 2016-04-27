@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 
-namespace GuildWars2Guild.Model.Sorting
+namespace GuildWars2Guild.Classes.MVVM.Sorting
 {
     public interface ICustomSorter : IComparer
     {

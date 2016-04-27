@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 
-namespace GuildWars2Guild.Classes.Palette
+namespace GuildWars2Guild.Classes
 {
     public static class SwatchesProvider
     {
