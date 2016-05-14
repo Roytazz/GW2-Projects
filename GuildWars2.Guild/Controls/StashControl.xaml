@@ -13,18 +13,18 @@
         <dockablz:Layout>
             <dragablz:TabablzControl BorderBrush="{DynamicResource PrimaryHueDarkBrush}">
                 <TabItem Header="GOLD">
-                    <usercontrol:GoldControl>
-                        <usercontrol:GoldControl.DataContext>
+                    <usercontrol:StashGoldControl>
+                        <usercontrol:StashGoldControl.DataContext>
                             <viewModel:StashGoldViewModel/>
-                        </usercontrol:GoldControl.DataContext>
-                    </usercontrol:GoldControl>
+                        </usercontrol:StashGoldControl.DataContext>
+                    </usercontrol:StashGoldControl>
                 </TabItem>
                 <TabItem Header="ITEMS">
-                    <usercontrol:ItemControl>
-                        <usercontrol:ItemControl.DataContext>
+                    <usercontrol:StashItemControl>
+                        <usercontrol:StashItemControl.DataContext>
                             <viewModel:StashItemViewModel/>
-                        </usercontrol:ItemControl.DataContext>
-                    </usercontrol:ItemControl>
+                        </usercontrol:StashItemControl.DataContext>
+                    </usercontrol:StashItemControl>
                 </TabItem>
             </dragablz:TabablzControl>
         </dockablz:Layout>

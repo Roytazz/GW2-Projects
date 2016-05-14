@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GuildWars2Guild.Controls
 {
     /// <summary>
-    /// Interaction logic for ItemControl.xaml
+    /// Interaction logic for NotifyLintControl.xaml
     /// </summary>
-    public partial class ItemControl : UserControl
+    public partial class NotifyLintControl : UserControl
     {
-        public ItemControl() {
+        public NotifyLintControl() {
             InitializeComponent();
         }
     }

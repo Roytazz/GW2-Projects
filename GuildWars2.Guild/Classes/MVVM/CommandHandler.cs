@@ -44,16 +44,9 @@ namespace GuildWars2Guild.Classes.MVVM
             _execute(parameter);
         }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add
-            {
-                CommandManager.RequerySuggested += value;
-            }
-            remove
-            {
-                CommandManager.RequerySuggested -= value;
-            }
+        public event EventHandler CanExecuteChanged {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
         public void Refresh() {

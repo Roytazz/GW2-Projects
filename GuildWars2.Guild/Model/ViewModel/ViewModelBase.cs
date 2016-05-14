@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
-    abstract class ViewModelBase<T> : INotifyPropertyChanged
+    abstract class ViewModelBase : INotifyPropertyChanged
     {
 
         public event PropertyChangedEventHandler PropertyChanged;

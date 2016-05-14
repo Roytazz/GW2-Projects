@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <GroupBox Grid.Row="1" Header="Filters" Margin="10" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" HorizontalContentAlignment="Stretch">
+    <GroupBox Grid.Row="1" Header="Filters" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" HorizontalContentAlignment="Stretch">
         <Viewbox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5,0,5,5">

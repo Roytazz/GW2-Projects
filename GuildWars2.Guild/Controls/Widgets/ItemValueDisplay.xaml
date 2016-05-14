@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GuildWars2Guild.Controls.Widgets"
-             mc:Ignorable="d" x:Name="window"
+             mc:Ignorable="d" x:Name="ThisWindow"
              d:DesignHeight="100" d:DesignWidth="300">
     <StackPanel Orientation="Horizontal">
-        <TextBlock Text="{Binding ElementName=window, Path=Value.Gold}" VerticalAlignment="Center" Foreground="White"/>
+        <TextBlock Text="{Binding ElementName=ThisWindow, Path=Value.Gold}" VerticalAlignment="Center" Foreground="White"/>
         <Image Source="/GuildWars2Guild;component/Resources/Images/gold_coin.png"/>
-        <TextBlock Text="{Binding ElementName=window, Path=Value.Silver}" VerticalAlignment="Center" Foreground="White" />
+        <TextBlock Text="{Binding ElementName=ThisWindow, Path=Value.Silver}" VerticalAlignment="Center" Foreground="White" />
         <Image Source="/GuildWars2Guild;component/Resources/Images/silver_coin.png"/>
-        <TextBlock Text="{Binding ElementName=window, Path=Value.Copper}" VerticalAlignment="Center" Foreground="White" />
+        <TextBlock Text="{Binding ElementName=ThisWindow, Path=Value.Copper}" VerticalAlignment="Center" Foreground="White" />
         <Image Source="/GuildWars2Guild;component/Resources/Images/copper_coin.png"/>
     </StackPanel>
 </UserControl>

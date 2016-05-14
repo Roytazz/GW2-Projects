@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -14,13 +15,11 @@ namespace GuildWars2Guild.Classes
     public static class SwatchesProvider
     {
         public static IEnumerable<Swatch> GetSwatches() {
-            var assembly = AppDomain.CurrentDomain.GetAssemblies().Single(ass => ass.GetName().FullName.Contains("MaterialDesignColors"));
-            var resourcesName = assembly.GetName().Name + ".g";
-            var resourceSet = new ResourceManager(resourcesName, assembly).GetResourceSet(CultureInfo.CurrentUICulture, true, true);
-            var dictionaryEntries = resourceSet.OfType<DictionaryEntry>().ToList();
             var regex = new Regex(@"^themes\/materialdesigncolor\.(?<name>[a-z]+)\.(?<type>primary|accent)\.baml$");
+            var assembly = AppDomain.CurrentDomain.GetAssemblies().Single(ass => ass.GetName().FullName.Contains("MaterialDesignColors"));
+            var swatchEntries = GetSwatchEntries(assembly);
 
-            return dictionaryEntries
+            return swatchEntries?
                 .Select(x => new { key = x.Key.ToString(), match = regex.Match(x.Key.ToString()) })
                 .Where(x => x.match.Success && x.match.Groups["name"].Value != "black")
                 .GroupBy(x => x.match.Groups["name"].Value)
@@ -39,7 +38,7 @@ namespace GuildWars2Guild.Classes
             var accentHues = new List<Hue>();
 
             if(primaryDictionary != null) {
-                foreach(var entry in primaryDictionary.OfType<DictionaryEntry>()
+                foreach(var entry in primaryDictionary?.OfType<DictionaryEntry>()
                     .OrderBy(de => de.Key)
                     .Where(de => !de.Key.ToString().EndsWith("Foreground", StringComparison.Ordinal))) {
                     var colour = (Color)entry.Value;
@@ -76,6 +75,15 @@ namespace GuildWars2Guild.Classes
             return (ResourceDictionary)Application.LoadComponent(new Uri(
                 $"/{assemblyName};component/{path.Replace(".baml", ".xaml")}",
                 UriKind.RelativeOrAbsolute));
+        }
+
+        private static List<DictionaryEntry> GetSwatchEntries(Assembly assembly) {
+            if(assembly == null)
+                return null;
+
+            var resourcesName = assembly.GetName().Name + ".g";
+            var resourceSet = new ResourceManager(resourcesName, assembly).GetResourceSet(CultureInfo.CurrentUICulture, true, true);
+            return resourceSet?.OfType<DictionaryEntry>().ToList();
         }
     }
 }

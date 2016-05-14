@@ -19,7 +19,7 @@ namespace GuildWars2API
             return UnauthorizedRequest<Recipe>(URLBuilder.GetRecipeByID(recipeID));
         }
 #pragma warning restore CSE0003 
-        public static List<Recipe> GetRecipe(HashSet<int> recipeIDs) => LargeRequest<Recipe>(recipeIDs, "recipes");
+        public static List<Recipe> GetRecipe(IEnumerable<int> recipeIDs) => LargeRequest<Recipe>(recipeIDs, "recipes");
 
         public static RecipeTreeNode GetRecipeTree(Item item) => new RecipeTreeNode(item.ID);
 
@@ -30,7 +30,7 @@ namespace GuildWars2API
             return mysticForgeRecipes.Where(r => r.OutputItemID == itemID).ToList();
         }
 
-        public static List<Recipe> GetMysticForgeRecipe(HashSet<int> itemIDs) {
+        public static List<Recipe> GetMysticForgeRecipe(IEnumerable<int> itemIDs) {
             List<Recipe> mysticForgeRecipes = ReadMysticForgeRecipes();
             return mysticForgeRecipes.Where(r => itemIDs.Contains(r.OutputItemID)).ToList();
         }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GuildWars2API.Logger;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,10 +32,11 @@ namespace GuildWars2API.Network
                 }
             }
             catch(WebException ex) {
-                Console.WriteLine(GetWebExDetail(ex));
+                LogManager.LogMessage(string.Format("[ERROR] NetworkManager couldn't resolve the result: {0}", GetWebExDetail(ex)), false);
                 return default(T);
             }
-            catch(Exception) {
+            catch(Exception ex) {
+                LogManager.LogException(ex, "NetworkManager couldn't resolve the result", false);
                 return default(T);
             }
         }

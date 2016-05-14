@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Controls
+namespace GuildWars2Guild.Controls.Settings
 {
     /// <summary>
     /// Interaction logic for PaletteSelector.xaml
@@ -18,6 +18,7 @@ namespace GuildWars2Guild.Controls
             InitializeComponent();
         }
 
+        public ICommand ApplyBaseTheme { get; } = new PaletteCommandHandler(o => ApplyBase((bool)o));
         private static void ApplyBase(bool isDark) {
             new PaletteHelper().SetLightDark(isDark);
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GuildWars2Guild.Classes.Logger;
+using System.Collections;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +17,7 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
             gridColumn.SetValue(CustomSorterProperty, value);
         }
 
-        public static readonly DependencyProperty AllowCustomSortProperty =
-            DependencyProperty.RegisterAttached("AllowCustomSort", typeof(bool),
-            typeof(CustomSortBehaviour), new UIPropertyMetadata(false, OnAllowCustomSortChanged));
+        public static readonly DependencyProperty AllowCustomSortProperty = DependencyProperty.RegisterAttached("AllwCustomSort", typeof(bool), typeof(CustomSortBehaviour), new UIPropertyMetadata(false, OnAllowCustomSortChanged));
 
         public static bool GetAllowCustomSort(DataGrid grid) => (bool)grid.GetValue(AllowCustomSortProperty);
 
@@ -50,12 +49,12 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
             var listColView = dataGrid.ItemsSource as ListCollectionView;
             if(listColView == null)
                 listColView = new ListCollectionView(dataGrid.ItemsSource as IList);
-                //throw new Exception("The DataGrid's ItemsSource property must be of type, ListCollectionView");
-
-            // Sanity check
+            
             var sorter = GetCustomSorter(e.Column);
-            if(sorter == null)
+            if(sorter == null) {
+                LogManager.LogMessage(string.Format("No custom sorter found on the colum {0}", e.Column.Header), false);
                 return;
+            }
             
             e.Handled = true;
 
@@ -66,5 +65,10 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
             e.Column.SortDirection = sorter.SortDirection = direction;
             listColView.CustomSort = sorter;
         }
+    }
+
+    public interface ICustomSorter : IComparer
+    {
+        ListSortDirection SortDirection { get; set; }
     }
 }

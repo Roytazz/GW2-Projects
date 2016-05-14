@@ -2,7 +2,7 @@
 using GuildWars2Guild.Classes;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 
@@ -47,61 +47,39 @@ namespace GuildWars2Guild.Model.ViewModel
 
         #endregion Filter
 
-        #region Member
+        #region Selected Member
 
         private GoldEntry _selectedRow;
 
-        public GoldEntry SelectedRow
-        {
-            get { return _selectedRow; }
-            set
-            {
+        public GoldEntry SelectedRow {
+            get {
+                if(_selectedRow == null) 
+                    return MainCollection[0];
+
+                return _selectedRow;
+            }
+            set {
                 _selectedRow = value;
-                NotifyPropertyChanged("MemberTotal");
-                NotifyPropertyChanged("GoldLogMember");
-                NotifyPropertyChanged("SelectedMember");
+                NotifyPropertyChanged(nameof(MemberTotal));
+                NotifyPropertyChanged(nameof(GoldLogMember));
+                NotifyPropertyChanged(nameof(SelectedMember));
             }
         }
 
-        public string SelectedMember
-        {
-            get
-            {
-                if(SelectedRow != null) {
-                    return SelectedRow.User;
-                }
-                return "Total";
+        public string SelectedMember {
+            get {
+                return SelectedRow?.User;
             }
         }
 
-        public ItemPrice MemberTotal
-        {
-            get
-            {
-                if(SelectedRow != null) {
-                    return GetSubTotal(SelectedRow.User);
-                }
-                return null;
-            }
-        }
+        public ItemPrice MemberTotal => GetSubTotal(SelectedRow?.User);
 
-        public ObservableCollection<GoldEntry> GoldLogMember
-        {
-            get
-            {
-                if(MainCollection != null && SelectedRow != null) {
-                    var results = new ObservableCollection<GoldEntry>(MainCollection.Where(entry => entry.User.Equals(SelectedRow.User)).ToList());
-                    return results;
-                }
-                return new ObservableCollection<GoldEntry>();
-            }
-        }
+        public ICollectionView GoldLogMember => CollectionViewSource.GetDefaultView(MainCollection?.Where(entry => entry.User.Equals(SelectedRow?.User)).ToList());
 
         private ItemPrice GetSubTotal(string username) {
-            if(MainCollection == null)
+            var goldEntries = MainCollection?.Where(entry => entry.User.Equals(username));
+            if(goldEntries == null)
                 return null;
-
-            var goldEntries = MainCollection.Where(entry => entry.User.Equals(username));
 
             var total = new ItemPrice();
             foreach(var entry in goldEntries) {
@@ -115,11 +93,10 @@ namespace GuildWars2Guild.Model.ViewModel
             return total;
         }
 
-        #endregion Member
+        #endregion Selected Member
 
         public StashGoldViewModel() {
-            EndDate = DateTime.Now;
-            MainCollection = GetStashEntries();
+            MainCollection = GetStashEntries().OrderByDescending(entry => entry.Time).ToList();
             MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
             MainCollectionView.Filter = OnFilter;
         }
@@ -128,7 +105,7 @@ namespace GuildWars2Guild.Model.ViewModel
             var goldEntries = new List<GoldEntry>();
 
             var stashEntries = DBManager.GetLogEntries("stash").Where(entry => entry.Coins > 0).ToList();
-            stashEntries.ForEach(entry => { goldEntries.Add(Refection.CopyFrom(new GoldEntry(), entry)); });
+            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyFrom(new GoldEntry(), entry)); });
 
             return goldEntries;
         }

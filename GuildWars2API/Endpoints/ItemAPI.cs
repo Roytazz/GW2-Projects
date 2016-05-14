@@ -10,7 +10,7 @@ namespace GuildWars2API
     public static class ItemAPI {
         public static List<Item> SearchItem(string itemName) {
             List<ItemSearch> itemsFound = UnauthorizedRequest<List<ItemSearch>>(URLBuilder.GetItemByName(itemName));
-            if(itemsFound != null) {
+            if(itemsFound?.Count > 0) {
                 HashSet<int> itemIDs = new HashSet<int>();
                 itemsFound.ForEach(i => itemIDs.Add(i.ItemID));
 
@@ -24,19 +24,19 @@ namespace GuildWars2API
             return UnauthorizedRequest<Item>(URLBuilder.GetItemByID(itemID));
         }
 
-        public static List<Item> GetItem(List<ItemStack> items) => GetItem(new HashSet<int>(items.Select(i => i.ID)));
+        public static List<Item> GetItem(IEnumerable<ItemStack> items) => GetItem(items.Select(i => i.ID));
 
-        public static List<Item> GetItem(HashSet<int> itemIDs) => LargeRequest<Item>(itemIDs, "items");
+        public static List<Item> GetItem(IEnumerable<int> itemIDs) => LargeRequest<Item>(itemIDs, "items");
 
         public static ItemListing GetItemListing(int itemID) {
             return UnauthorizedRequest<ItemListing>(URLBuilder.GetItemListing(itemID));
         }
 #pragma warning restore CSE0003
 
-        public static List<ItemListing> GetItemListing(HashSet<int> itemIDs) => LargeRequest<ItemListing>(itemIDs, "commerce/prices");
+        public static List<ItemListing> GetItemListing(IEnumerable<int> itemIDs) => LargeRequest<ItemListing>(itemIDs, "commerce/prices");
 
         public static bool IsPromotionItem(int itemID) {
-            List<int> promotionItemIDs = new List<int>() {
+            var promotionItemIDs = new List<int>() {
                 19743, 19745, 19741, 19748, 19739, 19732, 19728, 19729, 19730, 19731, 74724, 74798, 74084, 74825, 75123, 24307, 24308, 24310, 38014, 38024, 38023,
                 75536, 76313, 76572, 76209, 76456, 75542, 76044, 76342, 70545, 70724, 73158, 70779, 71049, 70956, 73229, 70792, 72012, 70537, 70675, 71900, 72677,
                 73415, 46733, 45884, 45885, 12244, 19701, 19703, 19697, 19698, 19702, 19699, 24304, 13243, 24324, 13248, 24339, 24329, 13256, 13244, 13245, 13257,

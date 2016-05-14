@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GuildWars2Guild.Controls
+namespace GuildWars2Guild.Controls.Widgets
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    /// Interaction logic for TradingPostValueDisplay.xaml
     /// </summary>
-    public partial class Settings : UserControl
+    public partial class TradingPostValueDisplay : UserControl
     {
-        public Settings() {
+        public TradingPostValueDisplay() {
             InitializeComponent();
         }
     }

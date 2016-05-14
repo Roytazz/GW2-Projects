@@ -14,6 +14,6 @@ namespace GuildWars2API.Model.Guild
         public string Tag { get; set; }
 
         [JsonProperty("emblem")]
-        public object Emblem { get; set; }      //TODO
+        public GuildEmblem Emblem { get; set; }      
     }
 }

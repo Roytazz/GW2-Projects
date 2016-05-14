@@ -3,11 +3,11 @@
 namespace GuildWars2Guild.Controls
 {
     /// <summary>
-    /// Interaction logic for GridControl.xaml
+    /// Interaction logic for ItemControl.xaml
     /// </summary>
-    public partial class GoldControl : UserControl
+    public partial class StashItemControl : UserControl
     {
-        public GoldControl() {
+        public StashItemControl() {
             InitializeComponent();
         }
     }

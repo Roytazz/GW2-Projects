@@ -31,7 +31,7 @@ namespace GuildWars2API
         /// <param name="knownItemListings"></param>
         /// <param name="knownItems"></param>
         /// <returns></returns>
-        public static AccountValue GetAccountValue(string APIKey, List<Item> knownItems) {
+        public static AccountValue GetAccountValue(string APIKey, IEnumerable<Item> knownItems) {
             AccountInventory accountInv = GetAccountInventory(APIKey);
 
             //Retrive all IDs that need to be called from the Official GWAPI    
@@ -161,7 +161,7 @@ namespace GuildWars2API
             return transactionValues;
         }
 
-        private static HashSet<int> GetIDs(List<Item> items) {
+        private static HashSet<int> GetIDs(IEnumerable<Item> items) {
             var itemIDs = new HashSet<int>();
             foreach(Item item in items) {
                 if(item != null) {

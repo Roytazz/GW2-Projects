@@ -103,14 +103,16 @@ namespace GuildWars2API.Network
 
         #endregion Guild
 
+        #region Misc
+        public static string GetColors(string language = "en") => string.Format("{0}/colors.json?lang={1}", ROOT_GW2_V1, language);
+
         public static string GetAssetFromID(string assetID) => string.Format("{0}/{1}?ids={2}", ROOT_GW2_V2, FILES, Encode(assetID));
+
+        #endregion Misc
 
         #region Utility
 
-        private static string Encode(string value) {
-            var result = Uri.EscapeDataString(value);
-            return result;
-        }
+        private static string Encode(string value) => Uri.EscapeDataString(value);
 
         private static string AddIds(string baseURL, HashSet<int> IDs) {
             foreach(int id in IDs) {
