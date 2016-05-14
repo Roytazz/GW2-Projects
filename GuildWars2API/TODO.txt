@@ -1,7 +1,0 @@
-﻿Add achievements API
-Add guild API
-
-Calculate wallet currencies to gold
-Create accountvalue graph (save different values to db)
-
-Implement users in db

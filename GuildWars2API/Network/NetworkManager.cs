@@ -14,7 +14,7 @@ namespace GuildWars2API.Network
 
         private static T AuthorizedRequest<T>(IWebHandler handler, string url, string apiKey) => handler.GetRequest<T>(url, new Dictionary<string, string>() { { "Authorization", string.Format("Bearer {0}", apiKey) } });
 
-        public static List<T> LargeRequest<T>(HashSet<int> IDs, string APIEndpoint, int itemsPerRequest = MAX_ITEMS_PER_REQUEST, string APIKey = null) {
+        public static List<T> LargeRequest<T>(IEnumerable<int> IDs, string APIEndpoint, int itemsPerRequest = MAX_ITEMS_PER_REQUEST, string APIKey = null) {
             List<int> ids = new List<int>(IDs);
             List<T> results = new List<T>();
             if(ids.Count <= 0) {
@@ -41,7 +41,7 @@ namespace GuildWars2API.Network
             }
 
             //Read response
-            if(response.Count > 0) {
+            if(response?.Count > 0) {
                 results.AddRange(response);
             }
             return results;

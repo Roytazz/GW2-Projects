@@ -40,6 +40,10 @@
       <HintPath>..\packages\Dragablz.0.0.3.160\lib\net45\Dragablz.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Dropbox.Api, Version=0.1.5960.22395, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dropbox.Api.3.1.1\lib\net45\Dropbox.Api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -89,19 +93,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\GoldControl.xaml">
+    <Page Include="Controls\NotifyLintControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StashGoldControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Palette.xaml">
+    <Page Include="Controls\StashItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LotteryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\ItemDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\ItemFilter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\PaletteSelector.xaml">
+    <Page Include="Controls\Widgets\GoldFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\Palette.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Settings.xaml">
+    <Page Include="Controls\Settings\PaletteSelectorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Settings\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,6 +141,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Widgets\NumericTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\TradingPostValueDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,29 +157,64 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\FileManager.cs" />
+    <Compile Include="Classes\Logger\ConsoleLogger.cs" />
+    <Compile Include="Classes\Logger\FileLogger.cs" />
+    <Compile Include="Classes\Logger\ILogger.cs" />
+    <Compile Include="Classes\Logger\LogManager.cs" />
+    <Compile Include="Classes\MVVM\CommandHandler.cs" />
+    <Compile Include="Classes\MVVM\Converter\DivideByScale.cs" />
+    <Compile Include="Classes\MVVM\Converter\ToRarityColor.cs" />
+    <Compile Include="Classes\Resources\IResourceProvider.cs" />
+    <Compile Include="Classes\Resources\ItemListingProvider.cs" />
+    <Compile Include="Classes\Resources\ItemProvider.cs" />
+    <Compile Include="Classes\Resources\ResourceManager.cs" />
+    <Compile Include="Controls\NotifyLintControl.xaml.cs">
+      <DependentUpon>NotifyLintControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StashItemControl.xaml.cs">
+      <DependentUpon>StashItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LotteryControl.xaml.cs">
+      <DependentUpon>LotteryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\ItemDisplay.xaml.cs">
+      <DependentUpon>ItemDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\ItemFilter.xaml.cs">
+      <DependentUpon>ItemFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\GoldFilter.xaml.cs">
+      <DependentUpon>GoldFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\ItemValueDisplay.xaml.cs">
       <DependentUpon>ItemValueDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Sorting\ColumnSort.cs" />
+    <Compile Include="Classes\MVVM\Sorting\ColumnSort.cs" />
     <Compile Include="Classes\DBManager.cs" />
-    <Compile Include="Classes\Palette\CommandImplementation.cs" />
-    <Compile Include="Classes\Palette\SwatchesProvider.cs" />
+    <Compile Include="Classes\SwatchesProvider.cs" />
     <Compile Include="Classes\Reflection.cs" />
-    <Compile Include="Classes\Updater.cs" />
-    <Compile Include="Controls\GoldControl.xaml.cs">
-      <DependentUpon>GoldControl.xaml</DependentUpon>
+    <Compile Include="Classes\UpdateManager.cs" />
+    <Compile Include="Controls\StashGoldControl.xaml.cs">
+      <DependentUpon>StashGoldControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Palette.xaml.cs">
+    <Compile Include="Controls\Widgets\Palette.xaml.cs">
       <DependentUpon>Palette.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PaletteSelector.xaml.cs">
-      <DependentUpon>PaletteSelector.xaml</DependentUpon>
+    <Compile Include="Controls\Settings\PaletteSelectorControl.xaml.cs">
+      <DependentUpon>PaletteSelectorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
+    <Compile Include="Controls\Settings\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\StashControl.xaml.cs">
       <DependentUpon>StashControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\NumericTextBox.xaml.cs">
+      <DependentUpon>NumericTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Widgets\TradingPostValueDisplay.xaml.cs">
+      <DependentUpon>TradingPostValueDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -180,13 +251,17 @@
       <DependentUpon>201604211918362_RevertTypeChange.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Converter\ToUpperCasingColors.cs" />
+    <Compile Include="Classes\MVVM\Converter\ToUpperCasingColors.cs" />
+    <Compile Include="Model\DisplayLogEntry.cs" />
     <Compile Include="Model\GoldEntry.cs" />
-    <Compile Include="Model\Sorting\DateSort.cs" />
-    <Compile Include="Model\Sorting\GoldSort.cs" />
-    <Compile Include="Model\Sorting\ICustomSorter.cs" />
-    <Compile Include="Model\StashViewModel.cs" />
-    <Compile Include="Model\ViewModelBase.cs" />
+    <Compile Include="Classes\MVVM\Sorting\DateSort.cs" />
+    <Compile Include="Classes\MVVM\Sorting\GoldSort.cs" />
+    <Compile Include="Model\ItemEntry.cs" />
+    <Compile Include="Model\ViewModel\FilterViewModel.cs" />
+    <Compile Include="Model\ViewModel\SettingsViewModel.cs" />
+    <Compile Include="Model\ViewModel\StashItemViewModel.cs" />
+    <Compile Include="Model\ViewModel\StashGoldViewModel.cs" />
+    <Compile Include="Model\ViewModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -255,6 +330,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\guild_wars_icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

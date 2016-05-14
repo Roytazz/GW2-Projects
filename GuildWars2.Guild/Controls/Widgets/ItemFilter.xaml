@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="GuildWars2Guild.Controls.Widgets.ItemFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GuildWars2Guild.Controls.Widgets"
+             xmlns:sorting="clr-namespace:GuildWars2Guild.Classes.MVVM.Sorting"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <GroupBox Grid.Row="1" Header="Filters" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" HorizontalContentAlignment="Stretch">
+        <Viewbox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,0,5,5">
+                    <CheckBox x:Name="CheckBox_Date" VerticalContentAlignment="Center" Margin="0,0,5,0" IsChecked="{Binding CheckDate}"/>
+                    <DatePicker x:Name="DatePicker_StartDate" materialDesign:TextFieldAssist.Hint="Start Date" SelectedDate="{Binding StartDate,Mode=OneWayToSource}" Foreground="White" />
+                    <TextBlock Text="-" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Margin="5,0" />
+                    <DatePicker x:Name="DatePicker_EndDate"  materialDesign:TextFieldAssist.Hint="End Date" SelectedDate="{Binding EndDate, Mode=OneWayToSource}" Foreground="White" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <CheckBox x:Name="CheckBox_MinGold" VerticalContentAlignment="Center" Margin="0,8,5,0" IsChecked="{Binding CheckItemCount}"/>
+                    <local:NumericTextBox Hint="Min. Item amount" Width="162" Foreground="White">
+                        <local:NumericTextBox.Resources>
+                            <Style TargetType="local:NumericTextBox">
+                                <Setter Property="Value" Value="{Binding Path=DataContext.ItemCount, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                            </Style>
+                        </local:NumericTextBox.Resources>
+                    </local:NumericTextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <CheckBox x:Name="CheckBox_Keyword" VerticalContentAlignment="Center" Margin="0,8,5,0" IsChecked="{Binding CheckKeyword}" />
+                    <TextBox x:Name="TextBox_Keyword" materialDesign:TextFieldAssist.Hint="Search keyword" Width="162" Text="{Binding KeywordValue}"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Foreground="White" />
+                </StackPanel>
+                <Button Content="Apply" Command="{Binding ApplyFilter}" HorizontalAlignment="Left" Margin="8,8,5,0" VerticalContentAlignment="Center" 
+                                Width="80" Height="32" VerticalAlignment="Bottom"/>
+            </StackPanel>
+        </Viewbox>
+    </GroupBox>
+</UserControl>

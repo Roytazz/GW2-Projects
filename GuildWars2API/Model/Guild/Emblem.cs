@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Guild
@@ -9,6 +10,7 @@ namespace GuildWars2API.Model.Guild
         public int ID { get; set; }
 
         [JsonProperty("layers")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public List<string> Layers { get; set; }
     }
 }

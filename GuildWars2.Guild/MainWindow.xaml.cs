@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using GuildWars2Guild.Classes;
+using MahApps.Metro.Controls;
 using System.Windows;
 
 namespace GuildWars2Guild
@@ -8,8 +9,8 @@ namespace GuildWars2Guild
     /// </summary>
     public partial class MainWindow : MetroWindow {
         public MainWindow() {
-            //Classes.DBManager.ClearLogs();
-            //Classes.Updater.Update();
+            UpdateManager.UpdateDatabase();
+            UpdateManager.InitializeTimer();
             InitializeComponent();
         }
         

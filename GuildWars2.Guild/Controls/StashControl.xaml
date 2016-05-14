@@ -6,20 +6,25 @@
              xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:usercontrol="clr-namespace:GuildWars2Guild.Controls"
-             xmlns:viewModel="clr-namespace:GuildWars2Guild.Model"
+             xmlns:viewModel="clr-namespace:GuildWars2Guild.Model.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <dockablz:Layout>
             <dragablz:TabablzControl BorderBrush="{DynamicResource PrimaryHueDarkBrush}">
                 <TabItem Header="GOLD">
-                    <usercontrol:GoldControl>
-                        <usercontrol:GoldControl.DataContext>
-                            <viewModel:StashViewModel/>
-                        </usercontrol:GoldControl.DataContext>
-                    </usercontrol:GoldControl>
+                    <usercontrol:StashGoldControl>
+                        <usercontrol:StashGoldControl.DataContext>
+                            <viewModel:StashGoldViewModel/>
+                        </usercontrol:StashGoldControl.DataContext>
+                    </usercontrol:StashGoldControl>
                 </TabItem>
                 <TabItem Header="ITEMS">
+                    <usercontrol:StashItemControl>
+                        <usercontrol:StashItemControl.DataContext>
+                            <viewModel:StashItemViewModel/>
+                        </usercontrol:StashItemControl.DataContext>
+                    </usercontrol:StashItemControl>
                 </TabItem>
             </dragablz:TabablzControl>
         </dockablz:Layout>

@@ -6,8 +6,6 @@
 - v1 API
 
 Miscellaneous
-	- Build
-	- Colors
 	- Files
 	- Quaggans
 	- Minis
