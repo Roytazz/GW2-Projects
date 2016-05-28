@@ -93,6 +93,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\NotifyLintControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -224,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SplashScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrations\201604191937229_InitialCreate.cs" />
@@ -258,7 +265,6 @@
     <Compile Include="Classes\MVVM\Sorting\GoldSort.cs" />
     <Compile Include="Model\ItemEntry.cs" />
     <Compile Include="Model\ViewModel\FilterViewModel.cs" />
-    <Compile Include="Model\ViewModel\SettingsViewModel.cs" />
     <Compile Include="Model\ViewModel\StashItemViewModel.cs" />
     <Compile Include="Model\ViewModel\StashGoldViewModel.cs" />
     <Compile Include="Model\ViewModel\ViewModelBase.cs" />

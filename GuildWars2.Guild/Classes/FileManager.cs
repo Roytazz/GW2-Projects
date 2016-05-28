@@ -1,9 +1,12 @@
 ﻿using Dropbox.Api;
 using Dropbox.Api.Files;
+using GuildWars2Guild.Classes.Logger;
 using System;
 using System.IO;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+
+using static GuildWars2Guild.Classes.Logger.LogManager;
 
 namespace GuildWars2Guild.Classes
 {
@@ -14,47 +17,57 @@ namespace GuildWars2Guild.Classes
 
         public static string GetConnectionString() {
             AppDomain.CurrentDomain.SetData("DataDirectory", GetExecutingAssembly());
-            return @"Data Source=(localdb)\mssqllocaldb;AttachDbFileName=|DataDirectory|\GuildWars2Guild.Classes.GW2DBContext.mdf;";
+            return @"Data Source=(localdb)\mssqllocaldb;AttachDbFileName=|DataDirectory|\GuildWars2Guild.Classes.GW2DBContext.mdf;Pooling=false;";
         }
 
         public static bool IsDatabasePresent() {
             return File.Exists(GetExecutingAssembly() + DB_PATH);
         }
 
-        public static void UploadDatabase() {
-            var task = Task.Run(async () => { await Upload(DB_PATH, GetFullDataBasePath()); });
-            task.Wait();
+        public static Task<bool> UploadDatabaseAsync() {
+            Thread.Sleep(1000);     //Yes I know its ugly, but it needs to be here
+            return Upload(DB_PATH, GetFullDataBasePath());
         }
 
-        public static void DownloadDatabase() {
-            var task = Task.Run(async () => { await Download(GetFullDataBasePath(), DB_PATH); });
-            task.Wait();
+        public static Task<bool> DownloadDatabaseAsync() {
+            return Download(GetFullDataBasePath(), DB_PATH);
         }
 
-        public static void UploadDatabaseAsync() {
-            Task.Run(() => Upload(DB_PATH, GetFullDataBasePath()));
-        }
+        private static async Task<bool> Download(string destinationFilePath, string sourceFilePath) {
+            if(!RemoveLogFile())
+                return false;
 
-        public static void DownloadDatabaseAsync() {
-            Task.Run(() => Download(GetFullDataBasePath(), DB_PATH));
-        }
-
-        private static async Task Download(string destinationFilePath, string sourceFilePath) {
-            RemoveLogFile();
-            using(DropboxClient dbx = new DropboxClient(Properties.Settings.Default.DropBoxKey)) {
-                using(var response = await dbx.Files.DownloadAsync(sourceFilePath)) {
-                    byte[] result = await response.GetContentAsByteArrayAsync();
-                    File.WriteAllBytes(destinationFilePath, result);
+            try {
+                using(DropboxClient dbx = new DropboxClient(Properties.Settings.Default.DropBoxKey)) {
+                    using(var response = await dbx.Files.DownloadAsync(sourceFilePath)) {
+                        LogMessage("Downloading the DB", false);
+                        byte[] result = await response.GetContentAsByteArrayAsync();
+                        File.WriteAllBytes(destinationFilePath, result);
+                        LogMessage("Done with downloading the DB", false);
+                        return true;
+                    }
                 }
+            }
+            catch(Exception ex) {
+                LogException(ex, "Failed to download the DB file", false);
+                return false;
             }
         }
 
-        private static async Task Upload(string destinationFilePath, string sourceFilePath) {
-            using(DropboxClient dbx = new DropboxClient(Properties.Settings.Default.DropBoxKey)) {
-                using(var mem = new MemoryStream(File.ReadAllBytes(sourceFilePath))) {
-                    var updated = await dbx.Files.UploadAsync(destinationFilePath, WriteMode.Overwrite.Instance, body: mem);
-                    Console.WriteLine("Saved to: {0}", destinationFilePath);
+        private static async Task<bool> Upload(string destinationFilePath, string sourceFilePath) {
+            try {
+                using(DropboxClient dbx = new DropboxClient(Properties.Settings.Default.DropBoxKey)) {
+                    using(var mem = new MemoryStream(File.ReadAllBytes(sourceFilePath))) {
+                        LogMessage("Upload the DB", false);
+                        await dbx.Files.UploadAsync(destinationFilePath, WriteMode.Overwrite.Instance, body: mem);
+                        LogMessage("Done with uploading the DB", false);
+                        return true;
+                    }
                 }
+            }
+            catch(Exception ex) {
+                LogException(ex, "Failed to upload the DB file", false);
+                return false;
             }
         }
 
@@ -70,11 +83,17 @@ namespace GuildWars2Guild.Classes
         private static string GetFullDataBasePath() {
             return string.Format("{0}{1}", GetExecutingAssembly(), DB_PATH);
         }
-        
-        private static void RemoveLogFile() {
+
+        private static bool RemoveLogFile() {
             if(File.Exists(GetExecutingAssembly() + DB_LOG_PATH)) {
-                File.Delete(GetExecutingAssembly() + DB_LOG_PATH);
+                try {
+                    LogMessage("Deleting the DB log file", false);      
+                    File.Delete(GetExecutingAssembly() + DB_LOG_PATH);
+                    return true;
+                }
+                catch(Exception ex) { LogException(ex, "Failed to delete the DB log file", false); }
             }
+            return false;
         }
     }
 }

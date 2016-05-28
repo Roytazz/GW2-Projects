@@ -11,7 +11,7 @@ namespace GuildWars2Guild
         protected override void OnStartup(StartupEventArgs e) {
             foreach(var flag in e.Args) {
                 if(flag.Contains("update")) {
-                    UpdateManager.UpdateDatabase();
+                    UpdateManager.RefreshDb();
                     Shutdown();
                 }
             }

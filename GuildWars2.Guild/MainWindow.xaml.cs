@@ -9,8 +9,6 @@ namespace GuildWars2Guild
     /// </summary>
     public partial class MainWindow : MetroWindow {
         public MainWindow() {
-            UpdateManager.UpdateDatabase();
-            UpdateManager.InitializeTimer();
             InitializeComponent();
         }
         

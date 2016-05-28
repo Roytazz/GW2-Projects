@@ -21,9 +21,6 @@
         <metroControls:FlyoutsControl>
             <metroControls:Flyout x:Name="SettingsFlyout" Header="Settings" Position="Right" Theme="Accent" Width="530">
                 <settings:SettingsControl x:Name="Settings">
-                    <settings:SettingsControl.DataContext>
-                        <viewModel:SettingsViewModel/>
-                    </settings:SettingsControl.DataContext>
                 </settings:SettingsControl>
             </metroControls:Flyout>
         </metroControls:FlyoutsControl>

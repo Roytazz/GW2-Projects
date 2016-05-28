@@ -15,32 +15,50 @@ namespace GuildWars2Guild.Classes
             _timer.Start();
         }
 
-        private static void Timer_Elapsed(object sender, ElapsedEventArgs e) {
-            Console.WriteLine("UPDATE");
-            UpdateDatabaseAsync();
+        private static async void Timer_Elapsed(object sender, ElapsedEventArgs e) {
+            Logger.LogManager.LogMessage("Update Started", false);
+            await RefreshDbAsync();
+            Logger.LogManager.LogMessage("Update Finished", false);
         }
 
-        public static void UpdateDatabase() {
-            Update();
+        public static bool RefreshDb() {
+            bool result = false;
+            var task = Task.Run(async () => { result = await RefreshDbAsync(); });
+            task.Wait();
+            return result;
         }
 
-        public static void UpdateDatabaseAsync() {
-            Task.Run(() => Update());
+        public static async Task<bool> RefreshDbAsync() {
+            bool downloaded = await FileManager.DownloadDatabaseAsync();
+            AddNewLogs();
+            bool uploaded = await FileManager.UploadDatabaseAsync();
+
+            return downloaded && uploaded;
         }
 
-        private static void Update() {
-            if(!FileManager.IsDatabasePresent()) {
-                FileManager.DownloadDatabaseAsync();
-                return;
-            }
-            else {
-                FileManager.DownloadDatabaseAsync();
-                UpdateDB();
-                FileManager.UploadDatabaseAsync();
-            }
+        public static bool DownloadDb() {
+            bool result = false;
+            var task = Task.Run(async () => { result = await DownloadDbAsync(); });
+            task.Wait();
+            return result;
         }
 
-        private static void UpdateDB() {
+        public static async Task<bool> DownloadDbAsync() {
+            return await FileManager.DownloadDatabaseAsync();
+        }
+
+        public static bool UploadDb() {
+            bool result = false;
+            var task = Task.Run(async () => { result = await UploadDbAsync(); });
+            task.Wait();
+            return result;
+        }
+
+        public static async Task<bool> UploadDbAsync() {
+            return await FileManager.UploadDatabaseAsync();
+        }
+
+        public static void AddNewLogs() {
             var apikey = Properties.Settings.Default.ApiKey;
             if(apikey?.Length > 0) {
                 var results = GuildWars2API.GuildAPI.GetGuildLogByName("Frostgorge Champ Train", Properties.Settings.Default.ApiKey);

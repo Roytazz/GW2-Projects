@@ -8,9 +8,7 @@
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="510" >
     <StackPanel>
-        <Button Content="Synch Data" Margin="10,0"/>
-        <TextBox x:Name="TextBox_apiKey" materialDesign:TextFieldAssist.Hint="Guild API Key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 VerticalAlignment="Center" Foreground="White" Margin="10,10" HorizontalContentAlignment="Center" Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
+        <Button Content="Synch Data" Margin="10,0,10,10"/>
         <local:PaletteSelectorControl />
     </StackPanel>
 </UserControl>
