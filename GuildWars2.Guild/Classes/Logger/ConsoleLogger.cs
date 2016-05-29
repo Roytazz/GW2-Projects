@@ -1,16 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GuildWars2Guild.Classes.Logger
 {
-    class ConsoleLogger : ILogger
+    class ConsoleLogger : BaseLogger, ILogger
     {
-        public void LogMessage(string message) {
-            Console.WriteLine("[MESSAGE]" + message);
+        public void LogMessage(string message, LogType messageType) {
+            Console.WriteLine($"[{GetMessageTypeName(messageType)}] {message}");
         }
 
-        public void LogException(Exception ex, string message) {
-            Console.WriteLine("[ERROR]" + message + " | " + ex.Message);
-            Console.WriteLine("[ERROR]" + ex.ToString());
+        public void LogException(Exception ex, string message, LogType messageType) {
+            List<Exception> exceptions = GetRealException(ex);
+            if(exceptions.Count > 1) {
+                Console.WriteLine($"[{GetMessageTypeName(messageType)}] Multiple Exceptions found:");
+            }
+
+            Console.WriteLine($"[{GetMessageTypeName(messageType)}] {message} | {ex.Message}");
+            foreach(Exception singleEx in exceptions) {
+                Console.WriteLine($"[{GetMessageTypeName(messageType)}] {singleEx.ToString()}");
+            }
+
+            if(exceptions.Count > 1) {
+                Console.WriteLine($"[{GetMessageTypeName(messageType)}] End of Multiple Exceptions");
+            }
         }
     }
 }

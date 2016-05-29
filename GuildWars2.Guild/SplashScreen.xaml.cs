@@ -1,4 +1,5 @@
 ﻿using GuildWars2Guild.Classes;
+using GuildWars2Guild.Classes.Logger;
 using GuildWars2Guild.Controls.Widgets;
 using GuildWars2Guild.Model.ViewModel;
 using MahApps.Metro.Controls;
@@ -22,7 +23,7 @@ namespace GuildWars2Guild
         MainWindow _mainWindow;
 
         public SplashScreen() {    
-            InitializeComponent(); 
+            InitializeComponent();
 
             var _bg = new BackgroundWorker { WorkerReportsProgress = true };
             _bg.DoWork += _bg_DoWork;

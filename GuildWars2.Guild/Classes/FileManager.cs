@@ -3,6 +3,7 @@ using Dropbox.Api.Files;
 using GuildWars2Guild.Classes.Logger;
 using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,13 +13,12 @@ namespace GuildWars2Guild.Classes
 {
     class FileManager
     {
-        public static string DB_PATH = "/GuildWars2Guild.Classes.GW2DBContext.mdf";
-        public static string DB_LOG_PATH = "/GuildWars2Guild.Classes.GW2DBContext_log.ldf";
+        private static string DB_PATH = "/GuildWars2Guild.Classes.GW2DBContext.mdf";
+        private static string DB_LOG_PATH = "/GuildWars2Guild.Classes.GW2DBContext_log.ldf";
 
-        public static string GetConnectionString() {
-            AppDomain.CurrentDomain.SetData("DataDirectory", GetExecutingAssembly());
-            return @"Data Source=(localdb)\mssqllocaldb;AttachDbFileName=|DataDirectory|\GuildWars2Guild.Classes.GW2DBContext.mdf;Pooling=false;";
-        }
+        private static string LOG_PATH = "/GuildWars2Guild.log";
+
+        #region Database
 
         public static bool IsDatabasePresent() {
             return File.Exists(GetExecutingAssembly() + DB_PATH);
@@ -33,23 +33,42 @@ namespace GuildWars2Guild.Classes
             return Download(GetFullDataBasePath(), DB_PATH);
         }
 
+        private static string GetFullDataBasePath() {
+            return string.Format("{0}{1}", GetExecutingAssembly(), DB_PATH);
+        }
+
+        private static bool RemoveDBLogFile() {
+            if(File.Exists(GetExecutingAssembly() + DB_LOG_PATH)) {
+                try {
+                    LogMessage<ConsoleLogger>("Deleting the DB log file", LogType.Info);
+                    File.Delete(GetExecutingAssembly() + DB_LOG_PATH);
+                    return true;
+                }
+                catch(Exception ex) { LogException(ex, "Failed to delete the DB log file"); }
+            }
+            return false;
+        }
+
+        #endregion Database
+
+        #region Dropbox
         private static async Task<bool> Download(string destinationFilePath, string sourceFilePath) {
-            if(!RemoveLogFile())
+            if(!RemoveDBLogFile())
                 return false;
 
             try {
                 using(DropboxClient dbx = new DropboxClient(Properties.Settings.Default.DropBoxKey)) {
                     using(var response = await dbx.Files.DownloadAsync(sourceFilePath)) {
-                        LogMessage("Downloading the DB", false);
+                        LogMessage<ConsoleLogger>("Downloading the DB", LogType.Info);
                         byte[] result = await response.GetContentAsByteArrayAsync();
                         File.WriteAllBytes(destinationFilePath, result);
-                        LogMessage("Done with downloading the DB", false);
+                        LogMessage<ConsoleLogger>("Done with downloading the DB", LogType.Info);
                         return true;
                     }
                 }
             }
             catch(Exception ex) {
-                LogException(ex, "Failed to download the DB file", false);
+                LogException(ex, "Failed to download the DB file");
                 return false;
             }
         }
@@ -58,42 +77,45 @@ namespace GuildWars2Guild.Classes
             try {
                 using(DropboxClient dbx = new DropboxClient(Properties.Settings.Default.DropBoxKey)) {
                     using(var mem = new MemoryStream(File.ReadAllBytes(sourceFilePath))) {
-                        LogMessage("Upload the DB", false);
+                        LogMessage<ConsoleLogger>("Upload the DB", LogType.Info);
                         await dbx.Files.UploadAsync(destinationFilePath, WriteMode.Overwrite.Instance, body: mem);
-                        LogMessage("Done with uploading the DB", false);
+                        LogMessage<ConsoleLogger>("Done with uploading the DB", LogType.Info);
                         return true;
                     }
                 }
             }
             catch(Exception ex) {
-                LogException(ex, "Failed to upload the DB file", false);
+                LogException(ex, "Failed to upload the DB file");
                 return false;
             }
         }
 
-        private static DropboxClient GetClient() {
+        private static DropboxClient GetDropboxClient() {
             return new DropboxClient(Properties.Settings.Default.DropBoxKey);
         }
 
-        private static string GetExecutingAssembly() {
+        #endregion Dropbox
+
+        #region Logfile
+
+        public static async void WriteToLog(params string[] lines) {
+            using(FileStream fs = new FileStream(GetFullLogPath(), FileMode.Append)) {
+                foreach(string line in lines) {
+                    byte[] result = Encoding.ASCII.GetBytes(line + Environment.NewLine);
+                    await fs.WriteAsync(result, 0, result.Length);
+                }
+            }
+        }
+
+        private static string GetFullLogPath() {
+            return string.Format("{0}{1}", GetExecutingAssembly(), LOG_PATH);
+        }
+
+        #endregion Logfile
+
+        public static string GetExecutingAssembly() {
             var executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
             return Path.GetDirectoryName(executable);
-        }
-
-        private static string GetFullDataBasePath() {
-            return string.Format("{0}{1}", GetExecutingAssembly(), DB_PATH);
-        }
-
-        private static bool RemoveLogFile() {
-            if(File.Exists(GetExecutingAssembly() + DB_LOG_PATH)) {
-                try {
-                    LogMessage("Deleting the DB log file", false);      
-                    File.Delete(GetExecutingAssembly() + DB_LOG_PATH);
-                    return true;
-                }
-                catch(Exception ex) { LogException(ex, "Failed to delete the DB log file", false); }
-            }
-            return false;
         }
     }
 }

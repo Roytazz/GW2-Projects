@@ -46,7 +46,7 @@ namespace GuildWars2Guild.Classes.Resources
                     _providers.Add(typeof(T), Activator.CreateInstance(providerType));
                 }
                 else {
-                    Logger.LogManager.LogMessage(string.Format("No ResourceProvider found for type: {0}", typeof(T)), false);
+                    Logger.LogManager.LogMessage(string.Format("No ResourceProvider found for type: {0}", typeof(T)));
                 }
             }
 

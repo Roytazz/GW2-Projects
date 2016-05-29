@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuildWars2Guild.Classes.Logger;
+using System;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -16,9 +17,9 @@ namespace GuildWars2Guild.Classes
         }
 
         private static async void Timer_Elapsed(object sender, ElapsedEventArgs e) {
-            Logger.LogManager.LogMessage("Update Started", false);
+            LogManager.LogMessage<ConsoleLogger>("Update Started", LogType.Info);
             await RefreshDbAsync();
-            Logger.LogManager.LogMessage("Update Finished", false);
+            LogManager.LogMessage<ConsoleLogger>("Update Finished", LogType.Info);
         }
 
         public static bool RefreshDb() {
@@ -30,10 +31,13 @@ namespace GuildWars2Guild.Classes
 
         public static async Task<bool> RefreshDbAsync() {
             bool downloaded = await FileManager.DownloadDatabaseAsync();
-            AddNewLogs();
-            bool uploaded = await FileManager.UploadDatabaseAsync();
+            if(downloaded) {
+                AddNewLogs();
+                bool uploaded = await FileManager.UploadDatabaseAsync();
+                return uploaded;
+            }
 
-            return downloaded && uploaded;
+            return false;
         }
 
         public static bool DownloadDb() {

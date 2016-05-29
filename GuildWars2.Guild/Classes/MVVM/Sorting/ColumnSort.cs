@@ -52,7 +52,7 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
             
             var sorter = GetCustomSorter(e.Column);
             if(sorter == null) {
-                LogManager.LogMessage(string.Format("No custom sorter found on the colum {0}", e.Column.Header), false);
+                LogManager.LogMessage<ConsoleLogger>(string.Format("No custom sorter found on the colum {0}", e.Column.Header), LogType.Message);
                 return;
             }
             

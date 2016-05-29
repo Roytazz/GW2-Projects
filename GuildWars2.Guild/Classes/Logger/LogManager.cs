@@ -4,33 +4,35 @@ namespace GuildWars2Guild.Classes.Logger
 {
     static class LogManager
     {
-        public static void LogMessage(string message, bool closeApp) {
+        public static void LogMessage(string message, LogType messageType = LogType.Message, bool closeApp = false) {
 #if DEBUG
-            LogMessage(new ConsoleLogger(), message, closeApp);
+            LogMessage<ConsoleLogger>(message, messageType, closeApp);
 #endif
 #if RELEASE
-            LogMessage(new FileLogger(), message, closeApp);
+            LogMessage<FileLogger>(message, closeApp);
 #endif
         }
 
-        public static void LogException(Exception ex, string message, bool closeApp) {
+        public static void LogException(Exception ex, string message, LogType messageType = LogType.Exception, bool closeApp = false) {
 #if DEBUG
-            LogException(new ConsoleLogger(), ex, message, closeApp);
+            LogException<ConsoleLogger>(ex, message, messageType, closeApp);
 #endif
 #if RELEASE
-            LogException(new FileLogger(), ex, message, closeApp);
+            LogException<FileLogger>(ex, message, closeApp);
 #endif
         }
 
-        public static void LogMessage(ILogger logger, string message, bool closeApp) {
-            logger.LogMessage(message);
+        public static void LogMessage<T>(string message, LogType messageType = LogType.Message, bool closeApp = false) where T : ILogger {
+            var logger = (T)Activator.CreateInstance(typeof(T));
+            logger.LogMessage(message, messageType);
 
             if(closeApp)
                 CloseApplication();
         }
 
-        public static void LogException(ILogger logger, Exception ex, string message, bool closeApp) {
-            logger.LogException(ex, message);
+        public static void LogException<T>(Exception ex, string message, LogType messageType = LogType.Exception, bool closeApp = false) where T : ILogger {
+            var logger = (T)Activator.CreateInstance(typeof(T));
+            logger.LogException(ex, message, messageType);
 
             if(closeApp)
                 CloseApplication();
