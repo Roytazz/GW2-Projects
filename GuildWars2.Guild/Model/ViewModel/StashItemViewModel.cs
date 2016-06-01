@@ -17,8 +17,14 @@ namespace GuildWars2Guild.Model.ViewModel
 
         public ItemEntry SelectedRow {
             get {
-                if(_selectedRow == null)
-                    return MainCollection[0];
+                if(_selectedRow == null) {
+                    if(MainCollection?.Count > 0) {
+                        return MainCollection?[0];
+                    }
+                    else {
+                        return new ItemEntry();
+                    }
+                }
 
                 return _selectedRow;
             }
@@ -33,7 +39,7 @@ namespace GuildWars2Guild.Model.ViewModel
                 if(SelectedRow != null)
                     return SelectedRow.Item;
 
-                return null;
+                return new Item();
             }
         }
 
@@ -55,22 +61,16 @@ namespace GuildWars2Guild.Model.ViewModel
             var result = true;
 
             if(CheckDate)
-                result = IsBetweenDates(item.Time);
+                result = IsBetweenDates(item.Time, StartDate, EndDate);
 
             if(CheckItemCount && ItemCount?.Length > 0 && result)
-                result = IsBiggerAmount(item.Count);
+                result = IsBiggerAmount(item.Count, int.Parse(ItemCount));
 
             if(CheckKeyword && result)
-                result = ContainsKeyword(item.User) || ContainsKeyword(item.Operation);
+                result = ContainsKeyword(KeywordValue, item.User) || ContainsKeyword(KeywordValue, item.Operation);
 
             return result;
         }
-
-        private bool IsBetweenDates(DateTime value) => value >= StartDate && value <= EndDate;
-
-        private bool IsBiggerAmount(int value) => value >= int.Parse(ItemCount);
-
-        private bool ContainsKeyword(string value) => value.Contains(KeywordValue);
 
         #endregion Filter
 

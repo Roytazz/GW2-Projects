@@ -11,7 +11,7 @@
              d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <dockablz:Layout>
-            <dragablz:TabablzControl BorderBrush="{DynamicResource PrimaryHueDarkBrush}">
+            <dragablz:TabablzControl BorderBrush="{DynamicResource PrimaryHueDarkBrush}" Margin="-1,0,0,0">
                 <TabItem Header="GOLD">
                     <usercontrol:StashGoldControl>
                         <usercontrol:StashGoldControl.DataContext>

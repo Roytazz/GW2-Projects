@@ -31,7 +31,7 @@
             <RowDefinition MinHeight="25" MaxHeight="25"/>
         </Grid.RowDefinitions>
         <dockablz:Layout Grid.Row="0">
-            <dragablz:TabablzControl>
+            <dragablz:TabablzControl SelectedIndex="3">
                 <TabItem Header="MAIN">
                 </TabItem>
                 <TabItem Header="MEMBERS">
@@ -44,7 +44,11 @@
                 <TabItem Header="MOTD">
                 </TabItem>
                 <TabItem Header="LOTTERY">
-                    <userControls:LotteryControl/>
+                    <userControls:LotteryControl>
+                        <userControls:LotteryControl.DataContext>
+                            <viewModel:LotteryViewModel/>
+                        </userControls:LotteryControl.DataContext>
+                    </userControls:LotteryControl>
                 </TabItem>
             </dragablz:TabablzControl>
         </dockablz:Layout>

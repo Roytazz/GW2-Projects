@@ -28,22 +28,16 @@ namespace GuildWars2Guild.Model.ViewModel
             var result = true;
 
             if(CheckDate)
-                result = IsBetweenDates(item.Time);
+                result = IsBetweenDates(item.Time, StartDate, EndDate);
 
             if(CheckGold && GoldValue?.Length > 0 && result)
-                result = IsBiggerAmount(item.Value.Gold);
+                result = IsBiggerAmount(item.Value.Gold, int.Parse(GoldValue));
 
             if(CheckKeyword && result)
-                result = ContainsKeyword(item.User) || ContainsKeyword(item.Operation);
+                result = ContainsKeyword(KeywordValue, item.User) || ContainsKeyword(KeywordValue, item.Operation);
 
             return result;
         }
-
-        private bool IsBetweenDates(DateTime value) => value >= StartDate && value <= EndDate;
-
-        private bool IsBiggerAmount(int value) => value >= int.Parse(GoldValue);
-
-        private bool ContainsKeyword(string value) => value.Contains(KeywordValue);
 
         #endregion Filter
 
@@ -53,8 +47,14 @@ namespace GuildWars2Guild.Model.ViewModel
 
         public GoldEntry SelectedRow {
             get {
-                if(_selectedRow == null) 
-                    return MainCollection[0];
+                if(_selectedRow == null) {
+                    if(MainCollection?.Count > 0) {
+                        return MainCollection[0];
+                    }
+                    else {
+                        return new GoldEntry();
+                    }
+                }
 
                 return _selectedRow;
             }
@@ -68,7 +68,10 @@ namespace GuildWars2Guild.Model.ViewModel
 
         public string SelectedMember {
             get {
-                return SelectedRow?.User;
+                if(SelectedRow == null || string.IsNullOrEmpty(SelectedRow.User)) {
+                    return "";
+                }
+                return SelectedRow.User;
             }
         }
 

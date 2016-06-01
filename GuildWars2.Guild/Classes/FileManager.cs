@@ -18,6 +18,8 @@ namespace GuildWars2Guild.Classes
 
         private static string LOG_PATH = "/GuildWars2Guild.log";
 
+        private static object lockObj = new object();
+
         #region Database
 
         public static bool IsDatabasePresent() {
@@ -38,15 +40,20 @@ namespace GuildWars2Guild.Classes
         }
 
         private static bool RemoveDBLogFile() {
-            if(File.Exists(GetExecutingAssembly() + DB_LOG_PATH)) {
+            if(!File.Exists(GetExecutingAssembly() + DB_LOG_PATH)) {
+                return true;
+            }
+            else {
                 try {
                     LogMessage<ConsoleLogger>("Deleting the DB log file", LogType.Info);
                     File.Delete(GetExecutingAssembly() + DB_LOG_PATH);
                     return true;
                 }
-                catch(Exception ex) { LogException(ex, "Failed to delete the DB log file"); }
+                catch(Exception ex) {
+                    LogException(ex, "Failed to delete the DB log file");
+                    return false;
+                }
             }
-            return false;
         }
 
         #endregion Database
@@ -57,7 +64,7 @@ namespace GuildWars2Guild.Classes
                 return false;
 
             try {
-                using(DropboxClient dbx = new DropboxClient(Properties.Settings.Default.DropBoxKey)) {
+                using(DropboxClient dbx = GetDropboxClient()) {
                     using(var response = await dbx.Files.DownloadAsync(sourceFilePath)) {
                         LogMessage<ConsoleLogger>("Downloading the DB", LogType.Info);
                         byte[] result = await response.GetContentAsByteArrayAsync();
@@ -75,7 +82,7 @@ namespace GuildWars2Guild.Classes
 
         private static async Task<bool> Upload(string destinationFilePath, string sourceFilePath) {
             try {
-                using(DropboxClient dbx = new DropboxClient(Properties.Settings.Default.DropBoxKey)) {
+                using(DropboxClient dbx = GetDropboxClient()) {
                     using(var mem = new MemoryStream(File.ReadAllBytes(sourceFilePath))) {
                         LogMessage<ConsoleLogger>("Upload the DB", LogType.Info);
                         await dbx.Files.UploadAsync(destinationFilePath, WriteMode.Overwrite.Instance, body: mem);
@@ -91,18 +98,20 @@ namespace GuildWars2Guild.Classes
         }
 
         private static DropboxClient GetDropboxClient() {
-            return new DropboxClient(Properties.Settings.Default.DropBoxKey);
+            return new DropboxClient(Properties.Settings.Default.DropBoxKey);          
         }
 
         #endregion Dropbox
 
         #region Logfile
 
-        public static async void WriteToLog(params string[] lines) {
-            using(FileStream fs = new FileStream(GetFullLogPath(), FileMode.Append)) {
-                foreach(string line in lines) {
-                    byte[] result = Encoding.ASCII.GetBytes(line + Environment.NewLine);
-                    await fs.WriteAsync(result, 0, result.Length);
+        public static void WriteToLog(params string[] lines) {
+            lock(lockObj) {
+                using(FileStream fs = new FileStream(GetFullLogPath(), FileMode.Append)) {
+                    foreach(string line in lines) {
+                        byte[] result = Encoding.ASCII.GetBytes(line + Environment.NewLine);
+                        fs.Write(result, 0, result.Length);
+                    }
                 }
             }
         }

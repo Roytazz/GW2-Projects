@@ -24,7 +24,7 @@
                 <ScaleTransform ScaleX="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" 
                         ScaleY="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" />
             </Border.LayoutTransform>
-            <DataGrid CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding MainCollectionView}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}" 
+            <DataGrid CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding MainCollectionView}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}" 
                   Grid.Column="0" materialDesign:DataGridAssist.CellPadding="8,6,6,6" materialDesign:DataGridAssist.ColumnHeaderPadding="6" sorting:CustomSortBehaviour.AllowCustomSort="True" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding User}" Header="User" />

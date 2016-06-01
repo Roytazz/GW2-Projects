@@ -33,8 +33,7 @@ namespace GuildWars2Guild.Classes
             bool downloaded = await FileManager.DownloadDatabaseAsync();
             if(downloaded) {
                 AddNewLogs();
-                bool uploaded = await FileManager.UploadDatabaseAsync();
-                return uploaded;
+                return await FileManager.UploadDatabaseAsync();
             }
 
             return false;
@@ -63,9 +62,9 @@ namespace GuildWars2Guild.Classes
         }
 
         public static void AddNewLogs() {
-            var apikey = Properties.Settings.Default.ApiKey;
-            if(apikey?.Length > 0) {
-                var results = GuildWars2API.GuildAPI.GetGuildLogByName("Frostgorge Champ Train", Properties.Settings.Default.ApiKey);
+            var apiKey = Properties.Settings.Default.ApiKey;
+            if(apiKey?.Length > 0) {
+                var results = GuildWars2API.GuildAPI.GetGuildLogByName("Frostgorge Champ Train", apiKey);
                 DBManager.AddLog(results);
             }
         }

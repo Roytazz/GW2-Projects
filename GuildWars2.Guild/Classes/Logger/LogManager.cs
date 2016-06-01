@@ -8,8 +8,8 @@ namespace GuildWars2Guild.Classes.Logger
 #if DEBUG
             LogMessage<ConsoleLogger>(message, messageType, closeApp);
 #endif
-#if RELEASE
-            LogMessage<FileLogger>(message, closeApp);
+#if !DEBUG
+            LogMessage<FileLogger>(message, messageType, closeApp);
 #endif
         }
 
@@ -17,8 +17,8 @@ namespace GuildWars2Guild.Classes.Logger
 #if DEBUG
             LogException<ConsoleLogger>(ex, message, messageType, closeApp);
 #endif
-#if RELEASE
-            LogException<FileLogger>(ex, message, closeApp);
+#if !DEBUG
+            LogException<FileLogger>(ex, message, messageType, closeApp);
 #endif
         }
 
