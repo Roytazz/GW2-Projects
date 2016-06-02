@@ -22,17 +22,15 @@ namespace GuildWars2Guild.Classes.Logger
 #endif
         }
 
-        public static void LogMessage<T>(string message, LogType messageType = LogType.Message, bool closeApp = false) where T : ILogger {
-            var logger = (T)Activator.CreateInstance(typeof(T));
-            logger.LogMessage(message, messageType);
+        public static void LogMessage<T>(string message, LogType messageType = LogType.Message, bool closeApp = false) where T : ILogger, new() {
+            new T().LogMessage(message, messageType);
 
             if(closeApp)
                 CloseApplication();
         }
 
-        public static void LogException<T>(Exception ex, string message, LogType messageType = LogType.Exception, bool closeApp = false) where T : ILogger {
-            var logger = (T)Activator.CreateInstance(typeof(T));
-            logger.LogException(ex, message, messageType);
+        public static void LogException<T>(Exception ex, string message, LogType messageType = LogType.Exception, bool closeApp = false) where T : ILogger, new() {
+            new T().LogException(ex, message, messageType);
 
             if(closeApp)
                 CloseApplication();
