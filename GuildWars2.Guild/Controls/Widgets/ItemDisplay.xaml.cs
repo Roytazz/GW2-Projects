@@ -1,4 +1,5 @@
 ﻿using GuildWars2API.Model.Items;
+using GuildWars2Guild.Model.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 

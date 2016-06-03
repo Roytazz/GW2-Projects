@@ -186,7 +186,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Widgets\TradingPostValueDisplay.xaml">
+    <Page Include="Controls\Widgets\ItemListingValueDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -253,8 +253,8 @@
     <Compile Include="Controls\Widgets\NumericTextBox.xaml.cs">
       <DependentUpon>NumericTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Widgets\TradingPostValueDisplay.xaml.cs">
-      <DependentUpon>TradingPostValueDisplay.xaml</DependentUpon>
+    <Compile Include="Controls\Widgets\ItemListingValueDisplay.xaml.cs">
+      <DependentUpon>ItemListingValueDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

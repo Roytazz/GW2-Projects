@@ -56,7 +56,7 @@
                 </Border.LayoutTransform>
                 <TextBlock Text="{Binding ElementName=ThisWindow, Path=Item.Description}" TextTrimming="WordEllipsis" TextWrapping="Wrap" Foreground="{DynamicResource GrayAccent}" />
             </Border>
-            <widget:TradingPostValueDisplay Grid.Row="2" />
+            <!--<widget:ItemListingValueDisplay x:Name="ItemListing" Grid.Row="2" />-->
         </Grid>
     </GroupBox>
 </UserControl>

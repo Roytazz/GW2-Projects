@@ -88,12 +88,12 @@
             <RowDefinition Height="25*"/>
             <RowDefinition Height="99*"/>
         </Grid.RowDefinitions>
-        <materialDesign:Card Margin="5,5,5,5" Background="{DynamicResource GrayAccent}" Grid.Row="0">
+        <materialDesign:Card Margin="5" Background="{DynamicResource GrayAccent}" Grid.Row="0">
             <DockPanel>
                 <widgets:Palette Width="200" />
-                <StackPanel VerticalAlignment="Center" Margin="20">
-                <TextBlock TextWrapping="Wrap"  Text="Your current Theme is shown on the left."/>
-                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="You can change this Theme by selecting a Primary and Accent color below"/>
+                <StackPanel VerticalAlignment="Center" Margin="20,0">
+                    <TextBlock TextWrapping="Wrap"  Text="Your current Theme is shown on the left."/>
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="You can change this Theme by selecting a Primary and Accent color below"/>
                 </StackPanel>
             </DockPanel>
         </materialDesign:Card>
