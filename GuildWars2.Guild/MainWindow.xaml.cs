@@ -1,5 +1,4 @@
-﻿using GuildWars2Guild.Classes;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using System.Windows;
 
 namespace GuildWars2Guild

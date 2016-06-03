@@ -1,10 +1,5 @@
-﻿using GuildWars2API.Model.Items;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace GuildWars2Guild.Classes.MVVM.Converter

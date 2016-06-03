@@ -5,7 +5,7 @@ namespace GuildWars2Guild.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GuildWars2Guild.Classes.GW2DBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<GuildWars2Guild.Classes.Database.GW2DbContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@ namespace GuildWars2Guild.Migrations
             ContextKey = "GuildWars2Guild.Classes.GW2DBContext";
         }
 
-        protected override void Seed(GuildWars2Guild.Classes.GW2DBContext context)
+        protected override void Seed(GuildWars2Guild.Classes.Database.GW2DbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

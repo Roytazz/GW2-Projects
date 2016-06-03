@@ -1,16 +1,12 @@
 ﻿using GuildWars2Guild.Classes;
+using GuildWars2Guild.Classes.IO;
 using GuildWars2Guild.Classes.Logger;
-using GuildWars2Guild.Controls.Widgets;
-using GuildWars2Guild.Model.ViewModel;
 using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace GuildWars2Guild
@@ -22,7 +18,7 @@ namespace GuildWars2Guild
 
         MainWindow _mainWindow;
 
-        public SplashScreen() {    
+        public SplashScreen() {
             InitializeComponent();
 
             var _bg = new BackgroundWorker { WorkerReportsProgress = true };
@@ -30,6 +26,8 @@ namespace GuildWars2Guild
             _bg.ProgressChanged += _bg_ProgressChanged;
             _bg.RunWorkerCompleted += _bg_RunWorkerCompleted;
             _bg.RunWorkerAsync();
+
+            //OpenApplication();
         }
 
         private static bool HasInternetConnection() {
@@ -50,6 +48,7 @@ namespace GuildWars2Guild
             if(_mainWindow == null)
                 _mainWindow = new MainWindow();
 
+            App.Current.MainWindow = _mainWindow;
             _mainWindow.Show();
             this.Close();
         }
@@ -60,8 +59,11 @@ namespace GuildWars2Guild
             var bg = sender as BackgroundWorker;
             var statusList = new List<Status>();
 
-            if(HasInternetConnection()) {
-                bg.ReportProgress(0, "Retrieving Information...");  //Download new Database
+            if(!HasInternetConnection()) {
+                statusList.Add(Status.NoConnection);
+            }
+            else {
+                bg.ReportProgress(0, "Retrieving Information...");      //Download new Database
                 var downloaded = UpdateManager.DownloadDb();
                 if(!downloaded) {
                     statusList.Add(Status.DowloadFailed);
@@ -73,24 +75,18 @@ namespace GuildWars2Guild
                     bg.ReportProgress(0, "Sychronizing...");            //Upload the new Database
                     if(!UpdateManager.UploadDb())
                         statusList.Add(Status.UploadFailed);
-                
+
+                    bg.ReportProgress(0, "Initializing...");            //Create MainWindow
+                    if(statusList.Count == 0) {
+                        Dispatcher.Invoke(() => {
+                            _mainWindow = new MainWindow();
+                        });
+                    }
+
                     UpdateManager.InitializeTimer();                    //Create Update Timer
                 }
             }
-            else {
-                statusList.Add(Status.NoConnection);
-            }
             e.Result = statusList;
-            
-            bg.ReportProgress(0, "Initializing...");                //Create MainWindow
-            if(FileManager.IsDatabasePresent()) {
-                Dispatcher.Invoke(() => {
-                    _mainWindow = new MainWindow();
-                });
-            }
-            else {
-                (e.Result as List<Status>).Add(Status.NoDatabaseFound);
-            }
         }
 
         private void _bg_ProgressChanged(object sender, ProgressChangedEventArgs e) {
@@ -98,9 +94,10 @@ namespace GuildWars2Guild
         }
 
         private void _bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
-            var statusList = e.Result as List<Status>;      //TODO Show a more detailed message in the dialog to the user depending on the status.
+            var statusList = e.Result as List<Status>;
             if(statusList.Count > 0) {
-                LogManager.LogMessage(StatusErrorMessage(statusList), LogType.Message, false);
+                LogManager.LogMessage(GetStatusErrorMessage(statusList), LogType.Message, false);
+                this.Dialog_Label.Text = GetStatusMessage(statusList);
                 this.DialogHost.IsOpen = true;
             }
             else {
@@ -108,15 +105,42 @@ namespace GuildWars2Guild
             }
         }
 
-        private string StatusErrorMessage(List<Status> statusList) {
-            string result = "Status errors on start-up: ";
+        #endregion BackgroundWorker
+
+        #region Status
+        
+        private string GetStatusMessage(List<Status> statusList) {
+            string result = "";
             foreach(Status status in statusList) {
-                result+= Enum.GetName(typeof(Status), status) + ";";
+                if(status == Status.DowloadFailed) {
+                    result += "- Unable to download the database";
+                }
+                else if(status == Status.UploadFailed) {
+                    result += "- Unable to upload the database";
+                }
+                else if(status == Status.NoConnection) {
+                    result += "- Unable to find an internet connection";
+                }
+                else if(status == Status.NoDatabaseFound) {
+                    result += "- Unable to locate the database file";
+                }
+                else {
+                    continue;
+                }
+                result += Environment.NewLine;
             }
             return result;
         }
 
-        #endregion BackgroundWorker
+        private string GetStatusErrorMessage(List<Status> statusList) {
+            string result = "Status errors on start-up: ";
+            foreach(Status status in statusList) {
+                result += Enum.GetName(typeof(Status), status) + ";";
+            }
+            return result;
+        }
+
+        #endregion
     }
 
     enum Status

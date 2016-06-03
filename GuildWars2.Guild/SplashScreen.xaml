@@ -10,12 +10,8 @@
     <materialDesign:DialogHost x:Name="DialogHost" DialogClosing="DialogHost_OnDialogClosing">
         <materialDesign:DialogHost.DialogContent>
             <StackPanel Width="300" Background="#FF4D4D4D">
-                <TextBlock TextTrimming="WordEllipsis" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="3" TextAlignment="Center" Foreground="White" FontSize="14">
-                    There is not internet connection found! 
-                </TextBlock>
-                <TextBlock TextTrimming="WordEllipsis" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="3,0,3,3" TextAlignment="Center" Foreground="White" FontSize="14">
-                    Without an internet connection the application will be limited on functionalities.
-                </TextBlock>
+                <TextBlock x:Name="Dialog_Label" Text="Error!" TextTrimming="WordEllipsis" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="3" TextAlignment="Center" Foreground="White" FontSize="14" />
+                <TextBlock Text="The application will be limited on functionalities." TextTrimming="WordEllipsis" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="3,0,3,3" TextAlignment="Center" Foreground="White" FontSize="14"/>
                 <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" materialDesign:DialogHost.DialogClosingAttached="DialogHost_OnDialogClosing" Content="Okay"/>
             </StackPanel>
         </materialDesign:DialogHost.DialogContent>

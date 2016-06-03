@@ -1,9 +1,6 @@
 ﻿using GuildWars2API.Model.Commerce;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuildWars2Guild.Classes.Resources
 {

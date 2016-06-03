@@ -68,7 +68,5 @@ namespace GuildWars2API.Model.Value
         public static bool operator <(ItemPrice e1, ItemPrice e2) => e1.CompareTo(e2) < 0;
 
         public static bool operator >(ItemPrice e1, ItemPrice e2) => e1.CompareTo(e2) > 0;
-
-        
     }
 }

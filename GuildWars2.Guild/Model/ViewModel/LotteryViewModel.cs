@@ -1,10 +1,10 @@
-﻿using GuildWars2Guild.Classes;
+﻿using GuildWars2API.Model.Value;
+using GuildWars2Guild.Classes;
+using GuildWars2Guild.Classes.Database;
 using GuildWars2Guild.Classes.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -98,7 +98,7 @@ namespace GuildWars2Guild.Model.ViewModel
                 if(amount == 0)     //No entries between the dates
                     continue;
 
-                if(GoldValue == null || GoldValue.Length <= 0 || IsBiggerAmount(amount, int.Parse(GoldValue) * 10000))
+                if(GoldValue == null || GoldValue.Length <= 0 || IsBiggerAmount(amount, new ItemPrice(int.Parse(GoldValue) * 10000).Gold))      
                     accumulatedEntries.Add(new GoldEntry { User = name, Coins = deposits - withdraws });
             }
 
@@ -108,7 +108,7 @@ namespace GuildWars2Guild.Model.ViewModel
         private List<GoldEntry> GetStashEntries() {
             var goldEntries = new List<GoldEntry>();
 
-            var stashEntries = DBManager.GetLogEntries("stash").Where(entry => entry.Coins > 0).ToList();
+            var stashEntries = LogDbManager.GetLogEntries("stash").Where(entry => entry.Coins > 0).ToList();
             stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyFrom(new GoldEntry(), entry)); });
 
             return goldEntries;

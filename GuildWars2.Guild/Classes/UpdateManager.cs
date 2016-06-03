@@ -1,5 +1,6 @@
-﻿using GuildWars2Guild.Classes.Logger;
-using System;
+﻿using GuildWars2Guild.Classes.Database;
+using GuildWars2Guild.Classes.IO;
+using GuildWars2Guild.Classes.Logger;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -7,6 +8,8 @@ namespace GuildWars2Guild.Classes
 {
     public static class UpdateManager
     {
+        #region Timer
+
         private static Timer _timer;
         private static double TICK_TIME = 1000 * 60 * 60;   //60min
 
@@ -21,6 +24,8 @@ namespace GuildWars2Guild.Classes
             await RefreshDbAsync();
             LogManager.LogMessage<ConsoleLogger>("Update Finished", LogType.Info);
         }
+
+        #endregion Timer
 
         public static bool RefreshDb() {
             bool result = false;
@@ -38,6 +43,8 @@ namespace GuildWars2Guild.Classes
 
             return false;
         }
+
+        #region Download & Upload
 
         public static bool DownloadDb() {
             bool result = false;
@@ -61,11 +68,13 @@ namespace GuildWars2Guild.Classes
             return await FileManager.UploadDatabaseAsync();
         }
 
-        public static void AddNewLogs() {
+        #endregion Download & Upload
+
+        internal static void AddNewLogs() {
             var apiKey = Properties.Settings.Default.ApiKey;
             if(apiKey?.Length > 0) {
                 var results = GuildWars2API.GuildAPI.GetGuildLogByName("Frostgorge Champ Train", apiKey);
-                DBManager.AddLog(results);
+                LogDbManager.AddLog(results);
             }
         }
     }
