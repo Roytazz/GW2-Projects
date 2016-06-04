@@ -108,7 +108,7 @@ namespace GuildWars2Guild.Model.ViewModel
         private List<GoldEntry> GetStashEntries() {
             var goldEntries = new List<GoldEntry>();
 
-            var stashEntries = LogDbManager.GetLogEntries("stash").Where(entry => entry.Coins > 0).ToList();
+            var stashEntries = LogDbManager.GetLogEntriesByType("stash").Where(entry => entry.Coins > 0).ToList();
             stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyFrom(new GoldEntry(), entry)); });
 
             return goldEntries;

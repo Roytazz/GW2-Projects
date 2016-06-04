@@ -35,6 +35,7 @@
                 <TabItem Header="MAIN">
                 </TabItem>
                 <TabItem Header="MEMBERS">
+                    <userControls:MemberControl/>
                 </TabItem>
                 <TabItem Header="TREASURY">
                 </TabItem>

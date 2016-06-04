@@ -124,22 +124,47 @@
     <Compile Include="Classes\IO\LogManager.cs" />
     <Compile Include="Classes\Logger\BaseLogger.cs" />
     <Compile Include="Classes\MVVM\Converter\ToItemPrice.cs" />
+    <Compile Include="Controls\MemberControl\MemberControl.xaml.cs">
+      <DependentUpon>MemberControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MemberControl\MemberRankControl.xaml.cs">
+      <DependentUpon>MemberRankControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MemberControl\MemberRosterControl.xaml.cs">
+      <DependentUpon>MemberRosterControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\LotteryFilter.xaml.cs">
       <DependentUpon>LotteryFilter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\RosterEntry.cs" />
     <Compile Include="Model\ViewModel\LotteryViewModel.cs" />
+    <Compile Include="Model\ViewModel\MemberViewModel\MemberViewModel.cs" />
+    <Compile Include="Model\ViewModel\MemberViewModel\MemberRankViewModel.cs" />
+    <Compile Include="Model\ViewModel\MemberViewModel\MemberRosterViewModel.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\MemberControl\MemberControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MemberControl\MemberRankControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MemberControl\MemberRosterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\NotifyLintControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\StashGoldControl.xaml">
+    <Page Include="Controls\StashControl\StashGoldControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\StashItemControl.xaml">
+    <Page Include="Controls\StashControl\StashItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,7 +188,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Widgets\Palette.xaml">
+    <Page Include="Controls\Settings\Palette.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -175,7 +200,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\StashControl.xaml">
+    <Page Include="Controls\StashControl\StashControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,7 +238,7 @@
     <Compile Include="Controls\NotifyLintControl.xaml.cs">
       <DependentUpon>NotifyLintControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\StashItemControl.xaml.cs">
+    <Compile Include="Controls\StashControl\StashItemControl.xaml.cs">
       <DependentUpon>StashItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\LotteryControl.xaml.cs">
@@ -236,10 +261,10 @@
     <Compile Include="Classes\SwatchesProvider.cs" />
     <Compile Include="Classes\Reflection.cs" />
     <Compile Include="Classes\UpdateManager.cs" />
-    <Compile Include="Controls\StashGoldControl.xaml.cs">
+    <Compile Include="Controls\StashControl\StashGoldControl.xaml.cs">
       <DependentUpon>StashGoldControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Widgets\Palette.xaml.cs">
+    <Compile Include="Controls\Settings\Palette.xaml.cs">
       <DependentUpon>Palette.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Settings\PaletteSelectorControl.xaml.cs">
@@ -248,7 +273,7 @@
     <Compile Include="Controls\Settings\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\StashControl.xaml.cs">
+    <Compile Include="Controls\StashControl\StashControl.xaml.cs">
       <DependentUpon>StashControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\NumericTextBox.xaml.cs">
@@ -303,8 +328,8 @@
     <Compile Include="Classes\MVVM\Sorting\GoldSort.cs" />
     <Compile Include="Model\ItemEntry.cs" />
     <Compile Include="Model\ViewModel\FilterViewModel.cs" />
-    <Compile Include="Model\ViewModel\StashItemViewModel.cs" />
-    <Compile Include="Model\ViewModel\StashGoldViewModel.cs" />
+    <Compile Include="Model\ViewModel\StashViewModel\StashItemViewModel.cs" />
+    <Compile Include="Model\ViewModel\StashViewModel\StashGoldViewModel.cs" />
     <Compile Include="Model\ViewModel\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

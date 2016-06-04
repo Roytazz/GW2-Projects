@@ -18,9 +18,9 @@ namespace GuildWars2Guild.Classes.Database
                 AddEntity(ConvertLogs(newLogs));
             }
         }
-
-        public static IEnumerable<LogEntry> GetLogEntries(string type) {
-            var entities = GetEntities(entry => entry.Type.Equals(type));
+        
+        public static IEnumerable<LogEntry> GetLogEntriesByType(params string[] types) {
+            var entities = GetEntities(entry => types.Contains(entry.Type));
             return entities.Cast<LogEntry>();
         }
 

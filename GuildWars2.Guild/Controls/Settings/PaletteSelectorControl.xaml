@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GuildWars2Guild.Controls.Settings"
-             xmlns:widgets="clr-namespace:GuildWars2Guild.Controls.Widgets"
              xmlns:context="clr-namespace:GuildWars2Guild.Classes"
              xmlns:converter="clr-namespace:GuildWars2Guild.Classes.MVVM.Converter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -90,7 +89,7 @@
         </Grid.RowDefinitions>
         <materialDesign:Card Margin="5" Background="{DynamicResource GrayAccent}" Grid.Row="0">
             <DockPanel>
-                <widgets:Palette Width="200" />
+                <local:Palette Width="200" />
                 <StackPanel VerticalAlignment="Center" Margin="20,0">
                     <TextBlock TextWrapping="Wrap"  Text="Your current Theme is shown on the left."/>
                     <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="You can change this Theme by selecting a Primary and Accent color below"/>

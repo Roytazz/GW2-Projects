@@ -43,11 +43,11 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
 
         private static void HandleCustomSorting(object sender, DataGridSortingEventArgs e) {
             var dataGrid = sender as DataGrid;
-            if(dataGrid == null || !GetAllowCustomSort(dataGrid))
+            if(dataGrid == null || dataGrid.ItemsSource == null || !GetAllowCustomSort(dataGrid))
                 return;
 
             var listColView = dataGrid.ItemsSource as ListCollectionView;
-            if(listColView == null)
+            if(listColView == null )
                 listColView = new ListCollectionView(dataGrid.ItemsSource as IList);
             
             var sorter = GetCustomSorter(e.Column);
