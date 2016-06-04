@@ -11,7 +11,7 @@ namespace GuildWars2Guild.Controls.Widgets
     public partial class ItemListingValueDisplay : UserControl
     {
         public ItemListingValueDisplay() {
-            InitializeComponent();      
+            InitializeComponent();
         }
     }
 }

@@ -123,6 +123,7 @@
     <Compile Include="Classes\IO\FileManager.cs" />
     <Compile Include="Classes\IO\LogManager.cs" />
     <Compile Include="Classes\Logger\BaseLogger.cs" />
+    <Compile Include="Classes\MVVM\Converter\ToItemPrice.cs" />
     <Compile Include="Controls\Widgets\LotteryFilter.xaml.cs">
       <DependentUpon>LotteryFilter.xaml</DependentUpon>
     </Compile>

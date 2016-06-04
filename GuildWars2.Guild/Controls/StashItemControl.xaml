@@ -7,7 +7,7 @@
              xmlns:converter="clr-namespace:GuildWars2Guild.Classes.MVVM.Converter"
              xmlns:widget="clr-namespace:GuildWars2Guild.Controls.Widgets"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" x:Name="ThisControl"
+             mc:Ignorable="d" x:Name="ThisControl" 
              d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
         <sorting:GoldSort x:Key="GoldSort" />

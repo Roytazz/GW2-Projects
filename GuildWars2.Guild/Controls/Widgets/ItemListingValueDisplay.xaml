@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GuildWars2Guild.Controls.Widgets"
+             xmlns:converter="clr-namespace:GuildWars2Guild.Classes.MVVM.Converter"
              xmlns:viewModel="clr-namespace:GuildWars2Guild.Model.ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="600">
+    <UserControl.Resources>
+        <converter:ToItemPrice x:Key="ToItemListing" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="45*"/>
@@ -19,20 +23,24 @@
                 <RowDefinition Height="70*"/>
             </Grid.RowDefinitions>
             <Viewbox Grid.Row="0">
-                <TextBlock Text="Buys" HorizontalAlignment="Center" Margin="0,3" Foreground="White"/>
+                <TextBlock Text="TP Buy price" HorizontalAlignment="Center" Margin="3,0" Foreground="White"/>
             </Viewbox>
-            <local:ItemValueDisplay VerticalAlignment="Center" Grid.Row="1" Margin="10" Value="{Binding Path=ItemListing.Sells.UnitPrice}" />
+            <Viewbox Grid.Row="1">
+                <local:ItemValueDisplay Margin="5,0" Value="{Binding Path=SelectedItem, Converter={StaticResource ToItemListing}, ConverterParameter='Buys'}" />
+            </Viewbox>
         </Grid>
-        <Rectangle Grid.Column="1" Fill="{DynamicResource SecondaryAccentBrush}" Margin="0,50"/>
+        <Rectangle Grid.Column="1" Width="2" Fill="{DynamicResource SecondaryAccentBrush}" Margin="0,5"/>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30*"/>
                 <RowDefinition Height="70*"/>
             </Grid.RowDefinitions>
             <Viewbox Grid.Row="0">
-                <TextBlock Text="Sell" HorizontalAlignment="Center" Foreground="White"/>
+                <TextBlock Text="TP Sell price" Margin="3,0" HorizontalAlignment="Center" Foreground="White"/>
             </Viewbox>
-            <local:ItemValueDisplay VerticalAlignment="Center" Grid.Row="1" Margin="10" Value="{Binding Path=ItemListing.Sells.UnitPrice}" />
+            <Viewbox Grid.Row="1">
+                <local:ItemValueDisplay Margin="5,0" Value="{Binding Path=SelectedItem, Converter={StaticResource ToItemListing}, ConverterParameter='Buys'}" />
+            </Viewbox>
         </Grid>
     </Grid>
 </UserControl>
