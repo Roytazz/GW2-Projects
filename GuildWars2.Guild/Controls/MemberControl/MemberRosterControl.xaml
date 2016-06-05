@@ -7,7 +7,7 @@
              xmlns:sorting="clr-namespace:GuildWars2Guild.Classes.MVVM.Sorting"
              xmlns:converter="clr-namespace:GuildWars2Guild.Classes.MVVM.Converter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="ThisControl"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <sorting:DateSort x:Key="DateSort" />
