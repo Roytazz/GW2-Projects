@@ -12,16 +12,22 @@ namespace GuildWars2Guild.Classes.Resources
     public class ResourceManager
     {
         private static Dictionary<Type, object> _providers;
-        private static ResourceManager _resourceManager;
 
         private static int CAPACITY = 1000;
 
-        public static ResourceManager Instance {
-            get {
-                if(_resourceManager == null)
-                    _resourceManager = new ResourceManager();
+        private static ResourceManager _instance;
+        private static object lockObj = new object();
 
-                return _resourceManager;
+        public static ResourceManager Instance
+        {
+            get {
+                if(_instance == null) {
+                    lock(lockObj) {
+                        if(_instance == null)
+                            _instance = new ResourceManager();
+                    }
+                }
+                return _instance;
             }
         }
 
@@ -31,7 +37,7 @@ namespace GuildWars2Guild.Classes.Resources
 
         public T GetResource<T>(int ID) {
             var provider = GetProvider<T>();
-            if(provider != null) 
+            if(provider != null)
                 return provider.Get(ID);
 
             return default(T);
