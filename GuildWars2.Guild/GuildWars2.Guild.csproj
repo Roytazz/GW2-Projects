@@ -124,6 +124,7 @@
     <Compile Include="Classes\IO\LogManager.cs" />
     <Compile Include="Classes\Logger\BaseLogger.cs" />
     <Compile Include="Classes\MVVM\Converter\ToItemPrice.cs" />
+    <Compile Include="Classes\NotifyHandler.cs" />
     <Compile Include="Controls\MemberControl\MemberControl.xaml.cs">
       <DependentUpon>MemberControl.xaml</DependentUpon>
     </Compile>

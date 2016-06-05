@@ -6,7 +6,35 @@
              xmlns:local="clr-namespace:GuildWars2Guild.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="{DynamicResource PrimaryHueMidBrush}">
-            
+    <UserControl.Resources>
+        <Storyboard x:Key="ShowNotification">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="TextBlock_Notification">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-114.552"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TextBlock_Notification">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid Height="26" Background="{DynamicResource PrimaryHueMidBrush}" VerticalAlignment="Bottom">
+        <Viewbox HorizontalAlignment="Right" VerticalAlignment="Center" >
+            <TextBlock x:Name="TextBlock_Notification" Text="" RenderTransformOrigin="0.5,0.5" Margin="3,2,8,4"
+                               Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+        </Viewbox>
     </Grid>
 </UserControl>

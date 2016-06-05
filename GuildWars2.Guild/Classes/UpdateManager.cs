@@ -20,9 +20,9 @@ namespace GuildWars2Guild.Classes
         }
 
         private static async void Timer_Elapsed(object sender, ElapsedEventArgs e) {
-            LogManager.LogMessage<ConsoleLogger>("Update Started", LogType.Info);
+            LogManager.LogMessage<ConsoleLogger>("Update Started", LogType.Info, true);
             await RefreshDbAsync();
-            LogManager.LogMessage<ConsoleLogger>("Update Finished", LogType.Info);
+            LogManager.LogMessage<ConsoleLogger>("Update Finished", LogType.Info, true);
         }
 
         #endregion Timer
