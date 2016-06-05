@@ -6,5 +6,6 @@ namespace GuildWars2Guild.Classes.Resources
     {
         T Get(int ID);
         List<T> Get(List<int> ID);
+        int Capacity { get; set; }
     }
 }

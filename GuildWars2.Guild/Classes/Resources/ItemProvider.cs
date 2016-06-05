@@ -9,10 +9,12 @@ namespace GuildWars2Guild.Classes.Resources
     {
         private List<Item> _items = new List<Item>();
 
+        public int Capacity { get; set; }
+
         public Item Get(int ID) {
             var item = _items.Find(i => i.ID == ID);
             if(item == null) {
-                _items.Add(GuildWars2API.ItemAPI.GetItem(ID));
+                Add(GuildWars2API.ItemAPI.GetItem(ID));
                 return Get(ID);
             }
             return _items.Single(i => i.ID == ID);
@@ -22,9 +24,16 @@ namespace GuildWars2Guild.Classes.Resources
             var newItems = IDs.Where(id => !_items.Any(item => item.ID == id));
             var result = GuildWars2API.ItemAPI.GetItem(new HashSet<int>(newItems));
 
-            result.ForEach(item => { _items.Add(item); });
+            result.ForEach(item => { Add(item); });
 
             return _items.Where(item => IDs.Any(id => item.ID == id)).ToList();
+        }
+
+        private void Add(Item item) {
+            if(_items.Count >= Capacity)
+                _items.RemoveAt(0);
+
+            _items.Add(item);
         }
     }
 }

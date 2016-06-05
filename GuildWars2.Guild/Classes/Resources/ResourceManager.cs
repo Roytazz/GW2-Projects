@@ -11,8 +11,10 @@ namespace GuildWars2Guild.Classes.Resources
 {
     public class ResourceManager
     {
-        private static Dictionary<Type, object> _providers = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> _providers;
         private static ResourceManager _resourceManager;
+
+        private static int CAPACITY = 1000;
 
         public static ResourceManager Instance {
             get {
@@ -21,6 +23,10 @@ namespace GuildWars2Guild.Classes.Resources
 
                 return _resourceManager;
             }
+        }
+
+        public ResourceManager() {
+            _providers = new Dictionary<Type, object>();
         }
 
         public T GetResource<T>(int ID) {
@@ -43,19 +49,19 @@ namespace GuildWars2Guild.Classes.Resources
             if(!_providers.ContainsKey(typeof(T))) {
                 var providerType = GetProviderType<T>();
                 if(providerType != null) {
-                    _providers.Add(typeof(T), Activator.CreateInstance(providerType));
+                    AddProvider<T>(providerType);
                 }
                 else {
                     Logger.LogManager.LogMessage(string.Format("No ResourceProvider found for type: {0}", typeof(T)));
+                    return null;
                 }
             }
-
             return _providers[typeof(T)] as IResourceProvider<T>;
         }
 
-        private void AddProvider<T, K>(K provider) where T : class where K : IResourceProvider<T> {
-            if(_providers == null)
-                _providers = new Dictionary<Type, object>();
+        private void AddProvider<T>(Type providerType) {
+            var provider = Activator.CreateInstance(providerType) as IResourceProvider<T>;
+            provider.Capacity = CAPACITY;
 
             _providers.Add(typeof(T), provider);
         }
