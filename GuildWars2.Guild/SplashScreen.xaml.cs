@@ -1,5 +1,4 @@
 ﻿using GuildWars2Guild.Classes;
-using GuildWars2Guild.Classes.IO;
 using GuildWars2Guild.Classes.Logger;
 using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;

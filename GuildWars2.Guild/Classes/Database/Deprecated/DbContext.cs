@@ -9,7 +9,7 @@ using System.Linq;
 
 using static GuildWars2Guild.Classes.Logger.LogManager;
 
-namespace GuildWars2Guild.Classes.Database
+namespace GuildWars2Guild.Classes.Database.Deprecated
 {
     internal class GW2DbContext : DbContext
     {

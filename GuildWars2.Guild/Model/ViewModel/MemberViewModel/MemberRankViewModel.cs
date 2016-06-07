@@ -13,9 +13,5 @@ namespace GuildWars2Guild.Model.ViewModel
     {
         public MemberRankViewModel() : base("rank_change") {
         }
-
-        protected override bool OnFilter(object value) {
-            return true;
-        }
     }
 }

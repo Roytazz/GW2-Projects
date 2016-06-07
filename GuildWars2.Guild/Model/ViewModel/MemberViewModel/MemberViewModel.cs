@@ -10,26 +10,20 @@ using System.Windows.Data;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
-    abstract class MemberViewModel<T> : FilterViewModel<T>  where T : DisplayLogEntry, new ()
+    abstract class MemberViewModel<T>  where T : DisplayLogEntry, new ()
     {
         public List<T> MainCollection { get; set; }
 
         public MemberViewModel(params string[] type) {
             MainCollection = GetMemberEntries(type).OrderByDescending(entry => entry.Time).ToList();
-            MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
-            MainCollectionView.Filter = OnFilter;
         }
 
         private List<T> GetMemberEntries(params string[] types) {
-            var entries = LogDbManager.GetLogEntriesByType(types).ToList();
+            var entries = LogDbManager.GetLogs(types).ToList();
 
             var results = new List<T>();
-            entries.ForEach(entry => { results.Add(Reflection.CopyFrom(new T(), entry)); });
+            entries.ForEach(entry => { results.Add(Reflection.CopyClass(new T(), entry)); });
             return results;
-        }
-
-        protected override bool OnFilter(object value) {
-            throw new NotImplementedException();
         }
     }
 }

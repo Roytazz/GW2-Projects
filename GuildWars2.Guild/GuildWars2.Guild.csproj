@@ -16,6 +16,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>D:\Code Projects\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -41,6 +43,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +53,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>FA92DFFAFE2A19F770ED7D67922C5085E3DA655E</ManifestCertificateThumbprint>
@@ -99,6 +103,18 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.101.0\lib\net45\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.101.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.101.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -117,8 +133,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Database\Deprecated\BaseDbManager.cs" />
+    <Compile Include="Classes\Database\Deprecated\DbContext.cs" />
     <Compile Include="Classes\Database\BaseDbManager.cs" />
-    <Compile Include="Classes\Database\DbContext.cs" />
+    <Compile Include="Classes\Database\Tables\ISqliteTable.cs" />
+    <Compile Include="Classes\Database\LogDbManager.cs" />
+    <Compile Include="Classes\Database\Helpers\SqliteColumn.cs" />
+    <Compile Include="Classes\Database\Helpers\SqliteColumnList.cs" />
+    <Compile Include="Classes\Database\Helpers\SqliteHelper.cs" />
+    <Compile Include="Classes\Database\Helpers\SqliteTable.cs" />
+    <Compile Include="Classes\Database\Tables\GuildLogTable.cs" />
     <Compile Include="Classes\IO\DropBoxManager.cs" />
     <Compile Include="Classes\IO\FileManager.cs" />
     <Compile Include="Classes\IO\LogManager.cs" />
@@ -134,6 +158,9 @@
     <Compile Include="Controls\MemberControl\MemberRosterControl.xaml.cs">
       <DependentUpon>MemberRosterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MotdControl.xaml.cs">
+      <DependentUpon>MotdControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\LotteryFilter.xaml.cs">
       <DependentUpon>LotteryFilter.xaml</DependentUpon>
     </Compile>
@@ -142,6 +169,7 @@
     <Compile Include="Model\ViewModel\MemberViewModel\MemberViewModel.cs" />
     <Compile Include="Model\ViewModel\MemberViewModel\MemberRankViewModel.cs" />
     <Compile Include="Model\ViewModel\MemberViewModel\MemberRosterViewModel.cs" />
+    <Compile Include="Model\ViewModel\MotdViewModel.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -154,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MemberControl\MemberRosterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MotdControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,7 +290,7 @@
       <DependentUpon>ItemValueDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\MVVM\Sorting\ColumnSort.cs" />
-    <Compile Include="Classes\Database\LogDbManager.cs" />
+    <Compile Include="Classes\Database\Deprecated\LogDbManager.cs" />
     <Compile Include="Classes\SwatchesProvider.cs" />
     <Compile Include="Classes\Reflection.cs" />
     <Compile Include="Classes\UpdateManager.cs" />
@@ -377,7 +409,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GuildWars2API\GuildWars2.API.csproj">
@@ -413,6 +447,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

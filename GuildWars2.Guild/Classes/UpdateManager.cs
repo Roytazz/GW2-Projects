@@ -74,7 +74,7 @@ namespace GuildWars2Guild.Classes
             var apiKey = Properties.Settings.Default.ApiKey;
             if(apiKey?.Length > 0) {
                 var results = GuildWars2API.GuildAPI.GetGuildLogByName("Frostgorge Champ Train", apiKey);
-                LogDbManager.AddLog(results);
+                LogDbManager.AddUniqueLog(results);
             }
         }
     }

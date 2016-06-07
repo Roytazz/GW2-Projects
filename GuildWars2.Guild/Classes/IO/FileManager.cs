@@ -12,10 +12,8 @@ namespace GuildWars2Guild.Classes.IO
     {
         #region Paths
 
-        private static string DB_PATH = "/GuildWars2Guild.Classes.GW2DBContext.mdf";
-        private static string DB_LOG_PATH = "/GuildWars2Guild.Classes.GW2DBContext_log.ldf";
-
-        private static string LOG_PATH = "/GuildWars2Guild.log";
+        private static string DB_PATH = "/FGCT_DATABASE.sqlite";
+        private static string LOG_PATH = "/FGCT_LOG.log";
 
         public static string GetExecutingAssembly() {
             var executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -45,27 +43,7 @@ namespace GuildWars2Guild.Classes.IO
         }
 
         public static Task<bool> DownloadDatabaseAsync() {
-            if(!RemoveDBLogFile())
-                return Task.FromResult(false);
-
             return DropBoxManager.Download(GetFullDataBasePath(), DB_PATH);
-        }
-
-        private static bool RemoveDBLogFile() {
-            if(!File.Exists(GetExecutingAssembly() + DB_LOG_PATH)) {
-                return true;
-            }
-            else {
-                try {
-                    LogMessage<ConsoleLogger>("Deleting the DB log file", LogType.Info);
-                    File.Delete(GetExecutingAssembly() + DB_LOG_PATH);
-                    return true;
-                }
-                catch(Exception ex) {
-                    LogException(ex, "Failed to delete the DB log file");
-                    return false;
-                }
-            }
         }
     }
 }

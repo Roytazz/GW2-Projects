@@ -83,10 +83,10 @@ namespace GuildWars2Guild.Model.ViewModel
 
         private List<ItemEntry> GetStashEntries() {
             var goldEntries = new List<ItemEntry>();
-            var stashEntries = LogDbManager.GetLogEntriesByType("stash").Where(entry => entry.ItemID != 0).ToList();
+            var stashEntries = LogDbManager.GetLogs("stash").Where(entry => entry.ItemID != 0).ToList();
 
             List<Item> items = GuildWars2API.ItemAPI.GetItem(stashEntries.Select(entry => entry.ItemID));
-            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyFrom(new ItemEntry() { Item = items.Find(item => item.ID == entry.ItemID) }, entry)); });
+            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass(new ItemEntry() { Item = items.Find(item => item.ID == entry.ItemID) }, entry)); });
             return goldEntries;
         }
     }

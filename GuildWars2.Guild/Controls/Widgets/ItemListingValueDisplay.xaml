@@ -39,7 +39,7 @@
                 <TextBlock Text="TP Sell price" Margin="3,0" HorizontalAlignment="Center" Foreground="White"/>
             </Viewbox>
             <Viewbox Grid.Row="1">
-                <local:ItemValueDisplay Margin="5,0" Value="{Binding Path=SelectedItem, Converter={StaticResource ToItemListing}, ConverterParameter='Buys'}" />
+                <local:ItemValueDisplay Margin="5,0" Value="{Binding Path=SelectedItem, Converter={StaticResource ToItemListing}, ConverterParameter='Sells'}" />
             </Viewbox>
         </Grid>
     </Grid>

@@ -43,6 +43,11 @@
                     <userControls:StashControl/>
                 </TabItem>
                 <TabItem Header="MOTD">
+                    <userControls:MotdControl>
+                        <userControls:MotdControl.DataContext>
+                            <viewModel:MotdViewModel/>
+                        </userControls:MotdControl.DataContext>
+                    </userControls:MotdControl>
                 </TabItem>
                 <TabItem Header="LOTTERY">
                     <userControls:LotteryControl>

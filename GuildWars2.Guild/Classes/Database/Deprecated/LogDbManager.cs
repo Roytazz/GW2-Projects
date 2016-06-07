@@ -1,53 +1,59 @@
 ﻿using GuildWars2API.Model.Guild;
-using GuildWars2Guild.Classes.Database.Tables;
 using GuildWars2Guild.Classes.Logger;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using static GuildWars2Guild.Classes.Logger.LogManager;
 
-namespace GuildWars2Guild.Classes.Database
+namespace GuildWars2Guild.Classes.Database.Deprecated
 {
-    class LogDbManager : BaseDbManager<GuildLogTable, LogEntry>
+    internal class LogDbManager : BaseDbManager<DBLogEntry>    
     {
-        private static void AddLog(LogEntry logs) {
-            AddEntity(logs);
+        public static void AddLog(LogEntry log) {
+            AddEntity(ConvertLog(log));
         }
 
-        private static void AddLog(IEnumerable<LogEntry> logs) {
-            AddEntity(logs);
-        }
+        public static void AddLog(IEnumerable<LogEntry> logs) {
+            if(logs == null)
+                return;
 
-        public static void AddUniqueLog(IEnumerable<LogEntry> logs) {
-            var existingIds = GetEntity().Select(log => log.LogID).Distinct().ToList();
-            var newLogs = GetUniqueEntries(logs, existingIds);
+            var availableIDs = GetColumn(log => log.LogID).Distinct().ToList();
+            var newLogs = GetUniqueEntries(logs, availableIDs);
             if(newLogs.Count() > 0) {
-                AddEntity(newLogs);
+                AddEntity(ConvertLog(newLogs));
             }
+        }
+        
+        public static IEnumerable<LogEntry> GetLogEntriesByType(params string[] types) {
+            var entities = GetEntities(entry => types.Contains(entry.Type));
+            return entities.Cast<LogEntry>();
         }
 
         public static IEnumerable<LogEntry> GetLogs() {
-            return GetEntity();
-        }
-
-        public static IEnumerable<LogEntry> GetLogs(string type) {
-            return GetEntity().Where(entry => entry.Type.Equals(type));
-        }
-
-        public static IEnumerable<LogEntry> GetLogs(params string[] types) {
-            return GetEntity().Where(entry => types.Contains(entry.Type));
+            return GetEntities();
         }
 
         private static IEnumerable<LogEntry> GetUniqueEntries(IEnumerable<LogEntry> logs, IEnumerable<int> availableIDs) {
             if(logs == null || availableIDs == null)
                 return null;
-
+            
             var newLogs = logs.Where(log => !availableIDs.Any(dbLog => dbLog == log.LogID));
 
             DisplayStashLogInfo(logs, newLogs);
             return newLogs.ToList();
         }
 
+        private static DBLogEntry ConvertLog(LogEntry log) {
+            return Reflection.CopyClass(new DBLogEntry(), log);
+        }
+
+        private static IEnumerable<DBLogEntry> ConvertLog(IEnumerable<LogEntry> logs) {
+            var newLogs = new List<DBLogEntry>();
+            foreach(var log in logs) {
+                newLogs.Add(ConvertLog(log));
+            }
+            return newLogs;
+        }
+        
         private static void DisplayStashLogInfo(IEnumerable<LogEntry> logs, IEnumerable<LogEntry> newLogs) {
             var totalStashEvents = logs.Where(log => log.Type.Equals("stash")).Count();
             var newStashEvents = newLogs.Where(log => log.Type.Equals("stash")).Count();

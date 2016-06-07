@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
-    class MemberRosterViewModel : MemberViewModel<RosterEntry>
+    class MotdViewModel
     {
-
-        public MemberRosterViewModel() : base("joined", "invited", "kick") {
-            
-        }
     }
 }
