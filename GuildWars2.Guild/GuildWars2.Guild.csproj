@@ -68,20 +68,12 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dragablz, Version=0.0.3.160, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dragablz.0.0.3.160\lib\net45\Dragablz.dll</HintPath>
+    <Reference Include="Dragablz, Version=0.0.3.163, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.163\lib\net45\Dragablz.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Dropbox.Api, Version=0.1.5960.22395, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dropbox.Api.3.1.1\lib\net45\Dropbox.Api.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="Dropbox.Api, Version=0.1.5996.27561, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dropbox.Api.3.2.0\lib\net45\Dropbox.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
@@ -107,10 +99,6 @@
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.101.0\lib\net45\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.101.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.101.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
@@ -133,8 +121,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\Database\Deprecated\BaseDbManager.cs" />
-    <Compile Include="Classes\Database\Deprecated\DbContext.cs" />
     <Compile Include="Classes\Database\BaseDbManager.cs" />
     <Compile Include="Classes\Database\Tables\ISqliteTable.cs" />
     <Compile Include="Classes\Database\LogDbManager.cs" />
@@ -290,7 +276,6 @@
       <DependentUpon>ItemValueDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\MVVM\Sorting\ColumnSort.cs" />
-    <Compile Include="Classes\Database\Deprecated\LogDbManager.cs" />
     <Compile Include="Classes\SwatchesProvider.cs" />
     <Compile Include="Classes\Reflection.cs" />
     <Compile Include="Classes\UpdateManager.cs" />
@@ -329,31 +314,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201604191937229_InitialCreate.cs" />
-    <Compile Include="Migrations\201604191937229_InitialCreate.Designer.cs">
-      <DependentUpon>201604191937229_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604201806349_Expanded LogEntry.cs" />
-    <Compile Include="Migrations\201604201806349_Expanded LogEntry.Designer.cs">
-      <DependentUpon>201604201806349_Expanded LogEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604201927227_Update LogEntry.cs" />
-    <Compile Include="Migrations\201604201927227_Update LogEntry.Designer.cs">
-      <DependentUpon>201604201927227_Update LogEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604211853245_AddedLogProps.cs" />
-    <Compile Include="Migrations\201604211853245_AddedLogProps.Designer.cs">
-      <DependentUpon>201604211853245_AddedLogProps.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604211859418_SimplifyLogs.cs" />
-    <Compile Include="Migrations\201604211859418_SimplifyLogs.Designer.cs">
-      <DependentUpon>201604211859418_SimplifyLogs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604211918362_RevertTypeChange.cs" />
-    <Compile Include="Migrations\201604211918362_RevertTypeChange.Designer.cs">
-      <DependentUpon>201604211918362_RevertTypeChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\MVVM\Converter\ToUpperCasingColors.cs" />
     <Compile Include="Model\DisplayLogEntry.cs" />
     <Compile Include="Model\GoldEntry.cs" />
@@ -377,24 +337,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201604191937229_InitialCreate.resx">
-      <DependentUpon>201604191937229_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604201806349_Expanded LogEntry.resx">
-      <DependentUpon>201604201806349_Expanded LogEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604201927227_Update LogEntry.resx">
-      <DependentUpon>201604201927227_Update LogEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604211853245_AddedLogProps.resx">
-      <DependentUpon>201604211853245_AddedLogProps.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604211859418_SimplifyLogs.resx">
-      <DependentUpon>201604211859418_SimplifyLogs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604211918362_RevertTypeChange.resx">
-      <DependentUpon>201604211918362_RevertTypeChange.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
