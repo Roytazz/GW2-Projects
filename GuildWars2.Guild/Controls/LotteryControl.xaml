@@ -46,9 +46,9 @@
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" Header="User" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" HorizontalContentAlignment="Stretch">
                 <StackPanel VerticalAlignment="Center" Margin="30,0">
-                    <TextBlock Text="And the winner is: " Margin="0,0,0,10" HorizontalAlignment="Center" FontSize="18"/>
+                    <TextBlock Text="And the winner is: " Margin="0,0,0,10" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
                     <Viewbox  HorizontalAlignment="Center" VerticalAlignment="Center" Height="50">
-                        <TextBlock Text="{Binding Winner.User}" FontSize="36"/>
+                        <TextBlock Text="{Binding Winner.User}" FontSize="36" Foreground="White"/>
                     </Viewbox>
                 </StackPanel>
             </GroupBox>

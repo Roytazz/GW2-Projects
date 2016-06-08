@@ -31,7 +31,7 @@
             <RowDefinition MinHeight="25" MaxHeight="25"/>
         </Grid.RowDefinitions>
         <dockablz:Layout Grid.Row="0">
-            <dragablz:TabablzControl SelectedIndex="3">
+            <dragablz:TabablzControl SelectedIndex="1">
                 <TabItem Header="MAIN">
                 </TabItem>
                 <TabItem Header="MEMBERS">

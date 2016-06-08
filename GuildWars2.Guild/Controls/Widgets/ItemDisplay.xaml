@@ -30,18 +30,18 @@
                         </ScaleTransform>
                     </Border.LayoutTransform>
                     <StackPanel>
-                        <TextBlock Text="{Binding ElementName=ThisWindow, Path=Item.Name}" FontSize="16" />
+                        <TextBlock Text="{Binding ElementName=ThisWindow, Path=Item.Name}" FontSize="16" Foreground="White" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="45*"/>
                                 <ColumnDefinition Width="55*"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Orientation="Horizontal"  >
-                                <TextBlock Text="Level: " FontSize="14" />
-                                <TextBlock Text="{Binding ElementName=ThisWindow, Path=Item.Level}" FontSize="14" />
+                                <TextBlock Text="Level: " FontSize="14" Foreground="White" />
+                                <TextBlock Text="{Binding ElementName=ThisWindow, Path=Item.Level}" FontSize="14" Foreground="White" />
                             </StackPanel>
                             <StackPanel Grid.Column="1" Orientation="Horizontal"  >
-                                <TextBlock Text="Rarity: " FontSize="14" />
+                                <TextBlock Text="Rarity: " FontSize="14" Foreground="White"/>
                                 <TextBlock Text="{Binding ElementName=ThisWindow, Path=Item.Rarity}" FontSize="14" Foreground="{Binding ElementName=ThisWindow, Path=Item.Rarity, Converter={StaticResource ToRarityColor}}"/>
                             </StackPanel>
                         </Grid>
