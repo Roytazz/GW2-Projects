@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
-    abstract class FilterViewModel<T> : ViewModelBase
+    abstract class FilterViewModel<T> : BaseViewModel
     {
         protected abstract bool OnFilter(object value);
 
