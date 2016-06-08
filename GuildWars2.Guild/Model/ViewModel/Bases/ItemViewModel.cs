@@ -1,6 +1,7 @@
 ﻿using GuildWars2API.Model.Items;
 using GuildWars2Guild.Classes;
 using GuildWars2Guild.Classes.Database;
+using GuildWars2Guild.Classes.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,7 +91,7 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
             var goldEntries = new List<ItemEntry>();
             var stashEntries = LogDbManager.GetLogs(types).Where(entry => entry.ItemID != 0).ToList();
 
-            List<Item> items = GuildWars2API.ItemAPI.GetItem(stashEntries.Select(entry => entry.ItemID));
+            List<Item> items = ResourceManager.Instance.GetResource<Item>(stashEntries.Select(entry => entry.ItemID).ToList());
             stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass(new ItemEntry() { Item = items.Find(item => item.ID == entry.ItemID) }, entry)); });
             return goldEntries;
         }

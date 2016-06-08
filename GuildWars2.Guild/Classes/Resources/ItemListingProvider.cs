@@ -14,7 +14,11 @@ namespace GuildWars2Guild.Classes.Resources
         public ItemListing Get(int ID) {
             var item = _listings.Find(i => i.ID == ID);
             if(item == null) {
-                Add(GuildWars2API.ItemAPI.GetItemListing(ID));
+                var listingFound = GuildWars2API.ItemAPI.GetItemListing(ID);
+                if(listingFound == null)
+                    return null;
+
+                Add(listingFound);
                 return Get(ID);
             }
             return _listings.Single(i => i.ID == ID);
@@ -24,7 +28,10 @@ namespace GuildWars2Guild.Classes.Resources
             var newListings = IDs.Where(id => !_listings.Any(listing => listing.ID == id));
             var result = GuildWars2API.ItemAPI.GetItemListing(new HashSet<int>(newListings));
 
-            result.ForEach(listing => { Add(listing); });
+            result.ForEach(listing => {
+                if(listing != null)
+                    Add(listing);
+            });
 
             return _listings.Where(item => IDs.Any(id => item.ID == id)).ToList();
         }
