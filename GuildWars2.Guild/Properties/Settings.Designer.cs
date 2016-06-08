@@ -46,5 +46,29 @@ namespace GuildWars2Guild.Properties {
                 this["DropBoxKey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ThemePrimary {
+            get {
+                return ((string)(this["ThemePrimary"]));
+            }
+            set {
+                this["ThemePrimary"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ThemeAccent {
+            get {
+                return ((string)(this["ThemeAccent"]));
+            }
+            set {
+                this["ThemeAccent"] = value;
+            }
+        }
     }
 }
