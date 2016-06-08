@@ -23,7 +23,7 @@
                   Grid.Column="0" materialDesign:DataGridAssist.CellPadding="8,6,6,6" materialDesign:DataGridAssist.ColumnHeaderPadding="6" sorting:CustomSortBehaviour.AllowCustomSort="True" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding User}" Header="User" />
-                    <DataGridTemplateColumn Header="MOTD">
+                    <DataGridTemplateColumn Header="MOTD" MaxWidth="650">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Expander IsExpanded="False" HorizontalAlignment="Stretch">
