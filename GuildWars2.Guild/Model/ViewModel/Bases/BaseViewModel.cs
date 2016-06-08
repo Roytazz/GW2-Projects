@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2Guild.Model.ViewModel.Bases
 {
     abstract class BaseViewModel : INotifyPropertyChanged
     {

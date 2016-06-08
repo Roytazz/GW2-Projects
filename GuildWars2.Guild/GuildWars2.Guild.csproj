@@ -147,12 +147,17 @@
     <Compile Include="Controls\MotdControl.xaml.cs">
       <DependentUpon>MotdControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TreasuryControl.xaml.cs">
+      <DependentUpon>TreasuryControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\LotteryFilter.xaml.cs">
       <DependentUpon>LotteryFilter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\RosterEntry.cs" />
-    <Compile Include="Model\ViewModel\DbViewModel.cs" />
+    <Compile Include="Model\ViewModel\Bases\DbViewModel.cs" />
+    <Compile Include="Model\ViewModel\Bases\ItemViewModel.cs" />
     <Compile Include="Model\ViewModel\LotteryViewModel.cs" />
+    <Compile Include="Model\ViewModel\ViewModels.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -185,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LotteryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TreasuryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -317,10 +326,9 @@
     <Compile Include="Classes\MVVM\Sorting\DateSort.cs" />
     <Compile Include="Classes\MVVM\Sorting\GoldSort.cs" />
     <Compile Include="Model\ItemEntry.cs" />
-    <Compile Include="Model\ViewModel\FilterViewModel.cs" />
-    <Compile Include="Model\ViewModel\StashViewModel\StashItemViewModel.cs" />
-    <Compile Include="Model\ViewModel\StashViewModel\StashGoldViewModel.cs" />
-    <Compile Include="Model\ViewModel\BaseViewModel.cs" />
+    <Compile Include="Model\ViewModel\Bases\FilterViewModel.cs" />
+    <Compile Include="Model\ViewModel\StashGoldViewModel.cs" />
+    <Compile Include="Model\ViewModel\Bases\BaseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

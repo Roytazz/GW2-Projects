@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2Guild.Model.ViewModel.Bases
 {
-    class StashItemViewModel : FilterViewModel<ItemEntry>
+    abstract class ItemViewModel : FilterViewModel<ItemEntry>
     {
         public List<ItemEntry> MainCollection { get; set; }
 
@@ -16,8 +16,10 @@ namespace GuildWars2Guild.Model.ViewModel
 
         private ItemEntry _selectedRow;
 
-        public ItemEntry SelectedRow {
-            get {
+        public ItemEntry SelectedRow
+        {
+            get
+            {
                 if(_selectedRow == null) {
                     if(MainCollection?.Count > 0) {
                         return MainCollection?[0];
@@ -29,14 +31,17 @@ namespace GuildWars2Guild.Model.ViewModel
 
                 return _selectedRow;
             }
-            set {
+            set
+            {
                 _selectedRow = value;
                 NotifyPropertyChanged(nameof(SelectedItem));
             }
         }
 
-        public Item SelectedItem {
-            get {
+        public Item SelectedItem
+        {
+            get
+            {
                 if(SelectedRow != null)
                     return SelectedRow.Item;
 
@@ -75,15 +80,15 @@ namespace GuildWars2Guild.Model.ViewModel
 
         #endregion Filter
 
-        public StashItemViewModel() {
-            MainCollection = GetStashEntries().OrderByDescending(entry => entry.Time).ToList();
+        public ItemViewModel(params string[] types) {
+            MainCollection = GetStashEntries(types).OrderByDescending(entry => entry.Time).ToList();
             MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
             MainCollectionView.Filter = OnFilter;
         }
 
-        private List<ItemEntry> GetStashEntries() {
+        private List<ItemEntry> GetStashEntries(params string[] types) {
             var goldEntries = new List<ItemEntry>();
-            var stashEntries = LogDbManager.GetLogs("stash").Where(entry => entry.ItemID != 0).ToList();
+            var stashEntries = LogDbManager.GetLogs(types).Where(entry => entry.ItemID != 0).ToList();
 
             List<Item> items = GuildWars2API.ItemAPI.GetItem(stashEntries.Select(entry => entry.ItemID));
             stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass(new ItemEntry() { Item = items.Find(item => item.ID == entry.ItemID) }, entry)); });

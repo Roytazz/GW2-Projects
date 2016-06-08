@@ -2,6 +2,7 @@
 using GuildWars2Guild.Classes;
 using GuildWars2Guild.Classes.Database;
 using GuildWars2Guild.Classes.MVVM;
+using GuildWars2Guild.Model.ViewModel.Bases;
 using System;
 using System.Collections.Generic;
 using System.Linq;

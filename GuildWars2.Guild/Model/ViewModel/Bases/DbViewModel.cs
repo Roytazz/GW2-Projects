@@ -4,9 +4,8 @@ using GuildWars2Guild.Classes.Database;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
-using System;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2Guild.Model.ViewModel.Bases
 {
     class DbViewModel<T> : BaseViewModel where T : LogEntry, new()
     {
@@ -27,21 +26,5 @@ namespace GuildWars2Guild.Model.ViewModel
 
             return entries;
         }
-    }
-
-    class MotdViewModel : DbViewModel<DisplayLogEntry>
-    {
-        public MotdViewModel() : base("motd") { }
-    }
-
-    class MemberRankViewModel : DbViewModel<DisplayLogEntry>
-    {
-        public MemberRankViewModel() : base("rank_change") {
-        }
-    }
-
-    class MemberRosterViewModel : DbViewModel<RosterEntry>
-    {
-        public MemberRosterViewModel() : base("joined", "invited", "kick") { }
     }
 }

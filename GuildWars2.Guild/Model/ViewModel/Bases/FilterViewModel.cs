@@ -1,9 +1,8 @@
 ﻿using GuildWars2Guild.Classes.MVVM;
 using System;
-using System.ComponentModel;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2Guild.Model.ViewModel.Bases
 {
     abstract class FilterViewModel<T> : BaseViewModel
     {
