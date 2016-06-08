@@ -7,8 +7,6 @@ namespace GuildWars2Guild.Model.ViewModel
 {
     abstract class FilterViewModel<T> : ViewModelBase
     {
-        public ICollectionView MainCollectionView { get; set; }
-
         protected abstract bool OnFilter(object value);
 
         public virtual ICommand ApplyFilter => (new CommandHandler(() => {

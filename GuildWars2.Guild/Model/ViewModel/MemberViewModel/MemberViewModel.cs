@@ -10,12 +10,13 @@ using System.Windows.Data;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
-    abstract class MemberViewModel<T>  where T : DisplayLogEntry, new ()
+    abstract class MemberViewModel<T> : ViewModelBase  where T : DisplayLogEntry, new ()
     {
         public List<T> MainCollection { get; set; }
 
         public MemberViewModel(params string[] type) {
             MainCollection = GetMemberEntries(type).OrderByDescending(entry => entry.Time).ToList();
+            MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
         }
 
         private List<T> GetMemberEntries(params string[] types) {

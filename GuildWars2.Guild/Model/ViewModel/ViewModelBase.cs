@@ -5,6 +5,7 @@ namespace GuildWars2Guild.Model.ViewModel
 {
     abstract class ViewModelBase : INotifyPropertyChanged
     {
+        public ICollectionView MainCollectionView { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
