@@ -1,10 +1,13 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2API.Model.Commerce;
+using GuildWars2API.Model.Items;
 
 namespace GuildWars2Guild.Model
 {
     public class ItemEntry : DisplayLogEntry
     {
         public Item Item { get; set; }
+
+        public ItemListing Listing { get; set; }
 
         public string ItemColor {
             get {

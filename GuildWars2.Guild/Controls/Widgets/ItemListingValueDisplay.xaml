@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="600">
     <UserControl.Resources>
-        <converter:ToItemPrice x:Key="ToItemListing" />
+        <converter:ToItemPrice x:Key="ToItemPrice" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,7 +26,7 @@
                 <TextBlock Text="TP Buy price" HorizontalAlignment="Center" Margin="3,0" Foreground="White"/>
             </Viewbox>
             <Viewbox Grid.Row="1">
-                <local:ItemValueDisplay Margin="5,0" Value="{Binding Path=SelectedItem, Converter={StaticResource ToItemListing}, ConverterParameter='Buys'}" />
+                <local:ItemValueDisplay Margin="5,0" Value="{Binding Path=SelectedRow.Listing.Buys.UnitPrice, Converter={StaticResource ToItemPrice}}" />
             </Viewbox>
         </Grid>
         <Rectangle Grid.Column="1" Width="2" Fill="{DynamicResource SecondaryAccentBrush}" Margin="0,5"/>
@@ -39,7 +39,7 @@
                 <TextBlock Text="TP Sell price" Margin="3,0" HorizontalAlignment="Center" Foreground="White"/>
             </Viewbox>
             <Viewbox Grid.Row="1">
-                <local:ItemValueDisplay Margin="5,0" Value="{Binding Path=SelectedItem, Converter={StaticResource ToItemListing}, ConverterParameter='Sells'}" />
+                <local:ItemValueDisplay Margin="5,0" Value="{Binding Path=SelectedRow.Listing.Sells.UnitPrice, Converter={StaticResource ToItemPrice}}" />
             </Viewbox>
         </Grid>
     </Grid>

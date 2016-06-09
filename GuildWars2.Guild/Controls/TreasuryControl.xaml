@@ -39,7 +39,7 @@
                 <RowDefinition Height="55*"/>
                 <RowDefinition Height="45*"/>
             </Grid.RowDefinitions>
-            <widget:ItemDisplay Item="{Binding SelectedItem}" Grid.Row="0"/>
+            <widget:ItemDisplay Item="{Binding Path=SelectedRow.Item}" Grid.Row="0"/>
             <widget:ItemFilter Grid.Row="1"/>
         </Grid>
     </Grid>

@@ -1,4 +1,5 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2API.Model.Commerce;
+using GuildWars2API.Model.Items;
 using GuildWars2Guild.Classes;
 using GuildWars2Guild.Classes.Database;
 using GuildWars2Guild.Classes.Resources;
@@ -35,18 +36,7 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
             set
             {
                 _selectedRow = value;
-                NotifyPropertyChanged(nameof(SelectedItem));
-            }
-        }
-
-        public Item SelectedItem
-        {
-            get
-            {
-                if(SelectedRow != null)
-                    return SelectedRow.Item;
-
-                return new Item();
+                NotifyPropertyChanged(nameof(SelectedRow));
             }
         }
 
@@ -91,8 +81,11 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
             var goldEntries = new List<ItemEntry>();
             var stashEntries = LogDbManager.GetLogs(types).Where(entry => entry.ItemID != 0).ToList();
 
-            List<Item> items = ResourceManager.Instance.GetResource<Item>(stashEntries.Select(entry => entry.ItemID).ToList());
-            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass(new ItemEntry() { Item = items.Find(item => item.ID == entry.ItemID) }, entry)); });
+            var itemIDs = stashEntries.Select(entry => entry.ItemID).ToList();
+
+            List<Item> items = ResourceManager.Instance.GetResource<Item>(itemIDs);
+            List<ItemListing> listings = ResourceManager.Instance.GetResource<ItemListing>(itemIDs);
+            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass(new ItemEntry() { Item = items.Find(item => item.ID == entry.ItemID), Listing = listings.Find(item => item.ID == entry.ItemID) }, entry)); });
             return goldEntries;
         }
     }

@@ -47,7 +47,7 @@
                 <RowDefinition Height="55*"/>
                 <RowDefinition Height="45*"/>
             </Grid.RowDefinitions>
-            <GroupBox Grid.Row="0" Header="{Binding SelectedMember}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+            <GroupBox Grid.Row="0" Header="{Binding Path=SelectedRow.User}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="90*"/>

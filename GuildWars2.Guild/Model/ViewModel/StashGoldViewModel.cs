@@ -62,18 +62,9 @@ namespace GuildWars2Guild.Model.ViewModel
             }
             set {
                 _selectedRow = value;
+                NotifyPropertyChanged(nameof(SelectedRow));
                 NotifyPropertyChanged(nameof(MemberTotal));
                 NotifyPropertyChanged(nameof(GoldLogMember));
-                NotifyPropertyChanged(nameof(SelectedMember));
-            }
-        }
-
-        public string SelectedMember {
-            get {
-                if(SelectedRow == null || string.IsNullOrEmpty(SelectedRow.User)) {
-                    return "";
-                }
-                return SelectedRow.User;
             }
         }
 
