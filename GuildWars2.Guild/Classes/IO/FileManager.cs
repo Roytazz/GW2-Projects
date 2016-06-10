@@ -33,8 +33,9 @@ namespace GuildWars2Guild.Classes.IO
         public static Task<bool> UploadDatabaseAsync() {
             if(!IsDatabasePresent())
                 return Task.FromResult(false);
-
-            Thread.Sleep(5000);     //Yes I know its ugly, but it needs to be here
+#if !DEBUG
+            Thread.Sleep(250);     
+#endif
             return DropBoxManager.Upload(DB_PATH, GetFullDataBasePath());
         }
 
