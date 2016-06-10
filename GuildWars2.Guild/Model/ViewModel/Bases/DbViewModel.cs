@@ -1,6 +1,6 @@
 ﻿using GuildWars2API.Model.Guild;
+using GuildWars2DB;
 using GuildWars2Guild.Classes;
-using GuildWars2Guild.Classes.Database;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
@@ -22,7 +22,7 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
                 return entries;
 
             var stashEntries = LogDbManager.GetLogs(types).ToList();
-            stashEntries.ForEach(entry => { entries.Add(Reflection.CopyClass(new T(), entry)); });
+            stashEntries.ForEach(entry => { entries.Add(Reflection.CopyClass<T, LogEntry>(entry)); });
 
             return entries;
         }

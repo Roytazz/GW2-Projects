@@ -22,7 +22,7 @@ namespace GuildWars2.Controls
 
             Keys = new ObservableCollection<ApiKey>();
 
-            var foundKeys = GuildWars2DB.SettingDB.GetApiKeys();
+            var foundKeys = GuildWars2DB.MiscDb.GetApiKeys();
             foundKeys.ForEach(k => Keys.Add(new ApiKey() { Name = k.Item1, Key = k.Item2 }));
             Keys.CollectionChanged += Keys_CollectionChanged;
 
@@ -37,7 +37,7 @@ namespace GuildWars2.Controls
                 var keys = new List<Tuple<string, string>>();
                 removedKeys.ForEach(k => keys.Add(new Tuple<string, string>(k.Name, k.Key)));
 
-                GuildWars2DB.SettingDB.RemoveKey(keys);
+                GuildWars2DB.MiscDb.RemoveKey(keys);
             }
         }
 
@@ -46,7 +46,7 @@ namespace GuildWars2.Controls
                 return;
 
             var key = new ApiKey() { Name = Textbox_KeyName.Text, Key = Textbox_Key.Text };
-            GuildWars2DB.SettingDB.AddKey(key.Name, key.Key);
+            GuildWars2DB.MiscDb.AddKey(key.Name, key.Key);
             Keys.Add(key);
 
             //Trigger event
@@ -61,7 +61,8 @@ namespace GuildWars2.Controls
         private void MainGameButton_Click(object sender, System.Windows.RoutedEventArgs e) {
             string path = OpenFileDialog();
             if(path != null && File.Exists(path)) {
-                GuildWars2DB.SettingDB.SetAppPath(path);
+                Properties.Settings.Default.AppPath = path;
+                Properties.Settings.Default.Save();
                 TextBox_MainGame.Text = path;
             }
         }

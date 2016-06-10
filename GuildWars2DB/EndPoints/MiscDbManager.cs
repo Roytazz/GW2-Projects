@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2DB
 {
-    public class SettingDB
+    public static class MiscDb
     {
 #pragma warning disable CSE0003
         public static List<WorldBoss> GetWorldBosses() {
@@ -19,13 +19,6 @@ namespace GuildWars2DB
         }
 
         public static void AddKey(string name, string key) {
-        }
-
-        public static void SetAppPath(string path) {
-        }
-
-        public static string GetAppPath() {
-            return string.Empty;
         }
 #pragma warning restore CSE0003
     }

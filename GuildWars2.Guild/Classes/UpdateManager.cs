@@ -1,4 +1,4 @@
-﻿using GuildWars2Guild.Classes.Database;
+﻿using GuildWars2DB;
 using GuildWars2Guild.Classes.IO;
 using GuildWars2Guild.Classes.Logger;
 using System.Threading.Tasks;

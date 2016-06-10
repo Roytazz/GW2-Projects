@@ -1,10 +1,6 @@
-﻿using GuildWars2Guild.Classes.Logger;
-using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-
-using static GuildWars2Guild.Classes.Logger.LogManager;
 
 namespace GuildWars2Guild.Classes.IO
 {
@@ -12,8 +8,8 @@ namespace GuildWars2Guild.Classes.IO
     {
         #region Paths
 
-        private static string DB_PATH = "/FGCT_DATABASE.sqlite";
-        private static string LOG_PATH = "/FGCT_LOG.log";
+        private static string DB_PATH = "/Gw2Database.sqlite";
+        private static string LOG_PATH = "/Gw2Log.log";
 
         public static string GetExecutingAssembly() {
             var executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -38,7 +34,7 @@ namespace GuildWars2Guild.Classes.IO
             if(!IsDatabasePresent())
                 return Task.FromResult(false);
 
-            Thread.Sleep(1000);     //Yes I know its ugly, but it needs to be here
+            Thread.Sleep(5000);     //Yes I know its ugly, but it needs to be here
             return DropBoxManager.Upload(DB_PATH, GetFullDataBasePath());
         }
 

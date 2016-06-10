@@ -1,6 +1,7 @@
-﻿using GuildWars2API.Model.Value;
+﻿using GuildWars2API.Model.Guild;
+using GuildWars2API.Model.Value;
+using GuildWars2DB;
 using GuildWars2Guild.Classes;
-using GuildWars2Guild.Classes.Database;
 using GuildWars2Guild.Classes.MVVM;
 using GuildWars2Guild.Model.ViewModel.Bases;
 using System;
@@ -110,7 +111,7 @@ namespace GuildWars2Guild.Model.ViewModel
             var goldEntries = new List<GoldEntry>();
 
             var stashEntries = LogDbManager.GetLogs("stash").Where(entry => entry.Coins > 0).ToList();
-            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass(new GoldEntry(), entry)); });
+            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass<GoldEntry, LogEntry>(entry)); });
 
             return goldEntries;
         }

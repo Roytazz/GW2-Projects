@@ -1,4 +1,5 @@
 ﻿using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,12 +9,44 @@ using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace GuildWars2Guild.Classes
 {
-    public static class SwatchesProvider
+    public static class SwatchesManager
     {
+        public static void LoadTheme() {
+            var swatches = SwatchesManager.GetSwatches();
+            var baseTheme = Properties.Settings.Default.ThemePrimary;
+            if(!string.IsNullOrEmpty(baseTheme)) {
+                if(swatches.Any(swatch => swatch.Name.Equals(baseTheme))) {
+                    var primarySwatch = swatches.ToList().Find(swatchEntry => swatchEntry.Name.Equals(baseTheme));
+                    ApplyPrimary(primarySwatch);
+                }
+            }
+
+            var accentTheme = Properties.Settings.Default.ThemeAccent;
+            if(!string.IsNullOrEmpty(accentTheme)) {
+                if(swatches.Any(swatch => swatch.Name.Equals(accentTheme))) {
+                    var accentSwatch = swatches.ToList().Find(swatchEntry => swatchEntry.Name.Equals(accentTheme));
+                    ApplyAccent(accentSwatch);
+                }
+            }
+        }
+
+        public static void ApplyPrimary(Swatch swatch) {
+            new PaletteHelper().ReplacePrimaryColor(swatch);
+            Properties.Settings.Default.ThemePrimary = swatch.Name;
+            Properties.Settings.Default.Save();
+        }
+
+        public static void ApplyAccent(Swatch swatch) {
+            new PaletteHelper().ReplaceAccentColor(swatch);
+            Properties.Settings.Default.ThemeAccent = swatch.Name;
+            Properties.Settings.Default.Save();
+        }
+
         public static IEnumerable<Swatch> GetSwatches() {
             var regex = new Regex(@"^themes\/materialdesigncolor\.(?<name>[a-z]+)\.(?<type>primary|accent)\.baml$");
             var assembly = AppDomain.CurrentDomain.GetAssemblies().Single(ass => ass.GetName().FullName.Contains("MaterialDesignColors"));

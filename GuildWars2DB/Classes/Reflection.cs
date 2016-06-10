@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Reflection;
 
-namespace GuildWars2Guild.Classes
+namespace GuildWars2DB.Classes
 {
     internal static class Reflection
     {
-        public static T1 CopyClass<T1, T2>(this T1 obj, T2 otherObject) where T1 : class where T2 : class {
+        public static T1 CopyClass<T1, T2>(this T1 obj, T2 otherObject)  where T1 : class where T2 : class {
             PropertyInfo[] srcFields = otherObject.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
             PropertyInfo[] destFields = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
 

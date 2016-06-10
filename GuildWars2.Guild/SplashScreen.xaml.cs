@@ -5,6 +5,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net;
 using System.Windows.Threading;
 
@@ -18,6 +19,7 @@ namespace GuildWars2Guild
         MainWindow _mainWindow;
 
         public SplashScreen() {
+            SwatchesManager.LoadTheme();
             InitializeComponent();
 
             var _bg = new BackgroundWorker { WorkerReportsProgress = true };

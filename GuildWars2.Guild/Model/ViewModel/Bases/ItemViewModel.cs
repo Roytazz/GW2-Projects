@@ -1,7 +1,7 @@
 ﻿using GuildWars2API.Model.Commerce;
 using GuildWars2API.Model.Items;
+using GuildWars2DB;
 using GuildWars2Guild.Classes;
-using GuildWars2Guild.Classes.Database;
 using GuildWars2Guild.Classes.Resources;
 using System;
 using System.Collections.Generic;

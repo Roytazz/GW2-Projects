@@ -58,7 +58,7 @@ namespace GuildWars2.Classes.Collections
         #region Initialization
 
         private void InitCollection() {
-            var bosses = GuildWars2DB.SettingDB.GetWorldBosses();
+            var bosses = GuildWars2DB.MiscDb.GetWorldBosses();
             var displayBosses = bosses.Cast<DisplayWorldBoss>().ToList();
             displayBosses.ToList().ForEach(b => this.Add(b));
         }

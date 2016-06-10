@@ -1,13 +1,13 @@
 ﻿using GuildWars2API.Model.Guild;
-using System;
+using GuildWars2DB.Classes;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
-namespace GuildWars2Guild.Classes.Database.Tables
+namespace GuildWars2DB.Model.Tables
 {
-    internal class GuildLogTable : ISqliteTable<LogEntry>
+    public class GuildLogTable : ISqliteTable<LogEntry>
     {
-        public string Name { get { return "Guild_Log"; } }
+        public string Name { get { return "GuildLog"; } }
 
         public SqliteTable CreateTable() {
             SqliteTable table = new SqliteTable(Name);

@@ -52,7 +52,7 @@ namespace GuildWars2.Windows
         }
         
         private void MainGame_Click(object sender, RoutedEventArgs e) {
-            string path = GuildWars2DB.SettingDB.GetAppPath(); 
+            string path = Properties.Settings.Default.AppPath; 
             if(path != null)
                 return;
 
