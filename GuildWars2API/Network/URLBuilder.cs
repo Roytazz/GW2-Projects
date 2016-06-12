@@ -12,6 +12,7 @@ namespace GuildWars2API.Network
         //Second Endpoints
         private const string FILES = "files";
         private const string ITEMS = "items";
+        private const string EMBLEM = "emblem";
         private const string ACCOUNT = "account";
         private const string COMMERCE = "commerce";
         private const string CHARACTERS = "characters";
@@ -28,6 +29,8 @@ namespace GuildWars2API.Network
         private const string RECIPES = "recipes";
         private const string EXCHANGE = "exchange";
         private const string MATERIALS = "materials";
+        private const string FOREGROUNDS = "foregrounds";
+        private const string BACKGROUNDS = "backgrounds";
         private const string TRANSACTIONS = "transactions";     //Returns all current account TP listings
 
         #region Items
@@ -101,10 +104,16 @@ namespace GuildWars2API.Network
 
         public static string GetGuildLog(string guildID) => string.Format("{0}/{1}/{2}/log", ROOT_GW2_V2, GUILD, guildID);
 
+        public static string GetGuildMembers(string guildId) => string.Format("{0}/{1}/{2}/{3}", ROOT_GW2_V2, GUILD, guildId, "members");
+
         #endregion Guild
 
         #region Misc
         public static string GetColors(string language = "en") => string.Format("{0}/colors.json?lang={1}", ROOT_GW2_V1, language);
+
+        public static string GetEmblemBackgroundLayers(int id) => string.Format("{0}/{1}/{2}?ids={3}", ROOT_GW2_V2, EMBLEM, BACKGROUNDS, id);
+
+        public static string GetEmblemForegroundLayers(int id) => string.Format("{0}/{1}/{2}?ids={3}", ROOT_GW2_V2, EMBLEM, FOREGROUNDS, id);
 
         public static string GetAssetFromID(string assetID) => string.Format("{0}/{1}?ids={2}", ROOT_GW2_V2, FILES, Encode(assetID));
 

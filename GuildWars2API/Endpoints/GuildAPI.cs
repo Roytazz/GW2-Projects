@@ -21,6 +21,15 @@ namespace GuildWars2API
         public static GuildDetails GetGuildDetails(string guildName) {
             return UnauthorizedRequest<GuildDetails>(URLBuilder.GetGuildDetailsByName(guildName));
         }
+
+        public static List<Member> GetMembersByGuildName(string apiKey, string guildName) {
+            var guildDetails = GetGuildDetails(guildName);
+            return AuthorizedRequest<List<Member>>(URLBuilder.GetGuildMembers(guildDetails.GuildID), apiKey);
+        }
+
+        public static List<Member> GetMembersByGuildID(string apiKey, string guildId) {
+            return AuthorizedRequest<List<Member>>(URLBuilder.GetGuildMembers(guildId), apiKey);
+        }
 #pragma warning restore CSE0003
     }
 }

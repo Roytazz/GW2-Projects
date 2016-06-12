@@ -5,7 +5,8 @@ namespace GuildWars2API.Model.Guild
 {
     public class GuildEmblem
     {
-        /* (see API:1/colors) */
+        //For colors see API:1/colors
+
         [JsonProperty("background_id")]
         public int BackgroundID { get; set; }
 

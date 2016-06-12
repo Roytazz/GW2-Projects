@@ -5,6 +5,8 @@ namespace GuildWars2API.Model.Color
 {
     public class Color
     {
+        public int ID { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 

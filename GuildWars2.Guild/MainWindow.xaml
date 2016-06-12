@@ -9,7 +9,7 @@
         xmlns:viewModel="clr-namespace:GuildWars2Guild.Model.ViewModel"
         GlowBrush="{DynamicResource AccentColorBrush}" BorderThickness="0"
         WindowStartupLocation="CenterScreen" ShowIconOnTitleBar="True" Title="Frostgorge Champ Train [FGCT]"
-        Height="576" Width="1024" UseLayoutRounding="True" MinWidth="768" MinHeight="500">
+        Height="576" Width="1024" UseLayoutRounding="True" MinWidth="768" MinHeight="550">
     <metroControls:MetroWindow.IconTemplate>
         <DataTemplate>
             <Image Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="6,2,6,2" 
@@ -33,7 +33,11 @@
         <dockablz:Layout Grid.Row="0">
             <dragablz:TabablzControl SelectedIndex="1">
                 <TabItem Header="MAIN">
-                    <TextBlock Text="Not sure what to put here yet" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                    <userControls:HomeControl>
+                        <userControls:HomeControl.DataContext>
+                            <viewModel:GuildViewModel/>
+                        </userControls:HomeControl.DataContext>
+                    </userControls:HomeControl>
                 </TabItem>
                 <TabItem Header="MEMBERS">
                     <userControls:MemberControl/>

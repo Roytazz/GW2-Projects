@@ -1,4 +1,5 @@
 ﻿using GuildWars2API.Model.Color;
+using GuildWars2API.Model.Guild;
 using GuildWars2API.Network;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,10 +16,22 @@ namespace GuildWars2API
             var colorCollection = new List<Color>();
             if(result.Last != null && result.Last.Last != null) {
                 foreach(var color in result.Last.Last) {
-                    colorCollection.Add(JsonConvert.DeserializeObject(color.First.ToString(), typeof(Color)) as Color);
+                    var colorObj = JsonConvert.DeserializeObject(color.First.ToString(), typeof(Color)) as Color;
+                    colorObj.ID = int.Parse((color as JProperty).Name);
+                    colorCollection.Add(colorObj);
                 }
             }
             return colorCollection;
+        }
+
+        public static List<string> GetEmblemBackgroundLayers(int id) {
+            var result = UnauthorizedRequest<List<Emblem>>(URLBuilder.GetEmblemBackgroundLayers(id));
+            return result[0].Layers;
+        }
+
+        public static List<string> GetEmblemForegroundLayers(int id) {
+            var result = UnauthorizedRequest<List<Emblem>>(URLBuilder.GetEmblemForegroundLayers(id));
+            return result[0].Layers;
         }
     }
 }

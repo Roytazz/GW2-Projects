@@ -10,7 +10,6 @@ namespace GuildWars2API.Model.Guild
         public int ID { get; set; }
 
         [JsonProperty("layers")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public List<string> Layers { get; set; }
     }
 }

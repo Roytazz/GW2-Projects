@@ -113,8 +113,13 @@
     <Compile Include="Classes\IO\FileManager.cs" />
     <Compile Include="Classes\IO\LogManager.cs" />
     <Compile Include="Classes\Logger\BaseLogger.cs" />
+    <Compile Include="Classes\MVVM\Converter\ToEmblemColor.cs" />
     <Compile Include="Classes\MVVM\Converter\ToItemPrice.cs" />
     <Compile Include="Classes\NotifyHandler.cs" />
+    <Compile Include="Classes\Resources\ColorProvider.cs" />
+    <Compile Include="Controls\HomeControl.xaml.cs">
+      <DependentUpon>HomeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MemberControl\MemberControl.xaml.cs">
       <DependentUpon>MemberControl.xaml</DependentUpon>
     </Compile>
@@ -130,17 +135,25 @@
     <Compile Include="Controls\TreasuryControl.xaml.cs">
       <DependentUpon>TreasuryControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Widgets\EmblemControl.xaml.cs">
+      <DependentUpon>EmblemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\LotteryFilter.xaml.cs">
       <DependentUpon>LotteryFilter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\RosterEntry.cs" />
     <Compile Include="Model\ViewModel\Bases\DbViewModel.cs" />
     <Compile Include="Model\ViewModel\Bases\ItemViewModel.cs" />
+    <Compile Include="Model\ViewModel\GuildViewModel.cs" />
     <Compile Include="Model\ViewModel\LotteryViewModel.cs" />
     <Compile Include="Model\ViewModel\ViewModels.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\HomeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\MemberControl\MemberControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TreasuryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Widgets\EmblemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

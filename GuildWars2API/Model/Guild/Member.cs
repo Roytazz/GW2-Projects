@@ -3,7 +3,7 @@ using System;
 
 namespace GuildWars2API.Model.Guild
 {
-    class Member
+    public class Member
     {
         [JsonProperty("name")]
         public string Name { get; set; }
