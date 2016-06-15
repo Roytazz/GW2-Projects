@@ -20,10 +20,10 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
             var entries = new List<T>();
             if(types.Length <= 0)
                 return entries;
-
-            var stashEntries = LogDbManager.GetLogs(types).ToList();
-            stashEntries.ForEach(entry => { entries.Add(Reflection.CopyClass<T, LogEntry>(entry)); });
-
+            
+            foreach(var entry in LogDbManager.GetLogs(types).ToList()) {
+                entries.Add(Reflection.CopyClass<T, LogEntry>(entry));
+            }
             return entries;
         }
     }

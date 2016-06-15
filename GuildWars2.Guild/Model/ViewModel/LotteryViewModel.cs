@@ -34,7 +34,7 @@ namespace GuildWars2Guild.Model.ViewModel
 
         private List<GoldEntry> GetEligibleWinners() {
             var collection = new List<GoldEntry>(MainCollection);
-            if(ExcludedMembers != null && ExcludedMembers.Length > 0) {
+            if(ExcludedMembers?.Length > 0) {
                 foreach(string name in ExcludedMembers.Split(';')) {
                     collection.Add(new GoldEntry { User = name.Trim() });
                 }
@@ -111,7 +111,9 @@ namespace GuildWars2Guild.Model.ViewModel
             var goldEntries = new List<GoldEntry>();
 
             var stashEntries = LogDbManager.GetLogs("stash").Where(entry => entry.Coins > 0).ToList();
-            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass<GoldEntry, LogEntry>(entry)); });
+            foreach(var entry in stashEntries) {
+                goldEntries.Add(Reflection.CopyClass<GoldEntry, LogEntry>(entry));
+            }
 
             return goldEntries;
         }

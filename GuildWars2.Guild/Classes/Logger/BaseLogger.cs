@@ -19,7 +19,7 @@ namespace GuildWars2Guild.Classes.Logger
         protected List<Exception> GetRealException(Exception ex) {
             List<Exception> exceptions = new List<Exception>();
             if(ex != null) {
-                if(ex.GetType() == typeof(AggregateException)) {
+                if(ex is AggregateException) {
 
                     foreach(Exception singleEx in (ex as AggregateException).InnerExceptions) {
                         exceptions.Add(singleEx);

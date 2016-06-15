@@ -30,7 +30,6 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
                         return new ItemEntry();
                     }
                 }
-
                 return _selectedRow;
             }
             set
@@ -57,13 +56,16 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
             var item = value as ItemEntry;
             var result = true;
 
-            if(CheckDate)
+            if(CheckDate && item?.Time != null)
                 result = IsBetweenDates(item.Time, StartDate, EndDate);
 
-            if(CheckItemCount && ItemCount?.Length > 0 && result)
-                result = IsBiggerAmount(item.Count, int.Parse(ItemCount));
+            if(CheckItemCount && ItemCount?.Length > 0 && result) {
+                int itemCount;
+                if(int.TryParse(ItemCount, out itemCount))
+                    result = IsBiggerAmount(item.Count, int.Parse(ItemCount));
+            }
 
-            if(CheckKeyword && result)
+            if(CheckKeyword && !string.IsNullOrEmpty(item?.User) && !string.IsNullOrEmpty(item?.Operation) && result)
                 result = ContainsKeyword(KeywordValue, item.User) || ContainsKeyword(KeywordValue, item.Operation);
 
             return result;
@@ -85,7 +87,13 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
 
             List<Item> items = ResourceManager.Instance.GetResource<Item>(itemIDs);
             List<ItemListing> listings = ResourceManager.Instance.GetResource<ItemListing>(itemIDs);
-            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass(new ItemEntry() { Item = items.Find(item => item.ID == entry.ItemID), Listing = listings.Find(item => item.ID == entry.ItemID) }, entry)); });
+            foreach(var entry in stashEntries) {
+                var itemEntry = new ItemEntry() {
+                                    Item = items.Find(item => item.ID == entry.ItemID),
+                                    Listing = listings.Find(item => item.ID == entry.ItemID)
+                                };
+                goldEntries.Add(Reflection.CopyClass(itemEntry, entry));
+            }
             return goldEntries;
         }
     }

@@ -9,9 +9,13 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
 
         public ListSortDirection SortDirection { get; set; }
 
-        public int Compare(object x, object y) {
+        public int Compare(object x, object y) {        
             if(x is LogEntry && y is LogEntry) {
                 int result = (x as LogEntry).Time.CompareTo((y as LogEntry).Time);
+                return result * (SortDirection == ListSortDirection.Descending ? 1 : -1);
+            }
+            else if(x is Member && y is Member) {
+                int result = (x as Member).Joined.CompareTo((y as Member).Joined);
                 return result * (SortDirection == ListSortDirection.Descending ? 1 : -1);
             }
             return 0;

@@ -1,6 +1,8 @@
-﻿namespace GuildWars2Guild.Model
+﻿using GuildWars2API.Model.Guild;
+
+namespace GuildWars2Guild.Model
 {
-    class RosterEntry : DisplayLogEntry     
+    class RosterEntry : LogEntry
     {
         public string RosterAction {
             get {

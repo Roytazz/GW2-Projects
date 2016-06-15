@@ -1,20 +1,21 @@
-﻿using GuildWars2Guild.Model.ViewModel.Bases;
+﻿using GuildWars2API.Model.Guild;
+using GuildWars2Guild.Model.ViewModel.Bases;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
-    class MotdViewModel : DbViewModel<DisplayLogEntry>
+    class MotdViewModel : DbViewModel<LogEntry>
     {
         public MotdViewModel() : base("motd") { }
     }
 
-    class MemberRankViewModel : DbViewModel<DisplayLogEntry>
+    class MemberRankViewModel : DbViewModel<LogEntry>
     {
         public MemberRankViewModel() : base("rank_change") { }
     }
 
-    class MemberRosterViewModel : DbViewModel<RosterEntry>
+    class MemberEventViewModel : DbViewModel<RosterEntry>
     {
-        public MemberRosterViewModel() : base("joined", "invited", "kick") { }
+        public MemberEventViewModel() : base("joined", "invited", "kick") { }
     }
 
     class StashItemViewModel : ItemViewModel

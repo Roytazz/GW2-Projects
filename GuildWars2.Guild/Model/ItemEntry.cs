@@ -1,9 +1,10 @@
 ﻿using GuildWars2API.Model.Commerce;
+using GuildWars2API.Model.Guild;
 using GuildWars2API.Model.Items;
 
 namespace GuildWars2Guild.Model
 {
-    public class ItemEntry : DisplayLogEntry
+    public class ItemEntry : LogEntry
     {
         public Item Item { get; set; }
 

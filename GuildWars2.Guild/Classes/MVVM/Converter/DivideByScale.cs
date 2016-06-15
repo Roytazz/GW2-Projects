@@ -6,17 +6,18 @@ namespace GuildWars2Guild.Classes.MVVM.Converter
 {
     public class DivideByScale : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            if(double.Parse(value.ToString()) == 0)
-                return 1;
-            
-            if(parameter != null) 
-                return double.Parse(value.ToString()) / int.Parse(parameter.ToString());
-            
-            return double.Parse(value.ToString()) / 940;
+            double scale;
+            if(double.TryParse(value.ToString(), out scale) && scale == 0) {
 
-            //return double.Parse(value.ToString()) / 720; //This is the optimal scale
+                double scaleParam;
+                if(parameter != null && double.TryParse(parameter.ToString(), out scaleParam))
+                    return scale / scaleParam;
+
+                return scale / 940;
+                //return scale / 720; //This is the optimal scale
+            }
+            return 1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;

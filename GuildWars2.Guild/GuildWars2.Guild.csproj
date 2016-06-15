@@ -113,6 +113,7 @@
     <Compile Include="Classes\IO\FileManager.cs" />
     <Compile Include="Classes\IO\LogManager.cs" />
     <Compile Include="Classes\Logger\BaseLogger.cs" />
+    <Compile Include="Classes\MVVM\Converter\DateToString.cs" />
     <Compile Include="Classes\MVVM\Converter\ToEmblemColor.cs" />
     <Compile Include="Classes\MVVM\Converter\ToItemPrice.cs" />
     <Compile Include="Classes\NotifyHandler.cs" />
@@ -125,6 +126,9 @@
     </Compile>
     <Compile Include="Controls\MemberControl\MemberRankControl.xaml.cs">
       <DependentUpon>MemberRankControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MemberControl\MemberEventControl.xaml.cs">
+      <DependentUpon>MemberEventControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MemberControl\MemberRosterControl.xaml.cs">
       <DependentUpon>MemberRosterControl.xaml</DependentUpon>
@@ -146,6 +150,7 @@
     <Compile Include="Model\ViewModel\Bases\ItemViewModel.cs" />
     <Compile Include="Model\ViewModel\GuildViewModel.cs" />
     <Compile Include="Model\ViewModel\LotteryViewModel.cs" />
+    <Compile Include="Model\ViewModel\MemberRosterViewModel.cs" />
     <Compile Include="Model\ViewModel\ViewModels.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
@@ -159,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MemberControl\MemberRankControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MemberControl\MemberEventControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,7 +327,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\MVVM\Converter\ToUpperCasingColors.cs" />
-    <Compile Include="Model\DisplayLogEntry.cs" />
     <Compile Include="Model\GoldEntry.cs" />
     <Compile Include="Classes\MVVM\Sorting\DateSort.cs" />
     <Compile Include="Classes\MVVM\Sorting\GoldSort.cs" />

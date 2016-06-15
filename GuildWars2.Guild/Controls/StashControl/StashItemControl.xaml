@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <sorting:GoldSort x:Key="GoldSort" />
         <sorting:DateSort x:Key="DateSort" />
+        <converter:DateToString x:Key="DateToString" />
         <converter:DivideByScale x:Key="DivideByScale" />
     </UserControl.Resources>
     <Grid>
@@ -31,7 +32,7 @@
                     <DataGridTextColumn Binding="{Binding Item.Name}" Header="Item" />
                     <DataGridTextColumn Binding="{Binding Count}" Header="Amount" />
                     <DataGridTextColumn Binding="{Binding Operation}" Header="Operation" />
-                    <DataGridTextColumn Binding="{Binding DateString}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}"/>
+                    <DataGridTextColumn Binding="{Binding Time, Converter={StaticResource DateToString}}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

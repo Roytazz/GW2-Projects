@@ -13,7 +13,7 @@
     <Grid>
         <Image Source="{Binding BackgroundSource}" OpacityMask="{Binding Path=GuildDetails.Emblem.BackgroundColorID, Converter={StaticResource EmblemColor}}" />
         <Image Source="{Binding ForegroundSource1}" OpacityMask="{Binding Path=GuildDetails.Emblem.ForegroundPrimaryColorID, Converter={StaticResource EmblemColor}}"/>
-        <Image Source="{Binding ForegroundSource2}"/>
-        <Image Source="{Binding ForegroundSource3}" OpacityMask="{Binding Path=GuildDetails.Emblem.ForegroundSecondaryColorID, Converter={StaticResource EmblemColor}}"/>
+        <Image Source="{Binding ForegroundSource2}" OpacityMask="{Binding Path=GuildDetails.Emblem.ForegroundSecondaryColorID, Converter={StaticResource EmblemColor}}"/>
+        <Image Source="{Binding ForegroundSource3}" OpacityMask="Red" />
     </Grid>
 </UserControl>

@@ -30,13 +30,16 @@ namespace GuildWars2Guild.Model.ViewModel
             var item = value as GoldEntry;
             var result = true;
 
-            if(CheckDate)
+            if(CheckDate && item?.Time != null)
                 result = IsBetweenDates(item.Time, StartDate, EndDate);
 
-            if(CheckGold && GoldValue?.Length > 0 && result)
-                result = IsBiggerAmount(item.Value.Gold, int.Parse(GoldValue));
+            if(CheckGold && GoldValue?.Length > 0 && result) {
+                int goldValue;
+                if(int.TryParse(GoldValue, out goldValue))
+                    result = IsBiggerAmount(item.Value.Gold, int.Parse(GoldValue));
+            }
 
-            if(CheckKeyword && result)
+            if(CheckKeyword && !string.IsNullOrEmpty(item?.User) && !string.IsNullOrEmpty(item?.Operation) && result)
                 result = ContainsKeyword(KeywordValue, item.User) || ContainsKeyword(KeywordValue, item.Operation);
 
             return result;
@@ -102,7 +105,9 @@ namespace GuildWars2Guild.Model.ViewModel
             var goldEntries = new List<GoldEntry>();
 
             var stashEntries = LogDbManager.GetLogs("stash").Where(entry => entry.Coins > 0).ToList();
-            stashEntries.ForEach(entry => { goldEntries.Add(Reflection.CopyClass<GoldEntry, LogEntry>(entry)); });
+            foreach(var entry in stashEntries) {
+                goldEntries.Add(Reflection.CopyClass<GoldEntry, LogEntry>(entry));
+            }
 
             return goldEntries;
         }

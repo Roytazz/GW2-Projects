@@ -11,6 +11,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <sorting:DateSort x:Key="DateSort" />
+        <converter:DateToString x:Key="DateToString" />
         <converter:DivideByScale x:Key="DivideByScale" />
     </UserControl.Resources>
     <Grid>
@@ -32,7 +33,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Binding="{Binding DateString}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
+                    <DataGridTextColumn Binding="{Binding Time, Converter={StaticResource DateToString}}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

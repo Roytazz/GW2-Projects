@@ -11,24 +11,23 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <sorting:DateSort x:Key="DateSort" />
+        <converter:DateToString x:Key="DateToString" />
         <converter:DivideByScale x:Key="DivideByScale" />
     </UserControl.Resources>
-    <Grid>
-        <Border Grid.Row="0" Margin="-5,-5,0,0">
-            <Border.LayoutTransform>
-                <ScaleTransform ScaleX="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" 
+    <Border Grid.Row="0" Margin="-5,-5,0,0">
+        <Border.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" 
                         ScaleY="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" />
-            </Border.LayoutTransform>
-            <DataGrid CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding MainCollectionView}"
+        </Border.LayoutTransform>
+        <DataGrid CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding MainCollectionView}"
                   Grid.Column="0" materialDesign:DataGridAssist.CellPadding="8,6,6,6" materialDesign:DataGridAssist.ColumnHeaderPadding="6" sorting:CustomSortBehaviour.AllowCustomSort="True" SelectionMode="Single">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding User}" Header="User" />
-                    <DataGridTextColumn Binding="{Binding OldRank}" Header="Old Rank" />
-                    <DataGridTextColumn Binding="{Binding NewRank}" Header="New Rank" />
-                    <DataGridTextColumn Binding="{Binding ChangedBy}" Header="Changed By" />
-                    <DataGridTextColumn Binding="{Binding DateString}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
-    </Grid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding User}" Header="User" />
+                <DataGridTextColumn Binding="{Binding OldRank}" Header="Old Rank" />
+                <DataGridTextColumn Binding="{Binding NewRank}" Header="New Rank" />
+                <DataGridTextColumn Binding="{Binding ChangedBy}" Header="Changed By" />
+                <DataGridTextColumn Binding="{Binding Time, Converter={StaticResource DateToString}}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Border>
 </UserControl>
