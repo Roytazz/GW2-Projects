@@ -21,19 +21,36 @@ namespace GuildWars2Guild.Classes.Resources
                 Add(itemFound);
                 return Get(ID);
             }
-            return _items.Single(i => i.ID == ID);
+            return _items.Find(i => i.ID == ID);
         }
 
         public List<Item> Get(List<int> IDs) {
             var newItems = IDs.Where(id => !_items.Any(item => item.ID == id));
             var result = GuildWars2API.ItemAPI.GetItem(new HashSet<int>(newItems));
 
-            result.ForEach(item => {
+            foreach(var item in result) {
                 if(item != null)
                     Add(item);
-            });
-
+            }
             return _items.Where(item => IDs.Any(id => item.ID == id)).ToList();
+        }
+
+        public Item Get(string identifier) {
+            int id;
+            if(int.TryParse(identifier, out id))
+                return Get(id);
+
+            return null;
+        }
+
+        public List<Item> Get(List<string> identifiers) {
+            List<int> ids = new List<int>();
+            foreach(string identifier in identifiers) {
+                int id;
+                if(int.TryParse(identifier, out id))
+                    ids.Add(id);
+            }
+            return Get(ids);
         }
 
         private void Add(Item item) {
@@ -42,6 +59,10 @@ namespace GuildWars2Guild.Classes.Resources
                 _items.RemoveAt(0);
 
             _items.Add(item);
+        }
+
+        public void Reset() {
+            return;
         }
     }
 }

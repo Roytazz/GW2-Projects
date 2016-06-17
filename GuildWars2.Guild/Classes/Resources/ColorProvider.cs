@@ -1,9 +1,6 @@
 ﻿using GuildWars2API.Model.Color;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuildWars2Guild.Classes.Resources
 {
@@ -22,12 +19,34 @@ namespace GuildWars2Guild.Classes.Resources
             }
         }
 
+        public Color Get(string identifier) {
+            int id;
+            if(int.TryParse(identifier, out id))
+                return Get(id);
+
+            return null;
+        }
+
+        public List<Color> Get(List<string> identifiers) {
+            List<int> ids = new List<int>();
+            foreach(string identifier in identifiers) {
+                int id;
+                if(int.TryParse(identifier, out id))
+                    ids.Add(id);
+            }
+            return Get(ids);
+        }
+
         public Color Get(int ID) {
             return Colors.Find(color => color.ID == ID);
         }
 
         public List<Color> Get(List<int> ID) {
             return Colors.Where(color => ID.Contains(color.ID)).ToList();
+        }
+
+        public void Reset() {
+            return;
         }
     }
 }

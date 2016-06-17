@@ -51,6 +51,22 @@ namespace GuildWars2Guild.Classes.Resources
             return default(List<T>);
         }
 
+        public T GetResource<T>(string identifier) {
+            var provider = GetProvider<T>();
+            if(provider != null)
+                return provider.Get(identifier);
+
+            return default(T);
+        }
+
+        public List<T> GetResource<T>(List<string> identifiers) {
+            var provider = GetProvider<T>();
+            if(provider != null)
+                return provider.Get(identifiers);
+
+            return default(List<T>);
+        }
+
         private IResourceProvider<T> GetProvider<T>() {
             if(!_providers.ContainsKey(typeof(T))) {
                 var providerType = GetProviderType<T>();
@@ -73,9 +89,14 @@ namespace GuildWars2Guild.Classes.Resources
         }
 
         private Type GetProviderType<T>() {
-            return AppDomain.CurrentDomain.GetAssemblies()
+            var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => typeof(IResourceProvider<T>).IsAssignableFrom(p)).First();
+                .Where(p => typeof(IResourceProvider<T>).IsAssignableFrom(p) && !p.IsInterface);
+
+            if(types.Count() > 0)
+                return types.First();
+
+            return null;
         }
     }
 }
