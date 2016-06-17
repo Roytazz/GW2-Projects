@@ -3,12 +3,17 @@ using GuildWars2API.Network;
 using System.Collections.Generic;
 
 using static GuildWars2API.Network.NetworkManager;
+using System;
 
 namespace GuildWars2API
 {
     public static class GuildAPI
     {
 #pragma warning disable CSE0003
+        public static GuildDetails GetGuildDetails(string guildName) {
+            return UnauthorizedRequest<GuildDetails>(URLBuilder.GetGuildDetailsByName(guildName));
+        }
+
         public static List<LogEntry> GetGuildLogByName(string guildName, string apiKey) {
             var details = GetGuildDetails(guildName);
             return GetGuildLogByID(details.GuildID, apiKey);
@@ -18,16 +23,21 @@ namespace GuildWars2API
             return AuthorizedRequest<List<LogEntry>>(URLBuilder.GetGuildLog(guildID), apiKey);
         }
 
-        public static GuildDetails GetGuildDetails(string guildName) {
-            return UnauthorizedRequest<GuildDetails>(URLBuilder.GetGuildDetailsByName(guildName));
-        }
-
-        public static List<Member> GetMembersByGuildName(string apiKey, string guildName) {
+        public static List<Rank> GetGuildRanksByGuildName(string guildName, string apiKey) {
             var guildDetails = GetGuildDetails(guildName);
-            return AuthorizedRequest<List<Member>>(URLBuilder.GetGuildMembers(guildDetails.GuildID), apiKey);
+            return GetGuildRanksById(guildDetails.GuildID, apiKey);
         }
 
-        public static List<Member> GetMembersByGuildID(string apiKey, string guildId) {
+        public static List<Rank> GetGuildRanksById(string guildId, string apiKey) {
+            return AuthorizedRequest<List<Rank>>(URLBuilder.GetGuildRanks(guildId), apiKey);
+        }
+
+        public static List<Member> GetMembersByGuildName(string guildName, string apiKey) {
+            var guildDetails = GetGuildDetails(guildName);
+            return GetMembersByID(guildDetails.GuildID, apiKey);
+        }
+
+        public static List<Member> GetMembersByID(string guildId, string apiKey) {
             return AuthorizedRequest<List<Member>>(URLBuilder.GetGuildMembers(guildId), apiKey);
         }
 #pragma warning restore CSE0003

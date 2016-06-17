@@ -26,6 +26,7 @@ namespace GuildWars2API.Network
         private const string WALLET = "wallet";
         private const string SEARCH = "search";                 //Used for searching recipes
         private const string PRICES = "prices";                 //Returns highest TP listings
+
         private const string RECIPES = "recipes";
         private const string EXCHANGE = "exchange";
         private const string MATERIALS = "materials";
@@ -105,6 +106,8 @@ namespace GuildWars2API.Network
         public static string GetGuildLog(string guildID) => string.Format("{0}/{1}/{2}/log", ROOT_GW2_V2, GUILD, guildID);
 
         public static string GetGuildMembers(string guildId) => string.Format("{0}/{1}/{2}/{3}", ROOT_GW2_V2, GUILD, guildId, "members");
+
+        public static string GetGuildRanks(string guildId) => string.Format("{0}/{1}/{2}/{3}", ROOT_GW2_V2, GUILD, guildId, "ranks");
 
         #endregion Guild
 

@@ -1,9 +1,6 @@
 ﻿using GuildWars2API.Model.Guild;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuildWars2Guild.Classes.Resources
 {
@@ -18,7 +15,7 @@ namespace GuildWars2Guild.Classes.Resources
             get
             {
                 if(_ranks == null)
-                    _ranks = GuildWars2API.GuildAPI.GetGuildRanksByGuildName("Frostgorge Champ Train", "C16DC8F8-3888-8B46-8FE0-822491AF897AC0C9DB04-B655-4F80-962A-13255FABD616");     //TODO Setting
+                    _ranks = GuildWars2API.GuildAPI.GetGuildRanksByGuildName("Frostgorge Champ Train", Properties.Settings.Default.ApiKey);
 
                 return _ranks;
             }

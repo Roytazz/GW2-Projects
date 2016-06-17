@@ -2,16 +2,28 @@
 using GuildWars2Guild.Model.ViewModel.Bases;
 using System.Collections.Generic;
 using System.Windows.Data;
+using GuildWars2Guild.Classes;
+using GuildWars2Guild.Classes.Resources;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
     class MemberRosterViewModel : BaseViewModel
     {
-        public List<Member> MainCollection { get; set; }
+        public List<OrderEntry> MainCollection { get; set; }
 
         public MemberRosterViewModel() {
-            MainCollection = GuildWars2API.GuildAPI.GetMembersByGuildName(Properties.Settings.Default.ApiKey, "Frostgorge Champ Train");
+            var members = GuildWars2API.GuildAPI.GetMembersByGuildName("Frostgorge Champ Train", Properties.Settings.Default.ApiKey);
+
+            MainCollection = ConvertMembers(members);
             MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
+        }
+
+        private List<OrderEntry> ConvertMembers(List<Member> members) {
+            var memberEntries = new List<OrderEntry>();
+            foreach(Member member in members) {
+                memberEntries.Add(Reflection.CopyClass<OrderEntry, Member>(member));
+            }
+            return memberEntries;
         }
     }
 }

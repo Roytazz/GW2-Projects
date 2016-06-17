@@ -116,8 +116,11 @@
     <Compile Include="Classes\MVVM\Converter\DateToString.cs" />
     <Compile Include="Classes\MVVM\Converter\ToEmblemColor.cs" />
     <Compile Include="Classes\MVVM\Converter\ToItemPrice.cs" />
+    <Compile Include="Classes\MVVM\Converter\ToRankIcon.cs" />
+    <Compile Include="Classes\MVVM\Sorting\RankSort.cs" />
     <Compile Include="Classes\NotifyHandler.cs" />
     <Compile Include="Classes\Resources\ColorProvider.cs" />
+    <Compile Include="Classes\Resources\RankProvider.cs" />
     <Compile Include="Controls\HomeControl.xaml.cs">
       <DependentUpon>HomeControl.xaml</DependentUpon>
     </Compile>
@@ -145,7 +148,8 @@
     <Compile Include="Controls\Widgets\LotteryFilter.xaml.cs">
       <DependentUpon>LotteryFilter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\RosterEntry.cs" />
+    <Compile Include="Model\MemberEntry.cs" />
+    <Compile Include="Model\RosterEventEntry.cs" />
     <Compile Include="Model\ViewModel\Bases\DbViewModel.cs" />
     <Compile Include="Model\ViewModel\Bases\ItemViewModel.cs" />
     <Compile Include="Model\ViewModel\GuildViewModel.cs" />
@@ -427,8 +431,7 @@
       <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System" />
       <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System.IO" />
       <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System.Xml.Linq" />
-      <Code xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Type="Fragment" Language="cs">
-<![CDATA[
+      <Code xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Type="Fragment" Language="cs"><![CDATA[
 var config = XElement.Load(Config.ItemSpec).Elements("Costura").FirstOrDefault();
 
 if (config == null) return true;
@@ -447,8 +450,8 @@ var filesToCleanup = Files.Select(f => f.ItemSpec).Where(f => !excludedAssemblie
 
 foreach (var item in filesToCleanup)
   File.Delete(item);
-]]>
-      </Code></Task>
+]]></Code>
+    </Task>
   </UsingTask>
   <Target Name="CleanReferenceCopyLocalPaths" AfterTargets="AfterBuild;NonWinFodyTarget">
     <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />

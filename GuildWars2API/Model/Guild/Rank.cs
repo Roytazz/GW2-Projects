@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Guild
 {
-    class Rank
+    public class Rank
     {
         [JsonProperty("id")]
         public string ID { get; set; }

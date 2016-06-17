@@ -9,7 +9,7 @@ namespace GuildWars2API.Model.Guild
         public string Name { get; set; }
 
         [JsonProperty("rank")]
-        public string Rank { get; set; }
+        public string RankName { get; set; }
 
         /// <summary>
         /// ISO-8601 format

@@ -13,7 +13,7 @@ namespace GuildWars2Guild.Model.ViewModel
         public MemberRankViewModel() : base("rank_change") { }
     }
 
-    class MemberEventViewModel : DbViewModel<RosterEntry>
+    class MemberEventViewModel : DbViewModel<RosterEventEntry>
     {
         public MemberEventViewModel() : base("joined", "invited", "kick") { }
     }

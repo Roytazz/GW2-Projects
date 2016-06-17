@@ -2,7 +2,7 @@
 
 namespace GuildWars2Guild.Model
 {
-    class RosterEntry : LogEntry
+    class RosterEventEntry : LogEntry
     {
         public string RosterAction {
             get {

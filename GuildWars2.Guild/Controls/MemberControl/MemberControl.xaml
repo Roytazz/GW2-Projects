@@ -19,14 +19,14 @@
                         </usercontrol:MemberRosterControl.DataContext>
                     </usercontrol:MemberRosterControl>
                 </TabItem>
-                <TabItem Header="EVENTS">
+                <TabItem Header="ROSTER EVENTS">
                     <usercontrol:MemberEventControl>
                         <usercontrol:MemberEventControl.DataContext>
                             <viewModel:MemberEventViewModel/>
                         </usercontrol:MemberEventControl.DataContext>
                     </usercontrol:MemberEventControl>
                 </TabItem>
-                <TabItem Header="RANKS">
+                <TabItem Header="RANKS EVENTS">
                     <usercontrol:MemberRankControl>
                         <usercontrol:MemberRankControl.DataContext>
                             <viewModel:MemberRankViewModel/>

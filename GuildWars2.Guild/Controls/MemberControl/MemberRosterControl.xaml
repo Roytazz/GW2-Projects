@@ -10,6 +10,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <sorting:DateSort x:Key="DateSort" />
+        <sorting:RankSort x:Key="RankSort" />
+        <converter:ToRankIcon x:Key="ToRankIcon" />
         <converter:DateToString x:Key="DateToString" />
         <converter:DivideByScale x:Key="DivideByScale" />
     </UserControl.Resources>
@@ -22,7 +24,16 @@
                   Grid.Column="0" materialDesign:DataGridAssist.CellPadding="8,6,6,6" materialDesign:DataGridAssist.ColumnHeaderPadding="6" sorting:CustomSortBehaviour.AllowCustomSort="True" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="User" />
-                <DataGridTextColumn Binding="{Binding Rank}" Header="Rank" />
+                <DataGridTemplateColumn SortMemberPath="Rank" Header="Rank" sorting:CustomSortBehaviour.CustomSorter="{StaticResource RankSort}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image MaxWidth="25" Source="{Binding RankName, Converter={StaticResource ToRankIcon}}"/>
+                                <TextBlock Text="{Binding RankName}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Binding="{Binding Joined, Converter={StaticResource DateToString}}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
             </DataGrid.Columns>
         </DataGrid>

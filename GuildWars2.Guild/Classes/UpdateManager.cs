@@ -71,7 +71,7 @@ namespace GuildWars2Guild.Classes
         #endregion Download & Upload
 
         internal static void AddNewLogs() {
-            var apiKey = Properties.Settings.Default.ApiKey;
+            var apiKey = Properties.Settings.Default.ApiKey;        
             if(apiKey?.Length > 0) {
                 var results = GuildWars2API.GuildAPI.GetGuildLogByName("Frostgorge Champ Train", apiKey);
                 LogDbManager.AddUniqueLog(results);
