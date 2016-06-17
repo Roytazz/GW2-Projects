@@ -16,6 +16,11 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
 
         protected bool IsBiggerAmount(int value, int threshold) => value >= threshold;
 
-        protected bool ContainsKeyword(string keyWord, string value) => value.ToLower().Contains(keyWord.ToLower());
+        protected bool ContainsKeyword(string keyWord, string value) {
+            if(string.IsNullOrEmpty(keyWord) || string.IsNullOrEmpty(value))
+                return false;
+
+            return value.ToLower().Contains(keyWord.ToLower());
+        }
     }
 }

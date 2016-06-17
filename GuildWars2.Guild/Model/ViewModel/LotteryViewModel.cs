@@ -100,7 +100,7 @@ namespace GuildWars2Guild.Model.ViewModel
                 if(amount == 0)     //No entries between the dates
                     continue;
 
-                if(GoldValue == null || GoldValue.Length <= 0 || IsBiggerAmount(amount, new ItemPrice(int.Parse(GoldValue) * 10000).Gold))      
+                if(GoldValue == null || GoldValue.Length <= 0 || new ItemPrice(amount).CompareTo(new ItemPrice(int.Parse(GoldValue) * 10000)) == 1)      
                     accumulatedEntries.Add(new GoldEntry { User = name, Coins = deposits - withdraws });
             }
 

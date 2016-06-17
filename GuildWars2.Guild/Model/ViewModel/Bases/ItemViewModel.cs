@@ -65,8 +65,8 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
                     result = IsBiggerAmount(item.Count, int.Parse(ItemCount));
             }
 
-            if(CheckKeyword && !string.IsNullOrEmpty(item?.User) && !string.IsNullOrEmpty(item?.Operation) && result)
-                result = ContainsKeyword(KeywordValue, item.User) || ContainsKeyword(KeywordValue, item.Operation);
+            if(CheckKeyword && result)
+                result = ContainsKeyword(KeywordValue, item?.User) || ContainsKeyword(KeywordValue, item?.Operation) || ContainsKeyword(KeywordValue, item?.Item?.Name);
 
             return result;
         }
