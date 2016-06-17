@@ -12,7 +12,8 @@ namespace GuildWars2Guild.Classes.MVVM.Converter
             int colorId;
             if(int.TryParse(value.ToString(), out colorId) && colorId != 0) {
                 Color color = ResourceManager.Instance.GetResource<Color>(colorId);
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(255, (byte)color.BaseRGB[0], (byte)color.BaseRGB[1], (byte)color.BaseRGB[2]));
+                if(color != null) 
+                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(255, (byte)color.BaseRGB[0], (byte)color.BaseRGB[1], (byte)color.BaseRGB[2]));
             }
             return Binding.DoNothing;
         }

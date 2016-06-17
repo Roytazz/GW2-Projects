@@ -7,8 +7,8 @@ namespace GuildWars2Guild.Classes.MVVM.Converter
     class ToRarityColor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            if(value is string && !string.IsNullOrEmpty(value as string)) {
-                var type = value as string;
+            if(!string.IsNullOrEmpty(value.ToString())) {
+                var type = value.ToString();
                 if(type.Equals("Junk")) {
                     return "#FFA6A6A6";
                 }

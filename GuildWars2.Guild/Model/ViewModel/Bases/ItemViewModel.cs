@@ -24,7 +24,7 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
             {
                 if(_selectedRow == null) {
                     if(MainCollection?.Count > 0) {
-                        return MainCollection?[0];
+                        return MainCollection[0];
                     }
                     else {
                         return new ItemEntry();
@@ -87,6 +87,9 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
 
             List<Item> items = ResourceManager.Instance.GetResource<Item>(itemIDs);
             List<ItemListing> listings = ResourceManager.Instance.GetResource<ItemListing>(itemIDs);
+            if(items == null || listings == null)
+                return goldEntries;
+
             foreach(var entry in stashEntries) {
                 var itemEntry = new ItemEntry() {
                                     Item = items.Find(item => item.ID == entry.ItemID),

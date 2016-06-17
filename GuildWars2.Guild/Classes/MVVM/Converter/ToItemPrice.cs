@@ -9,10 +9,10 @@ namespace GuildWars2Guild.Classes.MVVM.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             int totalCoins;
-            if(int.TryParse(value.ToString(), out totalCoins)) {
+            if(int.TryParse(value.ToString(), out totalCoins)) 
                 return new ItemPrice(totalCoins);
-            }
-            return new ItemPrice();
+
+            return Binding.DoNothing;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
