@@ -155,6 +155,7 @@
     <Compile Include="Model\ViewModel\GuildViewModel.cs" />
     <Compile Include="Model\ViewModel\LotteryViewModel.cs" />
     <Compile Include="Model\ViewModel\MemberRosterViewModel.cs" />
+    <Compile Include="Model\ViewModel\SettingsViewModel.cs" />
     <Compile Include="Model\ViewModel\ViewModels.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
