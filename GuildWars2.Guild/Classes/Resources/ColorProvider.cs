@@ -41,8 +41,8 @@ namespace GuildWars2Guild.Classes.Resources
             return Colors.Find(color => color.ID == ID);
         }
 
-        public List<Color> Get(List<int> ID) {
-            return Colors.Where(color => ID.Contains(color.ID)).ToList();
+        public List<Color> Get(List<int> IDs) {
+            return Colors.Where(color => IDs.Contains(color.ID)).ToList();
         }
 
         public void Reset() {
