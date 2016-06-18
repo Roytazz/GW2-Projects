@@ -53,4 +53,23 @@ namespace GuildWars2Guild.Classes.MVVM
             CommandManager.InvalidateRequerySuggested();
         }
     }
+
+    public class RelayCommand : ICommand
+    {
+        private readonly Action<object> _handler;
+
+        public RelayCommand(Action<object> handler) {
+            _handler = handler;
+        }
+
+#pragma warning disable CS0067
+        public event EventHandler CanExecuteChanged;
+#pragma warning restore CS0067
+
+        public bool CanExecute(object parameter) => true;
+
+        public void Execute(object parameter) {
+            _handler(parameter);
+        }
+    }
 }

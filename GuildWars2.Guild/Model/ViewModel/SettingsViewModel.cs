@@ -1,4 +1,7 @@
-﻿using GuildWars2Guild.Model.ViewModel.Bases;
+﻿using GuildWars2Guild.Classes.MVVM;
+using GuildWars2Guild.Model.ViewModel.Bases;
+using System.Windows;
+using System.Windows.Input;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
@@ -33,6 +36,13 @@ namespace GuildWars2Guild.Model.ViewModel
                 }
             }
         }
+
+        public virtual ICommand Refresh => (new RelayCommand((parameter) => {
+            if(parameter is Window) {
+                new SplashScreen().Show();
+                (parameter as Window).Close();
+            }
+        }));
 
         public SettingsViewModel() {
             _apiKey = Properties.Settings.Default.ApiKey;
