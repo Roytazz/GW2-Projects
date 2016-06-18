@@ -84,11 +84,11 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="99*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <materialDesign:Card Margin="5" Background="{DynamicResource GrayAccent}" Grid.Row="0">
-            <DockPanel MinHeight="80">
+            <DockPanel>
                 <local:Palette Width="200" />
                 <StackPanel VerticalAlignment="Center" Margin="20,0">
                     <TextBlock TextWrapping="Wrap"  Text="Your current Theme is shown on the left."/>

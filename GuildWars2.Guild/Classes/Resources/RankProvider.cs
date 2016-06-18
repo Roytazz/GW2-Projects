@@ -14,9 +14,11 @@ namespace GuildWars2Guild.Classes.Resources
         {
             get
             {
-                if(_ranks == null)
-                    _ranks = GuildWars2API.GuildAPI.GetGuildRanksByGuildName("Frostgorge Champ Train", Properties.Settings.Default.ApiKey);
-
+                if(_ranks == null) {
+                    var result = GuildWars2API.GuildAPI.GetGuildRanksByGuildName("Frostgorge Champ Train", Properties.Settings.Default.ApiKey);
+                    if(result == null)
+                        return new List<Rank>();
+                }
                 return _ranks;
             }
         }

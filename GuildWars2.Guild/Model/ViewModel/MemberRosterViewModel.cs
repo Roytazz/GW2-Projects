@@ -13,9 +13,10 @@ namespace GuildWars2Guild.Model.ViewModel
 
         public MemberRosterViewModel() {
             var members = GuildWars2API.GuildAPI.GetMembersByGuildName("Frostgorge Champ Train", Properties.Settings.Default.ApiKey);
-
-            MainCollection = ConvertMembers(members);
-            MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
+            if(members != null) {
+                MainCollection = ConvertMembers(members);
+                MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
+            }
         }
 
         private List<OrderEntry> ConvertMembers(List<Member> members) {
