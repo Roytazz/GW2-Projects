@@ -120,6 +120,7 @@
     <Compile Include="Classes\MVVM\Sorting\RankSort.cs" />
     <Compile Include="Classes\NotifyHandler.cs" />
     <Compile Include="Classes\Resources\ColorProvider.cs" />
+    <Compile Include="Classes\Resources\GuildDetailsProvider.cs" />
     <Compile Include="Classes\Resources\RankProvider.cs" />
     <Compile Include="Controls\HomeControl.xaml.cs">
       <DependentUpon>HomeControl.xaml</DependentUpon>

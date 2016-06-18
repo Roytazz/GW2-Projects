@@ -8,6 +8,8 @@
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="510" >
     <DockPanel>
+        <TextBox DockPanel.Dock="Top" materialDesign:TextFieldAssist.Hint="Guild Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 		
+                  Foreground="White" Margin="10,0" Text="{Binding GuildName, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
         <TextBox DockPanel.Dock="Top" materialDesign:TextFieldAssist.Hint="Guild API Key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 		
                   Foreground="White" Margin="10,0" Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
         <Button DockPanel.Dock="Top" Content="Synch Data" Margin="10,10,10,0"/>

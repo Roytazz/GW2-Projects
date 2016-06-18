@@ -1,6 +1,8 @@
-﻿using GuildWars2DB;
+﻿using GuildWars2API.Model.Guild;
+using GuildWars2DB;
 using GuildWars2Guild.Classes.IO;
 using GuildWars2Guild.Classes.Logger;
+using GuildWars2Guild.Classes.Resources;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -73,8 +75,9 @@ namespace GuildWars2Guild.Classes
         internal static void AddNewLogs() {
             var apiKey = Properties.Settings.Default.ApiKey;        
             if(apiKey?.Length > 0) {
-                var results = GuildWars2API.GuildAPI.GetGuildLogByName("Frostgorge Champ Train", apiKey);
-                if(results != null) 
+                var guildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
+                var results = GuildWars2API.GuildAPI.GetGuildLogByID(guildDetails?.GuildID, apiKey);
+                if(results != null)
                     LogDbManager.AddUniqueLog(results);
             }
         }

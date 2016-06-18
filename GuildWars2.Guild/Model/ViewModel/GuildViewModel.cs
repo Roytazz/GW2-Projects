@@ -1,4 +1,5 @@
 ﻿using GuildWars2API.Model.Guild;
+using GuildWars2Guild.Classes.Resources;
 using System.Collections.Generic;
 
 namespace GuildWars2Guild.Model.ViewModel
@@ -70,7 +71,7 @@ namespace GuildWars2Guild.Model.ViewModel
         }
 
         public GuildViewModel() {
-            GuildDetails = GuildWars2API.GuildAPI.GetGuildDetails("Frostgorge Champ Train");
+            GuildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
         }
     }
 }

@@ -70,5 +70,17 @@ namespace GuildWars2Guild.Properties {
                 this["ThemeAccent"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GuildName {
+            get {
+                return ((string)(this["GuildName"]));
+            }
+            set {
+                this["GuildName"] = value;
+            }
+        }
     }
 }
