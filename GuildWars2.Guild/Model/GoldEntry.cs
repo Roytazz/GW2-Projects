@@ -1,5 +1,5 @@
 ﻿using GuildWars2API.Model.Guild;
-using GuildWars2API.Model.Value;
+using GuildWars2API.Model.OldValue;
 
 namespace GuildWars2Guild.Model
 {

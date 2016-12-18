@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GuildWars2Guild.Controls"
              xmlns:sorting="clr-namespace:GuildWars2Guild.Classes.MVVM.Sorting"
              xmlns:converter="clr-namespace:GuildWars2Guild.Classes.MVVM.Converter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -12,21 +11,14 @@
     <UserControl.Resources>
         <sorting:DateSort x:Key="DateSort" />
         <converter:DateToString x:Key="DateToString" />
-        <converter:DivideByScale x:Key="DivideByScale" />
     </UserControl.Resources>
-    <Border Grid.Row="0" Margin="-5,-5,0,0">
-        <Border.LayoutTransform>
-            <ScaleTransform ScaleX="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" 
-                    ScaleY="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" />
-        </Border.LayoutTransform>
-        <DataGrid CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding MainCollectionView}"
+    <DataGrid Grid.Row="0" Margin="-5,-5,0,0" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding MainCollectionView}"
                 Grid.Column="0" materialDesign:DataGridAssist.CellPadding="8,6,6,6" materialDesign:DataGridAssist.ColumnHeaderPadding="6" sorting:CustomSortBehaviour.AllowCustomSort="True" SelectionMode="Single">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding User}" Header="User" />
-                <DataGridTextColumn Binding="{Binding RosterAction}" Header="Action" />
-                <DataGridTextColumn Binding="{Binding UserBy}" Header="By" />
-                <DataGridTextColumn Binding="{Binding Time, Converter={StaticResource DateToString}}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
-            </DataGrid.Columns>
-        </DataGrid>
-    </Border>
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding User}" Header="User" />
+            <DataGridTextColumn Binding="{Binding RosterAction}" Header="Action" />
+            <DataGridTextColumn Binding="{Binding UserBy}" Header="By" />
+            <DataGridTextColumn Binding="{Binding Time, Converter={StaticResource DateToString}}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
+        </DataGrid.Columns>
+    </DataGrid>
 </UserControl>

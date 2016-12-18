@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GuildWars2Guild.Controls.Widgets"
              xmlns:converter="clr-namespace:GuildWars2Guild.Classes.MVVM.Converter"
-             xmlns:viewModel="clr-namespace:GuildWars2Guild.Model.ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="600">
     <UserControl.Resources>

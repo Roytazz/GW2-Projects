@@ -1,0 +1,16 @@
+﻿Not Included:
+
+- WvW
+- Game Mechanics
+- Map Information
+- v1 API
+
+Miscellaneous
+	- Files
+	- Quaggans
+	- Minis
+
+Authenticated
+	- PvP
+
+See: https://wiki.guildwars2.com/wiki/API:Main

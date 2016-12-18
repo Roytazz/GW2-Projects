@@ -3,16 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GuildWars2Guild.Controls.Settings"
+             xmlns:palette="clr-namespace:GuildWars2Guild.Controls.Palettes"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             d:DesignHeight="200" d:DesignWidth="510" >
+             d:DesignHeight="300" d:DesignWidth="510" >
     <DockPanel>
-        <TextBox DockPanel.Dock="Top" materialDesign:TextFieldAssist.Hint="Guild Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 		
-                  Foreground="White" Margin="10,0,10,10" Text="{Binding GuildName, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
-        <TextBox DockPanel.Dock="Top" materialDesign:TextFieldAssist.Hint="Guild API Key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 		
-                  Foreground="White" Margin="10,0" Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
-        <Button DockPanel.Dock="Top" Content="Synch Data" Margin="10,10,10,0" Command="{Binding Refresh}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-        <local:PaletteSelectorControl DockPanel.Dock="Top"/>
+        <Button DockPanel.Dock="Top" Style="{StaticResource MaterialDesignRaisedAccentButton}" Height="50" Content="Synch Data" Margin="10,10,10,0" Command="{Binding Refresh}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+
+        <TextBox DockPanel.Dock="Top" materialDesign:HintAssist.Hint="Guild Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 		
+                  Foreground="White" Margin="10,10,10,0" Text="{Binding GuildName, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
+        <TextBox DockPanel.Dock="Top" materialDesign:HintAssist.Hint="Guild API Key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 		
+                  Foreground="White" Margin="10,5" Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
+        <TextBox DockPanel.Dock="Top" materialDesign:HintAssist.Hint="Synch Key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 		
+                  Foreground="White" Margin="10,0,10,10" Text="{Binding DropBoxKey, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
+        <palette:PaletteSelectorControl DockPanel.Dock="Top"/>
     </DockPanel>
 </UserControl>

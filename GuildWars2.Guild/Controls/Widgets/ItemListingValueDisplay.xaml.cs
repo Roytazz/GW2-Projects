@@ -1,7 +1,4 @@
-﻿using GuildWars2API.Model.Commerce;
-using GuildWars2Guild.Classes.Resources;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace GuildWars2Guild.Controls.Widgets
 {

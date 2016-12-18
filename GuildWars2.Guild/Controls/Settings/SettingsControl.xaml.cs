@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using GuildWars2Guild.Classes;
+using GuildWars2Guild.Controls.Palettes;
+using System.Windows.Controls;
 
 namespace GuildWars2Guild.Controls.Settings
 {
@@ -9,6 +11,16 @@ namespace GuildWars2Guild.Controls.Settings
     {
         public SettingsControl() {
             InitializeComponent();
+            SwatchesManager.PrimaryChanged += SwatchesManager_PrimaryChanged;
+            SwatchesManager.AccentChanged += SwatchesManager_AccentChanged;
+        }
+
+        private void SwatchesManager_PrimaryChanged(object sender, SwatchEvent e) {
+            SwatchesHelper.ApplyPrimary(e.Swatch);
+        }
+
+        private void SwatchesManager_AccentChanged(object sender, SwatchEvent e) {
+            SwatchesHelper.ApplyAccent(e.Swatch);
         }
     }
 }

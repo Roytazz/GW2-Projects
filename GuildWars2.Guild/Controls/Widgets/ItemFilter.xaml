@@ -13,9 +13,9 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5,0,5,5">
                     <CheckBox x:Name="CheckBox_Date" VerticalContentAlignment="Center" Margin="0,0,5,0" IsChecked="{Binding CheckDate}"/>
-                    <DatePicker x:Name="DatePicker_StartDate" materialDesign:TextFieldAssist.Hint="Start Date" SelectedDate="{Binding StartDate,Mode=OneWayToSource}" Foreground="White" />
+                    <DatePicker x:Name="DatePicker_StartDate" materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate,Mode=OneWayToSource}" Foreground="White" />
                     <TextBlock Text="-" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Margin="5,0" />
-                    <DatePicker x:Name="DatePicker_EndDate"  materialDesign:TextFieldAssist.Hint="End Date" SelectedDate="{Binding EndDate, Mode=OneWayToSource}" Foreground="White" />
+                    <DatePicker x:Name="DatePicker_EndDate"  materialDesign:HintAssist.Hint="End Date" SelectedDate="{Binding EndDate, Mode=OneWayToSource}" Foreground="White" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <CheckBox x:Name="CheckBox_MinGold" VerticalContentAlignment="Center" Margin="0,8,5,0" IsChecked="{Binding CheckItemCount}"/>
@@ -29,7 +29,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <CheckBox x:Name="CheckBox_Keyword" VerticalContentAlignment="Center" Margin="0,8,5,0" IsChecked="{Binding CheckKeyword}" />
-                    <TextBox x:Name="TextBox_Keyword" materialDesign:TextFieldAssist.Hint="Search keyword" Width="162" Text="{Binding KeywordValue}"
+                    <TextBox x:Name="TextBox_Keyword" materialDesign:HintAssist.Hint="Search keyword" Width="162" Text="{Binding KeywordValue}"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Foreground="White" />
                 </StackPanel>
                 <Button Content="Apply" Command="{Binding ApplyFilter}" HorizontalAlignment="Left" Margin="8,8,5,0" VerticalContentAlignment="Center" 

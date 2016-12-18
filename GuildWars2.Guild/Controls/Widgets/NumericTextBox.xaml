@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GuildWars2Guild.Controls.Widgets"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="100" d:DesignWidth="300">
-    <TextBox x:Name="TextBox_Keyword" materialDesign:TextFieldAssist.Hint="{Binding Hint}" Text="{Binding Value}"
+    <TextBox x:Name="TextBox_Keyword" materialDesign:HintAssist.Hint="{Binding Hint}" Text="{Binding Value}"
              Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" KeyDown="TextBox_Keyword_KeyDown"/>
 </UserControl>

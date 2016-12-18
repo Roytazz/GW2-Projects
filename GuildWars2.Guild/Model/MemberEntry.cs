@@ -5,14 +5,16 @@ namespace GuildWars2Guild.Model
 {
     class OrderEntry : Member
     {
+        private int _order = 0;
         public int Order
         {
             get {
-                var rank = ResourceManager.Instance.GetResource<Rank>(RankName);
-                if(rank != null)
-                    return rank.Order;
-
-                return 0;
+                if(_order == 0) {
+                    var rank = ResourceManager.Instance.GetResource<Rank>(RankName);
+                    if(rank != null)
+                        _order = rank.Order;
+                }
+                return _order;
             }
         }
     }

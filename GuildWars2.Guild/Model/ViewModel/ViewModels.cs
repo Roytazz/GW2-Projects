@@ -3,28 +3,28 @@ using GuildWars2Guild.Model.ViewModel.Bases;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
-    class MotdViewModel : DbViewModel<LogEntry>
+    class MotdVM : DbVM<LogEntry>
     {
-        public MotdViewModel() : base("motd") { }
+        public MotdVM() : base("motd") { }
     }
 
-    class MemberRankViewModel : DbViewModel<LogEntry>
+    class MemberRankVM : DbVM<LogEntry>
     {
-        public MemberRankViewModel() : base("rank_change") { }
+        public MemberRankVM() : base("rank_change") { }
     }
 
-    class MemberEventViewModel : DbViewModel<RosterEventEntry>
+    class MemberEventVM : DbVM<RosterEventEntry>
     {
-        public MemberEventViewModel() : base("joined", "invited", "kick") { }
+        public MemberEventVM() : base("joined", "invited", "kick") { }
     }
 
-    class StashItemViewModel : ItemViewModel
+    class StashItemVM : ItemVM
     {
-        public StashItemViewModel() : base("stash") { }
+        public StashItemVM() : base("stash") { }
     }
 
-    class TreasuryViewModel : ItemViewModel
+    class TreasuryVM : ItemVM
     {
-        public TreasuryViewModel() : base("treasury") { }
+        public TreasuryVM() : base("treasury") { }
     }
 }

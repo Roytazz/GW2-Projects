@@ -5,6 +5,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net;
 using System.Windows.Threading;
 
@@ -18,7 +19,7 @@ namespace GuildWars2Guild
         MainWindow _mainWindow;
 
         public SplashScreen() {
-            SwatchesManager.LoadTheme();
+            SwatchesHelper.LoadTheme();
             InitializeComponent();
 
             var _bg = new BackgroundWorker { WorkerReportsProgress = true };
@@ -96,7 +97,7 @@ namespace GuildWars2Guild
         private void _bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             var statusList = e.Result as List<Status>;
             if(statusList.Count > 0) {
-                LogManager.LogMessage(GetStatusErrorMessage(statusList), LogType.Message, false);
+                Classes.Logger.LogManager.LogMessage(GetStatusErrorMessage(statusList), LogType.Message, false);
                 this.Dialog_Label.Text = GetStatusMessage(statusList);
                 this.DialogHost.IsOpen = true;
             }

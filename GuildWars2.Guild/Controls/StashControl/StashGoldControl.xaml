@@ -7,14 +7,11 @@
              xmlns:sorting="clr-namespace:GuildWars2Guild.Classes.MVVM.Sorting"
              xmlns:converter="clr-namespace:GuildWars2Guild.Classes.MVVM.Converter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:local="clr-namespace:GuildWars2Guild.Controls"
              mc:Ignorable="d" x:Name="ThisControl"
              d:DesignHeight="300" d:DesignWidth="600">
     <UserControl.Resources>
         <sorting:GoldSort x:Key="GoldSort" />
         <sorting:DateSort x:Key="DateSort" />
-        <converter:DivideByScale x:Key="DivideByScale" />
         <converter:DateToString x:Key="DateToString" />
     </UserControl.Resources>
     <Grid>
@@ -22,27 +19,21 @@
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Margin="-5,-5,0,0">
-            <Border.LayoutTransform>
-                <ScaleTransform ScaleX="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" 
-                        ScaleY="{Binding ActualWidth, ElementName=ThisControl, Converter={StaticResource DivideByScale}}" />
-            </Border.LayoutTransform>
-            <DataGrid CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding MainCollectionView}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}" 
+        <DataGrid Grid.Row="0" Margin="-5,-5,0,0" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding MainCollectionView}" SelectedItem="{Binding Path=SelectedRow, Mode=TwoWay}" 
                   Grid.Column="0" materialDesign:DataGridAssist.CellPadding="8,6,6,6" materialDesign:DataGridAssist.ColumnHeaderPadding="6" sorting:CustomSortBehaviour.AllowCustomSort="True" SelectionMode="Single">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding User}" Header="User" />
-                    <DataGridTemplateColumn Header="Gold" SortMemberPath="Value" sorting:CustomSortBehaviour.CustomSorter="{StaticResource GoldSort}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <widgets:ItemValueDisplay Value="{Binding Value}" Height="20" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Binding="{Binding Operation}" Header="Operation" />
-                    <DataGridTextColumn Binding="{Binding Time, Converter={StaticResource DateToString}}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding User}" Header="User" />
+                <DataGridTemplateColumn Header="Gold" SortMemberPath="Value" sorting:CustomSortBehaviour.CustomSorter="{StaticResource GoldSort}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <widgets:ItemValueDisplay Value="{Binding Value}" Height="20" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Operation}" Header="Operation" />
+                <DataGridTextColumn Binding="{Binding Time, Converter={StaticResource DateToString}}" Header="Date" sorting:CustomSortBehaviour.CustomSorter="{StaticResource DateSort}" />
+            </DataGrid.Columns>
+        </DataGrid>
         <Grid Grid.Column="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="55*"/>

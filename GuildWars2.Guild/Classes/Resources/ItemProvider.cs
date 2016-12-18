@@ -1,5 +1,4 @@
 ﻿using GuildWars2API.Model.Items;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

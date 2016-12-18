@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GuildWars2Guild</RootNamespace>
     <AssemblyName>GuildWars2Guild</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -67,39 +67,53 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NoUpdate|AnyCPU'">
+    <OutputPath>bin\NoUpdate\</OutputPath>
+    <DefineConstants>DEBUG;NOUPDATE</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dragablz, Version=0.0.3.163, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.163\lib\net45\Dragablz.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Dropbox.Api, Version=0.1.5996.27561, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dropbox.Api.3.2.0\lib\net45\Dropbox.Api.dll</HintPath>
+    <Reference Include="Dropbox.Api, Version=0.1.6116.35118, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dropbox.Api.3.6.0\lib\net45\Dropbox.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=1.5.0.523, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.1.5.0.523\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.0.0.638, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.0.0.638\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.SQLite, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.103\lib\net451\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.103\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -109,6 +123,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\LogManager.cs" />
     <Compile Include="Classes\IO\DropBoxManager.cs" />
     <Compile Include="Classes\IO\FileManager.cs" />
     <Compile Include="Classes\IO\LogManager.cs" />
@@ -117,6 +132,7 @@
     <Compile Include="Classes\MVVM\Converter\ToEmblemColor.cs" />
     <Compile Include="Classes\MVVM\Converter\ToItemPrice.cs" />
     <Compile Include="Classes\MVVM\Converter\ToRankIcon.cs" />
+    <Compile Include="Classes\MVVM\Converter\ToUpperCasingColors.cs" />
     <Compile Include="Classes\MVVM\Sorting\RankSort.cs" />
     <Compile Include="Classes\NotifyHandler.cs" />
     <Compile Include="Classes\Resources\ColorProvider.cs" />
@@ -124,6 +140,9 @@
     <Compile Include="Classes\Resources\RankProvider.cs" />
     <Compile Include="Controls\HomeControl.xaml.cs">
       <DependentUpon>HomeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MainWindowControl.xaml.cs">
+      <DependentUpon>MainWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MemberControl\MemberControl.xaml.cs">
       <DependentUpon>MemberControl.xaml</DependentUpon>
@@ -140,28 +159,54 @@
     <Compile Include="Controls\MotdControl.xaml.cs">
       <DependentUpon>MotdControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LotteryControl\LotteryControl.xaml.cs">
+      <DependentUpon>LotteryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Palettes\Palette.xaml.cs">
+      <DependentUpon>Palette.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Palettes\PaletteCommandHandler.cs" />
+    <Compile Include="Controls\Palettes\PaletteSelectorControl.xaml.cs">
+      <DependentUpon>PaletteSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Palettes\SwatchesProvider.cs" />
     <Compile Include="Controls\TreasuryControl.xaml.cs">
       <DependentUpon>TreasuryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\EmblemControl.xaml.cs">
       <DependentUpon>EmblemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LotteryControl\LotteryWeek.xaml.cs">
+      <DependentUpon>LotteryWeek.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Widgets\LotteryFilter.xaml.cs">
       <DependentUpon>LotteryFilter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\DB\DbManager.cs" />
+    <Compile Include="Model\DB\Helpers\SQLiteColumn.cs" />
+    <Compile Include="Model\DB\Helpers\SQLiteColumnList.cs" />
+    <Compile Include="Model\DB\Helpers\SqliteHelper.cs" />
+    <Compile Include="Model\DB\Helpers\SqliteTable.cs" />
+    <Compile Include="Model\DB\Tables\GuildLogTable.cs" />
+    <Compile Include="Model\DB\Tables\ISqliteTable.cs" />
+    <Compile Include="Model\DB\Tables\WorldBossTable.cs" />
     <Compile Include="Model\MemberEntry.cs" />
     <Compile Include="Model\RosterEventEntry.cs" />
-    <Compile Include="Model\ViewModel\Bases\DbViewModel.cs" />
-    <Compile Include="Model\ViewModel\Bases\ItemViewModel.cs" />
-    <Compile Include="Model\ViewModel\GuildViewModel.cs" />
-    <Compile Include="Model\ViewModel\LotteryViewModel.cs" />
-    <Compile Include="Model\ViewModel\MemberRosterViewModel.cs" />
-    <Compile Include="Model\ViewModel\SettingsViewModel.cs" />
+    <Compile Include="Model\ViewModel\Bases\DbVM.cs" />
+    <Compile Include="Model\ViewModel\Bases\ItemVM.cs" />
+    <Compile Include="Model\ViewModel\GuildVM.cs" />
+    <Compile Include="Model\ViewModel\LotteryVM.cs" />
+    <Compile Include="Model\ViewModel\MemberRosterVM.cs" />
+    <Compile Include="Model\ViewModel\SettingsVM.cs" />
     <Compile Include="Model\ViewModel\ViewModels.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\HomeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MainWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,9 +230,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\LotteryControl\LotteryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\NotifyLintControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Palettes\Palette.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Palettes\PaletteSelectorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\StashControl\StashGoldControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -197,15 +254,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\LotteryControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\TreasuryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Widgets\EmblemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LotteryControl\LotteryWeek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,14 +281,6 @@
     <Page Include="Controls\Widgets\LotteryFilter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Settings\Palette.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Settings\PaletteSelectorControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Settings\SettingsControl.xaml">
       <SubType>Designer</SubType>
@@ -266,7 +315,6 @@
     <Compile Include="Classes\Logger\ILogger.cs" />
     <Compile Include="Classes\Logger\LogManager.cs" />
     <Compile Include="Classes\MVVM\CommandHandler.cs" />
-    <Compile Include="Classes\MVVM\Converter\DivideByScale.cs" />
     <Compile Include="Classes\MVVM\Converter\ToRarityColor.cs" />
     <Compile Include="Classes\Resources\IResourceProvider.cs" />
     <Compile Include="Classes\Resources\ItemListingProvider.cs" />
@@ -277,9 +325,6 @@
     </Compile>
     <Compile Include="Controls\StashControl\StashItemControl.xaml.cs">
       <DependentUpon>StashItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\LotteryControl.xaml.cs">
-      <DependentUpon>LotteryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\ItemDisplay.xaml.cs">
       <DependentUpon>ItemDisplay.xaml</DependentUpon>
@@ -294,17 +339,11 @@
       <DependentUpon>ItemValueDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\MVVM\Sorting\ColumnSort.cs" />
-    <Compile Include="Classes\SwatchesProvider.cs" />
+    <Compile Include="Classes\SwatchesHelper.cs" />
     <Compile Include="Classes\Reflection.cs" />
     <Compile Include="Classes\UpdateManager.cs" />
     <Compile Include="Controls\StashControl\StashGoldControl.xaml.cs">
       <DependentUpon>StashGoldControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Settings\Palette.xaml.cs">
-      <DependentUpon>Palette.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Settings\PaletteSelectorControl.xaml.cs">
-      <DependentUpon>PaletteSelectorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Settings\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
@@ -332,14 +371,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\MVVM\Converter\ToUpperCasingColors.cs" />
     <Compile Include="Model\GoldEntry.cs" />
     <Compile Include="Classes\MVVM\Sorting\DateSort.cs" />
     <Compile Include="Classes\MVVM\Sorting\GoldSort.cs" />
     <Compile Include="Model\ItemEntry.cs" />
-    <Compile Include="Model\ViewModel\Bases\FilterViewModel.cs" />
-    <Compile Include="Model\ViewModel\StashGoldViewModel.cs" />
-    <Compile Include="Model\ViewModel\Bases\BaseViewModel.cs" />
+    <Compile Include="Model\ViewModel\Bases\FilterVM.cs" />
+    <Compile Include="Model\ViewModel\StashGoldVM.cs" />
+    <Compile Include="Model\ViewModel\Bases\BaseVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -372,13 +410,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GuildWars2API\GuildWars2.API.csproj">
+    <ProjectReference Include="..\GuildWars2.API\GuildWars2.API.csproj">
       <Project>{69df77df-55f8-4af2-9e2a-8d3c4b565a1b}</Project>
       <Name>GuildWars2.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GuildWars2DB\GuildWars2.DB.csproj">
-      <Project>{1cbe8ea2-e5ff-454f-9af6-365cc15eec31}</Project>
-      <Name>GuildWars2.DB</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -412,51 +446,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="FodyWeavers.xml" />
+    <None Include="Resources\Other\WorldBosses.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\packages\Fody.1.28.3\build\Fody.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.1.28.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.28.3\build\Fody.targets'))" />
-  </Target>
-  <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
-    <ParameterGroup>
-      <Config Output="false" Required="true" ParameterType="Microsoft.Build.Framework.ITaskItem" />
-      <Files Output="false" Required="true" ParameterType="Microsoft.Build.Framework.ITaskItem[]" />
-    </ParameterGroup>
-    <Task Evaluate="true">
-      <Reference xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Include="System.Xml" />
-      <Reference xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Include="System.Xml.Linq" />
-      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System" />
-      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System.IO" />
-      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System.Xml.Linq" />
-      <Code xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Type="Fragment" Language="cs"><![CDATA[
-var config = XElement.Load(Config.ItemSpec).Elements("Costura").FirstOrDefault();
-
-if (config == null) return true;
-
-var excludedAssemblies = new List<string>();
-var attribute = config.Attribute("ExcludeAssemblies");
-if (attribute != null)
-    foreach (var item in attribute.Value.Split('|').Select(x => x.Trim()).Where(x => x != string.Empty))
-        excludedAssemblies.Add(item);
-var element = config.Element("ExcludeAssemblies");
-if (element != null)
-    foreach (var item in element.Value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).Where(x => x != string.Empty))
-        excludedAssemblies.Add(item);
-
-var filesToCleanup = Files.Select(f => f.ItemSpec).Where(f => !excludedAssemblies.Contains(Path.GetFileNameWithoutExtension(f), StringComparer.InvariantCultureIgnoreCase));
-
-foreach (var item in filesToCleanup)
-  File.Delete(item);
-]]></Code>
-    </Task>
-  </UsingTask>
-  <Target Name="CleanReferenceCopyLocalPaths" AfterTargets="AfterBuild;NonWinFodyTarget">
-    <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

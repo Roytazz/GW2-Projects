@@ -1,5 +1,4 @@
 ﻿using GuildWars2API.Model.Guild;
-using GuildWars2DB;
 using GuildWars2Guild.Classes.IO;
 using GuildWars2Guild.Classes.Logger;
 using GuildWars2Guild.Classes.Resources;
@@ -22,9 +21,9 @@ namespace GuildWars2Guild.Classes
         }
 
         private static async void Timer_Elapsed(object sender, ElapsedEventArgs e) {
-            LogManager.LogMessage<ConsoleLogger>("Update Started", LogType.Info, true);
+            Logger.LogManager.LogMessage<ConsoleLogger>("Update Started", LogType.Info, true);
             await RefreshDbAsync();
-            LogManager.LogMessage<ConsoleLogger>("Update Finished", LogType.Info, true);
+            Logger.LogManager.LogMessage<ConsoleLogger>("Update Finished", LogType.Info, true);
         }
 
         #endregion Timer
@@ -78,7 +77,7 @@ namespace GuildWars2Guild.Classes
                 var guildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
                 var results = GuildWars2API.GuildAPI.GetGuildLogByID(guildDetails?.GuildID, apiKey);
                 if(results != null)
-                    LogDbManager.AddUniqueLog(results);
+                    LogManager.AddUniqueLog(results);
             }
         }
     }

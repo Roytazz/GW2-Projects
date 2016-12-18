@@ -10,11 +10,6 @@
     <GroupBox Grid.Row="1" Header="Filters" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" HorizontalContentAlignment="Stretch">
         <Viewbox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left">
             <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="5,0,5,5">
-                    <DatePicker x:Name="DatePicker_StartDate" materialDesign:TextFieldAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Foreground="White" />
-                    <TextBlock Text="-" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Margin="5,0" />
-                    <DatePicker x:Name="DatePicker_EndDate"  materialDesign:TextFieldAssist.Hint="End Date" SelectedDate="{Binding EndDate}" Foreground="White" />
-                </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <local:NumericTextBox Hint="Min. gold amount" Width="162" Foreground="White">
                         <local:NumericTextBox.Resources>
@@ -25,7 +20,7 @@
                     </local:NumericTextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
-                    <TextBox materialDesign:TextFieldAssist.Hint="Name to exclude, divided by ;" Text="{Binding ExcludedMembers}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="White"/>
+                    <TextBox materialDesign:HintAssist.Hint="Name to exclude, divided by ;" Text="{Binding ExcludedMembers}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="White"/>
                 </StackPanel>
                 <Button Content="Apply" Command="{Binding ApplyFilter}" HorizontalAlignment="Left" Margin="8,8,5,0" VerticalContentAlignment="Center" 
                                 Width="80" Height="32" VerticalAlignment="Bottom"/>
