@@ -50,7 +50,7 @@ namespace GuildWars2APIPlaceHolder.Model.Character
         public List<Bag> Bags { get; set; }
 
         [JsonProperty("skills")]
-        public object Skills { get; set; } //TODO
+        public Dictionary<GameType, CharacterSkills> Skills { get; set; } 
 
         [JsonProperty("specializations")]
         public Dictionary<GameType, List<CharacterSpecialization>> Specializations { get; set; }

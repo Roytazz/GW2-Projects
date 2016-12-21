@@ -33,6 +33,14 @@ namespace GuildWars2APIPlaceHolder.Model
         Heavy
     }
 
+    public enum FinisherType
+    {
+        Blast,
+        Leap,
+        Projectile,
+        Whirl
+    }
+
     public enum DamageType
     {
         Physical,
@@ -40,6 +48,20 @@ namespace GuildWars2APIPlaceHolder.Model
         Lightning,
         Ice,
         Choking
+    }
+
+    public enum FieldType
+    {
+        Air,
+        Dark,
+        Fire,
+        Ice,
+        Light,
+        Lightning,
+        Poison,
+        Smoke,
+        Ethereal,
+        Water
     }
 
     public enum Access
@@ -65,15 +87,15 @@ namespace GuildWars2APIPlaceHolder.Model
 
     public enum Profession
     {
-        [JsonProperty("elementalist")] Elementalist,
-        [JsonProperty("engineer")] Engineer,
-        [JsonProperty("guardian")] Guardian,
-        [JsonProperty("mesmer")] Mesmer,
-        [JsonProperty("necromancer")] Necromancer,
-        [JsonProperty("ranger")] Ranger,
-        [JsonProperty("revenant")] Revenant,
-        [JsonProperty("thief")] Thief,
-        [JsonProperty("warrior")] Warrior
+        Elementalist,
+        Engineer,
+        Guardian,
+        Mesmer,
+        Necromancer,
+        Ranger,
+        Revenant,
+        Thief,
+        Warrior
     }
     
     public enum Race
@@ -96,20 +118,55 @@ namespace GuildWars2APIPlaceHolder.Model
         Power,
         Precision,
         Toughness,
-        Vitality
+        Vitality,
+        None
     }
 
     public enum GameType
     {
-        [JsonProperty("pve")] PvE,
-        [JsonProperty("pvp")] PvP,
-        [JsonProperty("wvw")] Wvw,
-        [JsonProperty("special")] Special
+        PvE,
+        PvP,
+        Wvw,
+        Special
     }
 
     public enum PvPMode
     {
-        [JsonProperty("ranked")] Ranked,
-        [JsonProperty("unranked")] Unranked
+        Ranked,
+        Unranked
+    }
+
+    public enum Weapon
+    {
+        Axe,
+        Dagger,
+        Mace,
+        Pistol,
+        Sword,
+        Scepter,
+        Focus,
+        Shield,
+        Torch,
+        Warhorn,
+        Greatsword,
+        Hammer,
+        Longbow,
+        Rifle,
+        Shortbow,
+        Staff,
+        Speargun,
+        Spear,
+        Trident,
+        None
+    }
+
+    public enum LegendType
+    {
+        Legend1,
+        Legend2,
+        Legend3,
+        Legend4,
+        Legend5,
+        Legend6
     }
 }

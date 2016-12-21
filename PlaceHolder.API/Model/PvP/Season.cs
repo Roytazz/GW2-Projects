@@ -28,6 +28,6 @@ namespace GuildWars2APIPlaceHolder.Model.PvP
         public List<Division> Divisions { get; set; }
 
         [JsonProperty("leadersboards"), JsonIgnore]
-        public List<object> Leaderboards { get; set; }  //TODO
+        public List<object> Leaderboards { get; set; }  //TODO PvP Leaderbords
     }
 }

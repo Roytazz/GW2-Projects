@@ -21,15 +21,15 @@ namespace GuildWars2APIPlaceHolder.Model
 
     public enum Permission
     {
-        [JsonProperty("account")] Account,
-        [JsonProperty("builds")] Builds,
-        [JsonProperty("characters")] Characters,
-        [JsonProperty("guilds")] Guilds,
-        [JsonProperty("inventories")] Inventories,
-        [JsonProperty("progession")] Progression,
-        [JsonProperty("pvp")] PvP,
-        [JsonProperty("tradingpost")] Tradingpost,
-        [JsonProperty("unlocks")] Unlocks,
-        [JsonProperty("wallet")] Wallet
+        Account,
+        Builds,
+        Characters,
+        Guilds,
+        Inventories,
+        Progression,
+        PvP,
+        Tradingpost,
+        Unlocks,
+        Wallet
     }
 }

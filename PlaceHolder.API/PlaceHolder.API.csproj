@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,7 +55,9 @@
     <Compile Include="Endpoints\Achievements.cs" />
     <Compile Include="Endpoints\Character.cs" />
     <Compile Include="Endpoints\Commerce.cs" />
+    <Compile Include="Endpoints\Guild.cs" />
     <Compile Include="Endpoints\Items.cs" />
+    <Compile Include="Endpoints\Mechanics.cs" />
     <Compile Include="Endpoints\Miscellaneous.cs" />
     <Compile Include="Endpoints\PvP.cs" />
     <Compile Include="Endpoints\Story.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Model\Character\Character.cs" />
     <Compile Include="Model\Character\Bag.cs" />
     <Compile Include="Model\Character\BagItem.cs" />
+    <Compile Include="Model\Character\CharacterSkills.cs" />
     <Compile Include="Model\Character\CharacterSkillTree.cs" />
     <Compile Include="Model\Character\CharacterCraftingDiscipline.cs" />
     <Compile Include="Model\Character\PvPEquipment.cs" />
@@ -86,6 +90,8 @@
     <Compile Include="Model\Commerce\ItemPrice.cs" />
     <Compile Include="Model\Commerce\Listing.cs" />
     <Compile Include="Model\Commerce\Transaction.cs" />
+    <Compile Include="Model\Guild\Emblem.cs" />
+    <Compile Include="Model\Guild\Permission.cs" />
     <Compile Include="Model\Items\Equipment.cs" />
     <Compile Include="Model\Items\Finisher.cs" />
     <Compile Include="Model\Items\ItemStats.cs" />
@@ -99,6 +105,17 @@
     <Compile Include="Model\Items\RecipeIngredient.cs" />
     <Compile Include="Model\Items\Skin.cs" />
     <Compile Include="Model\Items\SkinDetails.cs" />
+    <Compile Include="Model\Mechanics\ClassMechanic.cs" />
+    <Compile Include="Model\Mechanics\Legend.cs" />
+    <Compile Include="Model\Mechanics\Profession.cs" />
+    <Compile Include="Model\Mechanics\ProfessionWeapon.cs" />
+    <Compile Include="Model\Mechanics\Skill.cs" />
+    <Compile Include="Model\Mechanics\Fact.cs" />
+    <Compile Include="Model\Mechanics\Specialization.cs" />
+    <Compile Include="Model\Mechanics\TrainingInfo.cs" />
+    <Compile Include="Model\Mechanics\TrainingTrack.cs" />
+    <Compile Include="Model\Mechanics\Trait.cs" />
+    <Compile Include="Model\Mechanics\WeaponSkill.cs" />
     <Compile Include="Model\Miscellaneous\Color.cs" />
     <Compile Include="Model\Miscellaneous\ColorDetails.cs" />
     <Compile Include="Model\Miscellaneous\Currency.cs" />

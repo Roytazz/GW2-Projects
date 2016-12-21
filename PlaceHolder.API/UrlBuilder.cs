@@ -15,7 +15,7 @@ namespace GuildWars2APIPlaceHolder
         private static string BASE_URL_V1 = "https://api.guildwars2.com/v1";
         private static string BASE_URL_V2 = "https://api.guildwars2.com/v2";
 
-        private API _selectedApi = API.Guildwars2_V2;
+        private API _selectedApi = API.Guildwars2V2;
         private List<string> _params = new List<string>();
         private List<string> _pointers = new List<string>();
 
@@ -100,9 +100,9 @@ namespace GuildWars2APIPlaceHolder
         private string GetBaseUrl()
         {
             switch (_selectedApi) {
-                case API.Guildwars2_V1:
+                case API.Guildwars2V1:
                     return BASE_URL_V1;
-                case API.Guildwars2_V2:
+                case API.Guildwars2V2:
                     return BASE_URL_V2;
 
                 default:
@@ -113,7 +113,7 @@ namespace GuildWars2APIPlaceHolder
 
     public enum API
     {
-        Guildwars2_V1,
-        Guildwars2_V2
+        Guildwars2V1,
+        Guildwars2V2
     }
 }
