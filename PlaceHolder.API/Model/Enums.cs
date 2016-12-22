@@ -126,8 +126,11 @@ namespace GuildWars2APIPlaceHolder.Model
     {
         PvE,
         PvP,
+        PvPLobby,
         Wvw,
-        Special
+        Special,
+        Activity,
+        Dungeon
     }
 
     public enum PvPMode
@@ -168,5 +171,13 @@ namespace GuildWars2APIPlaceHolder.Model
         Legend4,
         Legend5,
         Legend6
+    }
+    
+    public enum InfusionUpgradeFlag
+    {
+        Defense,
+        Offense,
+        Utility,
+        Agony
     }
 }

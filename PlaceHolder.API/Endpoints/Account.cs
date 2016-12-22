@@ -31,10 +31,10 @@ namespace GuildWars2APIPlaceHolder
                 .Request<List<int>>(apiKey);
         }
 
-        public static List<Model.Account.AccountFinisher> Finishers(string apiKey)   
+        public static List<AccountFinisher> Finishers(string apiKey)   
         {
             return Builder.AddPointer("finishers")
-                .Request<List<Model.Account.AccountFinisher>>(apiKey);
+                .Request<List<AccountFinisher>>(apiKey);
         }
 
         public static List<Inventory> SharedInventory(string apiKey)

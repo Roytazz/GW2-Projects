@@ -1,4 +1,5 @@
-﻿using GuildWars2APIPlaceHolder.Model.Color;
+﻿using GuildWars2APIPlaceHolder.Model;
+using GuildWars2APIPlaceHolder.Model.Color;
 using GuildWars2APIPlaceHolder.Model.Miscellaneous;
 using System;
 using System.Collections.Generic;
@@ -201,5 +202,122 @@ namespace GuildWars2APIPlaceHolder
                 .Request<List<Outfit>>();
         }
         #endregion Outfits
+
+        #region Files/Assets
+        public static List<string> AssetIDs()
+        {
+            return Builder.AddPointer("files")
+                .Request<List<string>>();
+        }
+
+        public static List<Asset> Assets()
+        {
+            return Builder.AddPointer("files")
+                .AddParam("ids", "all")
+                .Request<List<Asset>>();
+        }
+
+        public static List<Asset> Assets(int pageCount, int page)
+        {
+            return Builder.AddPointer("files")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .Request<List<Asset>>();
+        }
+
+        public static Asset Assets(string ID)
+        {
+            return Builder.AddPointer("files")
+                .AddPointer(ID.ToString())
+                .Request<Asset>();
+        }
+
+        public static List<Asset> Assets(List<string> IDs)
+        {
+            return Builder.AddPointer("files")
+                .AddParam("ids", IDs)
+                .Request<List<Asset>>();
+        }
+        #endregion Files/Assets
+
+        #region Quaggans
+        public static List<string> QuagganIDs()
+        {
+            return Builder.AddPointer("quaggans")
+                .Request<List<string>>();
+        }
+
+        public static List<Asset> Quaggans()
+        {
+            return Builder.AddPointer("quaggans")
+                .AddParam("ids", "all")
+                .Request<List<Asset>>();
+        }
+
+        public static List<Asset> Quaggans(int pageCount, int page)
+        {
+            return Builder.AddPointer("quaggans")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .Request<List<Asset>>();
+        }
+
+        public static Asset Quaggans(string ID)
+        {
+            return Builder.AddPointer("quaggans")
+                .AddPointer(ID.ToString())
+                .Request<Asset>();
+        }
+
+        public static List<Asset> Quaggans(List<string> IDs)
+        {
+            return Builder.AddPointer("quaggans")
+                .AddParam("ids", IDs)
+                .Request<List<Asset>>();
+        }
+        #endregion Quaggans
+
+        #region Worlds
+        public static List<int> WorldIDs()
+        {
+            return Builder.AddPointer("worlds")
+                .Request<List<int>>();
+        }
+
+        public static List<Server> Worlds()
+        {
+            return Builder.AddPointer("worlds")
+                .AddParam("ids", "all")
+                .Request<List<Server>>();
+        }
+
+        public static List<Server> Worlds(int pageCount, int page)
+        {
+            return Builder.AddPointer("worlds")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .Request<List<Server>>();
+        }
+
+        public static Server Worlds(int ID)
+        {
+            return Builder.AddPointer("worlds")
+                .AddPointer(ID.ToString())
+                .Request<Server>();
+        }
+
+        public static List<Server> Worlds(List<int> IDs)
+        {
+            return Builder.AddPointer("worlds")
+                .AddParam("ids", IDs)
+                .Request<List<Server>>();
+        }
+        #endregion Worlds
+
+        public static Build CurrentBuild()
+        {
+            return Builder.AddPointer("build")
+                .Request<Build>();
+        }
     }
 }

@@ -4,16 +4,10 @@ using System.Collections.Generic;
 
 namespace GuildWars2APIPlaceHolder.Model.Account
 {
-    public class BankEntity
+    public class BankEntity : ItemStack
     {
-        [JsonProperty("id")]
-        public int ID { get; set; }
-
         [JsonProperty("slot")]
         public int Slot { get; set; }
-
-        [JsonProperty("count")]
-        public int Count { get; set; }
 
         [JsonProperty("skin")]
         public int Skin { get; set; }

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace GuildWars2APIPlaceHolder.Model.Guild
 {
-    public class Permission
+    public class GuildPermission
     {
         [JsonProperty("id")]
-        public GuildPermission ID { get; set; }
+        public GuildPermissionType ID { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -19,7 +19,7 @@ namespace GuildWars2APIPlaceHolder.Model.Guild
         public string Description { get; set; }
     }
 
-    public enum GuildPermission
+    public enum GuildPermissionType
     {
         ClaimableEditOptions,
         EditBGM,

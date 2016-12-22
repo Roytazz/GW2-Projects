@@ -24,6 +24,12 @@ namespace GuildWars2APIPlaceHolder.Model.Mechanics
         [JsonProperty("icon")]
         public string Icon { get; set; }
 
+        [JsonProperty("profession_icon")]
+        public string IconProfession { get; set; }
+
+        [JsonProperty("profession_icon_big")]
+        public string IconProfessionBig { get; set; }
+
         [JsonProperty("background")]
         public string Background { get; set; }
 

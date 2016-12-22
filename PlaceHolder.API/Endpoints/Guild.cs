@@ -80,39 +80,134 @@ namespace GuildWars2APIPlaceHolder
         #endregion Emblem
 
         #region Permission
-        public static List<GuildPermission> PermissionIDs()
+        public static List<GuildPermissionType> PermissionIDs()
         {
             return Builder.AddPointer("guild")
                 .AddPointer("permissions")
-                .Request<List<GuildPermission>>();
+                .Request<List<GuildPermissionType>>();
         }
 
-        public static List<Permission> Permissions()
+        public static List<GuildPermission> Permissions()
         {
             return Builder.AddPointer("guild")
                 .AddPointer("permissions")
                 .AddParam("ids", "all")
-                .Request<List<Permission>>();
+                .Request<List<GuildPermission>>();
         }
 
-        public static Permission Permissions(GuildPermission ID)
+        public static GuildPermission Permissions(GuildPermissionType ID)
         {
             return Builder.AddPointer("guild")
                 .AddPointer("permissions")
                 .AddPointer(ID.ToString())
-                .Request<Permission>();
+                .Request<GuildPermission>();
         }
 
-        public static List<Permission> Permissions(List<GuildPermission> IDs)
+        public static List<GuildPermission> Permissions(List<GuildPermissionType> IDs)
         {
             return Builder.AddPointer("guild")
                 .AddPointer("permissions")
                 .AddParam("ids", IDs)
-                .Request<List<Permission>>();
+                .Request<List<GuildPermission>>();
         }
         #endregion Permission
 
         #region Upgrades
+        public static List<int> UpgradeIDs()
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer("upgrades")
+                .Request<List<int>>();
+        }
+
+        public static List<GuildUpgrade> Upgrades(int pageCount, int page)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer("upgrades")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .Request<List<GuildUpgrade>>();
+        }
+
+        public static List<GuildUpgrade> Upgrades()
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer("upgrades")
+                .AddParam("ids", "all")
+                .Request<List<GuildUpgrade>>();
+        }
+
+        public static GuildUpgrade Upgrades(int ID)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer("upgrades")
+                .AddPointer(ID.ToString())
+                .Request<GuildUpgrade>();
+        }
+
+        public static List<GuildUpgrade> Upgrades(List<int> IDs)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer("upgrades")
+                .AddParam("ids", IDs)
+                .Request<List<GuildUpgrade>>();
+        }
         #endregion Upgrades
+
+        public static List<LogEntry> Logs(string guildID, string apiKey)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer(guildID)
+                .AddPointer("log")
+                .Request<List<LogEntry>>(apiKey);
+        }
+
+        public static List<Member> Members(string guildID, string apiKey)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer(guildID)
+                .AddPointer("members")
+                .Request<List<Member>>(apiKey);
+        }
+
+        public static List<Rank> Ranks(string guildID, string apiKey)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer(guildID)
+                .AddPointer("ranks")
+                .Request<List<Rank>>(apiKey);
+        }
+
+        public static List<Stash> Stash(string guildID, string apiKey)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer(guildID)
+                .AddPointer("stash")
+                .Request<List<Stash>>(apiKey);
+        }
+
+        public static List<Stash> Treasury(string guildID, string apiKey)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer(guildID)
+                .AddPointer("treasury")
+                .Request<List<Stash>>(apiKey);
+        }
+
+        public static List<GuildTeam> Teams(string guildID, string apiKey)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer(guildID)
+                .AddPointer("teams")
+                .Request<List<GuildTeam>>(apiKey);
+        }
+
+        public static List<int> UpgradesCompleted(string guildID, string apiKey)
+        {
+            return Builder.AddPointer("guild")
+                .AddPointer(guildID)
+                .AddPointer("upgrades")
+                .Request<List<int>>(apiKey);
+        }
     }
 }
