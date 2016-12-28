@@ -10,17 +10,17 @@ namespace GuildWars2APIPlaceHolder
         #region Transactions    
         public static List<Transaction> SellsCurrent(string apiKey)
         {
-            return Builder.AddPointer("transactions")
-                .AddPointer("current")
-                .AddPointer("sells")
+            return Builder.AddDirective("transactions")
+                .AddDirective("current")
+                .AddDirective("sells")
                 .Request<List<Transaction>>(apiKey);
         }
 
         public static List<Transaction> SellsCurrent(int pageCount, int page, string apiKey)
         {
-            return Builder.AddPointer("transactions")
-                .AddPointer("current")
-                .AddPointer("sells")
+            return Builder.AddDirective("transactions")
+                .AddDirective("current")
+                .AddDirective("sells")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Transaction>>(apiKey);
@@ -28,17 +28,17 @@ namespace GuildWars2APIPlaceHolder
 
         public static List<Transaction> SellsHistory(string apiKey)
         {
-            return Builder.AddPointer("transactions")
-                .AddPointer("history")
-                .AddPointer("sells")
+            return Builder.AddDirective("transactions")
+                .AddDirective("history")
+                .AddDirective("sells")
                 .Request<List<Transaction>>(apiKey);
         }
 
         public static List<Transaction> SellsHistory(int pageCount, int page, string apiKey)
         {
-            return Builder.AddPointer("transactions")
-                .AddPointer("history")
-                .AddPointer("sells")
+            return Builder.AddDirective("transactions")
+                .AddDirective("history")
+                .AddDirective("sells")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Transaction>>(apiKey);
@@ -46,17 +46,17 @@ namespace GuildWars2APIPlaceHolder
 
         public static List<Transaction> BuysCurrent(string apiKey)
         {
-            return Builder.AddPointer("transactions")
-                .AddPointer("current")
-                .AddPointer("buys")
+            return Builder.AddDirective("transactions")
+                .AddDirective("current")
+                .AddDirective("buys")
                 .Request<List<Transaction>>(apiKey);
         }
 
         public static List<Transaction> BuysCurrent(int pageCount, int page, string apiKey)
         {
-            return Builder.AddPointer("transactions")
-                .AddPointer("current")
-                .AddPointer("buys")
+            return Builder.AddDirective("transactions")
+                .AddDirective("current")
+                .AddDirective("buys")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Transaction>>(apiKey);
@@ -64,17 +64,17 @@ namespace GuildWars2APIPlaceHolder
 
         public static List<Transaction> BuysHistory(string apiKey)
         {
-            return Builder.AddPointer("transactions")
-                .AddPointer("history")
-                .AddPointer("buys")
+            return Builder.AddDirective("transactions")
+                .AddDirective("history")
+                .AddDirective("buys")
                 .Request<List<Transaction>>(apiKey);
         }
 
         public static List<Transaction> BuysHistory(int pageCount, int page, string apiKey)
         {
-            return Builder.AddPointer("transactions")
-                .AddPointer("history")
-                .AddPointer("buys")
+            return Builder.AddDirective("transactions")
+                .AddDirective("history")
+                .AddDirective("buys")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Transaction>>(apiKey);
@@ -84,28 +84,28 @@ namespace GuildWars2APIPlaceHolder
         #region Listings
         public static ItemListing Listings(int itemID)
         {
-            return Builder.AddPointer("listings")
-                .AddPointer(itemID.ToString())
+            return Builder.AddDirective("listings")
+                .AddDirective(itemID.ToString())
                 .Request<ItemListing>();
         }
 
         public static List<ItemListing> Listings(List<int> itemIDs)
         {
-            return Builder.AddPointer("listings")
+            return Builder.AddDirective("listings")
                 .AddParam("ids", itemIDs)
                 .Request<List<ItemListing>>();
         }
 
         public static ItemListingAggregated ListingsAggregated(int itemID)
         {
-            return Builder.AddPointer("prices")
-                .AddPointer(itemID.ToString())
+            return Builder.AddDirective("prices")
+                .AddDirective(itemID.ToString())
                 .Request<ItemListingAggregated>();
         }
 
         public static List<ItemListingAggregated> ListingsAggregated(List<int> itemIDs)
         {
-            return Builder.AddPointer("prices")
+            return Builder.AddDirective("prices")
                 .AddParam("ids", itemIDs)
                 .Request<List<ItemListingAggregated>>();
         }
@@ -114,16 +114,16 @@ namespace GuildWars2APIPlaceHolder
         #region Exchange
         public static Exchange ExchangeToGold(int gems)
         {
-            return Builder.AddPointer("exchange")
-                .AddPointer("gems")
+            return Builder.AddDirective("exchange")
+                .AddDirective("gems")
                 .AddParam("quantity", gems.ToString())
                 .Request<Exchange>();
         }
 
         public static Exchange ExchangeToGems(int coins)
         {
-            return Builder.AddPointer("exchange")
-                .AddPointer("coins")
+            return Builder.AddDirective("exchange")
+                .AddDirective("coins")
                 .AddParam("quantity", coins.ToString())
                 .Request<Exchange>();
         }

@@ -14,79 +14,79 @@ namespace GuildWars2APIPlaceHolder
 
         public static List<AccountAchievement> AccountAchievements(string apiKey) 
         {
-            return Builder.AddPointer("achievements")
+            return Builder.AddDirective("achievements")
                 .Request<List<AccountAchievement>>(apiKey);
         }
 
         public static List<BankEntity> Bank(string apiKey)
         {
-            return Builder.AddPointer("bank")
+            return Builder.AddDirective("bank")
                 .Request<List<BankEntity>>(apiKey);
         }
 
         public static List<int> Dyes(string apiKey)
         {
-            return Builder.AddPointer("dyes")
+            return Builder.AddDirective("dyes")
                 .Request<List<int>>(apiKey);
         }
 
         public static List<AccountFinisher> Finishers(string apiKey)   
         {
-            return Builder.AddPointer("finishers")
+            return Builder.AddDirective("finishers")
                 .Request<List<AccountFinisher>>(apiKey);
         }
 
         public static List<Inventory> SharedInventory(string apiKey)
         {
-            return Builder.AddPointer("inventory")
+            return Builder.AddDirective("inventory")
                 .Request<List<Inventory>>(apiKey);
         }
 
         public static List<Material> MaterialStorage(string apiKey)
         {
-            return Builder.AddPointer("materials")
+            return Builder.AddDirective("materials")
                 .Request<List<Material>>(apiKey);
         }
 
         public static List<int> Minis(string apiKey)    
         {
-            return Builder.AddPointer("minis")
+            return Builder.AddDirective("minis")
                 .Request<List<int>>(apiKey);
         }
 
         public static List<int> Skins(string apiKey)    
         {
-            return Builder.AddPointer("skins")
+            return Builder.AddDirective("skins")
                 .Request<List<int>>(apiKey);
         }
 
         public static List<int> Titles(string apiKey)   
         {
-            return Builder.AddPointer("titles")
+            return Builder.AddDirective("titles")
                 .Request<List<int>>(apiKey);
         }
 
         public static List<WalletEntry> Wallet(string apiKey)   
         {
-            return Builder.AddPointer("wallet")
+            return Builder.AddDirective("wallet")
                 .Request<List<WalletEntry>>(apiKey);
         }
         
         public static List<int> Recipes(string apiKey)  
         {
-            return Builder.AddPointer("recipes")
+            return Builder.AddDirective("recipes")
                 .Request<List<int>>(apiKey);
         }
 
         public static List<int> Outfits(string apiKey)   
         {
-            return Builder.AddPointer("outfits")
+            return Builder.AddDirective("outfits")
                 .Request<List<int>>(apiKey);
         }
 
         public static List<AccountMastery> Masteries(string apiKey)   
         {
-            return Builder.AddPointer("masteries")
+            return Builder.AddDirective("masteries")
                 .Request<List<AccountMastery>>(apiKey);
         }
     }

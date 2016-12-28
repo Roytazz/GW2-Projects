@@ -28,7 +28,7 @@ namespace GuildWars2APIPlaceHolder
 
         public static Character Characters(string name, string apiKey)
         {
-            return Builder.AddPointer(Uri.EscapeDataString(name))
+            return Builder.AddDirective(Uri.EscapeDataString(name))
                 .Request<Character>(apiKey);
         }
     }

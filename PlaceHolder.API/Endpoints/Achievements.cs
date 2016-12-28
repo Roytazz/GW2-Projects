@@ -16,7 +16,7 @@ namespace GuildWars2APIPlaceHolder
 
         public static Achievement Achievements(int ID)
         {
-            return Builder.AddPointer(ID.ToString())
+            return Builder.AddDirective(ID.ToString())
                 .Request<Achievement>();
         }
 
@@ -30,13 +30,13 @@ namespace GuildWars2APIPlaceHolder
         #region Daylies
         public static Dictionary<GameType, List<DailyAchievement>> DailyAchievements()
         {
-            return Builder.AddPointer("daily")
+            return Builder.AddDirective("daily")
                 .Request<Dictionary<GameType, List<DailyAchievement>>>();
         }
         public static Dictionary<GameType, List<DailyAchievement>> DailyAchievementsTomorrow()
         {
-            return Builder.AddPointer("daily")
-                .AddPointer("tomorrow")
+            return Builder.AddDirective("daily")
+                .AddDirective("tomorrow")
                 .Request<Dictionary<GameType, List<DailyAchievement>>>();
         }
         #endregion Daylies
@@ -44,13 +44,13 @@ namespace GuildWars2APIPlaceHolder
         #region Groups
         public static List<string> GroupIDs()
         {
-            return Builder.AddPointer("groups")
+            return Builder.AddDirective("groups")
                 .Request<List<string>>();
         }
 
         public static List<Group> Groups(int pageCount, int page)
         {
-            return Builder.AddPointer("groups")
+            return Builder.AddDirective("groups")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Group>>();
@@ -58,21 +58,21 @@ namespace GuildWars2APIPlaceHolder
 
         public static List<Group> Groups()
         {
-            return Builder.AddPointer("groups")
+            return Builder.AddDirective("groups")
                 .AddParam("ids", "all")
                 .Request<List<Group>>();
         }
 
         public static Group Groups(string ID)
         {
-            return Builder.AddPointer("groups")
-                .AddPointer(ID.ToString())
+            return Builder.AddDirective("groups")
+                .AddDirective(ID.ToString())
                 .Request<Group>();
         }
 
         public static List<Group> Groups(List<string> IDs)
         {
-            return Builder.AddPointer("groups")
+            return Builder.AddDirective("groups")
                 .AddParam("ids", IDs)
                 .Request<List<Group>>();
         }
@@ -81,20 +81,20 @@ namespace GuildWars2APIPlaceHolder
         #region Categories
         public static List<int> CategoryIds()
         {
-            return Builder.AddPointer("categories")
+            return Builder.AddDirective("categories")
                 .Request<List<int>>();
         }
 
         public static List<Category> Categories()
         {
-            return Builder.AddPointer("categories")
+            return Builder.AddDirective("categories")
                 .AddParam("ids", "all")
                 .Request<List<Category>>();
         }
 
         public static List<Category> Categories(int pageCount, int page)
         {
-            return Builder.AddPointer("categories")
+            return Builder.AddDirective("categories")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Category>>();
@@ -102,14 +102,14 @@ namespace GuildWars2APIPlaceHolder
 
         public static Category Categories(int ID)
         {
-            return Builder.AddPointer("categories")
-                .AddPointer(ID.ToString())
+            return Builder.AddDirective("categories")
+                .AddDirective(ID.ToString())
                 .Request<Category>();
         }
 
         public static List<Category> Categories(List<int> IDs)
         {
-            return Builder.AddPointer("categories")
+            return Builder.AddDirective("categories")
                 .AddParam("ids", IDs)
                 .Request<List<Category>>();
         }

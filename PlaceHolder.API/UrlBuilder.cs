@@ -12,7 +12,7 @@ namespace GuildWars2APIPlaceHolder
 
         private API _selectedApi = API.Guildwars2V2;
         private List<string> _params = new List<string>();
-        private List<string> _pointers = new List<string>();
+        private List<string> _directives = new List<string>();
 
         private string BaseURL { 
             get {
@@ -31,9 +31,9 @@ namespace GuildWars2APIPlaceHolder
         public string URL {
             get {
                 var url = new StringBuilder(BaseURL);
-                if (_pointers.Count > 0) {
+                if (_directives.Count > 0) {
                     url.Append('/');
-                    url.Append(string.Join("/", _pointers));
+                    url.Append(string.Join("/", _directives));
                 }
                 if (_params.Count > 0) {
                     url.Append('?');
@@ -46,7 +46,7 @@ namespace GuildWars2APIPlaceHolder
         public UrlBuilder(params string[] endPoints)
         {
             if(endPoints.Count() > 0)
-                _pointers.AddRange(endPoints);
+                _directives.AddRange(endPoints);
         }
 
         public T Request<T>(API api = API.Guildwars2V2)
@@ -61,9 +61,9 @@ namespace GuildWars2APIPlaceHolder
             return new WebRequestHandler().GetRequest<T>(URL, new Dictionary<string, string>() { { "Authorization", string.Format("Bearer {0}", apiKey) } });
         }
 
-        public UrlBuilder AddPointer(string pointer)
+        public UrlBuilder AddDirective(string directive)
         {
-            _pointers.Add(pointer);
+            _directives.Add(directive);
             return this;
         }
 

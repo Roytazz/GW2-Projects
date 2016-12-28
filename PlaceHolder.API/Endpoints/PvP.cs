@@ -9,33 +9,33 @@ namespace GuildWars2APIPlaceHolder
 
         public static Stats Stats(string apiKey)
         {
-            return Builder.AddPointer("stats")
+            return Builder.AddDirective("stats")
                 .Request<Stats>(apiKey);
         }
 
         public static List<Standings> Standings(string apiKey)
         {
-            return Builder.AddPointer("standings")
+            return Builder.AddDirective("standings")
                 .Request<List<Standings>>(apiKey);
         }
 
         #region Games
         public static List<string> GameIDs(string apiKey)
         {
-            return Builder.AddPointer("games")
+            return Builder.AddDirective("games")
                 .Request<List<string>>(apiKey);
         }
 
         public static List<Game> Games(string apiKey)
         {
-            return Builder.AddPointer("games")
+            return Builder.AddDirective("games")
                 .AddParam("ids", "all")
                 .Request<List<Game>>(apiKey);
         }
 
         public static List<Game> Games(int pageCount, int page, string apiKey)
         {
-            return Builder.AddPointer("games")
+            return Builder.AddDirective("games")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Game>>(apiKey);
@@ -43,14 +43,14 @@ namespace GuildWars2APIPlaceHolder
 
         public static Game Games(string ID, string apiKey)
         {
-            return Builder.AddPointer("games")
-                .AddPointer(ID.ToString())
+            return Builder.AddDirective("games")
+                .AddDirective(ID.ToString())
                 .Request<Game>(apiKey);
         }
 
         public static List<Game> Games(List<string> IDs, string apiKey)
         {
-            return Builder.AddPointer("games")
+            return Builder.AddDirective("games")
                 .AddParam("ids", IDs)
                 .Request<List<Game>>(apiKey);
         }
@@ -59,20 +59,20 @@ namespace GuildWars2APIPlaceHolder
         #region Seasons
         public static List<string> SeasonIDs()
         {
-            return Builder.AddPointer("seasons")
+            return Builder.AddDirective("seasons")
                 .Request<List<string>>();
         }
 
         public static List<Season> Seasons()
         {
-            return Builder.AddPointer("seasons")
+            return Builder.AddDirective("seasons")
                 .AddParam("ids", "all")
                 .Request<List<Season>>();
         }
 
         public static List<Season> Seasons(int pageCount, int page)
         {
-            return Builder.AddPointer("seasons")
+            return Builder.AddDirective("seasons")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Season>>();
@@ -80,14 +80,14 @@ namespace GuildWars2APIPlaceHolder
 
         public static Season Seasons(string ID)
         {
-            return Builder.AddPointer("seasons")
-                .AddPointer(ID.ToString())
+            return Builder.AddDirective("seasons")
+                .AddDirective(ID.ToString())
                 .Request<Season>();
         }
 
         public static List<Season> Seasons(List<string> IDs)
         {
-            return Builder.AddPointer("seasons")
+            return Builder.AddDirective("seasons")
                 .AddParam("ids", IDs)
                 .Request<List<Season>>();
         }
@@ -96,20 +96,20 @@ namespace GuildWars2APIPlaceHolder
         #region Amulets
         public static List<int> AmuletIDs()
         {
-            return Builder.AddPointer("amulets")
+            return Builder.AddDirective("amulets")
                 .Request<List<int>>();
         }
 
         public static List<Amulet> Amulets()
         {
-            return Builder.AddPointer("amulets")
+            return Builder.AddDirective("amulets")
                 .AddParam("ids", "all")
                 .Request<List<Amulet>>();
         }
 
         public static List<Amulet> Amulets(int pageCount, int page)
         {
-            return Builder.AddPointer("amulets")
+            return Builder.AddDirective("amulets")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<Amulet>>();
@@ -117,14 +117,14 @@ namespace GuildWars2APIPlaceHolder
 
         public static Amulet Amulets(int ID)
         {
-            return Builder.AddPointer("amulets")
-                .AddPointer(ID.ToString())
+            return Builder.AddDirective("amulets")
+                .AddDirective(ID.ToString())
                 .Request<Amulet>();
         }
 
         public static List<Amulet> Amulets(List<int> IDs)
         {
-            return Builder.AddPointer("amulets")
+            return Builder.AddDirective("amulets")
                 .AddParam("ids", IDs)
                 .Request<List<Amulet>>();
         }
@@ -133,10 +133,10 @@ namespace GuildWars2APIPlaceHolder
         #region Season Leaderboards
         public static List<GuildLeaderboard> LeaderboardGuild(string ID, int pageCount, int page)
         {
-            return Builder.AddPointer("seasons")
-                .AddPointer(ID.ToString())
-                .AddPointer("leaderboards")
-                .AddPointer("guild")
+            return Builder.AddDirective("seasons")
+                .AddDirective(ID.ToString())
+                .AddDirective("leaderboards")
+                .AddDirective("guild")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<GuildLeaderboard>>();
@@ -144,19 +144,19 @@ namespace GuildWars2APIPlaceHolder
 
         public static List<GuildLeaderboard> LeaderboardGuild(string ID)
         {
-            return Builder.AddPointer("seasons")
-               .AddPointer(ID.ToString())
-               .AddPointer("leaderboards")
-               .AddPointer("guild")
+            return Builder.AddDirective("seasons")
+               .AddDirective(ID.ToString())
+               .AddDirective("leaderboards")
+               .AddDirective("guild")
                .Request<List<GuildLeaderboard>>();
         }
 
         public static List<BaseLeaderboard> LeaderboardLegendary(string ID, int pageCount, int page)
         {
-            return Builder.AddPointer("seasons")
-                .AddPointer(ID.ToString())
-                .AddPointer("leaderboards")
-                .AddPointer("legendary")
+            return Builder.AddDirective("seasons")
+                .AddDirective(ID.ToString())
+                .AddDirective("leaderboards")
+                .AddDirective("legendary")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
                 .Request<List<BaseLeaderboard>>();
@@ -164,10 +164,10 @@ namespace GuildWars2APIPlaceHolder
 
         public static List<BaseLeaderboard> LeaderboardLegendary(string ID)
         {
-            return Builder.AddPointer("seasons")
-               .AddPointer(ID.ToString())
-               .AddPointer("leaderboards")
-               .AddPointer("legendary")
+            return Builder.AddDirective("seasons")
+               .AddDirective(ID.ToString())
+               .AddDirective("leaderboards")
+               .AddDirective("legendary")
                .Request<List<BaseLeaderboard>>();
         }
         #endregion Season Leaderboards
