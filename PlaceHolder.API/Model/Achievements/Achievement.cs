@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace GuildWars2APIPlaceHolder.Model.Achievements
 {
-    // GET /v2/achievements?id=2
     public class Achievement
     {
         [JsonProperty("id")]
@@ -47,24 +46,12 @@ namespace GuildWars2APIPlaceHolder.Model.Achievements
 
     }
 
-
-    /// <summary>
-    /// Default - A default achievement
-    /// ItemSet - Achievement is linked to Collections
-    /// </summary>
     public enum AchievementType
     {
         Default,
         ItemSet
     }
 
-    /// <summary>
-    /// Pvp - can only get progress in PvP or WvW
-    /// CategoryDisplay - is a meta achievement
-    /// MoveToTop - affects in-game UI collation
-    /// IgnoreNearlyComplete - doesn't appear in the "nearly complete" UI
-    /// Repeatable - can be repeated multiple times
-    /// </summary>
     public enum AchievementFlag
     {
         Pvp,

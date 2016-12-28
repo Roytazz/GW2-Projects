@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuildWars2APIPlaceHolder.Model
 {
@@ -16,7 +12,7 @@ namespace GuildWars2APIPlaceHolder.Model
         public string Name { get; set; }
 
         [JsonProperty("permissions")]
-        public List<string> Permissions { get; set; }
+        public List<Permission> Permissions { get; set; }
     }
 
     public enum Permission

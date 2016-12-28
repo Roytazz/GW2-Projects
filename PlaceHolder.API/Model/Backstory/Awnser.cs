@@ -1,10 +1,5 @@
-﻿using GuildWars2APIPlaceHolder.Model.Character;
-using Newtonsoft.Json;
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuildWars2APIPlaceHolder.Model.Backstory
 {

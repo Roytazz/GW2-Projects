@@ -19,9 +19,7 @@ namespace GuildWars2APIPlaceHolder.Model.Mechanics
 
         [JsonProperty("overrides")]
         public int Overrides { get; set; }
-
-        //.. Optional Fields ..//
-
+        
         /// <summary>
         /// Either int or bool
         /// </summary>
@@ -57,5 +55,27 @@ namespace GuildWars2APIPlaceHolder.Model.Mechanics
 
         [JsonProperty("distance")]
         public int Distance { get; set; }
+    }
+
+    public enum FinisherType
+    {
+        Blast,
+        Leap,
+        Projectile,
+        Whirl
+    }
+
+    public enum FieldType
+    {
+        Air,
+        Dark,
+        Fire,
+        Ice,
+        Light,
+        Lightning,
+        Poison,
+        Smoke,
+        Ethereal,
+        Water
     }
 }

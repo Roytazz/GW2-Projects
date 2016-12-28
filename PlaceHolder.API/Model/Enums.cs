@@ -1,11 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GuildWars2APIPlaceHolder.Model
+﻿namespace GuildWars2APIPlaceHolder.Model
 {
     public enum EntityBinding
     {
@@ -33,14 +26,6 @@ namespace GuildWars2APIPlaceHolder.Model
         Heavy
     }
 
-    public enum FinisherType
-    {
-        Blast,
-        Leap,
-        Projectile,
-        Whirl
-    }
-
     public enum DamageType
     {
         Physical,
@@ -48,20 +33,6 @@ namespace GuildWars2APIPlaceHolder.Model
         Lightning,
         Ice,
         Choking
-    }
-
-    public enum FieldType
-    {
-        Air,
-        Dark,
-        Fire,
-        Ice,
-        Light,
-        Lightning,
-        Poison,
-        Smoke,
-        Ethereal,
-        Water
     }
 
     public enum Access
@@ -131,12 +102,6 @@ namespace GuildWars2APIPlaceHolder.Model
         Special,
         Activity,
         Dungeon
-    }
-
-    public enum PvPMode
-    {
-        Ranked,
-        Unranked
     }
 
     public enum Weapon

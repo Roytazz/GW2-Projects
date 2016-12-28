@@ -16,12 +16,9 @@ namespace GuildWars2APIPlaceHolder.Model.Items
 
         [JsonProperty("type")]
         public SkinType Type { get; set; }
-
-        /// <summary>
-        /// Race restrictions that apply to the skin, e.g. "Human"
-        /// </summary>
+        
         [JsonProperty("restrictions")]
-        public List<string> Restrictions { get; set; }
+        public List<SkinRestriction> Restrictions { get; set; }  
 
         [JsonProperty("icon")]
         public string Icon { get; set; }

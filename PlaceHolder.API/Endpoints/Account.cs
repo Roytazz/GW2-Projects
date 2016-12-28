@@ -1,5 +1,4 @@
 ﻿using GuildWars2APIPlaceHolder.Model.Account;
-using GuildWars2APIPlaceHolder.Model.Items;
 using System.Collections.Generic;
 
 namespace GuildWars2APIPlaceHolder

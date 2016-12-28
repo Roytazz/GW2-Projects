@@ -1,9 +1,6 @@
 ﻿using GuildWars2APIPlaceHolder.Model.Character;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuildWars2APIPlaceHolder
 {
@@ -18,7 +15,7 @@ namespace GuildWars2APIPlaceHolder
 
         public static List<Character> Characters(string apiKey)
         {
-            return Builder.AddParam("page=0")
+            return Builder.AddParam("page", "0")
                 .Request<List<Character>>(apiKey);
         }
 

@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using Utility.Network;
 
 namespace GuildWars2APIPlaceHolder
@@ -54,34 +49,13 @@ namespace GuildWars2APIPlaceHolder
                 _pointers.AddRange(endPoints);
         }
 
-        /// <summary>
-        /// Requests to default Guildwars2 v2 API
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public T Request<T>()
-        {
-            return new WebRequestHandler().GetRequest<T>(URL);
-        }
-
-        /// <summary>
-        /// Requests to default Guildwars2 v2 API
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="apiKey"></param>
-        /// <returns></returns>
-        public T Request<T>(string apiKey)
-        {
-            return new WebRequestHandler().GetRequest<T>(URL, new Dictionary<string, string>() { { "Authorization", string.Format("Bearer {0}", apiKey) } });
-        }
-
-        public T Request<T>(API api)
+        public T Request<T>(API api = API.Guildwars2V2)
         {
             _selectedApi = api;
             return new WebRequestHandler().GetRequest<T>(URL);
         }
 
-        public T Request<T>(API api, string apiKey)
+        public T Request<T>(string apiKey, API api = API.Guildwars2V2)
         {
             _selectedApi = api;
             return new WebRequestHandler().GetRequest<T>(URL, new Dictionary<string, string>() { { "Authorization", string.Format("Bearer {0}", apiKey) } });
@@ -107,7 +81,7 @@ namespace GuildWars2APIPlaceHolder
 
         public UrlBuilder AddParam<T>(string name, IEnumerable<T> values)
         {
-            _params.Add($"{name}={string.Join(",", values)}");
+            _params.Add($"{name}={string.Join(",", values)}");  //Large requests might be a problem
             return this;
         }
     }

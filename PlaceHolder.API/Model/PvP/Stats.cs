@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuildWars2APIPlaceHolder.Model.PvP
 {
@@ -26,5 +22,11 @@ namespace GuildWars2APIPlaceHolder.Model.PvP
 
         [JsonProperty("ladders")]
         public Dictionary<PvPMode, WinLossStats> Ladders { get; set; }
+    }
+
+    public enum PvPMode
+    {
+        Ranked,
+        Unranked
     }
 }

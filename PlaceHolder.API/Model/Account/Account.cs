@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 namespace GuildWars2APIPlaceHolder.Model.Account
 {
-    // GET /v2/account
-    // Authorization: Bearer oauth2-token
-    // Requires "account" scope.
     public class Account
     {
         [JsonProperty("id")]

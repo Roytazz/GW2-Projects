@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuildWars2APIPlaceHolder.Model.Guild
 {
@@ -38,8 +34,6 @@ namespace GuildWars2APIPlaceHolder.Model.Guild
 
         [JsonProperty("costs")]
         public List<GuildUpgradeCost> Costs { get; set; }
-
-        /** Optional Fields **/
 
         [JsonProperty("bag_max_items")]
         public int BagMaxItems { get; set; }
