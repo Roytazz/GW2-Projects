@@ -150,6 +150,20 @@ namespace GuildWars2APIPlaceHolder
         }
         #endregion Upgrades
 
+        public static GuildDetails DetailsByID(string ID)
+        {
+            return Builder.AddPointer("guild_details.json")
+                .AddParam("guild_id", ID)
+                .Request<GuildDetails>(API.Guildwars2V1);
+        }
+
+        public static GuildDetails DetailsByName(string name)
+        {
+            return Builder.AddPointer("guild_details.json")
+                .AddParam("guild_name", name)
+                .Request<GuildDetails>(API.Guildwars2V1);
+        }
+
         public static List<LogEntry> Logs(string guildID, string apiKey)
         {
             return Builder.AddPointer("guild")

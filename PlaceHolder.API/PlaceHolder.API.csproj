@@ -92,6 +92,8 @@
     <Compile Include="Model\Commerce\Listing.cs" />
     <Compile Include="Model\Commerce\Transaction.cs" />
     <Compile Include="Model\Guild\Emblem.cs" />
+    <Compile Include="Model\Guild\GuildDetails.cs" />
+    <Compile Include="Model\Guild\GuildEmblem.cs" />
     <Compile Include="Model\Guild\GuildTeam.cs" />
     <Compile Include="Model\Guild\GuildTeamMember.cs" />
     <Compile Include="Model\Guild\GuildTeamSeason.cs" />
