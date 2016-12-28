@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
+using System.Runtime.Serialization;
 
 namespace GuildWars2APIPlaceHolder.Model.Guild
 {
@@ -70,25 +72,27 @@ namespace GuildWars2APIPlaceHolder.Model.Guild
         #endregion Upgrade
     }
 
-    public enum LogType //TODO Fix name
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum LogType 
     {
         Stash,
         MOTD,
         Invited,
-        Invite_Declined,
+        [EnumMember(Value = "invite_declined")]InviteDeclined,
         Kick,
         Joined,
-        Rank_Change,
+        [EnumMember(Value = "rank_change")]RankChange,
         Upgrade,
         Influence
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum LogUpgradeAction   
     {
         Queued,
         Cancelled,
         Completed,
-        Sped_Up
+        [EnumMember(Value = "sped_up")]SpedUp
     }
 
 }

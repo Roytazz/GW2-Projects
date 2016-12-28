@@ -1,0 +1,20 @@
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace GuildWars2APIPlaceHolder.Model.PvP
+{
+    public class LeaderboardSettings
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("duration")]
+        public int? Duration { get; set; }
+
+        [JsonProperty("scoring")]
+        public string Scoring { get; set; }
+
+        [JsonProperty("tiers")]
+        public List<LeaderboardTier> Tiers { get; set; }
+    }
+}

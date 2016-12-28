@@ -37,6 +37,7 @@ namespace GuildWars2APIPlaceHolder.Model.Items
         [JsonProperty("vendor_value")]
         public int VendorValue { get; set; }
 
+        [JsonIgnore]
         public ItemPrice Price { get { return new ItemPrice(VendorValue); } }
 
         [JsonProperty("default_skin")]

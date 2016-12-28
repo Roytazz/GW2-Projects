@@ -27,7 +27,14 @@ namespace GuildWars2APIPlaceHolder.Model.PvP
         [JsonProperty("divisions")]
         public List<Division> Divisions { get; set; }
 
-        [JsonProperty("leadersboards"), JsonIgnore]
-        public List<object> Leaderboards { get; set; }  //TODO PvP Leaderbords
+        [JsonProperty("leaderboards")]
+        public Dictionary<LeaderboardType, Leaderbord> Leaderboards { get; set; }  
+    }
+
+    public enum LeaderboardType
+    {
+        Guild,
+        Legendary,
+        Ladder
     }
 }

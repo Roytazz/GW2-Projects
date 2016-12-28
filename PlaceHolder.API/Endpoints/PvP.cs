@@ -133,5 +133,47 @@ namespace GuildWars2APIPlaceHolder
                 .Request<List<Amulet>>();
         }
         #endregion Amulets
+
+        #region Season Leaderboards
+        public static List<GuildLeaderboard> LeaderboardGuild(string ID, int pageCount, int page)
+        {
+            return Builder.AddPointer("seasons")
+                .AddPointer(ID.ToString())
+                .AddPointer("leaderboards")
+                .AddPointer("guild")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .Request<List<GuildLeaderboard>>();
+        }
+
+        public static List<GuildLeaderboard> LeaderboardGuild(string ID)
+        {
+            return Builder.AddPointer("seasons")
+               .AddPointer(ID.ToString())
+               .AddPointer("leaderboards")
+               .AddPointer("guild")
+               .Request<List<GuildLeaderboard>>();
+        }
+
+        public static List<BaseLeaderboard> LeaderboardLegendary(string ID, int pageCount, int page)
+        {
+            return Builder.AddPointer("seasons")
+                .AddPointer(ID.ToString())
+                .AddPointer("leaderboards")
+                .AddPointer("legendary")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .Request<List<BaseLeaderboard>>();
+        }
+
+        public static List<BaseLeaderboard> LeaderboardLegendary(string ID)
+        {
+            return Builder.AddPointer("seasons")
+               .AddPointer(ID.ToString())
+               .AddPointer("leaderboards")
+               .AddPointer("legendary")
+               .Request<List<BaseLeaderboard>>();
+        }
+        #endregion Season Leaderboards
     }
 }

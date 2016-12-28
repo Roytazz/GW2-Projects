@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace GuildWars2APIPlaceHolder.Model.Mechanics
 {
@@ -17,12 +19,13 @@ namespace GuildWars2APIPlaceHolder.Model.Mechanics
         public string Attunement { get; set; }
     }
 
-    public enum WeaponSkillbarSlot
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum WeaponSkillbarSlot  
     {
-        Weapon_1,
-        Weapon_2,
-        Weapon_3,
-        Weapon_4,
-        Weapon_5,
+        [EnumMember(Value = "weapon_1")] Weapon1,
+        [EnumMember(Value = "weapon_2")] Weapon2,
+        [EnumMember(Value = "weapon_3")] Weapon3,
+        [EnumMember(Value = "weapon_4")] Weapon4,
+        [EnumMember(Value = "weapon_5")] Weapon5,
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -93,25 +95,26 @@ namespace GuildWars2APIPlaceHolder.Model.Mechanics
         Unblockable
     }
 
-    public enum WeaponSlot
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum WeaponSlot 
     {
-        Downed_1,
-        Downed_2,
-        Downed_3,
-        Downed_4,
-        Profession_1,
-        Profession_2,
-        Profession_3,
-        Profession_4,
-        Profession_5,
+        [EnumMember(Value = "downed_1")] Downed1,
+        [EnumMember(Value = "downed_2")] Downed2,
+        [EnumMember(Value = "downed_3")] Downed3,
+        [EnumMember(Value = "downed_4")] Downed4,
+        [EnumMember(Value = "profession_1")] Profession1,
+        [EnumMember(Value = "profession_2")] Profession2,
+        [EnumMember(Value = "profession_3")] Profession3,
+        [EnumMember(Value = "profession_4")] Profession4,
+        [EnumMember(Value = "profession_5")] Profession5,
         Utility,
         Elite,
         Heal,
-        Weapon_1,
-        Weapon_2,
-        Weapon_3,
-        Weapon_4,
-        Weapon_5,
+        [EnumMember(Value = "weapon_1")] Weapon1,
+        [EnumMember(Value = "weapon_2")] Weapon2,
+        [EnumMember(Value = "weapon_3")] Weapon3,
+        [EnumMember(Value = "weapon_4")] Weapon4,
+        [EnumMember(Value = "weapon_5")] Weapon5,
         ToolBelt
     }
 
