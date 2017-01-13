@@ -50,12 +50,9 @@ namespace GuildWars2Value.Recipes
                     }
                 }
             }
-            else {
-                Item = ItemAPI.Items(ItemID);
-                if (Item != null && Item.Details != null && Item.Details.RecipeID != 0) {          //Check for weird recipe in Item.Details
-                    _recipeIDs.Add(Item.Details.RecipeID);                                         //This forces us to load the Item object.
-                    _recipe = ItemAPI.Recipes(Item.Details.RecipeID);
-                }
+            else if (Item != null && Item.Details != null && Item.Details.RecipeID != 0) {          //Check for weird recipe in Item.Details
+                _recipeIDs.Add(Item.Details.RecipeID);                                              //This forces us to load the Item object.
+                _recipe = ItemAPI.Recipes(Item.Details.RecipeID);
             }
         }
 
