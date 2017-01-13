@@ -1,4 +1,5 @@
-﻿using GuildWars2API.Model.Color;
+﻿using GuildWars2API;
+using GuildWars2API.Model.Color;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,8 +13,8 @@ namespace GuildWars2Guild.Classes.Resources
 
         private List<Color> Colors {
             get {
-                if(_colors == null)
-                    _colors = GuildWars2API.MiscAPI.GetColors();
+                if (_colors == null)
+                    _colors = MiscellaneousAPI.Colors();
 
                 return _colors;
             }
@@ -21,7 +22,7 @@ namespace GuildWars2Guild.Classes.Resources
 
         public Color Get(string identifier) {
             int id;
-            if(int.TryParse(identifier, out id))
+            if (int.TryParse(identifier, out id))
                 return Get(id);
 
             return null;
@@ -31,7 +32,7 @@ namespace GuildWars2Guild.Classes.Resources
             List<int> ids = new List<int>();
             foreach(string identifier in identifiers) {
                 int id;
-                if(int.TryParse(identifier, out id))
+                if (int.TryParse(identifier, out id))
                     ids.Add(id);
             }
             return Get(ids);

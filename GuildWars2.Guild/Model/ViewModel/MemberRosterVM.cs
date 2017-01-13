@@ -13,7 +13,7 @@ namespace GuildWars2Guild.Model.ViewModel
 
         public MemberRosterVM() {
             var guildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
-            var members = GuildWars2API.GuildAPI.GetMembersByID(guildDetails?.GuildID, Properties.Settings.Default.ApiKey);
+            var members = GuildWars2API.GuildAPI.Members(guildDetails?.ID, Properties.Settings.Default.ApiKey);
             if(members != null) {
                 MainCollection = ConvertMembers(members);
                 MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);

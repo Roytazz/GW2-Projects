@@ -11,27 +11,27 @@ namespace GuildWars2Guild.Classes.Resources
         public int Capacity { get; set; }
 
         public ItemListing Get(int ID) {
-            var item = _listings.Find(i => i.ID == ID);
+            var item = _listings.Find(i => i.ItemID == ID);
             if(item == null) {
-                var listingFound = GuildWars2API.ItemAPI.GetItemListing(ID);
+                var listingFound = GuildWars2API.CommerceAPI.Listings(ID);
                 if(listingFound == null)
                     return null;
 
                 Add(listingFound);
                 return Get(ID);
             }
-            return _listings.Find(i => i.ID == ID);
+            return _listings.Find(i => i.ItemID == ID);
         }
 
         public List<ItemListing> Get(List<int> IDs) {
-            var newListings = IDs.Where(id => !_listings.Any(listing => listing.ID == id));
-            var result = GuildWars2API.ItemAPI.GetItemListing(new HashSet<int>(newListings));
+            var newListings = IDs.Where(id => !_listings.Any(listing => listing.ItemID == id));
+            var result = GuildWars2API.CommerceAPI.Listings(new List<int>(newListings));
 
             foreach(var listing in result) {
                 if(listing != null)
                     Add(listing);
             }
-            return _listings.Where(item => IDs.Any(id => item.ID == id)).ToList();
+            return _listings.Where(item => IDs.Any(id => item.ItemID == id)).ToList();
         }
 
         public ItemListing Get(string identifier) {

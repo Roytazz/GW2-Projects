@@ -13,7 +13,7 @@ namespace GuildWars2Guild.Classes.Resources
         public Item Get(int ID) {
             var item = _items.Find(i => i.ID == ID);
             if(item == null) {
-                var itemFound = GuildWars2API.ItemAPI.GetItem(ID);
+                var itemFound = GuildWars2API.ItemAPI.Items(ID);
                 if(itemFound == null)
                     return null;
 
@@ -25,7 +25,7 @@ namespace GuildWars2Guild.Classes.Resources
 
         public List<Item> Get(List<int> IDs) {
             var newItems = IDs.Where(id => !_items.Any(item => item.ID == id));
-            var result = GuildWars2API.ItemAPI.GetItem(new HashSet<int>(newItems));
+            var result = GuildWars2API.ItemAPI.Items(new List<int>(newItems));
 
             foreach(var item in result) {
                 if(item != null)

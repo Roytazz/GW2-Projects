@@ -1,5 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GuildWars2API.Model.Items
 {
@@ -8,27 +12,50 @@ namespace GuildWars2API.Model.Items
         [JsonProperty("id")]
         public int ID { get; set; }
 
-        /// <summary>
-        /// Possible values(value, explanation):
-        /// HelmAquatic
-        /// Backpack, Coat, Boots, Gloves, Helm, Leggings, Shoulders,
-        /// Accessory1, Accessory2, Ring1, Ring2, Amulet
-        /// WeaponAquaticA, WeaponAquaticB, Sickle, Axe, Pick
-        /// WeaponA1 - primary mainhand
-        /// WeaponA2 - primary offhand
-        /// WeaponB1 - secondary mainhand
-        /// WeaponB2 - secondary offhand
-        /// </summary>
         [JsonProperty("slot")]
-        public string Slot { get; set; }
-
-        [JsonProperty("upgrades")]
-        public List<int> Upgrades { get; set; }
+        public EquipmentType Slot { get; set; }
 
         [JsonProperty("infusions")]
         public List<int> Infusions { get; set; }
 
+        [JsonProperty("upgrades")]
+        public List<int> Upgrades { get; set; }
+
         [JsonProperty("skin")]
         public int Skin { get; set; }
+
+        [JsonProperty("stats")]
+        public ItemStats Stats { get; set; }
+
+        [JsonProperty("binding")]
+        public EntityBinding Binding { get; set; }
+
+        [JsonProperty("bound_to")]
+        public string BoundTo { get; set; }
+    }
+
+    public enum EquipmentType {
+        HelmAquatic,
+        Backpack,
+        Coat,
+        Boots,
+        Gloves,
+        Helm,
+        Leggings,
+        Shoulders,
+        Accessory1,
+        Accessory2,
+        Ring1,
+        Ring2,
+        Amulet,
+        WeaponAquaticA,
+        WeaponAquaticB,
+        WeaponA1,
+        WeaponA2,
+        WeaponB1,
+        WeaponB2,
+        Sickle,
+        Axe,
+        Pick
     }
 }

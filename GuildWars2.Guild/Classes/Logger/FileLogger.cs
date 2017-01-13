@@ -8,11 +8,11 @@ namespace GuildWars2Guild.Classes.Logger
     class FileLogger : BaseLogger, ILogger
     {
 
-        public void LogMessage(string message, LogType messageType) {
+        public void LogMessage(string message, LogMessageType messageType) {
             WriteToLog($"[{DateTimeString}][{GetMessageTypeName(messageType)}] {message}");
         }
 
-        public void LogException(Exception ex, string message, LogType messageType) {
+        public void LogException(Exception ex, string message, LogMessageType messageType) {
             List<Exception> exceptions = GetRealException(ex);
             if(exceptions.Count > 1) {
                 WriteToLog($"[{DateTimeString}][{GetMessageTypeName(messageType)}] Multiple Exceptions found:");

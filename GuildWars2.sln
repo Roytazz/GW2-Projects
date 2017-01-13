@@ -1,17 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.25928.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildWars2.Windows", "GuildWars2.Windows\GuildWars2.Windows.csproj", "{1CED44F1-A8A6-415D-9D56-5530E9A4247F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildWars2.API", "GuildWars2.API\GuildWars2.API.csproj", "{69DF77DF-55F8-4AF2-9E2A-8D3C4B565A1B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildWars2.Guild", "GuildWars2.Guild\GuildWars2.Guild.csproj", "{8C6912B1-9359-4B6F-8BDD-62C2B4FC0750}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{DC854633-1822-44E4-971C-C456CD51D702}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceHolder.API", "PlaceHolder.API\PlaceHolder.API.csproj", "{DC595D19-8FA3-4788-8140-DBEA3B967D85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildWars2.API", "GuildWars2.API\GuildWars2.API.csproj", "{DC595D19-8FA3-4788-8140-DBEA3B967D85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildWars2.Value", "GuildWars2.Value\GuildWars2.Value.csproj", "{2B140250-BD8E-4412-9E5B-B3E4B840695C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1CED44F1-A8A6-415D-9D56-5530E9A4247F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CED44F1-A8A6-415D-9D56-5530E9A4247F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CED44F1-A8A6-415D-9D56-5530E9A4247F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CED44F1-A8A6-415D-9D56-5530E9A4247F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69DF77DF-55F8-4AF2-9E2A-8D3C4B565A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69DF77DF-55F8-4AF2-9E2A-8D3C4B565A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69DF77DF-55F8-4AF2-9E2A-8D3C4B565A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69DF77DF-55F8-4AF2-9E2A-8D3C4B565A1B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C6912B1-9359-4B6F-8BDD-62C2B4FC0750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C6912B1-9359-4B6F-8BDD-62C2B4FC0750}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C6912B1-9359-4B6F-8BDD-62C2B4FC0750}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +29,10 @@ Global
 		{DC595D19-8FA3-4788-8140-DBEA3B967D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC595D19-8FA3-4788-8140-DBEA3B967D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC595D19-8FA3-4788-8140-DBEA3B967D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B140250-BD8E-4412-9E5B-B3E4B840695C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B140250-BD8E-4412-9E5B-B3E4B840695C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B140250-BD8E-4412-9E5B-B3E4B840695C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B140250-BD8E-4412-9E5B-B3E4B840695C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

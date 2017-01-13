@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Achievements
 {
-    class Achievement
+    public class Achievement
     {
         [JsonProperty("id")]
         public int ID { get; set; }
@@ -23,22 +23,9 @@ namespace GuildWars2API.Model.Achievements
         [JsonProperty("locked_text")]
         public string LockedText { get; set; }
 
-        /// <summary>
-        /// Possible values (value, explanation):
-        /// Default - A default achievement
-        /// ItemSet - Achievement is linked to Collections
-        /// </summary>
         [JsonProperty("type")]
         public AchievementType Type { get; set; }
-
-        /// <summary>
-        /// Possible values (value, explanation):
-        /// Pvp - can only get progress in PvP or WvW
-        /// CategoryDisplay - is a meta achievement
-        /// MoveToTop - affects in-game UI collation
-        /// IgnoreNearlyComplete - doesn't appear in the "nearly complete" UI
-        /// Repeatable - can be repeated multiple times
-        /// </summary>
+        
         [JsonProperty("flags")]
         public List<AchievementFlag> Flags { get; set; }
 
@@ -51,17 +38,21 @@ namespace GuildWars2API.Model.Achievements
         [JsonProperty("bits")]
         public List<ProgressBit> Bits { get; set; }
 
+        [JsonProperty("prerequisites")]
+        public List<int> Prerequisites { get; set; }
+
         [JsonProperty("point_cap")]
         public int PointsCap { get; set; }
+
     }
 
-    enum AchievementType
+    public enum AchievementType
     {
         Default,
         ItemSet
     }
 
-    enum AchievementFlag
+    public enum AchievementFlag
     {
         Pvp,
         CategoryDisplay,

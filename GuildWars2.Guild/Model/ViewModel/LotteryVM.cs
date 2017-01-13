@@ -1,5 +1,5 @@
-﻿using GuildWars2API.Model.Guild;
-using GuildWars2API.Model.OldValue;
+﻿using GuildWars2API.Model.Commerce;
+using GuildWars2API.Model.Guild;
 using GuildWars2Guild.Classes;
 using GuildWars2Guild.Classes.MVVM;
 using GuildWars2Guild.Model.ViewModel.Bases;

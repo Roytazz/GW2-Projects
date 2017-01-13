@@ -10,10 +10,7 @@ namespace GuildWars2API.Model.Guild
 
         [JsonProperty("rank")]
         public string RankName { get; set; }
-
-        /// <summary>
-        /// ISO-8601 format
-        /// </summary>
+        
         [JsonProperty("joined")]
         public DateTime Joined { get; set; } 
     }

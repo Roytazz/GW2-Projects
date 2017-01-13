@@ -16,14 +16,14 @@ namespace GuildWars2Guild.Classes
 
         public static void InitializeTimer() {
             _timer = new Timer(TICK_TIME);
-            _timer.Elapsed += Timer_Elapsed;
+            _timer.Elapsed += Timer_ElapsedAsync;
             _timer.Start();
         }
 
-        private static async void Timer_Elapsed(object sender, ElapsedEventArgs e) {
-            Logger.LogManager.LogMessage<ConsoleLogger>("Update Started", LogType.Info, true);
+        private static async void Timer_ElapsedAsync(object sender, ElapsedEventArgs e) {
+            Logger.LogManager.LogMessage<ConsoleLogger>("Update Started", LogMessageType.Info, true);
             await RefreshDbAsync();
-            Logger.LogManager.LogMessage<ConsoleLogger>("Update Finished", LogType.Info, true);
+            Logger.LogManager.LogMessage<ConsoleLogger>("Update Finished", LogMessageType.Info, true);
         }
 
         #endregion Timer
@@ -75,7 +75,7 @@ namespace GuildWars2Guild.Classes
             var apiKey = Properties.Settings.Default.ApiKey;        
             if(apiKey?.Length > 0) {
                 var guildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
-                var results = GuildWars2API.GuildAPI.GetGuildLogByID(guildDetails?.GuildID, apiKey);
+                var results = GuildWars2API.GuildAPI.Logs(guildDetails?.ID, apiKey);
                 if(results != null)
                     LogManager.AddUniqueLog(results);
             }

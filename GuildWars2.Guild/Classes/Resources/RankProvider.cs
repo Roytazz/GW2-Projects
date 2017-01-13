@@ -16,7 +16,7 @@ namespace GuildWars2Guild.Classes.Resources
             {
                 if(_ranks == null) {
                     var guildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
-                    var result = GuildWars2API.GuildAPI.GetGuildRanksById(guildDetails?.GuildID, Properties.Settings.Default.ApiKey);
+                    var result = GuildWars2API.GuildAPI.Ranks(guildDetails?.ID, Properties.Settings.Default.ApiKey);
                     if(result != null)
                         _ranks = result;
                     else

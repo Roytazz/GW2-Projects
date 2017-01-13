@@ -1,4 +1,5 @@
-﻿using GuildWars2API.Model.Guild;
+﻿using GuildWars2API;
+using GuildWars2API.Model.Guild;
 using GuildWars2Guild.Classes.MVVM;
 using GuildWars2Guild.Classes.Resources;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace GuildWars2Guild.Model.ViewModel
         {
             get {
                 if(GuildDetails != null) 
-                    return string.Format("{0} [{1}]", GuildDetails.GuildName, GuildDetails.Tag);
+                    return string.Format("{0} [{1}]", GuildDetails.Name, GuildDetails.Tag);
 
                 return string.Empty;
             }
@@ -33,7 +34,7 @@ namespace GuildWars2Guild.Model.ViewModel
         public string BackgroundSource {
             get {
                 if(GuildDetails?.Emblem?.BackgroundID != null)
-                    return GuildWars2API.MiscAPI.GetEmblemBackgroundLayers(GuildDetails.Emblem.BackgroundID)[0];
+                    return GuildAPI.EmblemBackgrounds(GuildDetails.Emblem.BackgroundID).Layers[0];
 
                 return string.Empty;
             }
@@ -44,7 +45,7 @@ namespace GuildWars2Guild.Model.ViewModel
             get
             {
                 if(_foregroundLayers == null && GuildDetails?.Emblem?.ForegroundID != null)
-                    _foregroundLayers = GuildWars2API.MiscAPI.GetEmblemForegroundLayers(GuildDetails.Emblem.ForegroundID);
+                    _foregroundLayers = GuildAPI.EmblemForegrounds(GuildDetails.Emblem.ForegroundID).Layers;
 
                 return _foregroundLayers;
             }

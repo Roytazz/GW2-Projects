@@ -4,10 +4,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Account
 {
-    // GET /v2/account
-    // Authorization: Bearer oauth2-token
-    // Requires "account" scope.
-    internal class Account
+    public class Account
     {
         [JsonProperty("id")]
         public string ID { get; set; }
@@ -41,13 +38,5 @@ namespace GuildWars2API.Model.Account
 
         [JsonProperty("wvw_rank")]
         public bool WvWRank { get; set; }
-    }
-
-    enum Access
-    {
-        None,
-        PlayForFree,
-        GuildWars2,
-        HeartOfThorns
     }
 }

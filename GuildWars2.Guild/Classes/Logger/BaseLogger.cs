@@ -12,8 +12,8 @@ namespace GuildWars2Guild.Classes.Logger
             }
         }
 
-        protected string GetMessageTypeName(LogType messageType) {
-            return Enum.GetName(typeof(LogType), messageType).ToUpper();
+        protected string GetMessageTypeName(LogMessageType messageType) {
+            return Enum.GetName(typeof(LogMessageType), messageType).ToUpper();
         }
 
         protected List<Exception> GetRealException(Exception ex) {

@@ -10,12 +10,9 @@ namespace GuildWars2API.Model.Guild
 
         [JsonProperty("order")]
         public int Order { get; set; }
-
-        /// <summary>
-        /// An array of permission ids - See Permission
-        /// </summary>
+        
         [JsonProperty("permissions")]
-        public List<string> Permissions { get; set; }
+        public List<GuildPermissionType> Permissions { get; set; }
 
         [JsonProperty("icon")]
         public string Icon { get; set; }

@@ -12,6 +12,6 @@ namespace GuildWars2API.Model.Guild
         public int Count { get; set; }
 
         [JsonProperty("needed_by")]
-        public List<UpgradeItem> NeededBy { get; set; }
+        public List<TreasuryRequiredBy> NeededBy { get; set; }
     }
 }

@@ -1,17 +1,13 @@
-﻿namespace GuildWars2API.Model.Account
+﻿using Newtonsoft.Json;
+
+namespace GuildWars2API.Model.Account
 {
     public class WalletEntry
     {
+        [JsonProperty("id")]
         public int ID { get; set; }
 
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
+        [JsonProperty("value")]
         public int Value { get; set; }
-
-        public string Order { get; set; }
-
-        public string Icon { get; set; }
     }
 }

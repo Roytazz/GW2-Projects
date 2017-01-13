@@ -19,7 +19,7 @@ namespace GuildWars2Guild.Classes
         }
 
         public static void AddUniqueLog(IEnumerable<LogEntry> logs) {
-            var existingIds = SelectColumn(log => log.LogID).Distinct().ToList();
+            var existingIds = SelectColumn(log => log.ID).Distinct().ToList();
             var newLogs = GetUniqueEntries(logs, existingIds);
             if(newLogs.Count() > 0) {
                 Insert(newLogs);
@@ -41,14 +41,14 @@ namespace GuildWars2Guild.Classes
         }
 
         public static IEnumerable<LogEntry> GetLogs(params string[] types) {
-            return Select(entry => types.Contains(entry.Type));
+            return Select(entry => types.Contains(entry.Type.ToString()));
         }
 
         private static IEnumerable<LogEntry> GetUniqueEntries(IEnumerable<LogEntry> logs, IEnumerable<int> availableIDs) {
             if(logs == null || availableIDs == null)
                 return null;
 
-            var newLogs = logs.Where(log => !availableIDs.Any(dbLog => dbLog == log.LogID));
+            var newLogs = logs.Where(log => !availableIDs.Any(dbLog => dbLog == log.ID));
 
             DisplayStashLogInfo(logs, newLogs);
             return newLogs.ToList();

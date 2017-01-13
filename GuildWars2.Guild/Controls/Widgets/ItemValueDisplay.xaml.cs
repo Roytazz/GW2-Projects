@@ -1,4 +1,4 @@
-﻿using GuildWars2API.Model.OldValue;
+﻿using GuildWars2API.Model.Commerce;
 using System.Windows;
 using System.Windows.Controls;
 

@@ -1,5 +1,5 @@
-﻿using GuildWars2API.Model.Guild;
-using GuildWars2API.Model.OldValue;
+﻿using GuildWars2API.Model.Commerce;
+using GuildWars2API.Model.Guild;
 using GuildWars2Guild.Classes;
 using GuildWars2Guild.Model.ViewModel.Bases;
 using System;
@@ -34,7 +34,7 @@ namespace GuildWars2Guild.Model.ViewModel
 
             if(CheckGold && GoldValue?.Length > 0 && result) {
                 int goldValue;
-                if(int.TryParse(GoldValue, out goldValue))
+                if (int.TryParse(GoldValue, out goldValue))
                     result = IsBiggerAmount(item.Value.Gold, int.Parse(GoldValue));
             }
 
@@ -83,10 +83,10 @@ namespace GuildWars2Guild.Model.ViewModel
             var total = new ItemPrice();
             foreach(var entry in goldEntries) {
                 if(entry.Operation.Equals("deposit")) {
-                    total.Add(entry.Coins);
+                    total = new ItemPrice(total.Coins + entry.Coins);
                 }
                 else {
-                    total.Subtract(entry.Coins);
+                    total = new ItemPrice(total.Coins - entry.Coins);
                 }
             }
             return total;

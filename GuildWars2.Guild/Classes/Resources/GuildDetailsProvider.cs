@@ -11,7 +11,7 @@ namespace GuildWars2Guild.Classes.Resources
 
         public GuildDetails Get(string identifier) {
             if(!_guildDetails.ContainsKey(identifier)) {
-                var details = GuildWars2API.GuildAPI.GetGuildDetails(identifier);
+                var details = GuildWars2API.GuildAPI.DetailsByID(identifier);
                 if(details != null) {
                     _guildDetails.Add(identifier, details);
                 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Guild
 {
-    class Stash
+    public class Stash
     {
         [JsonProperty("upgrade_id")]
         public int UpgradeID { get; set; }
@@ -19,6 +19,6 @@ namespace GuildWars2API.Model.Guild
         public string Note { get; set; }
 
         [JsonProperty("inventory")]
-        public List<ItemStack> Inventory { get; set; }
+        public List<ItemStack> Inventory { get; set; } 
     }
 }

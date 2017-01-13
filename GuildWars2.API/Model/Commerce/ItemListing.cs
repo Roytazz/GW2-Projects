@@ -1,19 +1,20 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Commerce
 {
     public class ItemListing
     {
         [JsonProperty("id")]
-        public int ID { get; set; }
+        public int ItemID { get; set; }
+
+        [JsonProperty("buys")]
+        public List<Listing> Buys { get; set; }
+
+        [JsonProperty("sells")]
+        public List<Listing> Sells { get; set; }
 
         [JsonProperty("whitelisted")]
         public bool Whitelisted { get; set; }
-
-        [JsonProperty("buys")]
-        public PriceInfo Buys { get; set; }
-
-        [JsonProperty("sells")]
-        public PriceInfo Sells { get; set; }
     }
 }

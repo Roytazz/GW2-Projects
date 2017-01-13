@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Guild
 {
-    class Emblem
+    public class Emblem
     {
         [JsonProperty("id")]
         public int ID { get; set; }

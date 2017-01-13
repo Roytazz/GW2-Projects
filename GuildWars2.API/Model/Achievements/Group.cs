@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Achievements
 {
-    class Group
+    public class Group
     {
         [JsonProperty("id")]
         public string ID { get; set; }

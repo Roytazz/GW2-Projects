@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Achievements
 {
-    class Category
+    public class Category
     {
         [JsonProperty("id")]
         public int ID { get; set; }
@@ -22,5 +22,8 @@ namespace GuildWars2API.Model.Achievements
 
         [JsonProperty("achievements")]
         public List<int> Achievements { get; set; }
+
+        [JsonProperty("required_access")]
+        public List<Access> RequiredAccess { get; set; }
     }
 }

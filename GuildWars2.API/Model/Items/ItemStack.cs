@@ -7,9 +7,6 @@ namespace GuildWars2API.Model.Items
         [JsonProperty("id")]
         public int ID { get; set; }
 
-        [JsonProperty("category")]
-        public int Category { get; set; }
-
         [JsonProperty("count")]
         public int Count { get; set; }
     }

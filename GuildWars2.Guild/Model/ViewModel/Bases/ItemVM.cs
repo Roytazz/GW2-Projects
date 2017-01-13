@@ -60,7 +60,7 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
 
             if(CheckItemCount && ItemCount?.Length > 0 && result) {
                 int itemCount;
-                if(int.TryParse(ItemCount, out itemCount))
+                if (int.TryParse(ItemCount, out itemCount))
                     result = IsBiggerAmount(item.Count, int.Parse(ItemCount));
             }
 
@@ -92,7 +92,7 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
             foreach(var entry in stashEntries) {
                 var itemEntry = new ItemEntry() {
                                     Item = items.Find(item => item.ID == entry.ItemID),
-                                    Listing = listings.Find(item => item.ID == entry.ItemID)
+                                    Listing = listings.Find(item => item.ItemID == entry.ItemID)
                                 };
                 goldEntries.Add(Reflection.CopyClass(itemEntry, entry));
             }

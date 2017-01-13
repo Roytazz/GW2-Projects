@@ -22,12 +22,13 @@ namespace Utility.Network
         }
 
         private T ReadResponse<T>(WebRequest request) {
+            string responseJson;
             try {
                 using(var response = (HttpWebResponse)request.GetResponse()) {
                     using(Stream data = response.GetResponseStream()) {
                         using(var sr = new StreamReader(data)) {
-                            string result = sr.ReadToEnd();
-                            return JsonConvert.DeserializeObject<T>(result);
+                            responseJson = sr.ReadToEnd();
+                            return JsonConvert.DeserializeObject<T>(responseJson);
                         }
                     }
                 }

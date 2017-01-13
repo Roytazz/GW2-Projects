@@ -2,9 +2,9 @@
 
 namespace GuildWars2API.Model
 {
-    class Build
+    public class Build
     {
-        [JsonProperty("build_id")]
-        public int BuildID { get; set; }
+        [JsonProperty("id")]
+        public int ID { get; set; }
     }
 }

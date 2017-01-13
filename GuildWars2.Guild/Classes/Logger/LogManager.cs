@@ -4,7 +4,7 @@ namespace GuildWars2Guild.Classes.Logger
 {
     static class LogManager
     {
-        public static void LogMessage(string message, LogType messageType = LogType.Message, bool showNotification = false, bool closeApp = false) {
+        public static void LogMessage(string message, LogMessageType messageType = LogMessageType.Message, bool showNotification = false, bool closeApp = false) {
 #if DEBUG
             LogMessage<ConsoleLogger>(message, messageType, showNotification, closeApp);
 #endif
@@ -13,7 +13,7 @@ namespace GuildWars2Guild.Classes.Logger
 #endif
         }
 
-        public static void LogException(Exception ex, string message, LogType messageType = LogType.Exception, bool showNotification = false, bool closeApp = false) {
+        public static void LogException(Exception ex, string message, LogMessageType messageType = LogMessageType.Exception, bool showNotification = false, bool closeApp = false) {
 #if DEBUG
             LogException<ConsoleLogger>(ex, message, messageType, showNotification, closeApp);
 #endif
@@ -22,7 +22,7 @@ namespace GuildWars2Guild.Classes.Logger
 #endif
         }
 
-        public static void LogMessage<T>(string message, LogType messageType = LogType.Message, bool showNotification = false, bool closeApp = false) where T : ILogger, new() {
+        public static void LogMessage<T>(string message, LogMessageType messageType = LogMessageType.Message, bool showNotification = false, bool closeApp = false) where T : ILogger, new() {
             new T().LogMessage(message, messageType);
 
             if(closeApp)
@@ -32,7 +32,7 @@ namespace GuildWars2Guild.Classes.Logger
                 NotifyHandler.Instance.AddNotification(message);
         }
 
-        public static void LogException<T>(Exception ex, string message, LogType messageType = LogType.Exception, bool showNotification = false, bool closeApp = false) where T : ILogger, new() {
+        public static void LogException<T>(Exception ex, string message, LogMessageType messageType = LogMessageType.Exception, bool showNotification = false, bool closeApp = false) where T : ILogger, new() {
             new T().LogException(ex, message, messageType);
 
             if(closeApp)

@@ -1,5 +1,6 @@
 ﻿using GuildWars2API.Model.Items;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Character
@@ -8,28 +9,15 @@ namespace GuildWars2API.Model.Character
     {
         [JsonProperty("name")]
         public string Name { get; set; }
-
-        /// <summary>
-        /// Possible values (value):
-        /// Asura, Charr, Human, Norn, Sylvari
-        /// </summary>
+        
         [JsonProperty("race")]
-        public string Race { get; set; }
-
-        /// <summary>
-        /// Possible values (value):
-        /// Male, Female
-        /// </summary>
+        public Race Race { get; set; }
+        
         [JsonProperty("gender")]
-        public string Gender { get; set; }
-
-        /// <summary>
-        /// Possible values (value):
-        /// Elementalist, Engineer, Guardian, Mesmer, Necromancer,
-        /// Ranger, Revenant, Thief, Warrior
-        /// </summary>
+        public Gender Gender { get; set; }
+        
         [JsonProperty("profession")]
-        public string Profession { get; set; }
+        public Profession Profession { get; set; }
 
         [JsonProperty("level")]
         public int Level { get; set; }
@@ -37,11 +25,11 @@ namespace GuildWars2API.Model.Character
         [JsonProperty("guild")]
         public string Guild { get; set; }
 
-        [JsonProperty("created")]
-        public string Created { get; set; }
-
         [JsonProperty("age")]
         public int Age { get; set; }
+
+        [JsonProperty("created")]
+        public DateTime Created { get; set; }
 
         [JsonProperty("deaths")]
         public int Deaths { get; set; }
@@ -49,16 +37,40 @@ namespace GuildWars2API.Model.Character
         [JsonProperty("title")]
         public int Title { get; set; }
 
-        [JsonProperty("bags")]
-        public List<Bag> Bags { get; set; }
+        [JsonProperty("crafting")]
+        public List<CharacterCraftingDiscipline> Crafting { get; set; }
 
         [JsonProperty("equipment")]
         public List<Equipment> Equipment { get; set; }
 
-        [JsonProperty("crafting")]
-        public List<Discipline> Crafting { get; set; }
+        [JsonProperty("bags")]
+        public List<Bag> Bags { get; set; }
+
+        [JsonProperty("skills")]
+        public Dictionary<GameType, CharacterSkills> Skills { get; set; } 
 
         [JsonProperty("specializations")]
-        public SpecializationGroups Specializations { get; set; }
+        public Dictionary<GameType, List<CharacterSpecialization>> Specializations { get; set; }
+
+        [JsonProperty("training")]
+        public List<CharacterSkillTree> Training { get; set; } 
+
+        [JsonProperty("wvw_abilities ")]
+        public List<WvWAbilities> WvWAbilities { get; set; }
+
+        [JsonProperty("equipment_pvp ")]
+        public List<PvPEquipment> PvPEquipment { get; set; }
+
+        [JsonProperty("backstory")]
+        public List<string> Backstory { get; set; }
+
+        [JsonProperty("recipes"), Obsolete]
+        public List<int> Recipes { get; set; }
+    }
+
+    public enum Gender
+    {
+        Male,
+        Female
     }
 }

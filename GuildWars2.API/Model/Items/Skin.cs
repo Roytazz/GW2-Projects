@@ -3,43 +3,58 @@ using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Items
 {
-    internal class Skin
+    public class Skin
     {
         [JsonProperty("id")]
         public int ID { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
-
-        /// <summary>
-        /// Possible values (value, explanation):
-        /// ShowInWardrobe – When displayed in the account wardrobe (set for all skins listed in the API).
-        /// NoCost – When applying the skin is free.
-        /// HideIfLocked – When the skin is hidden until it is unlocked.
-        /// </summary>
+        
         [JsonProperty("flags")]
-        public List<string> Flags { get; set; }
+        public List<SkinFlag> Flags { get; set; }
 
-        /// <summary>
-        /// Possible values (value, explanation):
-        /// Armor, Weapon, Back
-        /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
-
-        /// <summary>
-        /// Race restrictions that apply to the skin, e.g. "Human"
-        /// </summary>
+        public SkinType Type { get; set; }
+        
         [JsonProperty("restrictions")]
-        public List<string> Restrictions { get; set; }
+        public List<SkinRestriction> Restrictions { get; set; }  
 
         [JsonProperty("icon")]
         public string Icon { get; set; }
+
+        [JsonProperty("rarity")]
+        public ItemRarity Rarity { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
 
         [JsonProperty("details")]
-        public Details Details { get; set; }
+        public SkinDetails Details { get; set; }
+    }
+
+    public enum SkinType
+    {
+        Armor,
+        Weapon,
+        Back,
+        Gathering
+    }
+
+    public enum SkinFlag
+    {
+        ShowInWardrobe,
+        NoCost,
+        HideIfLocked,
+        OverrrideRarity
+    }
+
+    public enum SkinRestriction
+    {
+        Human,
+        Asura,
+        Charr,
+        Norn,
+        Sylvari
     }
 }
