@@ -35,6 +35,8 @@ namespace GuildWars2Value.Recipes
             PopulateChildren();
         }
 
+        public ItemRecipeTreeNode(Item item) : this(item.ID) { Item = item; }
+
         private void PopulateRecipe() {
             _recipeIDs = ItemAPI.SearchRecipesByOutput(ItemID);
             if (_recipeIDs?.Count > 0) {                                                            //Check for normal recipe
@@ -64,7 +66,5 @@ namespace GuildWars2Value.Recipes
                 Children.Add(new ItemRecipeTreeNode(ingredient.ItemID));
             }
         }
-
-        public ItemRecipeTreeNode(Item item) : this(item.ID) { Item = item; }
     }
 }
