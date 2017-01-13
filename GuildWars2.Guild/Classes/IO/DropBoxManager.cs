@@ -15,10 +15,10 @@ namespace GuildWars2Guild.Classes.IO
             try {
                 using(DropboxClient dbx = GetDropboxClient()) {
                     using(var response = await dbx.Files.DownloadAsync(sourceFilePath)) {
-                        LogMessage<ConsoleLogger>("Downloading the DB", LogType.Info);
+                        LogMessage<ConsoleLogger>("Downloading the DB", LogMessageType.Info);
                         byte[] result = await response.GetContentAsByteArrayAsync();
                         File.WriteAllBytes(destinationFilePath, result);
-                        LogMessage<ConsoleLogger>("Done with downloading the DB", LogType.Info);
+                        LogMessage<ConsoleLogger>("Done with downloading the DB", LogMessageType.Info);
                         return true;
                     }
                 }
@@ -33,9 +33,9 @@ namespace GuildWars2Guild.Classes.IO
             try {
                 using(DropboxClient dbx = GetDropboxClient()) {
                     using(var mem = new MemoryStream(File.ReadAllBytes(sourceFilePath))) {
-                        LogMessage<ConsoleLogger>("Upload the DB", LogType.Info);
+                        LogMessage<ConsoleLogger>("Upload the DB", LogMessageType.Info);
                         await dbx.Files.UploadAsync(destinationFilePath, WriteMode.Overwrite.Instance, body: mem);
-                        LogMessage<ConsoleLogger>("Done with uploading the DB", LogType.Info);
+                        LogMessage<ConsoleLogger>("Done with uploading the DB", LogMessageType.Info);
                         return true;
                     }
                 }

@@ -97,7 +97,7 @@ namespace GuildWars2Guild
         private void _bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             var statusList = e.Result as List<Status>;
             if(statusList.Count > 0) {
-                Classes.Logger.LogManager.LogMessage(GetStatusErrorMessage(statusList), LogType.Message, false);
+                Classes.Logger.LogManager.LogMessage(GetStatusErrorMessage(statusList), LogMessageType.Message, false);
                 this.Dialog_Label.Text = GetStatusMessage(statusList);
                 this.DialogHost.IsOpen = true;
             }
