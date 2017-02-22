@@ -18,6 +18,5 @@ namespace GuildWars2Guild
         public void Reload() {
             this.MainContent = new Controls.MainWindowControl();
         }
-        //TODO Guild stash inventory/treasury requirements/Guild upgrades
     }
 }

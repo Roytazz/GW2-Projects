@@ -1,6 +1,7 @@
 ﻿using GuildWars2API.Model.Guild;
 using System.Collections.Generic;
 using System.Linq;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Classes.Resources
 {
@@ -15,7 +16,7 @@ namespace GuildWars2Guild.Classes.Resources
             get
             {
                 if(_ranks == null) {
-                    var guildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
+                    var guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
                     var result = GuildWars2API.GuildAPI.Ranks(guildDetails?.ID, Properties.Settings.Default.ApiKey);
                     if(result != null)
                         _ranks = result;

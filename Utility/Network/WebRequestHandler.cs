@@ -7,7 +7,7 @@ using Utility.Logger;
 
 namespace Utility.Network
 {
-    public class WebRequestHandler : IWebHandler
+    public class WebHandler : IWebHandler
 {
         public T GetRequest<T>(string url, Dictionary<string, string> headers = null) => ReadResponse<T>(CreateRequest(url, headers));
 

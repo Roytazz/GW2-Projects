@@ -1,5 +1,6 @@
 ﻿using GuildWars2API.Model.Guild;
 using GuildWars2Guild.Classes.Resources;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Model
 {
@@ -10,7 +11,7 @@ namespace GuildWars2Guild.Model
         {
             get {
                 if(_order == 0) {
-                    var rank = ResourceManager.Instance.GetResource<Rank>(RankName);
+                    var rank = ResourceProvider.Instance.GetResource<Rank>(RankName);
                     if(rank != null)
                         _order = rank.Order;
                 }

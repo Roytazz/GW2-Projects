@@ -36,11 +36,11 @@ namespace GuildWars2Guild.Classes.IO
 #if !DEBUG
             Thread.Sleep(250);     
 #endif
-            return DropBoxManager.Upload(DB_PATH, GetFullDataBasePath());
+            return DropBoxManager.AsyncUpload(DB_PATH, GetFullDataBasePath());
         }
 
         public static Task<bool> DownloadDatabaseAsync() {
-            return DropBoxManager.Download(GetFullDataBasePath(), DB_PATH);
+            return DropBoxManager.AsyncDownload(GetFullDataBasePath(), DB_PATH);
         }
     }
 }

@@ -2,6 +2,7 @@
 using GuildWars2Guild.Classes.Resources;
 using GuildWars2Guild.Model;
 using System.ComponentModel;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Classes.MVVM.Sorting
 {
@@ -17,8 +18,8 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
                     return result * (SortDirection == ListSortDirection.Descending ? 1 : -1);
             }
             if(x is LogEntry && y is LogEntry) {
-                var rankX = ResourceManager.Instance.GetResource<Rank>((x as LogEntry).OldRank);
-                var rankY = ResourceManager.Instance.GetResource<Rank>((y as LogEntry).OldRank);
+                var rankX = ResourceProvider.Instance.GetResource<Rank>((x as LogEntry).OldRank);
+                var rankY = ResourceProvider.Instance.GetResource<Rank>((y as LogEntry).OldRank);
                 if(rankX != null && rankY != null) {
                     int result = rankX.Order.CompareTo(rankY.Order);
                     return result * (SortDirection == ListSortDirection.Descending ? 1 : -1);
@@ -36,8 +37,8 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
 
         public int Compare(object x, object y) {
             if(x is LogEntry && y is LogEntry) {
-                var rankX = ResourceManager.Instance.GetResource<Rank>((x as LogEntry).NewRank);
-                var rankY = ResourceManager.Instance.GetResource<Rank>((y as LogEntry).NewRank);
+                var rankX = ResourceProvider.Instance.GetResource<Rank>((x as LogEntry).NewRank);
+                var rankY = ResourceProvider.Instance.GetResource<Rank>((y as LogEntry).NewRank);
                 if(rankX != null && rankY != null) {
                     int result = rankX.Order.CompareTo(rankY.Order);
                     return result * (SortDirection == ListSortDirection.Descending ? 1 : -1);
@@ -55,8 +56,8 @@ namespace GuildWars2Guild.Classes.MVVM.Sorting
 
         public int Compare(object x, object y) {
             if(x is LogEntry && y is LogEntry) {
-                var rankX = ResourceManager.Instance.GetResource<Rank>((x as LogEntry).OldRank);
-                var rankY = ResourceManager.Instance.GetResource<Rank>((y as LogEntry).OldRank);
+                var rankX = ResourceProvider.Instance.GetResource<Rank>((x as LogEntry).OldRank);
+                var rankY = ResourceProvider.Instance.GetResource<Rank>((y as LogEntry).OldRank);
                 if(rankX != null && rankY != null) {
                     int result = rankX.Order.CompareTo(rankY.Order);
                     return result * (SortDirection == ListSortDirection.Descending ? 1 : -1);

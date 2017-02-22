@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Utility.Logger;
 
-namespace GuildWars2Guild.Classes.Resources
+namespace Utility.Providers
 {
-    public class ResourceManager
+    public class ResourceProvider
     {
         private static Dictionary<Type, object> _providers;
 
         private static int CAPACITY = 1000;
 
-        private static ResourceManager _instance;
+        private static ResourceProvider _instance;
         private static object lockObj = new object();
 
-        public static ResourceManager Instance
+        public static ResourceProvider Instance
         {
             get {
-                if(_instance == null) {
-                    lock(lockObj) {
-                        if(_instance == null)
-                            _instance = new ResourceManager();
+                if (_instance == null) {
+                    lock (lockObj) {
+                        if (_instance == null)
+                            _instance = new ResourceProvider();
                     }
                 }
                 return _instance;
             }
         }
 
-        public ResourceManager() {
+        public ResourceProvider() {
             _providers = new Dictionary<Type, object>();
         }
 
         public T GetResource<T>(int ID) {
             var provider = GetProvider<T>();
-            if(provider != null)
+            if (provider != null)
                 return provider.Get(ID);
 
             return default(T);
@@ -40,7 +41,7 @@ namespace GuildWars2Guild.Classes.Resources
 
         public List<T> GetResource<T>(List<int> IDs) {
             var provider = GetProvider<T>();
-            if(provider != null)
+            if (provider != null)
                 return provider.Get(IDs);
 
             return default(List<T>);
@@ -48,7 +49,7 @@ namespace GuildWars2Guild.Classes.Resources
 
         public T GetResource<T>(string identifier) {
             var provider = GetProvider<T>();
-            if(provider != null)
+            if (provider != null)
                 return provider.Get(identifier);
 
             return default(T);
@@ -56,20 +57,20 @@ namespace GuildWars2Guild.Classes.Resources
 
         public List<T> GetResource<T>(List<string> identifiers) {
             var provider = GetProvider<T>();
-            if(provider != null)
+            if (provider != null)
                 return provider.Get(identifiers);
 
             return default(List<T>);
         }
 
         private IResourceProvider<T> GetProvider<T>() {
-            if(!_providers.ContainsKey(typeof(T))) {
+            if (!_providers.ContainsKey(typeof(T))) {
                 var providerType = GetProviderType<T>();
-                if(providerType != null) {
+                if (providerType != null) {
                     AddProvider<T>(providerType);
                 }
                 else {
-                    Logger.LogManager.LogMessage(string.Format("No ResourceProvider found for type: {0}", typeof(T)));
+                    LogManager.LogMessage(string.Format("No ResourceProvider found for type: {0}", typeof(T)), false);
                     return null;
                 }
             }
@@ -88,7 +89,7 @@ namespace GuildWars2Guild.Classes.Resources
                 .SelectMany(s => s.GetTypes())
                 .Where(p => typeof(IResourceProvider<T>).IsAssignableFrom(p) && !p.IsInterface);
 
-            if(types.Count() > 0)
+            if (types.Count() > 0)
                 return types.First();
 
             return null;

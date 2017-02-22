@@ -11,7 +11,7 @@ namespace GuildWars2Guild.Classes.IO
 {
     public static class DropBoxManager
     {
-        public static async Task<bool> Download(string destinationFilePath, string sourceFilePath) {
+        public static async Task<bool> AsyncDownload(string destinationFilePath, string sourceFilePath) {
             try {
                 using(DropboxClient dbx = GetDropboxClient()) {
                     using(var response = await dbx.Files.DownloadAsync(sourceFilePath)) {
@@ -29,7 +29,7 @@ namespace GuildWars2Guild.Classes.IO
             }
         }
 
-        public static async Task<bool> Upload(string destinationFilePath, string sourceFilePath) {
+        public static async Task<bool> AsyncUpload(string destinationFilePath, string sourceFilePath) {
             try {
                 using(DropboxClient dbx = GetDropboxClient()) {
                     using(var mem = new MemoryStream(File.ReadAllBytes(sourceFilePath))) {

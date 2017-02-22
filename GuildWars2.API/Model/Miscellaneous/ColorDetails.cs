@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Color
+namespace GuildWars2API.Model.Miscellaneous
 {
     public class ColorDetails
     {

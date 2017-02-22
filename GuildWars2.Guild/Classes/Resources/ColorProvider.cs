@@ -1,7 +1,8 @@
 ﻿using GuildWars2API;
-using GuildWars2API.Model.Color;
+using GuildWars2API.Model.Miscellaneous;
 using System.Collections.Generic;
 using System.Linq;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Classes.Resources
 {

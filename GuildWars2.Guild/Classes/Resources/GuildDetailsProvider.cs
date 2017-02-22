@@ -1,5 +1,6 @@
 ﻿using GuildWars2API.Model.Guild;
 using System.Collections.Generic;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Classes.Resources
 {
@@ -11,7 +12,7 @@ namespace GuildWars2Guild.Classes.Resources
 
         public GuildDetails Get(string identifier) {
             if(!_guildDetails.ContainsKey(identifier)) {
-                var details = GuildWars2API.GuildAPI.DetailsByID(identifier);
+                var details = GuildWars2API.GuildAPI.DetailsByName(identifier);
                 if(details != null) {
                     _guildDetails.Add(identifier, details);
                 }

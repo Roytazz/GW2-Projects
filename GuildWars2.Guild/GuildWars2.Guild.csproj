@@ -129,7 +129,6 @@
     <Compile Include="Classes\IO\LogManager.cs" />
     <Compile Include="Classes\Logger\BaseLogger.cs" />
     <Compile Include="Classes\MVVM\Converter\DateToString.cs" />
-    <Compile Include="Classes\MVVM\Converter\ToEmblemColor.cs" />
     <Compile Include="Classes\MVVM\Converter\ToItemPrice.cs" />
     <Compile Include="Classes\MVVM\Converter\ToRankIcon.cs" />
     <Compile Include="Classes\MVVM\Converter\ToUpperCasingColors.cs" />
@@ -183,13 +182,6 @@
       <DependentUpon>LotteryFilter.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Model\DB\DbManager.cs" />
-    <Compile Include="Model\DB\Helpers\SQLiteColumn.cs" />
-    <Compile Include="Model\DB\Helpers\SQLiteColumnList.cs" />
-    <Compile Include="Model\DB\Helpers\SqliteHelper.cs" />
-    <Compile Include="Model\DB\Helpers\SqliteTable.cs" />
-    <Compile Include="Model\DB\Tables\GuildLogTable.cs" />
-    <Compile Include="Model\DB\Tables\ISqliteTable.cs" />
     <Compile Include="Model\MemberEntry.cs" />
     <Compile Include="Model\RosterEventEntry.cs" />
     <Compile Include="Model\ViewModel\Bases\DbVM.cs" />
@@ -316,10 +308,8 @@
     <Compile Include="Classes\Logger\LogManager.cs" />
     <Compile Include="Classes\MVVM\CommandHandler.cs" />
     <Compile Include="Classes\MVVM\Converter\ToRarityColor.cs" />
-    <Compile Include="Classes\Resources\IResourceProvider.cs" />
     <Compile Include="Classes\Resources\ItemListingProvider.cs" />
     <Compile Include="Classes\Resources\ItemProvider.cs" />
-    <Compile Include="Classes\Resources\ResourceManager.cs" />
     <Compile Include="Controls\NotifyLintControl.xaml.cs">
       <DependentUpon>NotifyLintControl.xaml</DependentUpon>
     </Compile>
@@ -446,6 +436,10 @@
     <ProjectReference Include="..\GuildWars2.API\GuildWars2.API.csproj">
       <Project>{dc595d19-8fa3-4788-8140-dbea3b967d85}</Project>
       <Name>GuildWars2.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{dc854633-1822-44e4-971c-c456cd51d702}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

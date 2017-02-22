@@ -3,16 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:converter="clr-namespace:GuildWars2Guild.Classes.MVVM.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <converter:ToEmblemColor x:Key="EmblemColor"/>
-    </UserControl.Resources>
     <Grid>
-        <Image Source="{Binding BackgroundSource}" OpacityMask="{Binding Path=GuildDetails.Emblem.BackgroundColorID, Converter={StaticResource EmblemColor}}" />
-        <Image Source="{Binding ForegroundSource1}" OpacityMask="{Binding Path=GuildDetails.Emblem.ForegroundPrimaryColorID, Converter={StaticResource EmblemColor}}"/>
-        <Image Source="{Binding ForegroundSource2}" OpacityMask="{Binding Path=GuildDetails.Emblem.ForegroundSecondaryColorID, Converter={StaticResource EmblemColor}}"/>
+        <Image Source="{Binding BackgroundSource}" OpacityMask="{Binding BackgroundColor}"/>
+        <Image Source="{Binding ForegroundSource1}" OpacityMask="{Binding Something}"/>
+        <Image Source="{Binding ForegroundSource2}" OpacityMask="{Binding Something}"/>
         <Image Source="{Binding ForegroundSource3}" OpacityMask="Red" />
     </Grid>
 </UserControl>

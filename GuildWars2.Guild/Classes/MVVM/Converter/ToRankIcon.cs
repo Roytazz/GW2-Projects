@@ -3,13 +3,14 @@ using GuildWars2Guild.Classes.Resources;
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Classes.MVVM.Converter
 {
     class ToRankIcon : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            var rank = ResourceManager.Instance.GetResource<Rank>(value.ToString());
+            var rank = ResourceProvider.Instance.GetResource<Rank>(value.ToString());
             if(rank != null)
                 return rank.Icon;
 

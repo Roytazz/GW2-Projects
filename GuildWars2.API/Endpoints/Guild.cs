@@ -164,17 +164,18 @@ namespace GuildWars2API
                 .Request<GuildDetails>(apiKey);
         }*/
 
-        public static GuildDetails Details(string guildID, string apiKey) {
+        public static GuildDetails Details(string guildID) {
             return Builder.AddDirective("guild")
                 .AddDirective(guildID)
-                .Request<GuildDetails>(apiKey);
+                .Request<GuildDetails>();
         }
 
-        public static GuildDetailsOld DetailsByName(string name)
+        public static GuildDetails DetailsByName(string name)
         {
-            return Builder.AddDirective("guild_details.json")
+            var oldDetails = Builder.AddDirective("guild_details.json")
                 .AddParam("guild_name", name)
                 .Request<GuildDetailsOld>(API.Guildwars2V1);
+            return Details(oldDetails.ID);
         }
         #endregion Details
 

@@ -1,5 +1,4 @@
 ﻿using GuildWars2API.Model;
-using GuildWars2API.Model.Color;
 using GuildWars2API.Model.Miscellaneous;
 using System.Collections.Generic;
 

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Model.ViewModel.Bases
 {
@@ -65,7 +66,7 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
             }
 
             if(CheckKeyword && result)
-                result = ContainsKeyword(KeywordValue, item?.User) || ContainsKeyword(KeywordValue, item?.Operation) || ContainsKeyword(KeywordValue, item?.Item?.Name);
+                result = ContainsKeyword(KeywordValue, item?.User) || ContainsKeyword(KeywordValue, item?.Operation.ToString()) || ContainsKeyword(KeywordValue, item?.Item?.Name);
 
             return result;
         }
@@ -84,8 +85,8 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
 
             var itemIDs = stashEntries.Select(entry => entry.ItemID).ToList();
 
-            List<Item> items = ResourceManager.Instance.GetResource<Item>(itemIDs);
-            List<ItemListing> listings = ResourceManager.Instance.GetResource<ItemListing>(itemIDs);
+            List<Item> items = ResourceProvider.Instance.GetResource<Item>(itemIDs);
+            List<ItemListing> listings = ResourceProvider.Instance.GetResource<ItemListing>(itemIDs);
             if(items == null || listings == null)
                 return goldEntries;
 

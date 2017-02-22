@@ -23,9 +23,9 @@ namespace GuildWars2Guild
             InitializeComponent();
 
             var _bg = new BackgroundWorker { WorkerReportsProgress = true };
-            _bg.DoWork += _bg_DoWork;
-            _bg.ProgressChanged += _bg_ProgressChanged;
-            _bg.RunWorkerCompleted += _bg_RunWorkerCompleted;
+            _bg.DoWork += Bg_DoWork;
+            _bg.ProgressChanged += Bg_ProgressChanged;
+            _bg.RunWorkerCompleted += Bg_RunWorkerCompleted;
             _bg.RunWorkerAsync();
 
             //OpenApplication();
@@ -56,11 +56,12 @@ namespace GuildWars2Guild
 
         #region BackgroundWorker
 
-        private void _bg_DoWork(object sender, DoWorkEventArgs e) {
+        private void Bg_DoWork(object sender, DoWorkEventArgs e) {
             var bg = sender as BackgroundWorker;
             var statusList = new List<Status>();
 
-            if(!HasInternetConnection()) {
+            //WE HAVE NO DB. SO WE SKIP THIS ALL
+            /*if(!HasInternetConnection()) {
                 statusList.Add(Status.NoConnection);
             }
             else {
@@ -86,20 +87,22 @@ namespace GuildWars2Guild
 
                     UpdateManager.InitializeTimer();                    //Create Update Timer
                 }
-            }
+            }*/
             e.Result = statusList;
         }
 
-        private void _bg_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+        private void Bg_ProgressChanged(object sender, ProgressChangedEventArgs e) {
             progress_TxtBlock.Text = e.UserState.ToString();
         }
 
-        private void _bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
-            var statusList = e.Result as List<Status>;
-            if(statusList.Count > 0) {
-                Classes.Logger.LogManager.LogMessage(GetStatusErrorMessage(statusList), LogMessageType.Message, false);
-                this.Dialog_Label.Text = GetStatusMessage(statusList);
-                this.DialogHost.IsOpen = true;
+        private void Bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+            if (e.Result != null) {
+                var statusList = e.Result as List<Status>;
+                if (statusList.Count > 0) {
+                    Classes.Logger.LogManager.LogMessage(GetStatusErrorMessage(statusList), LogMessageType.Message, false);
+                    this.Dialog_Label.Text = GetStatusMessage(statusList);
+                    this.DialogHost.IsOpen = true;
+                }
             }
             else {
                 OpenApplication();

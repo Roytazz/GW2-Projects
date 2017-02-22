@@ -1,21 +1,20 @@
 ﻿using GuildWars2API;
 using GuildWars2API.Model.Guild;
 using GuildWars2Guild.Classes.MVVM;
-using GuildWars2Guild.Classes.Resources;
-using System.Collections.Generic;
 using System.Windows.Input;
+using System.Windows.Media;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Model.ViewModel
 {
     class GuildVM
     {
         private GuildDetails _guildDetails;
-        private List<string> _foregroundLayers;
 
         public GuildDetails GuildDetails {
             get {
                 if(_guildDetails == null) {
-                    _guildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
+                    _guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
                 }
                 return _guildDetails;
             }
@@ -33,14 +32,28 @@ namespace GuildWars2Guild.Model.ViewModel
 
         public string BackgroundSource {
             get {
-                if(GuildDetails?.Emblem?.BackgroundID != null)
-                    return GuildAPI.EmblemBackgrounds(GuildDetails.Emblem.BackgroundID).Layers[0];
+                if (GuildDetails?.Emblem?.Background != null) {
+                    var background = GuildAPI.EmblemBackgrounds(GuildDetails.Emblem.Background.ID);
+                    return background.Layers[0];
+                }
 
                 return string.Empty;
             }
         }
 
-        public List<string> ForegroundLayers
+        public SolidColorBrush BackgroundColor
+        {
+            get {
+                if (GuildDetails?.Emblem?.Background != null) {
+                    var color = ResourceProvider.Instance.GetResource<GuildWars2API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Background.Colors)[0];
+                    return new SolidColorBrush(Color.FromArgb(255, (byte)color.BaseRGB[0], (byte)color.BaseRGB[1], (byte)color.BaseRGB[2]));
+                }
+
+                return null;
+            }
+        }
+
+        /*public List<string> ForegroundLayers
         {
             get
             {
@@ -79,7 +92,7 @@ namespace GuildWars2Guild.Model.ViewModel
 
                 return string.Empty;
             }
-        }
+        }*/
 
         public virtual ICommand GoToSource => new CommandHandler(() => {
             System.Diagnostics.Process.Start("https://github.com/Roytazz/GuildWars2.Projects");

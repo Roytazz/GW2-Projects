@@ -4,6 +4,7 @@ using GuildWars2Guild.Classes.Logger;
 using GuildWars2Guild.Classes.Resources;
 using System.Threading.Tasks;
 using System.Timers;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Classes
 {
@@ -74,7 +75,7 @@ namespace GuildWars2Guild.Classes
         internal static void AddNewLogs() {
             var apiKey = Properties.Settings.Default.ApiKey;        
             if(apiKey?.Length > 0) {
-                var guildDetails = ResourceManager.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
+                var guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
                 var results = GuildWars2API.GuildAPI.Logs(guildDetails?.ID, apiKey);
                 if(results != null)
                     LogManager.AddUniqueLog(results);

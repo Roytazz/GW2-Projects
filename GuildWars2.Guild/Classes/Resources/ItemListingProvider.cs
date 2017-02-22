@@ -1,6 +1,7 @@
 ﻿using GuildWars2API.Model.Commerce;
 using System.Collections.Generic;
 using System.Linq;
+using Utility.Providers;
 
 namespace GuildWars2Guild.Classes.Resources
 {
@@ -26,6 +27,9 @@ namespace GuildWars2Guild.Classes.Resources
         public List<ItemListing> Get(List<int> IDs) {
             var newListings = IDs.Where(id => !_listings.Any(listing => listing.ItemID == id));
             var result = GuildWars2API.CommerceAPI.Listings(new List<int>(newListings));
+
+            if (result == null)
+                return null;
 
             foreach(var listing in result) {
                 if(listing != null)
