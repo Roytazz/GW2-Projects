@@ -22,7 +22,7 @@ namespace GuildWars2API.Model.Guild
         #region Stash
 
         [JsonProperty("operation")]
-        public string Operation { get; set; }
+        public Operation Operation { get; set; }
 
         [JsonProperty("count")]
         public int Count { get; set; }
@@ -76,12 +76,13 @@ namespace GuildWars2API.Model.Guild
     public enum LogType 
     {
         Stash,
+        Treasury,
         MOTD,
         Invited,
-        [EnumMember(Value = "invite_declined")]InviteDeclined,
+        [EnumMember(Value = "invite_declined")] InviteDeclined,
         Kick,
         Joined,
-        [EnumMember(Value = "rank_change")]RankChange,
+        [EnumMember(Value = "rank_change")] RankChange,
         Upgrade,
         Influence
     }
@@ -91,8 +92,13 @@ namespace GuildWars2API.Model.Guild
     {
         Queued,
         Cancelled,
-        Completed,
-        [EnumMember(Value = "sped_up")]SpedUp
+        Complete,
+        [EnumMember(Value = "sped_up")] SpedUp
     }
-
+    
+    public enum Operation
+    {
+        Deposit,
+        Withdraw
+    }
 }

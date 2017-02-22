@@ -142,12 +142,32 @@ namespace GuildWars2API
                 .Request<List<GuildLeaderboard>>();
         }
 
+        public static List<GuildLeaderboard> LeaderboardGuild(string ID, Region region, int pageCount, int page) {
+            return Builder.AddDirective("seasons")
+                .AddDirective(ID.ToString())
+                .AddDirective("leaderboards")
+                .AddDirective("guild")
+                .AddDirective(region.ToString())
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .Request<List<GuildLeaderboard>>();
+        }
+
         public static List<GuildLeaderboard> LeaderboardGuild(string ID)
         {
             return Builder.AddDirective("seasons")
                .AddDirective(ID.ToString())
                .AddDirective("leaderboards")
                .AddDirective("guild")
+               .Request<List<GuildLeaderboard>>();
+        }
+
+        public static List<GuildLeaderboard> LeaderboardGuild(string ID, Region region) {
+            return Builder.AddDirective("seasons")
+               .AddDirective(ID.ToString())
+               .AddDirective("leaderboards")
+               .AddDirective("guild")
+               .AddDirective(region.ToString())
                .Request<List<GuildLeaderboard>>();
         }
 
@@ -162,6 +182,17 @@ namespace GuildWars2API
                 .Request<List<BaseLeaderboard>>();
         }
 
+        public static List<BaseLeaderboard> LeaderboardLegendary(string ID, Region region, int pageCount, int page) {
+            return Builder.AddDirective("seasons")
+                .AddDirective(ID.ToString())
+                .AddDirective("leaderboards")
+                .AddDirective("legendary")
+                .AddDirective(region.ToString())
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .Request<List<BaseLeaderboard>>();
+        }
+
         public static List<BaseLeaderboard> LeaderboardLegendary(string ID)
         {
             return Builder.AddDirective("seasons")
@@ -170,6 +201,21 @@ namespace GuildWars2API
                .AddDirective("legendary")
                .Request<List<BaseLeaderboard>>();
         }
+
+        public static List<BaseLeaderboard> LeaderboardLegendary(string ID, Region region) {
+            return Builder.AddDirective("seasons")
+               .AddDirective(ID.ToString())
+               .AddDirective("leaderboards")
+               .AddDirective("legendary")
+               .AddDirective(region.ToString())
+               .Request<List<BaseLeaderboard>>();
+        }
         #endregion Season Leaderboards
+    }
+
+    public enum Region
+    {
+        NA,
+        EU
     }
 }

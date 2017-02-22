@@ -150,25 +150,47 @@ namespace GuildWars2API
         }
         #endregion Upgrades
 
-        public static GuildDetails DetailsByID(string ID)
+        #region Details
+        //New methods when Anet implementation is finished
+        /*public static List<string> Guilds(string apiKey) 
         {
-            return Builder.AddDirective("guild_details.json")
-                .AddParam("guild_id", ID)
-                .Request<GuildDetails>(API.Guildwars2V1);
+            return Builder.AddDirective("guild")
+                .Request<List<string>>(apiKey);
+        }*/
+
+        /*public static GuildDetails Details(List<string> guildIDs, string apiKey) {
+            return Builder.AddDirective("guild")
+                .AddParam("ids", guildIDs)
+                .Request<GuildDetails>(apiKey);
+        }*/
+
+        public static GuildDetails Details(string guildID, string apiKey) {
+            return Builder.AddDirective("guild")
+                .AddDirective(guildID)
+                .Request<GuildDetails>(apiKey);
         }
 
-        public static GuildDetails DetailsByName(string name)
+        public static GuildDetailsOld DetailsByName(string name)
         {
             return Builder.AddDirective("guild_details.json")
                 .AddParam("guild_name", name)
-                .Request<GuildDetails>(API.Guildwars2V1);
+                .Request<GuildDetailsOld>(API.Guildwars2V1);
         }
+        #endregion Details
 
         public static List<LogEntry> Logs(string guildID, string apiKey)
         {
             return Builder.AddDirective("guild")
                 .AddDirective(guildID)
                 .AddDirective("log")
+                .Request<List<LogEntry>>(apiKey);
+        }
+
+        public static List<LogEntry> LogsSince(string guildID, int logID, string apiKey) {
+            return Builder.AddDirective("guild")
+                .AddDirective(guildID)
+                .AddDirective("log")
+                .AddParam("since", logID.ToString())
                 .Request<List<LogEntry>>(apiKey);
         }
 

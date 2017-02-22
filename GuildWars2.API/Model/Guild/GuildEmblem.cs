@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2API.Model.Guild
 {
-    public class GuildEmblem
+    public class GuildEmblemOld
     {
         [JsonProperty("background_id")]
         public int BackgroundID { get; set; }
@@ -22,6 +22,27 @@ namespace GuildWars2API.Model.Guild
 
         [JsonProperty("foreground_seconday_color_id")]
         public int ForegroundSecondaryColorID { get; set; }
+    }
+    
+    public class GuildEmblem
+    {
+        [JsonProperty("background")]
+        public EmblemInfo Background { get; set; }
+
+        [JsonProperty("foreground")]
+        public EmblemInfo Foreground { get; set; }
+
+        [JsonProperty("flags")]
+        public List<EmblemFlag> Flags { get; set; }
+    }
+
+    public class EmblemInfo
+    {
+        [JsonProperty("id")]
+        public int ID { get; set; }
+
+        [JsonProperty("colors")]
+        public List<int> Colors { get; set; }
     }
 
     public enum EmblemFlag

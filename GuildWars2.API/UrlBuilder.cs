@@ -60,24 +60,24 @@ namespace GuildWars2API
         public T Request<T>(API api = API.Guildwars2V2)
         {
             _selectedApi = api;
-            return new WebRequestHandler().GetRequest<T>(URL);
+            return new WebHandler().GetRequest<T>(URL);
         }
 
         public T Request<T>(string apiKey, API api = API.Guildwars2V2)
         {
             _selectedApi = api;
-            return new WebRequestHandler().GetRequest<T>(URL, new Dictionary<string, string>() { { "Authorization", string.Format("Bearer {0}", apiKey) } });
+            return new WebHandler().GetRequest<T>(URL, new Dictionary<string, string>() { { "Authorization", string.Format("Bearer {0}", apiKey) } });
         }
 
         public UrlBuilder AddDirective(string directive)
         {
-            _directives.Add(Uri.EscapeDataString(directive));
+            _directives.Add(Escape(directive));
             return this;
         }
 
         public UrlBuilder AddParam(string name, string value)
         {
-            _params.Add($"{name}={Uri.EscapeDataString(value)}");
+            _params.Add($"{name}={Escape(value)}");
             return this;
         }
 
@@ -85,13 +85,21 @@ namespace GuildWars2API
         {
             var result = new StringBuilder();
             foreach (var value in values) {
-                result.Append(Uri.EscapeDataString(value.ToString()));
+                result.Append(Escape(value.ToString()));
                 result.Append(',');
             }
-            result.Remove(result.Length - 1, 1);
+            if(result.Length > 0)
+                result.Remove(result.Length - 1, 1);
 
             _params.Add($"{name}={result.ToString()}");  
             return this;
+        }
+
+        private static string Escape(string value) {
+            if (!string.IsNullOrEmpty(value))
+                return Uri.EscapeDataString(value.ToString());
+
+            return string.Empty;
         }
     }
 

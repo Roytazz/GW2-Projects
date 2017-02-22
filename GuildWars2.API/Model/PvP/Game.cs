@@ -36,6 +36,9 @@ namespace GuildWars2API.Model.PvP
         [JsonProperty("rating_type")]
         public GameRating RatingType { get; set; }
 
+        [JsonProperty("rating_change")]
+        public int RatingChange { get; set; }
+
         [JsonProperty("season")]
         public string Season { get; set; }
     }
