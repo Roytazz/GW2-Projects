@@ -2,7 +2,7 @@
 using GuildWars2Guild.Controls.Palettes;
 using System.Windows.Controls;
 
-namespace GuildWars2Guild.Controls.Settings
+namespace GuildWars2Guild.Controls
 {
     /// <summary>
     /// Interaction logic for Settings.xaml

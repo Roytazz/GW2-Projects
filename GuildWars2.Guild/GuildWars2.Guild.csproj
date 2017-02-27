@@ -169,7 +169,7 @@
       <DependentUpon>PaletteSelectorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Palettes\SwatchesProvider.cs" />
-    <Compile Include="Controls\TreasuryControl.xaml.cs">
+    <Compile Include="Controls\GuildInventory\TreasuryControl.xaml.cs">
       <DependentUpon>TreasuryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\EmblemControl.xaml.cs">
@@ -238,15 +238,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\StashControl\StashGoldControl.xaml">
+    <Page Include="Controls\GuildInventory\StashGoldControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\StashControl\StashItemControl.xaml">
+    <Page Include="Controls\GuildInventory\StashItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TreasuryControl.xaml">
+    <Page Include="Controls\GuildInventory\TreasuryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -274,11 +274,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings\SettingsControl.xaml">
+    <Page Include="Controls\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\StashControl\StashControl.xaml">
+    <Page Include="Controls\GuildInventory\StorageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,7 +313,7 @@
     <Compile Include="Controls\NotifyLintControl.xaml.cs">
       <DependentUpon>NotifyLintControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\StashControl\StashItemControl.xaml.cs">
+    <Compile Include="Controls\GuildInventory\StashItemControl.xaml.cs">
       <DependentUpon>StashItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\ItemDisplay.xaml.cs">
@@ -332,14 +332,14 @@
     <Compile Include="Classes\SwatchesHelper.cs" />
     <Compile Include="Classes\Reflection.cs" />
     <Compile Include="Classes\UpdateManager.cs" />
-    <Compile Include="Controls\StashControl\StashGoldControl.xaml.cs">
+    <Compile Include="Controls\GuildInventory\StashGoldControl.xaml.cs">
       <DependentUpon>StashGoldControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\SettingsControl.xaml.cs">
+    <Compile Include="Controls\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\StashControl\StashControl.xaml.cs">
-      <DependentUpon>StashControl.xaml</DependentUpon>
+    <Compile Include="Controls\GuildInventory\StorageControl.xaml.cs">
+      <DependentUpon>StorageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Widgets\NumericTextBox.xaml.cs">
       <DependentUpon>NumericTextBox.xaml</DependentUpon>

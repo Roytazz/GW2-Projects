@@ -1,7 +1,7 @@
 ﻿using GuildWars2API.Model.Commerce;
+using GuildWars2API.Model.Guild;
 using GuildWars2API.Model.Items;
 using GuildWars2Guild.Classes;
-using GuildWars2Guild.Classes.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,15 +73,15 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
 
         #endregion Filter
 
-        public ItemVM(params string[] types) {
+        public ItemVM(params LogType[] types) {
             MainCollection = GetStashEntries(types).OrderByDescending(entry => entry.Time).ToList();
             MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
             MainCollectionView.Filter = OnFilter;
         }
 
-        private List<ItemEntry> GetStashEntries(params string[] types) {
+        private List<ItemEntry> GetStashEntries(params LogType[] types) {
             var goldEntries = new List<ItemEntry>();
-            var stashEntries = LogManager.GetLogs(types).Where(entry => entry.ItemID != 0).ToList();
+            var stashEntries = LogManager.Instance.GetLogs(types).Where(entry => entry.ItemID != 0).ToList();
 
             var itemIDs = stashEntries.Select(entry => entry.ItemID).ToList();
 

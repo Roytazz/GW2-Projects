@@ -10,6 +10,24 @@ namespace GuildWars2Guild.Model
 
         public ItemListing Listing { get; set; }
 
+        public Listing Buy {
+            get {
+                if(Listing != null)
+                    return Listing.Buys[0];
+
+                return null;
+            }
+        }
+
+        public Listing Sell {
+            get {
+                if (Listing != null)
+                    return Listing.Sells[0];
+
+                return null;
+            }
+        }
+
         public string ItemColor {
             get {
                 var type = Item.Type;

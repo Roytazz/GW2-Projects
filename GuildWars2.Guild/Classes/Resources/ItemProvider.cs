@@ -31,8 +31,8 @@ namespace GuildWars2Guild.Classes.Resources
             if (result == null)
                 return null;
 
-            foreach(var item in result) {
-                if(item != null)
+            foreach (var item in result) {
+                if (item != null)
                     Add(item);
             }
             return _items.Where(item => IDs.Any(id => item.ID == id)).ToList();

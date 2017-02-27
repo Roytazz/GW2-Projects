@@ -46,7 +46,7 @@
                         <materialDesign:PackIcon Kind="GithubCircle" Width="160" Height="160" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <StackPanel Grid.Column="1">
                             <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 8" Text="Open Source"/>
-                            <TextBlock TextWrapping="Wrap" Margin="16 0 16 8" VerticalAlignment="Top" Text="This project is made by Roy aka Roytazz/Vienna. If you have any questions you can contact me in-game on the account Roytazz.5932. The project is completely open source and can be found by clicking the button below!"/>
+                            <TextBlock TextWrapping="Wrap" Margin="16 0 16 8" VerticalAlignment="Top" Text="This project is made by Roytazz. If you have any questions you can contact me in-game on the account Roytazz.5932. The project is completely open source and can be found by clicking the button below."/>
                         </StackPanel>
                         <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Padding="8">
                             <DockPanel>

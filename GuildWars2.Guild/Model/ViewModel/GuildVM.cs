@@ -53,46 +53,41 @@ namespace GuildWars2Guild.Model.ViewModel
             }
         }
 
-        /*public List<string> ForegroundLayers
-        {
-            get
-            {
-                if(_foregroundLayers == null && GuildDetails?.Emblem?.ForegroundID != null)
-                    _foregroundLayers = GuildAPI.EmblemForegrounds(GuildDetails.Emblem.ForegroundID).Layers;
-
-                return _foregroundLayers;
-            }
-        }
-
-        public string ForegroundSource1
+        public string ForegroundSource
         {
             get {
-                if(ForegroundLayers?.Count >= 1) 
-                    return ForegroundLayers[0];
+                if (GuildDetails?.Emblem?.Foreground != null) {
+                    var foreground = GuildAPI.EmblemForegrounds(GuildDetails.Emblem.Foreground.ID);
+                    return foreground.Layers[0];
+                }
 
                 return string.Empty;
             }
         }
 
-        public string ForegroundSource2
+        public SolidColorBrush ForegroundColorPrimary
         {
             get {
-                if(ForegroundLayers?.Count >= 2)
-                    return ForegroundLayers[1];
+                if (GuildDetails?.Emblem?.Foreground != null) {
+                    var color = ResourceProvider.Instance.GetResource<GuildWars2API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Foreground.Colors)[0];
+                    return new SolidColorBrush(Color.FromArgb(255, (byte)color.BaseRGB[0], (byte)color.BaseRGB[1], (byte)color.BaseRGB[2]));
+                }
 
-                return string.Empty;
+                return null;
             }
         }
 
-        public string ForegroundSource3
+        public SolidColorBrush ForegroundColorSecondary
         {
             get {
-                if(ForegroundLayers?.Count >= 3)
-                    return ForegroundLayers[2];
+                if (GuildDetails?.Emblem?.Foreground != null) {
+                    var color = ResourceProvider.Instance.GetResource<GuildWars2API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Foreground.Colors)[1];
+                    return new SolidColorBrush(Color.FromArgb(255, (byte)color.BaseRGB[0], (byte)color.BaseRGB[1], (byte)color.BaseRGB[2]));
+                }
 
-                return string.Empty;
+                return null;
             }
-        }*/
+        }
 
         public virtual ICommand GoToSource => new CommandHandler(() => {
             System.Diagnostics.Process.Start("https://github.com/Roytazz/GuildWars2.Projects");

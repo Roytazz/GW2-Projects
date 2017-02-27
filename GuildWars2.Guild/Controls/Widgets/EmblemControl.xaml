@@ -7,8 +7,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Image Source="{Binding BackgroundSource}" OpacityMask="{Binding BackgroundColor}"/>
-        <Image Source="{Binding ForegroundSource1}" OpacityMask="{Binding Something}"/>
-        <Image Source="{Binding ForegroundSource2}" OpacityMask="{Binding Something}"/>
-        <Image Source="{Binding ForegroundSource3}" OpacityMask="Red" />
+        <Image Source="{Binding ForegroundSource}" OpacityMask="{Binding ForegroundColorPrimary}"/>
+        <Image Source="{Binding ForegroundSource}" OpacityMask="{Binding ForegroundColorSecondary}"/>
     </Grid>
 </UserControl>

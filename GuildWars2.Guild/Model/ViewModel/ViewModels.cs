@@ -5,26 +5,26 @@ namespace GuildWars2Guild.Model.ViewModel
 {
     class MotdVM : DbVM<LogEntry>
     {
-        public MotdVM() : base("motd") { }
+        public MotdVM() : base(LogType.MOTD) { }
     }
 
     class MemberRankVM : DbVM<LogEntry>
     {
-        public MemberRankVM() : base("rank_change") { }
+        public MemberRankVM() : base(LogType.RankChange) { }
     }
 
     class MemberEventVM : DbVM<RosterEventEntry>
     {
-        public MemberEventVM() : base("joined", "invited", "kick") { }
+        public MemberEventVM() : base(LogType.Joined, LogType.Invited, LogType.Kick) { }
     }
 
     class StashItemVM : ItemVM
     {
-        public StashItemVM() : base("stash") { }
+        public StashItemVM() : base(LogType.Stash) { }
     }
 
     class TreasuryVM : ItemVM
     {
-        public TreasuryVM() : base("treasury") { }
+        public TreasuryVM() : base(LogType.Treasury) { }
     }
 }

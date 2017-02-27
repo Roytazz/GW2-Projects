@@ -78,7 +78,7 @@ namespace GuildWars2Guild.Classes
                 var guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
                 var results = GuildWars2API.GuildAPI.Logs(guildDetails?.ID, apiKey);
                 if(results != null)
-                    LogManager.AddUniqueLog(results);
+                    LogManager.Instance.AddUniqueLog(results);
             }
         }
     }

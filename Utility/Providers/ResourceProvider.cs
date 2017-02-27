@@ -40,9 +40,11 @@ namespace Utility.Providers
         }
 
         public List<T> GetResource<T>(List<int> IDs) {
-            var provider = GetProvider<T>();
-            if (provider != null)
-                return provider.Get(IDs);
+            if (IDs.Count > 0) {
+                var provider = GetProvider<T>();
+                if (provider != null)
+                    return provider.Get(IDs);
+            }
 
             return default(List<T>);
         }
@@ -56,10 +58,11 @@ namespace Utility.Providers
         }
 
         public List<T> GetResource<T>(List<string> identifiers) {
-            var provider = GetProvider<T>();
-            if (provider != null)
-                return provider.Get(identifiers);
-
+            if (identifiers.Count > 0) {
+                var provider = GetProvider<T>();
+                if (provider != null)
+                    return provider.Get(identifiers);
+            }
             return default(List<T>);
         }
 

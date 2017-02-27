@@ -7,7 +7,6 @@
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:metroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:userControls="clr-namespace:GuildWars2Guild.Controls"
-             xmlns:settings="clr-namespace:GuildWars2Guild.Controls.Settings"
              xmlns:vm="clr-namespace:GuildWars2Guild.Model.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -28,15 +27,10 @@
                 <TabItem Header="MEMBERS">
                     <userControls:MemberControl/>
                 </TabItem>
-                <TabItem Header="TREASURY">
-                    <userControls:TreasuryControl>
-                        <userControls:TreasuryControl.DataContext>
-                            <vm:TreasuryVM/>
-                        </userControls:TreasuryControl.DataContext>
-                    </userControls:TreasuryControl>
+                <TabItem Header="UPGRADES">
                 </TabItem>
-                <TabItem Header="BANK">
-                    <userControls:StashControl/>
+                <TabItem Header="STORAGE">
+                    <userControls:StorageControl/>
                 </TabItem>
                 <TabItem Header="MOTD">
                     <userControls:MotdControl>
@@ -45,7 +39,7 @@
                         </userControls:MotdControl.DataContext>
                     </userControls:MotdControl>
                 </TabItem>
-                <TabItem Header="LOTTERY">
+                <TabItem Header="LOTTERY" >
                     <userControls:LotteryControl>
                         <userControls:LotteryControl.DataContext>
                             <vm:LotteryVM/>

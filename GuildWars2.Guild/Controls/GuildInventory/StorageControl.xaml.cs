@@ -5,9 +5,9 @@ namespace GuildWars2Guild.Controls
     /// <summary>
     /// Interaction logic for GridControl.xaml
     /// </summary>
-    public partial class StashControl : UserControl
+    public partial class StorageControl : UserControl
     {
-        public StashControl() {
+        public StorageControl() {
             InitializeComponent();
         }
     }

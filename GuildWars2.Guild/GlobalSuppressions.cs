@@ -13,4 +13,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inline variable declaration", Justification = "<Pending>", Scope = "member", Target = "~M:GuildWars2Guild.Classes.Resources.ColorProvider.Get(System.String)~GuildWars2API.Model.Miscellaneous.Color")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inline variable declaration", Justification = "<Pending>", Scope = "member", Target = "~M:GuildWars2Guild.Classes.Resources.ColorProvider.Get(System.Collections.Generic.List{System.String})~System.Collections.Generic.List{GuildWars2API.Model.Miscellaneous.Color}")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inline variable declaration", Justification = "<Pending>", Scope = "member", Target = "~M:GuildWars2Guild.Classes.MVVM.Converter.ToEmblemColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)~System.Object")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0017:Simplify object initialization", Justification = "<Pending>", Scope = "member", Target = "~M:GuildWars2Guild.Classes.NotifyHandler.#ctor")]
 
