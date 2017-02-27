@@ -66,6 +66,9 @@ namespace GuildWars2API.Model.Guild
         [JsonProperty("upgrade_id")]
         public string UpgradeID { get; set; }
 
+        [JsonProperty("recipe_id")]
+        public string RecipeID { get; set; }
+
         [JsonProperty("action")]
         public LogUpgradeAction Action { get; set; }
 
@@ -93,6 +96,7 @@ namespace GuildWars2API.Model.Guild
         Queued,
         Cancelled,
         Complete,
+        Completed,
         [EnumMember(Value = "sped_up")] SpedUp
     }
     

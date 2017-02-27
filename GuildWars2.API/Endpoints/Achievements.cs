@@ -27,7 +27,7 @@ namespace GuildWars2API
         }
         #endregion Achievements
 
-        #region Daylies
+        #region Dailies
         public static Dictionary<GameType, List<DailyAchievement>> DailyAchievements()
         {
             return Builder.AddDirective("daily")
@@ -39,7 +39,7 @@ namespace GuildWars2API
                 .AddDirective("tomorrow")
                 .Request<Dictionary<GameType, List<DailyAchievement>>>();
         }
-        #endregion Daylies
+        #endregion Dailies
 
         #region Groups
         public static List<string> GroupIDs()

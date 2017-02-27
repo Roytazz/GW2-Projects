@@ -105,6 +105,7 @@ namespace GuildWars2API.Model
         PvP,
         PvPLobby,
         Wvw,
+        Fractals,
         Special,
         Activity,
         Dungeon
