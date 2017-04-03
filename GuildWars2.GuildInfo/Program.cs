@@ -1,15 +1,8 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.Sheets.v4;
-using Google.Apis.Sheets.v4.Data;
-using Google.Apis.Util.Store;
+﻿using GuildWars2.GuildInfo.Models;
+using GuildWars2.GuildInfo.Sheets;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GuildWars2.GuildInfo
 {
@@ -17,7 +10,7 @@ namespace GuildWars2.GuildInfo
     {
         private static SheetManager _manager = new SheetManager();
         private static string GUILD_ID = "E2C92543-0EAC-E411-AA11-AC162DAAE275";
-        private static string API_KEY = "89100791-2D70-1C49-9F14-CDD1FCB8A9F0C701F31A-B88C-460C-B6D7-3ADD8748837D";
+        private static string API_KEY = "";
 
         static void Main(string[] args) {
             while (true) {
