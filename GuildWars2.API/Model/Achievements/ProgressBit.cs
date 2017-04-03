@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model.Achievements
+namespace GuildWars2.API.Model.Achievements
 {
     public class ProgressBit
     {

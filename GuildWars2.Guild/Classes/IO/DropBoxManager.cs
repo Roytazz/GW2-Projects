@@ -1,13 +1,13 @@
 ﻿using Dropbox.Api;
 using Dropbox.Api.Files;
-using GuildWars2Guild.Classes.Logger;
+using GuildWars2.Guild.Classes.Logger;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-using static GuildWars2Guild.Classes.Logger.LogManager;
+using static GuildWars2.Guild.Classes.Logger.LogManager;
 
-namespace GuildWars2Guild.Classes.IO
+namespace GuildWars2.Guild.Classes.IO
 {
     public static class DropBoxManager
     {

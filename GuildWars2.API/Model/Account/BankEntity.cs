@@ -1,8 +1,8 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2.API.Model.Items;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Account
+namespace GuildWars2.API.Model.Account
 {
     public class BankEntity : ItemStack
     {

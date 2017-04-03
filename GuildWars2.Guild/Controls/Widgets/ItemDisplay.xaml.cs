@@ -1,8 +1,8 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2.API.Model.Items;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace GuildWars2Guild.Controls.Widgets
+namespace GuildWars2.Guild.Controls.Widgets
 {
     /// <summary>
     /// Interaction logic for ItemDisplay.xaml

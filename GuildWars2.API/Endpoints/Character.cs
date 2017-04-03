@@ -1,35 +1,36 @@
-﻿using GuildWars2API.Model.Character;
-using System;
+﻿using GuildWars2.API.Model.Character;
+using GuildWars2.API.Network;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace GuildWars2API
+namespace GuildWars2.API
 {
     public static class CharacterAPI
     {
         private static UrlBuilder Builder { get { return new UrlBuilder("characters"); } }
 
-        public static List<string> CharacterNames(string apiKey)
+        public static Task<List<string>> CharacterNames(string apiKey)
         {
-            return Builder.Request<List<string>>(apiKey);
+            return Builder.RequestAsync<List<string>>(apiKey);
         }
 
-        public static List<Character> Characters(string apiKey)
+        public static Task<List<Character>> Characters(string apiKey)
         {
             return Builder.AddParam("page", "0")
-                .Request<List<Character>>(apiKey);
+                .RequestAsync<List<Character>>(apiKey);
         }
 
-        public static List<Character> Characters(int pageCount, int page, string apiKey)
+        public static Task<List<Character>> Characters(int pageCount, int page, string apiKey)
         {
             return Builder.AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Character>>(apiKey);
+                .RequestAsync<List<Character>>(apiKey);
         }
 
-        public static Character Characters(string name, string apiKey)
+        public static Task<Character> Characters(string name, string apiKey)
         {
-            return Builder.AddDirective(Uri.EscapeDataString(name))
-                .Request<Character>(apiKey);
+            return Builder.AddDirective(name)
+                .RequestAsync<Character>(apiKey);
         }
     }
 }

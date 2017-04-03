@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace GuildWars2Guild.Classes.IO
+namespace GuildWars2.Guild.Classes.IO
 {
     class IOManager
     {

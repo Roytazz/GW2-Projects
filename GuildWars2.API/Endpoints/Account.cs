@@ -1,93 +1,140 @@
-﻿using GuildWars2API.Model.Account;
+﻿using GuildWars2.API.Model.Account;
+using GuildWars2.API.Network;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace GuildWars2API
+namespace GuildWars2.API
 {
     public static class AccountAPI
     {
         private static UrlBuilder Builder { get { return new UrlBuilder("account"); } }
 
-        public static Account Account(string apiKey)
+        public static Task<Account> Account(string apiKey)
         {
-            return Builder.Request<Account>(apiKey);
+            return Builder.RequestAsync<Account>(apiKey);
         }
 
-        public static List<AccountAchievement> AccountAchievements(string apiKey) 
+        #region Achievements
+        public static Task<List<AccountAchievement>> AccountAchievements(string apiKey) 
         {
             return Builder.AddDirective("achievements")
-                .Request<List<AccountAchievement>>(apiKey);
+                .RequestAsync<List<AccountAchievement>>(apiKey);
         }
+        public static Task<AccountAchievement> AccountAchievements(int ID, string apiKey) {
+            return Builder.AddDirective("achievements")
+                .AddParam("id", ID.ToString())
+                .RequestAsync<AccountAchievement>(apiKey);
+        }
+        public static Task<List<AccountAchievement>> AccountAchievements(List<int> IDs, string apiKey) {
+            return Builder.AddDirective("achievements")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<AccountAchievement>>(apiKey);
+        }
+        public static Task<List<AccountAchievement>> AccountAchievements(int pageCount, int page, string apiKey) {
+            return Builder.AddDirective("achievements")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<AccountAchievement>>(apiKey);
+        }
+        #endregion Achievements
 
-        public static List<BankEntity> Bank(string apiKey)
+        public static Task<List<BankEntity>> Bank(string apiKey)
         {
             return Builder.AddDirective("bank")
-                .Request<List<BankEntity>>(apiKey);
+                .RequestAsync<List<BankEntity>>(apiKey);
         }
 
-        public static List<int> Dyes(string apiKey)
+        public static Task<List<int>> Dyes(string apiKey)
         {
             return Builder.AddDirective("dyes")
-                .Request<List<int>>(apiKey);
+                .RequestAsync<List<int>>(apiKey);
         }
 
-        public static List<AccountFinisher> Finishers(string apiKey)   
+        public static Task<List<AccountFinisher>> Finishers(string apiKey)   
         {
             return Builder.AddDirective("finishers")
-                .Request<List<AccountFinisher>>(apiKey);
+                .RequestAsync<List<AccountFinisher>>(apiKey);
         }
 
-        public static List<Inventory> SharedInventory(string apiKey)
+        public static Task<List<Inventory>> SharedInventory(string apiKey)
         {
             return Builder.AddDirective("inventory")
-                .Request<List<Inventory>>(apiKey);
+                .RequestAsync<List<Inventory>>(apiKey);
         }
 
-        public static List<Material> MaterialStorage(string apiKey)
+        public static Task<List<Material>> MaterialStorage(string apiKey)
         {
             return Builder.AddDirective("materials")
-                .Request<List<Material>>(apiKey);
+                .RequestAsync<List<Material>>(apiKey);
         }
 
-        public static List<int> Minis(string apiKey)    
+        public static Task<List<int>> Minis(string apiKey)    
         {
             return Builder.AddDirective("minis")
-                .Request<List<int>>(apiKey);
+                .RequestAsync<List<int>>(apiKey);
         }
 
-        public static List<int> Skins(string apiKey)    
+        public static Task<List<int>> Skins(string apiKey)    
         {
             return Builder.AddDirective("skins")
-                .Request<List<int>>(apiKey);
+                .RequestAsync<List<int>>(apiKey);
         }
 
-        public static List<int> Titles(string apiKey)   
+        public static Task<List<int>> Titles(string apiKey)   
         {
             return Builder.AddDirective("titles")
-                .Request<List<int>>(apiKey);
+                .RequestAsync<List<int>>(apiKey);
         }
 
-        public static List<WalletEntry> Wallet(string apiKey)   
+        public static Task<List<WalletEntry>> Wallet(string apiKey)   
         {
             return Builder.AddDirective("wallet")
-                .Request<List<WalletEntry>>(apiKey);
+                .RequestAsync<List<WalletEntry>>(apiKey);
         }
         
-        public static List<int> Recipes(string apiKey)  
+        public static Task<List<int>> Recipes(string apiKey)  
         {
             return Builder.AddDirective("recipes")
-                .Request<List<int>>(apiKey);
+                .RequestAsync<List<int>>(apiKey);
         }
 
-        public static List<int> Outfits(string apiKey)   
+        public static Task<List<int>> Outfits(string apiKey)   
         {
             return Builder.AddDirective("outfits")
-                .Request<List<int>>(apiKey);
+                .RequestAsync<List<int>>(apiKey);
         }
 
-        public static List<AccountMastery> Masteries(string apiKey)   
+        public static Task<List<AccountMastery>> Masteries(string apiKey)   
         {
             return Builder.AddDirective("masteries")
-                .Request<List<AccountMastery>>(apiKey);
+                .RequestAsync<List<AccountMastery>>(apiKey);
+        }
+
+        public static Task<List<string>> Raids(string apiKey) {
+            return Builder.AddDirective("raids")
+                .RequestAsync<List<string>>(apiKey);
+        }
+
+        public static Task<List<string>> Dungeons(string apiKey) {
+            return Builder.AddDirective("dungeons")
+                .RequestAsync<List<string>>(apiKey);
+        }
+
+        public static Task<List<Cat>> HomeCats(string apiKey) {
+            return Builder.AddDirective("home")
+                .AddDirective("cats")
+                .RequestAsync<List<Cat>>(apiKey);
+        }
+
+        public static Task<List<string>> HomeNodes(string apiKey) {
+            return Builder.AddDirective("home")
+                .AddDirective("nodes")
+                .RequestAsync<List<string>>(apiKey);
+        }
+        
+        public static Task<List<int>> Gliders(string apiKey) {
+            return Builder.AddDirective("gliders")
+                .RequestAsync<List<int>>(apiKey);
         }
     }
 }

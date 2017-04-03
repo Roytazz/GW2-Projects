@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using static GuildWars2Guild.Classes.IO.IOManager;
+using static GuildWars2.Guild.Classes.IO.IOManager;
 
-namespace GuildWars2Guild.Classes.Logger
+namespace GuildWars2.Guild.Classes.Logger
 {
     class FileLogger : BaseLogger, ILogger
     {

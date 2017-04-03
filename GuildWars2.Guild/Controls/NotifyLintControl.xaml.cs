@@ -1,8 +1,8 @@
-﻿using GuildWars2Guild.Classes;
+﻿using GuildWars2.Guild.Classes;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace GuildWars2Guild.Controls
+namespace GuildWars2.Guild.Controls
 {
     /// <summary>
     /// Interaction logic for NotifyLintControl.xaml

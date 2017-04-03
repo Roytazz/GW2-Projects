@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model.Items
+namespace GuildWars2.API.Model.Items
 {
     public class ItemStack
     {

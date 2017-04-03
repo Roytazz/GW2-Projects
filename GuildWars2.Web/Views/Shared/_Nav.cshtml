@@ -1,0 +1,112 @@
+﻿@using GuildWars2.Web.Models
+@using GuildWars2.Web.Data.Users
+
+@inject GwUserManager UserManager
+@inject GwSignInManager SignInManager
+
+@{var loggedIn = SignInManager.IsSignedIn(User);}
+
+<header>
+    <!--Top NavBar-->
+    <nav>
+        <div class="nav-wrapper red lighten-1">
+            <a href="/" data-activates="slide-out-menu" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
+            <ul class="right">
+                @if (loggedIn) {
+                    @if(await UserManager.IsInRoleAsync(User, "Administrator")) {
+                    <li><a href="@Url.Action("Index", "Admin")"><i class="material-icons right">lock</i><span class="hide-on-small-and-down">Admin</span></a></li>
+                    }
+                    <li><a class="dropdown-button" href="#" data-activates="apikey_dropdown"><i class="material-icons right">vpn_key</i><span class="hide-on-small-and-down">API Keys</span></a></li>
+                    <li><a href="@Url.Action("Index", "Manage")"><i class="material-icons right">settings</i><span class="hide-on-small-and-down">Account</span></a></li>
+                    <li>
+                        @using (Html.BeginForm("LogOff", "Home", FormMethod.Post, new { id = "logoutForm" })) {
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()"><i class="material-icons right">exit_to_app</i><span class="hide-on-small-and-down">Logout</span></a>
+                        }
+                    </li>
+                }
+                else {
+                    <li><a href="@Url.Action("Login", "Home")"><i class="material-icons right">perm_identity</i>Login</a></li>
+                }
+            </ul>
+        </div>
+        @if (loggedIn) {
+            @Html.Partial("_KeySelectorNav")
+        }
+    </nav>
+    <!--SideBar-->
+    <ul id="slide-out-menu" class="side-nav fixed grey lighten-3">
+        <li class="container section no-pad-bot">
+            <img class="nav-img" src="~/images/gw2_horizontal_logo.png">
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li><a href="@Url.Action("Index", "Home")"><b>Home</b></a></li>
+                <li>
+                    <a class="collapsible-header waves-effect waves-ripple waves-red"><b>Account</b><i class="material-icons">arrow_drop_down</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/characters.png" class="icon-image"/>Characters</a></li>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/bank.png" class="icon-image"/>Bank</a>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/wallet.png" class="icon-image"/>Wallet</a></li>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/material-storage.png" class="icon-image" />Material Storage</a></li>
+                            <li><div class="row less-margin-bottom"><div class="col offset-s1 s10 divider"></div></div></li>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/titles.png" class="icon-image"/>Titles</a></li>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/mastery_point.png" class="icon-image" />Masteries</a></li>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/guild.png" class="icon-image"/>Guilds</a></li>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/achievement_points.png" class="icon-image" />Achievements</a></li>
+                            <li><a href="@Url.Action("Index", "Account")"><img src="~/images/icons/quest_star_green.png" class="icon-image"/>Home Instance</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="collapsible-header waves-effect waves-ripple waves-red"><b>Fashion</b><i class="material-icons">arrow_drop_down</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="#!"><img src="~/images/icons/wardrobe.png" class="icon-image" />Wardrobe</a></li>
+                            <li><a href="#!"><img src="~/images/icons/dye.png" class="icon-image" />Dyes</a></li>
+                            <li><a href="#!"><img src="~/images/icons/miniature.png" class="icon-image" />Mini's</a></li>
+                            <li><a href="#!"><img src="~/images/icons/finisher.png" class="icon-image" />Finishers</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="collapsible-header waves-effect waves-ripple waves-red"><b>Commerce</b><i class="material-icons">arrow_drop_down</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="#!"><img src="~/images/icons/listing.png" class="icon-image" />Order History</a></li>
+                            <li><a href="#!"><img src="~/images/icons/trading_post.png" class="icon-image" />Current Orders</a></li>
+                            <li><div class="row less-margin-bottom"><div class="col offset-s1 s10 divider"></div></div></li>
+                            <li><a href="#!"><img src="~/images/icons/gems.png" class="icon-image" />Gem Exchange</a></li>
+                            <li><a href="#!"><img src="~/images/icons/temp_search.png" class="icon-image" />Tradingpost Search</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="collapsible-header waves-effect waves-ripple waves-red"><b>Crafting</b><i class="material-icons">arrow_drop_down</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="#!">First</a></li>
+                            <li><a href="#!">Second</a></li>
+                            <li><a href="#!">Third</a></li>
+                            <li><a href="#!">Fourth</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="collapsible-header waves-effect waves-ripple waves-red"><b>PvP</b><i class="material-icons">arrow_drop_down</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="#!">First</a></li>
+                            <li><a href="#!">Second</a></li>
+                            <li><a href="#!">Third</a></li>
+                            <li><a href="#!">Fourth</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li><div class="row less-margin-bottom"><div class="col offset-s1 s10 divider"></div></div></li>
+        <li><a href="#!"><b><img src="~/images/icons/achievement_points.png" class="icon-image" />Dailies</b></a></li>
+    </ul>
+</header>

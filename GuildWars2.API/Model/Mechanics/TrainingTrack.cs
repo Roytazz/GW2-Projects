@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model.Mechanics
+namespace GuildWars2.API.Model.Mechanics
 {
     public class TrainingTrack
     {

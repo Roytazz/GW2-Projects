@@ -1,8 +1,8 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2.API.Model.Items;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Guild
+namespace GuildWars2.API.Model.Guild
 {
     public class Stash
     {

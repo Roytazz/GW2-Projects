@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Controls.Widgets
+namespace GuildWars2.Guild.Controls.Widgets
 {
     /// <summary>
     /// Interaction logic for NumericTextBox.xaml

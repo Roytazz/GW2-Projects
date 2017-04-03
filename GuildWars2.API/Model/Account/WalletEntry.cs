@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model.Account
+namespace GuildWars2.API.Model.Account
 {
     public class WalletEntry
     {

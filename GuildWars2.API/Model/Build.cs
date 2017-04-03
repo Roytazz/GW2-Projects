@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model
+namespace GuildWars2.API.Model
 {
     public class Build
     {

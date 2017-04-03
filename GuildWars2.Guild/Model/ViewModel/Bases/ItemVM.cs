@@ -1,14 +1,14 @@
-﻿using GuildWars2API.Model.Commerce;
-using GuildWars2API.Model.Guild;
-using GuildWars2API.Model.Items;
-using GuildWars2Guild.Classes;
+﻿using GuildWars2.API.Model.Commerce;
+using GuildWars2.API.Model.Guild;
+using GuildWars2.API.Model.Items;
+using GuildWars2.Guild.Classes;
+using GuildWars2.Guild.Classes.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
-using Utility.Providers;
 
-namespace GuildWars2Guild.Model.ViewModel.Bases
+namespace GuildWars2.Guild.Model.ViewModel.Bases
 {
     abstract class ItemVM : FilterVM<ItemEntry>
     {
@@ -85,8 +85,8 @@ namespace GuildWars2Guild.Model.ViewModel.Bases
 
             var itemIDs = stashEntries.Select(entry => entry.ItemID).ToList();
 
-            List<Item> items = ResourceProvider.Instance.GetResource<Item>(itemIDs);
-            List<ItemListing> listings = ResourceProvider.Instance.GetResource<ItemListing>(itemIDs);
+            List<Item> items = ResourceProvider.Instance.GetResource<Item>(itemIDs).GetAwaiter().GetResult();
+            List<ItemListing> listings = ResourceProvider.Instance.GetResource<ItemListing>(itemIDs).GetAwaiter().GetResult();
             if(items == null || listings == null)
                 return goldEntries;
 

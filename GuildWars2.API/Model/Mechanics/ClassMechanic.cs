@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Mechanics
+namespace GuildWars2.API.Model.Mechanics
 {
     public class ClassMechanic
     {

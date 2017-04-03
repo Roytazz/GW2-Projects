@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GuildWars2Guild.Classes.Logger
+namespace GuildWars2.Guild.Classes.Logger
 {
     interface ILogger
     {

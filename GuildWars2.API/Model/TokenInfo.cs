@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model
+namespace GuildWars2.API.Model
 {
     public class TokenInfo
     {

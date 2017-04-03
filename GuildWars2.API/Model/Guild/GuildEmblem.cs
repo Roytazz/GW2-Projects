@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Guild
+namespace GuildWars2.API.Model.Guild
 {
     public class GuildEmblemOld
     {

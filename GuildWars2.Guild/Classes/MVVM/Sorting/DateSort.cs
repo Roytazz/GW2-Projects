@@ -1,7 +1,7 @@
-﻿using GuildWars2API.Model.Guild;
+﻿using GuildWars2.API.Model.Guild;
 using System.ComponentModel;
 
-namespace GuildWars2Guild.Classes.MVVM.Sorting
+namespace GuildWars2.Guild.Classes.MVVM.Sorting
 {
     public class DateSort : ICustomSorter
     {

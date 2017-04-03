@@ -1,6 +1,6 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2.API.Model.Items;
 
-namespace GuildWars2API.Model.Character
+namespace GuildWars2.API.Model.Character
 {
     public class BagItem : Equipment
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Timers;
 
-namespace GuildWars2Guild.Classes
+namespace GuildWars2.Guild.Classes
 {
     public sealed class NotifyHandler : IDisposable
     {

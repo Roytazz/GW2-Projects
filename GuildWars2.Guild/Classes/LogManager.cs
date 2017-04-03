@@ -1,11 +1,11 @@
-﻿using GuildWars2API;
-using GuildWars2API.Model.Guild;
+﻿using GuildWars2.API;
+using GuildWars2.API.Model.Guild;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace GuildWars2Guild.Classes
+namespace GuildWars2.Guild.Classes
 {
     public sealed class LogManager //: DbManager<LogEntry, GuildLogTable>        //LINQDbManager<LogEntry, GuildLogTableEntry>
     {
@@ -16,9 +16,12 @@ namespace GuildWars2Guild.Classes
         private List<LogEntry> Logs {
             get {
                 if (_logs == null) {
-                    var guilddetails = GuildAPI.DetailsByName(Properties.Settings.Default.GuildName);
-                    _logs = GuildAPI.Logs(guilddetails.ID, Properties.Settings.Default.ApiKey);
+                    var guilddetails = GuildAPI.DetailsByName(Properties.Settings.Default.GuildName).GetAwaiter().GetResult();
+                    _logs = GuildAPI.Logs(guilddetails.ID, Properties.Settings.Default.ApiKey).GetAwaiter().GetResult();
                 }
+                if (_logs == null)
+                    return new List<LogEntry>();
+
                 return _logs;
             }
         }

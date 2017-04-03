@@ -1,117 +1,119 @@
-﻿using GuildWars2API.Model;
-using GuildWars2API.Model.Achievements;
+﻿using GuildWars2.API.Model;
+using GuildWars2.API.Model.Achievements;
+using GuildWars2.API.Network;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace GuildWars2API
+namespace GuildWars2.API
 {
     public static class AchievementsAPI
     {
         private static UrlBuilder Builder { get { return new UrlBuilder("achievements"); } }
 
         #region Achievements
-        public static List<int> AchievementIDs()
+        public static Task<List<int>> AchievementIDs()
         {
-            return Builder.Request<List<int>>();
+            return Builder.RequestAsync<List<int>>();
         }
 
-        public static Achievement Achievements(int ID)
+        public static Task<Achievement> Achievements(int ID)
         {
             return Builder.AddDirective(ID.ToString())
-                .Request<Achievement>();
+                .RequestAsync<Achievement>();
         }
 
-        public static List<Achievement> Achievements(List<int> IDs)
+        public static Task<List<Achievement>> Achievements(List<int> IDs)
         {
             return Builder.AddParam("ids", IDs)
-                .Request<List<Achievement>>();
+                .RequestAsync<List<Achievement>>();
         }
         #endregion Achievements
 
         #region Dailies
-        public static Dictionary<GameType, List<DailyAchievement>> DailyAchievements()
+        public static Task<Dictionary<GameType, List<DailyAchievement>>> DailyAchievements()
         {
             return Builder.AddDirective("daily")
-                .Request<Dictionary<GameType, List<DailyAchievement>>>();
+                .RequestAsync<Dictionary<GameType, List<DailyAchievement>>>();
         }
-        public static Dictionary<GameType, List<DailyAchievement>> DailyAchievementsTomorrow()
+        public static Task<Dictionary<GameType, List<DailyAchievement>>> DailyAchievementsTomorrow()
         {
             return Builder.AddDirective("daily")
                 .AddDirective("tomorrow")
-                .Request<Dictionary<GameType, List<DailyAchievement>>>();
+                .RequestAsync<Dictionary<GameType, List<DailyAchievement>>>();
         }
         #endregion Dailies
 
         #region Groups
-        public static List<string> GroupIDs()
+        public static Task<List<string>> GroupIDs()
         {
             return Builder.AddDirective("groups")
-                .Request<List<string>>();
+                .RequestAsync<List<string>>();
         }
 
-        public static List<Group> Groups(int pageCount, int page)
+        public static Task<List<Group>> Groups(int pageCount, int page)
         {
             return Builder.AddDirective("groups")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Group>>();
+                .RequestAsync<List<Group>>();
         }
 
-        public static List<Group> Groups()
+        public static Task<List<Group>> Groups()
         {
             return Builder.AddDirective("groups")
                 .AddParam("ids", "all")
-                .Request<List<Group>>();
+                .RequestAsync<List<Group>>();
         }
 
-        public static Group Groups(string ID)
+        public static Task<Group> Groups(string ID)
         {
             return Builder.AddDirective("groups")
                 .AddDirective(ID.ToString())
-                .Request<Group>();
+                .RequestAsync<Group>();
         }
 
-        public static List<Group> Groups(List<string> IDs)
+        public static Task<List<Group>> Groups(List<string> IDs)
         {
             return Builder.AddDirective("groups")
                 .AddParam("ids", IDs)
-                .Request<List<Group>>();
+                .RequestAsync<List<Group>>();
         }
         #endregion Groups
 
         #region Categories
-        public static List<int> CategoryIds()
+        public static Task<List<int>> CategoryIds()
         {
             return Builder.AddDirective("categories")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Category> Categories()
+        public static Task<List<Category>> Categories()
         {
             return Builder.AddDirective("categories")
                 .AddParam("ids", "all")
-                .Request<List<Category>>();
+                .RequestAsync<List<Category>>();
         }
 
-        public static List<Category> Categories(int pageCount, int page)
+        public static Task<List<Category>> Categories(int pageCount, int page)
         {
             return Builder.AddDirective("categories")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Category>>();
+                .RequestAsync<List<Category>>();
         }
 
-        public static Category Categories(int ID)
+        public static Task<Category> Categories(int ID)
         {
             return Builder.AddDirective("categories")
                 .AddDirective(ID.ToString())
-                .Request<Category>();
+                .RequestAsync<Category>();
         }
 
-        public static List<Category> Categories(List<int> IDs)
+        public static Task<List<Category>> Categories(List<int> IDs)
         {
             return Builder.AddDirective("categories")
                 .AddParam("ids", IDs)
-                .Request<List<Category>>();
+                .RequestAsync<List<Category>>();
         }
         #endregion Categories
     }

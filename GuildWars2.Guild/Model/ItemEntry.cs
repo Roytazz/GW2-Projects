@@ -1,8 +1,8 @@
-﻿using GuildWars2API.Model.Commerce;
-using GuildWars2API.Model.Guild;
-using GuildWars2API.Model.Items;
+﻿using GuildWars2.API.Model.Commerce;
+using GuildWars2.API.Model.Guild;
+using GuildWars2.API.Model.Items;
 
-namespace GuildWars2Guild.Model
+namespace GuildWars2.Guild.Model
 {
     public class ItemEntry : LogEntry
     {

@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace GuildWars2API.Model.Mechanics
+namespace GuildWars2.API.Model.Mechanics
 {
     public class Skill : ClassMechanic
     {

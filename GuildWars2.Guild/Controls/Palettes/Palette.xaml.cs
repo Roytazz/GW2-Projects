@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace GuildWars2Guild.Controls.Palettes
+namespace GuildWars2.Guild.Controls.Palettes
 {
     /// <summary>
     /// Interaction logic for Palette.xaml

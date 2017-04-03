@@ -1,9 +1,10 @@
-﻿using GuildWars2API.Model.Guild;
+﻿using GuildWars2.API;
+using GuildWars2.API.Model.Guild;
 using System.Collections.Generic;
 using System.Linq;
-using Utility.Providers;
+using System.Threading.Tasks;
 
-namespace GuildWars2Guild.Classes.Resources
+namespace GuildWars2.Guild.Classes.Resources
 {
     class RankProvider : IResourceProvider<Rank>
     {
@@ -11,13 +12,11 @@ namespace GuildWars2Guild.Classes.Resources
 
         public int Capacity { get; set; }
 
-        private List<Rank> Ranks
+        private async Task<List<Rank>> GetRanks()
         {
-            get
-            {
                 if(_ranks == null) {
-                    var guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
-                    var result = GuildWars2API.GuildAPI.Ranks(guildDetails?.ID, Properties.Settings.Default.ApiKey);
+                    var guildDetails = await ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
+                    var result = await GuildAPI.Ranks(guildDetails?.ID, Properties.Settings.Default.ApiKey);
                     if(result != null)
                         _ranks = result;
                     else
@@ -25,32 +24,28 @@ namespace GuildWars2Guild.Classes.Resources
 
                 }
                 return _ranks;
-            }
         }
 
-        public Rank Get(string identifier) {
-            return Ranks.Find(rank => rank.ID.Equals(identifier));
+        public async Task<Rank> Get(string identifier) {
+            var ranks = await GetRanks();
+            return ranks.Find(rank => rank.ID.Equals(identifier));
         }
 
-        public List<Rank> Get(List<string> identifiers) {
-            return Ranks.Where(rank => identifiers.Contains(rank.ID)).ToList();
+        public async Task<List<Rank>> Get(List<string> identifiers) {
+            var ranks = await GetRanks();
+            return ranks.Where(rank => identifiers.Contains(rank.ID)).ToList();
         }
 
-        public List<Rank> Get(List<int> ids) {
+        public async Task<List<Rank>> Get(List<int> ids) {
             var identifiers = new List<string>();
             foreach(int id in ids) {
                 identifiers.Add(id.ToString());
             }
-            return Get(identifiers);
+            return await Get(identifiers);
         }
 
-        public Rank Get(int ID) {
-            return Get(ID.ToString());
-        }
-
-        public void Reset() {
-            if(_ranks != null)
-                _ranks.Clear();
+        public async Task<Rank> Get(int ID) {
+            return await Get(ID.ToString());
         }
     }
 }

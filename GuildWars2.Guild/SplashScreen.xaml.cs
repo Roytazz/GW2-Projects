@@ -1,5 +1,5 @@
-﻿using GuildWars2Guild.Classes;
-using GuildWars2Guild.Classes.Logger;
+﻿using GuildWars2.Guild.Classes;
+using GuildWars2.Guild.Classes.Logger;
 using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Windows.Threading;
 
-namespace GuildWars2Guild
+namespace GuildWars2.Guild
 {
     /// <summary>
     /// Interaction logic for SplashScreen.xaml

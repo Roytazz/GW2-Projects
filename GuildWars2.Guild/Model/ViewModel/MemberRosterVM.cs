@@ -1,20 +1,22 @@
-﻿using GuildWars2API.Model.Guild;
-using GuildWars2Guild.Model.ViewModel.Bases;
+﻿using GuildWars2.API.Model.Guild;
+using GuildWars2.Guild.Model.ViewModel.Bases;
 using System.Collections.Generic;
 using System.Windows.Data;
-using GuildWars2Guild.Classes;
-using Utility.Providers;
+using GuildWars2.Guild.Classes;
+using GuildWars2.Guild.Classes.Resources;
+using GuildWars2.API;
+using System.Threading.Tasks;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2.Guild.Model.ViewModel
 {
     class MemberRosterVM : BaseVM
     {
         public List<OrderEntry> MainCollection { get; set; }
 
         public MemberRosterVM() {
-            var guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
-            var members = GuildWars2API.GuildAPI.Members(guildDetails?.ID, Properties.Settings.Default.ApiKey);
-            if(members != null) {
+            var guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName).GetAwaiter().GetResult();
+            var members = GuildAPI.Members(guildDetails?.ID, Properties.Settings.Default.ApiKey).GetAwaiter().GetResult();
+            if (members != null) {
                 MainCollection = ConvertMembers(members);
                 MainCollectionView = CollectionViewSource.GetDefaultView(MainCollection);
             }

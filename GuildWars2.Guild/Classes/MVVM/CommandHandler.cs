@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Classes.MVVM
+namespace GuildWars2.Guild.Classes.MVVM
 {
     public class CommandHandler : ICommand
     {

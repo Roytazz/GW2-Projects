@@ -1,6 +1,6 @@
-﻿using GuildWars2API.Model.Guild;
+﻿using GuildWars2.API.Model.Guild;
 
-namespace GuildWars2Guild.Model
+namespace GuildWars2.Guild.Model
 {
     class RosterEventEntry : LogEntry
     {

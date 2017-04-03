@@ -1,8 +1,8 @@
-﻿using GuildWars2Guild.Classes;
-using GuildWars2Guild.Controls.Palettes;
+﻿using GuildWars2.Guild.Classes;
+using GuildWars2.Guild.Controls.Palettes;
 using System.Windows.Controls;
 
-namespace GuildWars2Guild.Controls
+namespace GuildWars2.Guild.Controls
 {
     /// <summary>
     /// Interaction logic for Settings.xaml

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GuildWars2API.Model.PvP
+namespace GuildWars2.API.Model.PvP
 {
     public class GuildLeaderboard : BaseLeaderboard
     {

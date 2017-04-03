@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GuildWars2Guild.Classes.Logger
+namespace GuildWars2.Guild.Classes.Logger
 {
     class ConsoleLogger : BaseLogger, ILogger
     {

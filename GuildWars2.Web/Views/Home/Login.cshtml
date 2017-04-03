@@ -1,0 +1,57 @@
+﻿@using GuildWars2.Web.Models.HomeVM
+
+@model LoginVM
+
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm("Login", "Home", new { returnUrl = '/' }, FormMethod.Post, true, new { @class = "col s12" })) {
+        @Html.AntiForgeryToken()
+        <div class="row"></div>
+        <div class="row">
+            @if (!ViewData.ModelState.IsValid) {
+                <div class="row">
+                    <div class="col offset-s1 s10">
+                        <div class="card-panel red">
+                            <span class="white-text">
+                                @Html.ValidationSummary()
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="input-field col offset-s1 s10 offset-l2 l8">
+                <i class="material-icons prefix">person</i>
+                @Html.TextBoxFor(model => model.Username, new { @id = "username_input" })
+                <label for="username_input">@Html.DisplayNameFor(model => model.Username)</label>
+            </div>
+            <div class="input-field col offset-s1 s10 offset-l2 l8 no-pad-top">
+                <i class="material-icons prefix">vpn_key</i>
+                @Html.PasswordFor(model => model.Password, new { @id = "password_input" })
+                <label for="password_input">@Html.DisplayNameFor(model => model.Password)</label>
+            </div>
+            <div class="input-field col offset-s1 s10 offset-l2 l8">
+                @Html.CheckBoxFor(model => model.RememberMe, new { @id = "remember_input", @class = "filled-in" })
+                <label for="remember_input">@Html.DisplayNameFor(model => model.RememberMe)</label>
+            </div>
+            <div class="row"></div>
+            <div class="input-field col offset-s1 s10 offset-l2 l8">
+                <button class="btn waves-effect waves-light btn-large full-width" type="submit" name="action">
+                    Login
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    }
+    <div class="col offset-s1 s10 divider"></div>
+</div>
+<div class="row">
+    <div class="col offset-s2 s4 left-align">
+        @Html.ActionLink("Forgot your password?", "ForgotPassword", "Home")
+    </div>
+    <div class="col s4 right-align">
+        @Html.ActionLink("Register as a new user?", "Register", "Home", new { returnUrl = ViewData["returnUrl"] })
+    </div>
+</div>

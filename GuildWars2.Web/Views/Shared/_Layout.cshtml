@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@{Html.Raw(string.IsNullOrEmpty(ViewBag.Title) ? "Guildwars2.Web" : ViewBag.Title);}</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </environment>
+    <environment names="Staging,Production">
+        <link type="text/css"rel="stylesheet" href="~/css/site.min.css" media="screen,projection" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </environment>
+</head>
+<body>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/js/materialize.min.js"></script>
+
+    @Html.Partial("_Nav")
+    <main><div>@RenderBody()</div></main>
+    @Html.Partial("_Notification", TempData["Notification"])
+    @Html.Partial("_Footer")
+
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript" src="~/js/site.js"></script>
+</body>
+</html>

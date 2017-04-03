@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace GuildWars2Guild.Classes
+namespace GuildWars2.Guild.Classes
 {
     internal static class Reflection
     {

@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace GuildWars2API.Model
+namespace GuildWars2.API.Model
 {
     public enum EntityBinding
     {
@@ -64,15 +64,28 @@ namespace GuildWars2API.Model
 
     public enum Profession
     {
-        Elementalist,
-        Engineer,
         Guardian,
-        Mesmer,
-        Necromancer,
-        Ranger,
+        Warrior,
         Revenant,
+        Ranger,
+        Engineer,
         Thief,
-        Warrior
+        Elementalist,
+        Mesmer,
+        Necromancer
+    }
+
+    public enum EliteSpecialization
+    {
+        Dragonhunter,
+        Berserker,
+        Herald,
+        Druid,
+        Scrapper,
+        Daredevil,
+        Tempest,
+        Chronomancer,
+        Reaper
     }
     
     public enum Race
@@ -147,9 +160,40 @@ namespace GuildWars2API.Model
     
     public enum InfusionUpgradeFlag
     {
-        Defense,
-        Offense,
+        Enrichment,
+        Infusion,
         Utility,
-        Agony
+        Agony,
+        Defense,
+        Offense
+    }
+
+    public enum WvWColor
+    {
+        Red,
+        Blue,
+        Green,
+        Neutral
+    }
+
+    public enum WvWMapType {
+        Center,     //EB
+        BlueHome,  
+        RedHome,
+        GreenHome,
+        ObsidianSanctum,
+        EdgeOfTheMists,
+    }
+
+    public enum WvWObjectiveType { 
+        Camp,
+        Castle,
+        Keep,
+        Mercenary,
+        Tower,
+        Ruins,
+        Resource,
+        Generic,
+        Spawn
     }
 }

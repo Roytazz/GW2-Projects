@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GuildWars2API.Model.Guild
+namespace GuildWars2.API.Model.Guild
 {
     public class GuildPermission
     {

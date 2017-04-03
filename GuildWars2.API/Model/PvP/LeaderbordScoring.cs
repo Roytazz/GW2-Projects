@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model.PvP
+namespace GuildWars2.API.Model.PvP
 {
     public class LeaderboardScoring
     {

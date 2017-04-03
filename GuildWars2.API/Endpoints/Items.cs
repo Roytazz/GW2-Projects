@@ -1,238 +1,240 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2.API.Model.Items;
+using GuildWars2.API.Network;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace GuildWars2API
+namespace GuildWars2.API
 {
     public static class ItemAPI
     {
         private static UrlBuilder Builder { get { return new UrlBuilder(); } }
 
         #region Finishers
-        public static List<int> FinisherIDs() {
+        public static Task<List<int>> FinisherIDs() {
             return Builder.AddDirective("finishers")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Finisher> Finishers()
+        public static Task<List<Finisher>> Finishers()
         {
             return Builder.AddDirective("finishers")
                 .AddParam("ids", "all")
-                .Request<List<Finisher>>();
+                .RequestAsync<List<Finisher>>();
         }
 
-        public static List<Finisher> Finishers(int pageCount, int page) {
+        public static Task<List<Finisher>> Finishers(int pageCount, int page) {
             return Builder.AddDirective("finishers")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Finisher>>();
+                .RequestAsync<List<Finisher>>();
         }
 
-        public static Finisher Finishers(int ID) {
+        public static Task<Finisher> Finishers(int ID) {
             return Builder.AddDirective("finishers")
                 .AddDirective(ID.ToString())
-                .Request<Finisher>();
+                .RequestAsync<Finisher>();
         }
 
-        public static List<Finisher> Finishers(List<int> IDs) {
+        public static Task<List<Finisher>> Finishers(List<int> IDs) {
             return Builder.AddDirective("finishers")
                 .AddParam("ids", IDs)
-                .Request<List<Finisher>>();
+                .RequestAsync<List<Finisher>>();
         }
         #endregion Finishers
 
         #region Skins
-        public static List<int> SkinIDs()
+        public static Task<List<int>> SkinIDs()
         {
             return Builder.AddDirective("skins")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static Skin Skins(int ID)
+        public static Task<Skin> Skins(int ID)
         {
             return Builder.AddDirective("skins")
                 .AddDirective(ID.ToString())
-                .Request<Skin>();
+                .RequestAsync<Skin>();
         }
 
-        public static List<Skin> Skins(List<int> IDs)
+        public static Task<List<Skin>> Skins(List<int> IDs)
         {
             return Builder.AddDirective("skins")
                 .AddParam("ids", IDs)
-                .Request<List<Skin>>();
+                .RequestAsync<List<Skin>>();
         }
         #endregion
 
         #region Recipes
-        public static List<int> RecipeIDs()
+        public static Task<List<int>> RecipeIDs()
         {
             return Builder.AddDirective("recipes")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Recipe> Recipes(int pageCount, int page)
+        public static Task<List<Recipe>> Recipes(int pageCount, int page)
         {
             return Builder.AddDirective("recipes")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Recipe>>();
+                .RequestAsync<List<Recipe>>();
         }
 
-        public static Recipe Recipes(int ID)
+        public static Task<Recipe> Recipes(int ID)
         {
             return Builder.AddDirective("recipes")
                 .AddDirective(ID.ToString())
-                .Request<Recipe>();
+                .RequestAsync<Recipe>();
         }
 
-        public static List<Recipe> Recipes(List<int> IDs)
+        public static Task<List<Recipe>> Recipes(List<int> IDs)
         {
             return Builder.AddDirective("recipes")
                 .AddParam("ids", IDs)
-                .Request<List<Recipe>>();
+                .RequestAsync<List<Recipe>>();
         }
 
-        public static List<int> SearchRecipesByInput(int itemID)
+        public static Task<List<int>> SearchRecipesByInput(int itemID)
         {
             return Builder.AddDirective("recipes")
                 .AddDirective("search")
                 .AddParam("input", itemID.ToString())
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<int> SearchRecipesByOutput(int itemID)
+        public static Task<List<int>> SearchRecipesByOutput(int itemID)
         {
             return Builder.AddDirective("recipes")
                 .AddDirective("search")
                 .AddParam("output", itemID.ToString())
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
         #endregion Recipes
 
         #region Mystic Forge
-        public static List<RecipeMysticForge> SearchMysticForgeRecipesByOutput(int ID)
+        public static Task<List<RecipeMysticForge>> SearchMysticForgeRecipesByOutput(int ID)
         {
             return Builder/*.AddParam("disciplines", "Mystic Forge")*/      //Weird API thing with AND OR
                 .AddParam("output_ids", ID.ToString())
-                .Request<List<RecipeMysticForge>>(API.Profits);
+                .RequestAsync<List<RecipeMysticForge>>(Network.API.Profits);
         }
 
-        public static List<RecipeMysticForge> SearchMysticForgeRecipesByOutput(List<int> ID)
+        public static Task<List<RecipeMysticForge>> SearchMysticForgeRecipesByOutput(List<int> ID)
         {
             return Builder/*.AddParam("disciplines", "Mystic%20Forge")*/    //Weird API thing with AND OR
                 .AddParam("output_ids", ID)
-                .Request<List<RecipeMysticForge>>(API.Profits);
+                .RequestAsync<List<RecipeMysticForge>>(Network.API.Profits);
         }
         #endregion Mystic Forge
 
         #region Material Storage
-        public static List<int> MaterialIDs()
+        public static Task<List<int>> MaterialIDs()
         {
             return Builder.AddDirective("materials")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<MaterialCategory> Materials()
+        public static Task<List<MaterialCategory>> Materials()
         {
             return Builder.AddDirective("materials")
                 .AddParam("ids", "all")
-                .Request<List<MaterialCategory>>();
+                .RequestAsync<List<MaterialCategory>>();
         }
 
-        public static List<MaterialCategory> Materials(int pageCount, int page)
+        public static Task<List<MaterialCategory>> Materials(int pageCount, int page)
         {
             return Builder.AddDirective("materials")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<MaterialCategory>>();
+                .RequestAsync<List<MaterialCategory>>();
         }
 
-        public static MaterialCategory Materials(int ID)
+        public static Task<MaterialCategory> Materials(int ID)
         {
             return Builder.AddDirective("materials")
                 .AddDirective(ID.ToString())
-                .Request<MaterialCategory>();
+                .RequestAsync<MaterialCategory>();
         }
 
-        public static List<MaterialCategory> Materials(List<int> IDs)
+        public static Task<List<MaterialCategory>> Materials(List<int> IDs)
         {
             return Builder.AddDirective("materials")
                 .AddParam("ids", IDs)
-                .Request<List<MaterialCategory>>();
+                .RequestAsync<List<MaterialCategory>>();
         }
         #endregion Material Storage
 
         #region ItemStats
-        public static List<int> StatPrefixIDs()
+        public static Task<List<int>> StatPrefixIDs()
         {
             return Builder.AddDirective("itemstats")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<ItemStats> StatPrefixes()
+        public static Task<List<ItemStats>> StatPrefixes()
         {
             return Builder.AddDirective("itemstats")
                 .AddParam("ids", "all")
-                .Request<List<ItemStats>>();
+                .RequestAsync<List<ItemStats>>();
         }
 
-        public static List<ItemStats> StatPrefixes(int pageCount, int page)
+        public static Task<List<ItemStats>> StatPrefixes(int pageCount, int page)
         {
             return Builder.AddDirective("itemstats")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<ItemStats>>();
+                .RequestAsync<List<ItemStats>>();
         }
 
-        public static ItemStats StatPrefixes(int ID)
+        public static Task<ItemStats> StatPrefixes(int ID)
         {
             return Builder.AddDirective("itemstats")
                 .AddDirective(ID.ToString())
-                .Request<ItemStats>();
+                .RequestAsync<ItemStats>();
         }
 
-        public static List<ItemStats> StatPrefixes(List<int> IDs)
+        public static Task<List<ItemStats>> StatPrefixes(List<int> IDs)
         {
             return Builder.AddDirective("itemstats")
                 .AddParam("ids", IDs)
-                .Request<List<ItemStats>>();
+                .RequestAsync<List<ItemStats>>();
         }
         #endregion ItemStats
 
         #region Items
-        public static List<int> ItemIDs()
+        public static Task<List<int>> ItemIDs()
         {
             return Builder.AddDirective("items")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Item> Items(int pageCount, int page)
+        public static Task<List<Item>> Items(int pageCount, int page)
         {
             return Builder.AddDirective("items")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Item>>();
+                .RequestAsync<List<Item>>();
         }
 
-        public static Item Items(int ID)
+        public static Task<Item> Items(int ID)
         {
             return Builder.AddDirective("items")
                 .AddDirective(ID.ToString())
-                .Request<Item>();
+                .RequestAsync<Item>();
         }
 
-        public static List<Item> Items(List<int> IDs)
+        public static Task<List<Item>> Items(List<int> IDs)
         {
             return Builder.AddDirective("items")
                 .AddParam("ids", IDs)
-                .Request<List<Item>>();
+                .RequestAsync<List<Item>>();
         }
         #endregion ItemStats
 
-        public static List<ItemSearchResult> SearchByName(string name)
+        public static Task<List<ItemSearchResult>> SearchByName(string name)
         {
             return Builder.AddDirective("idbyname")
                 .AddDirective(name)
-                .Request<List<ItemSearchResult>>(API.Shinies);
+                .RequestAsync<List<ItemSearchResult>>(Network.API.Shinies);
         }
 
         public static bool IsPromotionItem(int itemID)

@@ -1,7 +1,7 @@
-﻿using GuildWars2Guild.Classes;
+﻿using GuildWars2.Guild.Classes;
 using System.Windows;
 
-namespace GuildWars2Guild
+namespace GuildWars2.Guild
 {
     /// <summary>
     /// Interaction logic for App.xaml

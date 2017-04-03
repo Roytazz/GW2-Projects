@@ -1,7 +1,7 @@
-﻿using GuildWars2API.Model.Commerce;
-using GuildWars2API.Model.Guild;
+﻿using GuildWars2.API.Model.Commerce;
+using GuildWars2.API.Model.Guild;
 
-namespace GuildWars2Guild.Model
+namespace GuildWars2.Guild.Model
 {
     public class GoldEntry : LogEntry
     {

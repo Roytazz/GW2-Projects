@@ -1,0 +1,36 @@
+﻿@using GuildWars2.Web.Data.Users
+@using GuildWars2.Web.Data.Extensions
+
+@inject GwUserManager UserManager
+    
+@{
+    var keys = await UserManager.GetKeysAsync(User);
+    if (keys.Count > 0) {
+        <ul class="collapsible" data-collapsible="expandable">
+            @foreach (var key in keys) {
+                <li>
+                    <div class="collapsible-header">
+                        @{ 
+                            var content = key.Active ? Html.Raw("check_box") : Html.Raw("crop_square");
+                            @Html.AjaxActionUrl(@Url.Action("SetActiveKey", "Manage", new { id = key.Id }), AjaxMode.Replace, "#keys", AjaxMethod.POST,
+                                "<i class='material-icons secondary-content no-margin'>" + content + "</i>");
+                            @Html.AjaxActionUrl(Url.Action("DeleteKey", "Manage", new { id = key.Id }), AjaxMode.Replace, "#keys", AjaxMethod.POST,
+                                "<i class='material-icons secondary-content right no-margin'>delete</i>");
+                        }
+                        <span class="truncate">@key.KeyName</span>
+                    </div>
+                    <div class="collapsible-body small-text"><span>@key.ApiKey</span></div>
+                </li>
+            }
+        </ul>
+        <div class="divider"></div>
+
+        <script type="text/javascript">
+            (function ($) {
+                $(function () {
+                    $('.collapsible').collapsible();
+                });
+            })(jQuery);
+        </script>
+    }
+}

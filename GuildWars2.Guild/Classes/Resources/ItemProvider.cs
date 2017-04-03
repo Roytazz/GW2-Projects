@@ -1,9 +1,10 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2.API;
+using GuildWars2.API.Model.Items;
 using System.Collections.Generic;
 using System.Linq;
-using Utility.Providers;
+using System.Threading.Tasks;
 
-namespace GuildWars2Guild.Classes.Resources
+namespace GuildWars2.Guild.Classes.Resources
 {
     class ItemProvider : IResourceProvider<Item>
     {
@@ -11,22 +12,22 @@ namespace GuildWars2Guild.Classes.Resources
 
         public int Capacity { get; set; }
 
-        public Item Get(int ID) {
+        public async Task<Item> Get(int ID) {
             var item = _items.Find(i => i.ID == ID);
             if(item == null) {
-                var itemFound = GuildWars2API.ItemAPI.Items(ID);
+                var itemFound = await ItemAPI.Items(ID);
                 if(itemFound == null)
                     return null;
 
                 Add(itemFound);
-                return Get(ID);
+                return await Get(ID);
             }
             return _items.Find(i => i.ID == ID);
         }
 
-        public List<Item> Get(List<int> IDs) {
+        public async Task<List<Item>> Get(List<int> IDs) {
             var newItems = IDs.Where(id => !_items.Any(item => item.ID == id));
-            var result = GuildWars2API.ItemAPI.Items(new List<int>(newItems));
+            var result = await ItemAPI.Items(new List<int>(newItems));
 
             if (result == null)
                 return null;
@@ -38,22 +39,20 @@ namespace GuildWars2Guild.Classes.Resources
             return _items.Where(item => IDs.Any(id => item.ID == id)).ToList();
         }
 
-        public Item Get(string identifier) {
-            int id;
-            if(int.TryParse(identifier, out id))
-                return Get(id);
+        public async Task<Item> Get(string identifier) {
+            if(int.TryParse(identifier, out int id))
+                return await Get(id);
 
             return null;
         }
 
-        public List<Item> Get(List<string> identifiers) {
+        public async Task<List<Item>> Get(List<string> identifiers) {
             List<int> ids = new List<int>();
             foreach(string identifier in identifiers) {
-                int id;
-                if(int.TryParse(identifier, out id))
+                if(int.TryParse(identifier, out int id))
                     ids.Add(id);
             }
-            return Get(ids);
+            return await Get(ids);
         }
 
         private void Add(Item item) {
@@ -62,10 +61,6 @@ namespace GuildWars2Guild.Classes.Resources
                 _items.RemoveAt(0);
 
             _items.Add(item);
-        }
-
-        public void Reset() {
-            return;
         }
     }
 }

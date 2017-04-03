@@ -1,7 +1,7 @@
-﻿using GuildWars2API.Model.Guild;
-using GuildWars2Guild.Model.ViewModel.Bases;
+﻿using GuildWars2.API.Model.Guild;
+using GuildWars2.Guild.Model.ViewModel.Bases;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2.Guild.Model.ViewModel
 {
     class MotdVM : DbVM<LogEntry>
     {

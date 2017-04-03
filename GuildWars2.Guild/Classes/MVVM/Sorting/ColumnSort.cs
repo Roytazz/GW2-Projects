@@ -1,11 +1,11 @@
-﻿using GuildWars2Guild.Classes.Logger;
+﻿using GuildWars2.Guild.Classes.Logger;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace GuildWars2Guild.Classes.MVVM.Sorting
+namespace GuildWars2.Guild.Classes.MVVM.Sorting
 {
     public class CustomSortBehaviour
     {

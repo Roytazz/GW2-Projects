@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Account
+namespace GuildWars2.API.Model.Account
 {
     public class AccountAchievement
     {

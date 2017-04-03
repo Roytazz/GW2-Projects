@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Items
+namespace GuildWars2.API.Model.Items
 {
     public class Infusion
     {
-        public List<InfusionUpgradeFlag> Flags { get; set; }
-
+        [JsonProperty("item_id")]
         public int ItemID { get; set; }
+
+        [JsonProperty("flags")]
+        public List<string> Flags { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿using GuildWars2Guild.Model;
+﻿using GuildWars2.Guild.Model;
 using System.ComponentModel;
 
-namespace GuildWars2Guild.Classes.MVVM.Sorting
+namespace GuildWars2.Guild.Classes.MVVM.Sorting
 {
     public class GoldSort : ICustomSorter
     {

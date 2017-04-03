@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model.Guild
+namespace GuildWars2.API.Model.Guild
 {
     public class TreasuryRequiredBy
     {

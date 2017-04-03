@@ -1,0 +1,36 @@
+﻿@using GuildWars2.Web.Models
+@using GuildWars2.Web.Data.Users
+
+@inject GwUserManager UserManager
+
+<ul id="apikey_dropdown" class="dropdown-content">
+    @{
+        var keys = TempData.Peek("ApiKeys") as List<ApiKeyInfo>;
+        if (keys == null) {
+            keys = await UserManager.GetKeysAsync(User);
+            TempData["ApiKeys"] = keys;
+        }
+    }
+    @if(keys.Count == 0) { 
+        <li><a href="@Url.Action("Index", "Manage")">..Add API Key..</a></li>
+    }
+    @foreach (var key in keys) {
+        <li>
+            <a href="@Url.Action("SetActiveKeyNav", "Manage", new { id = key.Id, returnUrl = Context.Request.Path.ToUriComponent() })">
+                @if (key.Active) {
+                    <i class="material-icons secondary-content no-margin">check</i>
+                }
+                @key.KeyName
+            </a>
+        </li>
+    }
+</ul>
+<script type="text/javascript">
+    (function ($) {
+        $(function () {
+            $('.dropdown-button').dropdown({
+                constrainWidth: false // Does not change width of dropdown to that of the activator
+            });
+        });
+    })(jQuery);
+</script>

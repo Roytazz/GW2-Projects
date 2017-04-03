@@ -1,11 +1,11 @@
-﻿using GuildWars2API;
-using GuildWars2API.Model.Guild;
-using GuildWars2Guild.Classes.MVVM;
+﻿using GuildWars2.API;
+using GuildWars2.API.Model.Guild;
+using GuildWars2.Guild.Classes.MVVM;
+using GuildWars2.Guild.Classes.Resources;
 using System.Windows.Input;
 using System.Windows.Media;
-using Utility.Providers;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2.Guild.Model.ViewModel
 {
     class GuildVM
     {
@@ -14,7 +14,7 @@ namespace GuildWars2Guild.Model.ViewModel
         public GuildDetails GuildDetails {
             get {
                 if(_guildDetails == null) {
-                    _guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
+                    _guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName).GetAwaiter().GetResult();
                 }
                 return _guildDetails;
             }
@@ -33,7 +33,7 @@ namespace GuildWars2Guild.Model.ViewModel
         public string BackgroundSource {
             get {
                 if (GuildDetails?.Emblem?.Background != null) {
-                    var background = GuildAPI.EmblemBackgrounds(GuildDetails.Emblem.Background.ID);
+                    var background = GuildAPI.EmblemBackgrounds(GuildDetails.Emblem.Background.ID).GetAwaiter().GetResult();
                     return background.Layers[0];
                 }
 
@@ -45,7 +45,7 @@ namespace GuildWars2Guild.Model.ViewModel
         {
             get {
                 if (GuildDetails?.Emblem?.Background != null) {
-                    var color = ResourceProvider.Instance.GetResource<GuildWars2API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Background.Colors)[0];
+                    var color = ResourceProvider.Instance.GetResource<GuildWars2.API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Background.Colors).GetAwaiter().GetResult()[0];
                     return new SolidColorBrush(Color.FromArgb(255, (byte)color.BaseRGB[0], (byte)color.BaseRGB[1], (byte)color.BaseRGB[2]));
                 }
 
@@ -57,7 +57,7 @@ namespace GuildWars2Guild.Model.ViewModel
         {
             get {
                 if (GuildDetails?.Emblem?.Foreground != null) {
-                    var foreground = GuildAPI.EmblemForegrounds(GuildDetails.Emblem.Foreground.ID);
+                    var foreground = GuildAPI.EmblemForegrounds(GuildDetails.Emblem.Foreground.ID).GetAwaiter().GetResult();
                     return foreground.Layers[0];
                 }
 
@@ -69,7 +69,7 @@ namespace GuildWars2Guild.Model.ViewModel
         {
             get {
                 if (GuildDetails?.Emblem?.Foreground != null) {
-                    var color = ResourceProvider.Instance.GetResource<GuildWars2API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Foreground.Colors)[0];
+                    var color = ResourceProvider.Instance.GetResource<GuildWars2.API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Foreground.Colors).GetAwaiter().GetResult()[0];
                     return new SolidColorBrush(Color.FromArgb(255, (byte)color.BaseRGB[0], (byte)color.BaseRGB[1], (byte)color.BaseRGB[2]));
                 }
 
@@ -81,7 +81,7 @@ namespace GuildWars2Guild.Model.ViewModel
         {
             get {
                 if (GuildDetails?.Emblem?.Foreground != null) {
-                    var color = ResourceProvider.Instance.GetResource<GuildWars2API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Foreground.Colors)[1];
+                    var color = ResourceProvider.Instance.GetResource<GuildWars2.API.Model.Miscellaneous.Color>(GuildDetails.Emblem.Foreground.Colors).GetAwaiter().GetResult()[1];
                     return new SolidColorBrush(Color.FromArgb(255, (byte)color.BaseRGB[0], (byte)color.BaseRGB[1], (byte)color.BaseRGB[2]));
                 }
 

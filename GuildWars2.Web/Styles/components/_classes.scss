@@ -1,0 +1,21 @@
+﻿$classes: (
+  "guardian": #47a9ff,
+  "warrior": #e2bf3e,
+  "revenant": #960000,
+  "ranger": #39ca39,
+  "engineer": #d0962d,
+  "thief": #586d6c,
+  "elementalist": #fb2b2b,
+  "mesmer": #ce50ce,
+  "necromancer": #008e0c
+);
+
+@each $class, $class_value in $classes {
+    .#{$class}-color {
+        color: $class_value;
+    }
+}
+
+.race-icon {
+    margin-bottom: -4px;
+}

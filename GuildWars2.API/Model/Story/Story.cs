@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Story
+namespace GuildWars2.API.Model.Story
 {
     public class Story
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GuildWars2API.Model.Items
+namespace GuildWars2.API.Model.Items
 {
     public class Equipment
     {

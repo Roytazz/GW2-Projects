@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Achievements
+namespace GuildWars2.API.Model.Achievements
 {
     public class Group
     {

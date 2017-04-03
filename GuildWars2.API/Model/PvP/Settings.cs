@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.PvP
+namespace GuildWars2.API.Model.PvP
 {
     public class LeaderboardSettings
     {

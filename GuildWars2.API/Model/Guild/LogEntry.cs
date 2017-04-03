@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Runtime.Serialization;
 
-namespace GuildWars2API.Model.Guild
+namespace GuildWars2.API.Model.Guild
 {
     public class LogEntry
     {
@@ -103,6 +103,7 @@ namespace GuildWars2API.Model.Guild
     public enum Operation
     {
         Deposit,
-        Withdraw
+        Withdraw,
+        Move
     }
 }

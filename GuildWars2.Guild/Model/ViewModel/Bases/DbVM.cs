@@ -1,10 +1,10 @@
-﻿using GuildWars2API.Model.Guild;
-using GuildWars2Guild.Classes;
+﻿using GuildWars2.API.Model.Guild;
+using GuildWars2.Guild.Classes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
 
-namespace GuildWars2Guild.Model.ViewModel.Bases
+namespace GuildWars2.Guild.Model.ViewModel.Bases
 {
     class DbVM<T> : BaseVM where T : LogEntry, new()
     {

@@ -1,9 +1,9 @@
-﻿using GuildWars2Guild.Controls.Palettes;
+﻿using GuildWars2.Guild.Controls.Palettes;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using System.Linq;
 
-namespace GuildWars2Guild.Classes
+namespace GuildWars2.Guild.Classes
 {
     public static class SwatchesHelper
     {

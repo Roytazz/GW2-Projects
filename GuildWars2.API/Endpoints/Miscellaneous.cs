@@ -1,318 +1,435 @@
-﻿using GuildWars2API.Model;
-using GuildWars2API.Model.Miscellaneous;
+﻿using GuildWars2.API.Model;
+using GuildWars2.API.Model.Miscellaneous;
+using GuildWars2.API.Network;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace GuildWars2API
+namespace GuildWars2.API
 {
     public class MiscellaneousAPI
     {
         private static UrlBuilder Builder { get { return new UrlBuilder(); } }
 
         #region Colors
-        public static List<int> ColorIDs()
+        public static Task<List<int>> ColorIDs()
         {
             return Builder.AddDirective("colors")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Color> Colors()
+        public static Task<List<Color>> Colors()
         {
             return Builder.AddDirective("colors")
                 .AddParam("ids", "all")
-                .Request<List<Color>>();
+                .RequestAsync<List<Color>>();
         }
 
-        public static Color Colors(int ID)
+        public static Task<Color> Colors(int ID)
         {
             return Builder.AddDirective("colors")
                 .AddDirective(ID.ToString())
-                .Request<Color>();
+                .RequestAsync<Color>();
         }
 
-        public static List<Color> Colors(List<int> IDs)
+        public static Task<List<Color>> Colors(List<int> IDs)
         {
             return Builder.AddDirective("colors")
                 .AddParam("ids", IDs)
-                .Request<List<Color>>();
+                .RequestAsync<List<Color>>();
         }
         #endregion Colors
 
         #region Minis
-        public static List<int> MiniIDs()
+        public static Task<List<int>> MiniIDs()
         {
             return Builder.AddDirective("minis")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Mini> Minis()
+        public static Task<List<Mini>> Minis()
         {
             return Builder.AddDirective("minis")
                 .AddParam("ids", "all")
-                .Request<List<Mini>>();
+                .RequestAsync<List<Mini>>();
         }
 
-        public static Mini Minis(int ID)
+        public static Task<Mini> Minis(int ID)
         {
             return Builder.AddDirective("minis")
                 .AddDirective(ID.ToString())
-                .Request<Mini>();
+                .RequestAsync<Mini>();
         }
 
-        public static List<Mini> Minis(List<int> IDs)
+        public static Task<List<Mini>> Minis(List<int> IDs)
         {
             return Builder.AddDirective("minis")
                 .AddParam("ids", IDs)
-                .Request<List<Mini>>();
+                .RequestAsync<List<Mini>>();
         }
         #endregion Minis
 
         #region Titles
-        public static List<int> TitleIDs()
+        public static Task<List<int>> TitleIDs()
         {
             return Builder.AddDirective("titles")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Title> Titles()
+        public static Task<List<Title>> Titles()
         {
             return Builder.AddDirective("titles")
                 .AddParam("ids", "all")
-                .Request<List<Title>>();
+                .RequestAsync<List<Title>>();
         }
 
-        public static List<Title> Titles(int pageCount, int page)
+        public static Task<List<Title>> Titles(int pageCount, int page)
         {
             return Builder.AddDirective("titles")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Title>>();
+                .RequestAsync<List<Title>>();
         }
 
-        public static Title Titles(int ID)
+        public static Task<Title> Titles(int ID)
         {
             return Builder.AddDirective("titles")
                 .AddDirective(ID.ToString())
-                .Request<Title>();
+                .RequestAsync<Title>();
         }
 
-        public static List<Title> Titles(List<int> IDs)
+        public static Task<List<Title>> Titles(List<int> IDs)
         {
             return Builder.AddDirective("titles")
                 .AddParam("ids", IDs)
-                .Request<List<Title>>();
+                .RequestAsync<List<Title>>();
         }
         #endregion Titles
 
         #region Currency
-        public static List<int> CurrencyIDs()
+        public static Task<List<int>> CurrencyIDs()
         {
             return Builder.AddDirective("currencies")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Currency> Currencies()
+        public static Task<List<Currency>> Currencies()
         {
             return Builder.AddDirective("currencies")
                 .AddParam("ids", "all")
-                .Request<List<Currency>>();
+                .RequestAsync<List<Currency>>();
         }
 
-        public static Currency Currencies(int ID)
+        public static Task<Currency> Currencies(int ID)
         {
             return Builder.AddDirective("currencies")
                 .AddDirective(ID.ToString())
-                .Request<Currency>();
+                .RequestAsync<Currency>();
         }
 
-        public static List<Currency> Currencies(List<int> IDs)
+        public static Task<List<Currency>> Currencies(List<int> IDs)
         {
             return Builder.AddDirective("currencies")
                 .AddParam("ids", IDs)
-                .Request<List<Currency>>();
+                .RequestAsync<List<Currency>>();
         }
         #endregion Currency
 
         #region Mastery
-        public static List<int> MasteryIDs()
+        public static Task<List<int>> MasteryIDs()
         {
             return Builder.AddDirective("masteries")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static Mastery Masteries()
+        public static Task<Mastery> Masteries()
         {
             return Builder.AddDirective("masteries")
                 .AddParam("ids", "all")
-                .Request<Mastery>();
+                .RequestAsync<Mastery>();
         }
 
-        public static Mastery Masteries(int ID)
+        public static Task<Mastery> Masteries(int ID)
         {
             return Builder.AddDirective("masteries")
                 .AddDirective(ID.ToString())
-                .Request<Mastery>();
+                .RequestAsync<Mastery>();
         }
 
-        public static List<Mastery> Masteries(List<int> IDs)
+        public static Task<List<Mastery>> Masteries(List<int> IDs)
         {
             return Builder.AddDirective("masteries")
                 .AddParam("ids", IDs)
-                .Request<List<Mastery>>();
+                .RequestAsync<List<Mastery>>();
         }
         #endregion Mastery
 
         #region Outfits
-        public static List<int> OutfitIDs()
+        public static Task<List<int>> OutfitIDs()
         {
             return Builder.AddDirective("outfits")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Outfit> Outfits()
+        public static Task<List<Outfit>> Outfits()
         {
             return Builder.AddDirective("outfits")
                 .AddParam("ids", "all")
-                .Request<List<Outfit>>();
+                .RequestAsync<List<Outfit>>();
         }
 
-        public static List<Outfit> Outfits(int pageCount, int page)
+        public static Task<List<Outfit>> Outfits(int pageCount, int page)
         {
             return Builder.AddDirective("outfits")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Outfit>>();
+                .RequestAsync<List<Outfit>>();
         }
 
-        public static Outfit Outfits(int ID)
+        public static Task<Outfit> Outfits(int ID)
         {
             return Builder.AddDirective("outfits")
                 .AddDirective(ID.ToString())
-                .Request<Outfit>();
+                .RequestAsync<Outfit>();
         }
 
-        public static List<Outfit> Outfits(List<int> IDs)
+        public static Task<List<Outfit>> Outfits(List<int> IDs)
         {
             return Builder.AddDirective("outfits")
                 .AddParam("ids", IDs)
-                .Request<List<Outfit>>();
+                .RequestAsync<List<Outfit>>();
         }
         #endregion Outfits
 
         #region Files/Assets
-        public static List<string> AssetIDs()
+        public static Task<List<string>> AssetIDs()
         {
             return Builder.AddDirective("files")
-                .Request<List<string>>();
+                .RequestAsync<List<string>>();
         }
 
-        public static List<Asset> Assets()
+        public static Task<List<Asset>> Assets()
         {
             return Builder.AddDirective("files")
                 .AddParam("ids", "all")
-                .Request<List<Asset>>();
+                .RequestAsync<List<Asset>>();
         }
 
-        public static List<Asset> Assets(int pageCount, int page)
+        public static Task<List<Asset>> Assets(int pageCount, int page)
         {
             return Builder.AddDirective("files")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Asset>>();
+                .RequestAsync<List<Asset>>();
         }
 
-        public static Asset Assets(string ID)
+        public static Task<Asset> Assets(string ID)
         {
             return Builder.AddDirective("files")
                 .AddDirective(ID.ToString())
-                .Request<Asset>();
+                .RequestAsync<Asset>();
         }
 
-        public static List<Asset> Assets(List<string> IDs)
+        public static Task<List<Asset>> Assets(List<string> IDs)
         {
             return Builder.AddDirective("files")
                 .AddParam("ids", IDs)
-                .Request<List<Asset>>();
+                .RequestAsync<List<Asset>>();
         }
         #endregion Files/Assets
 
         #region Quaggans
-        public static List<string> QuagganIDs()
+        public static Task<List<string>> QuagganIDs()
         {
             return Builder.AddDirective("quaggans")
-                .Request<List<string>>();
+                .RequestAsync<List<string>>();
         }
 
-        public static List<Asset> Quaggans()
+        public static Task<List<Asset>> Quaggans()
         {
             return Builder.AddDirective("quaggans")
                 .AddParam("ids", "all")
-                .Request<List<Asset>>();
+                .RequestAsync<List<Asset>>();
         }
 
-        public static List<Asset> Quaggans(int pageCount, int page)
+        public static Task<List<Asset>> Quaggans(int pageCount, int page)
         {
             return Builder.AddDirective("quaggans")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Asset>>();
+                .RequestAsync<List<Asset>>();
         }
 
-        public static Asset Quaggans(string ID)
+        public static Task<Asset> Quaggans(string ID)
         {
             return Builder.AddDirective("quaggans")
                 .AddDirective(ID.ToString())
-                .Request<Asset>();
+                .RequestAsync<Asset>();
         }
 
-        public static List<Asset> Quaggans(List<string> IDs)
+        public static Task<List<Asset>> Quaggans(List<string> IDs)
         {
             return Builder.AddDirective("quaggans")
                 .AddParam("ids", IDs)
-                .Request<List<Asset>>();
+                .RequestAsync<List<Asset>>();
         }
         #endregion Quaggans
 
         #region Worlds
-        public static List<int> WorldIDs()
+        public static Task<List<int>> WorldIDs()
         {
             return Builder.AddDirective("worlds")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Server> Worlds()
+        public static Task<List<Server>> Worlds()
         {
             return Builder.AddDirective("worlds")
                 .AddParam("ids", "all")
-                .Request<List<Server>>();
+                .RequestAsync<List<Server>>();
         }
 
-        public static List<Server> Worlds(int pageCount, int page)
+        public static Task<List<Server>> Worlds(int pageCount, int page)
         {
             return Builder.AddDirective("worlds")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Server>>();
+                .RequestAsync<List<Server>>();
         }
 
-        public static Server Worlds(int ID)
+        public static Task<Server> Worlds(int ID)
         {
             return Builder.AddDirective("worlds")
                 .AddDirective(ID.ToString())
-                .Request<Server>();
+                .RequestAsync<Server>();
         }
 
-        public static List<Server> Worlds(List<int> IDs)
+        public static Task<List<Server>> Worlds(List<int> IDs)
         {
             return Builder.AddDirective("worlds")
                 .AddParam("ids", IDs)
-                .Request<List<Server>>();
+                .RequestAsync<List<Server>>();
         }
         #endregion Worlds
 
-        public static Build CurrentBuild()
-        {
+        #region Pets
+        public static Task<List<int>> PetIDs() {
+            return Builder.AddDirective("pets")
+                .RequestAsync<List<int>>();
+        }
+
+        public static Task<List<Pet>> Pets(int pageCount, int page) {
+            return Builder.AddDirective("pets")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<Pet>>();
+        }
+
+        public static Task<Pet> Pets(int ID) {
+            return Builder.AddDirective("pets")
+                .AddDirective(ID.ToString())
+                .RequestAsync<Pet>();
+        }
+
+        public static Task<List<Pet>> Pets(List<int> IDs) {
+            return Builder.AddDirective("pets")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<Pet>>();
+        }
+        #endregion Pets
+
+        #region Dungeons
+
+        public static Task<List<string>> DungeonIDs() {
+            return Builder.AddDirective("dungeons")
+                .RequestAsync<List<string>>();
+        }
+
+        public static Task<List<Dungeon>> Dungeons(int pageCount, int page) {
+            return Builder.AddDirective("dungeons")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<Dungeon>>();
+        }
+
+        public static Task<Dungeon> Dungeons(string ID) {
+            return Builder.AddDirective("dungeons")
+                .AddDirective(ID.ToString())
+                .RequestAsync<Dungeon>();
+        }
+
+        public static Task<List<Dungeon>> Dungeons(List<string> IDs) {
+            return Builder.AddDirective("dungeons")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<Dungeon>>();
+        }
+        #endregion Dungeons
+
+        #region Raids
+        public static Task<List<string>> RaidIDs() {
+            return Builder.AddDirective("raids")
+                .RequestAsync<List<string>>();
+        }
+
+        public static Task<List<Raid>> Raids() {
+            return Builder.AddDirective("raids")
+                .AddParam("ids", "all")
+                .RequestAsync<List<Raid>>();
+        }
+
+        public static Task<List<Raid>> Raids(int pageCount, int page) {
+            return Builder.AddDirective("raids")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<Raid>>();
+        }
+
+        public static Task<Raid> Raids(string ID) {
+            return Builder.AddDirective("raids")
+                .AddDirective(ID.ToString())
+                .RequestAsync<Raid>();
+        }
+
+        public static Task<List<Raid>> Raids(List<string> IDs) {
+            return Builder.AddDirective("raids")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<Raid>>();
+        }
+        #endregion Raids
+
+        #region Gliders
+        public static Task<List<int>> GliderIDs() {
+            return Builder.AddDirective("gliders")
+                .RequestAsync<List<int>>();
+        }
+
+        public static Task<List<Glider>> Gliders(int pageCount, int page) {
+            return Builder.AddDirective("gliders")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<Glider>>();
+        }
+
+        public static Task<Glider> Gliders(int ID) {
+            return Builder.AddDirective("gliders")
+                .AddDirective(ID.ToString())
+                .RequestAsync<Glider>();
+        }
+
+        public static Task<List<Glider>> Gliders(List<int> IDs) {
+            return Builder.AddDirective("gliders")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<Glider>>();
+        }
+        #endregion Gliders
+
+        public static Task<Build> CurrentBuild() {
             return Builder.AddDirective("build")
-                .Request<Build>();
+                .RequestAsync<Build>();
+        }
+        
+        public static Task<TokenInfo> TokenInfo(string apiKey) {
+            return Builder.AddDirective("tokeninfo")
+                .RequestAsync<TokenInfo>(apiKey);
         }
     }
 }

@@ -15,3 +15,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0018:Inline variable declaration", Justification = "<Pending>", Scope = "member", Target = "~M:GuildWars2Guild.Classes.MVVM.Converter.ToEmblemColor.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)~System.Object")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0017:Simplify object initialization", Justification = "<Pending>", Scope = "member", Target = "~M:GuildWars2Guild.Classes.NotifyHandler.#ctor")]
 
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:GuildWars2Guild.Classes.IO.DropBoxManager.AsyncDownload(System.String,System.String)~System.Threading.Tasks.Task{System.Boolean}")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:GuildWars2Guild.Classes.IO.DropBoxManager.AsyncUpload(System.String,System.String)~System.Threading.Tasks.Task{System.Boolean}")]

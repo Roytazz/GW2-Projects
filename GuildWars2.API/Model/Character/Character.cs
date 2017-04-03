@@ -1,9 +1,9 @@
-﻿using GuildWars2API.Model.Items;
+﻿using GuildWars2.API.Model.Items;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Character
+namespace GuildWars2.API.Model.Character
 {
     public class Character
     {

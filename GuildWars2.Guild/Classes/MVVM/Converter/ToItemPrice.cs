@@ -1,9 +1,9 @@
-﻿using GuildWars2API.Model.Commerce;
+﻿using GuildWars2.API.Model.Commerce;
 using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace GuildWars2Guild.Classes.MVVM.Converter
+namespace GuildWars2.Guild.Classes.MVVM.Converter
 {
     class ToItemPrice : IValueConverter
     {

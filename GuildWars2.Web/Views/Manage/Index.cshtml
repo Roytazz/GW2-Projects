@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col offset-s1 s10 offset-m1 m5">
+        <h4 class="center-align">Manage API Keys</h4>
+        <div id="keys">
+            @Html.Partial("_KeyDisplay")
+        </div>
+        <h5 class="center-align">Add API Key</h5>
+        @Html.Partial("_AddKeyForm")
+    </div>
+    <div class="col offset-s1 s10 divider hide-on-med-and-up"></div>
+    <div class="col offset-s1 s10 m5">
+        <h4 class="center-align">Change Password</h4>
+        @Html.Partial("_ChangePassword")
+    </div>
+</div>

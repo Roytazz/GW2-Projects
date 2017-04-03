@@ -1,131 +1,133 @@
-﻿using GuildWars2API.Model.Commerce;
+﻿using GuildWars2.API.Model.Commerce;
+using GuildWars2.API.Network;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace GuildWars2API
+namespace GuildWars2.API
 {
     public static class CommerceAPI
     {
         private static UrlBuilder Builder { get { return new UrlBuilder("commerce"); } }
 
         #region Transactions    
-        public static List<Transaction> SellsCurrent(string apiKey)
+        public static Task<List<Transaction>> SellsCurrent(string apiKey)
         {
             return Builder.AddDirective("transactions")
                 .AddDirective("current")
                 .AddDirective("sells")
-                .Request<List<Transaction>>(apiKey);
+                .RequestAsync<List<Transaction>>(apiKey);
         }
 
-        public static List<Transaction> SellsCurrent(int pageCount, int page, string apiKey)
+        public static Task<List<Transaction>> SellsCurrent(int pageCount, int page, string apiKey)
         {
             return Builder.AddDirective("transactions")
                 .AddDirective("current")
                 .AddDirective("sells")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Transaction>>(apiKey);
+                .RequestAsync<List<Transaction>>(apiKey);
         }
 
-        public static List<Transaction> SellsHistory(string apiKey)
+        public static Task<List<Transaction>> SellsHistory(string apiKey)
         {
             return Builder.AddDirective("transactions")
                 .AddDirective("history")
                 .AddDirective("sells")
-                .Request<List<Transaction>>(apiKey);
+                .RequestAsync<List<Transaction>>(apiKey);
         }
 
-        public static List<Transaction> SellsHistory(int pageCount, int page, string apiKey)
+        public static Task<List<Transaction>> SellsHistory(int pageCount, int page, string apiKey)
         {
             return Builder.AddDirective("transactions")
                 .AddDirective("history")
                 .AddDirective("sells")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Transaction>>(apiKey);
+                .RequestAsync<List<Transaction>>(apiKey);
         }
 
-        public static List<Transaction> BuysCurrent(string apiKey)
+        public static Task<List<Transaction>> BuysCurrent(string apiKey)
         {
             return Builder.AddDirective("transactions")
                 .AddDirective("current")
                 .AddDirective("buys")
-                .Request<List<Transaction>>(apiKey);
+                .RequestAsync<List<Transaction>>(apiKey);
         }
 
-        public static List<Transaction> BuysCurrent(int pageCount, int page, string apiKey)
+        public static Task<List<Transaction>> BuysCurrent(int pageCount, int page, string apiKey)
         {
             return Builder.AddDirective("transactions")
                 .AddDirective("current")
                 .AddDirective("buys")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Transaction>>(apiKey);
+                .RequestAsync<List<Transaction>>(apiKey);
         }
 
-        public static List<Transaction> BuysHistory(string apiKey)
+        public static Task<List<Transaction>> BuysHistory(string apiKey)
         {
             return Builder.AddDirective("transactions")
                 .AddDirective("history")
                 .AddDirective("buys")
-                .Request<List<Transaction>>(apiKey);
+                .RequestAsync<List<Transaction>>(apiKey);
         }
 
-        public static List<Transaction> BuysHistory(int pageCount, int page, string apiKey)
+        public static Task<List<Transaction>> BuysHistory(int pageCount, int page, string apiKey)
         {
             return Builder.AddDirective("transactions")
                 .AddDirective("history")
                 .AddDirective("buys")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Transaction>>(apiKey);
+                .RequestAsync<List<Transaction>>(apiKey);
         }
         #endregion Transactions
 
         #region Listings
-        public static ItemListing Listings(int itemID)
+        public static Task<ItemListing> Listings(int itemID)
         {
             return Builder.AddDirective("listings")
                 .AddDirective(itemID.ToString())
-                .Request<ItemListing>();
+                .RequestAsync<ItemListing>();
         }
 
-        public static List<ItemListing> Listings(List<int> itemIDs)
+        public static Task<List<ItemListing>> Listings(List<int> IDs)
         {
             return Builder.AddDirective("listings")
-                .AddParam("ids", itemIDs)
-                .Request<List<ItemListing>>();
+                .AddParam("ids", IDs)
+                .RequestAsync<List<ItemListing>>();
         }
 
-        public static ItemListingAggregated ListingsAggregated(int itemID)
+        public static Task<ItemListingAggregated> ListingsAggregated(int IDs)
         {
             return Builder.AddDirective("prices")
-                .AddDirective(itemID.ToString())
-                .Request<ItemListingAggregated>();
+                .AddDirective(IDs.ToString())
+                .RequestAsync<ItemListingAggregated>();
         }
 
-        public static List<ItemListingAggregated> ListingsAggregated(List<int> itemIDs)
+        public static Task<List<ItemListingAggregated>> ListingsAggregated(List<int> IDs)
         {
             return Builder.AddDirective("prices")
-                .AddParam("ids", itemIDs)
-                .Request<List<ItemListingAggregated>>();
+                .AddParam("ids", IDs)
+                .RequestAsync<List<ItemListingAggregated>>();
         }
         #endregion Listings
 
         #region Exchange
-        public static Exchange ExchangeToGold(int gems)
+        public static Task<Exchange> ExchangeToGold(int gems)
         {
             return Builder.AddDirective("exchange")
                 .AddDirective("gems")
                 .AddParam("quantity", gems.ToString())
-                .Request<Exchange>();
+                .RequestAsync<Exchange>();
         }
 
-        public static Exchange ExchangeToGems(int coins)
+        public static Task<Exchange> ExchangeToGems(int coins)
         {
             return Builder.AddDirective("exchange")
                 .AddDirective("coins")
                 .AddParam("quantity", coins.ToString())
-                .Request<Exchange>();
+                .RequestAsync<Exchange>();
         }
         #endregion Exchange
     }

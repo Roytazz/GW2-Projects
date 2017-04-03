@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Controls.Palettes
+namespace GuildWars2.Guild.Controls.Palettes
 {
     /// <summary>
     /// Interaction logic for PaletteSelector.xaml

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace GuildWars2Guild.Classes.MVVM.Converter
+namespace GuildWars2.Guild.Classes.MVVM.Converter
 {
     class ToRarityColor : IValueConverter
     {

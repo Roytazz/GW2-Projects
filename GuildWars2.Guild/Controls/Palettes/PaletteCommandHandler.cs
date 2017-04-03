@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Controls.Palettes
+namespace GuildWars2.Guild.Controls.Palettes
 {
     public class PaletteCommandHandler : ICommand
     {

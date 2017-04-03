@@ -1,0 +1,15 @@
+﻿$genders: ( 
+    "male": #6568f9, 
+    "female": #fd28ff, 
+);
+
+.gender-text {
+    margin-left: 5px;
+    font-size: small;
+}
+
+@each $gender, $gender_value in $genders {
+    .gender-text.#{$gender} {
+        color: $gender_value;
+    }
+}

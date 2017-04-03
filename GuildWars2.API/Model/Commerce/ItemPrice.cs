@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GuildWars2API.Model.Commerce
+namespace GuildWars2.API.Model.Commerce
 {
     public class ItemPrice : IComparable<ItemPrice>
     {

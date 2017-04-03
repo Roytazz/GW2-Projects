@@ -1,9 +1,9 @@
-﻿using GuildWars2Guild.Classes.MVVM;
-using GuildWars2Guild.Model.ViewModel.Bases;
+﻿using GuildWars2.Guild.Classes.MVVM;
+using GuildWars2.Guild.Model.ViewModel.Bases;
 using System.Windows;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2.Guild.Model.ViewModel
 {
     class SettingsVM : BaseVM
     {

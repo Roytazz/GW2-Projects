@@ -1,8 +1,8 @@
-﻿using GuildWars2API.Model.Commerce;
+﻿using GuildWars2.API.Model.Commerce;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GuildWars2API.Model.Items
+namespace GuildWars2.API.Model.Items
 {
     public class Item
     {
@@ -49,7 +49,7 @@ namespace GuildWars2API.Model.Items
         public List<ItemRestriction> Restrictions { get; set; }
 
         [JsonProperty("details")]
-        public ItemDetails Details { get; set; } 
+        public ItemDetails Details { get; set; }
     }
 
     public enum ItemType

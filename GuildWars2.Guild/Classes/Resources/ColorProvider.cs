@@ -1,10 +1,10 @@
-﻿using GuildWars2API;
-using GuildWars2API.Model.Miscellaneous;
+﻿using GuildWars2.API;
+using GuildWars2.API.Model.Miscellaneous;
 using System.Collections.Generic;
 using System.Linq;
-using Utility.Providers;
+using System.Threading.Tasks;
 
-namespace GuildWars2Guild.Classes.Resources
+namespace GuildWars2.Guild.Classes.Resources
 {
     class ColorProvider : IResourceProvider<Color>
     {
@@ -12,43 +12,38 @@ namespace GuildWars2Guild.Classes.Resources
 
         public int Capacity { get; set; }
 
-        private List<Color> Colors {
-            get {
-                if (_colors == null)
-                    _colors = MiscellaneousAPI.Colors();
+        private async Task<List<Color>> GetColors() {
+            if (_colors == null)
+                _colors = await MiscellaneousAPI.Colors();
 
-                return _colors;
-            }
+            return _colors;
         }
 
-        public Color Get(string identifier) {
-            int id;
-            if (int.TryParse(identifier, out id))
+        public Task<Color> Get(string identifier) {
+            if (int.TryParse(identifier, out int id))
                 return Get(id);
 
             return null;
         }
 
-        public List<Color> Get(List<string> identifiers) {
+        public async Task<List<Color>> Get(List<string> identifiers) {
             List<int> ids = new List<int>();
             foreach(string identifier in identifiers) {
                 int id;
                 if (int.TryParse(identifier, out id))
                     ids.Add(id);
             }
-            return Get(ids);
+            return await Get(ids);
         }
 
-        public Color Get(int ID) {
-            return Colors.Find(color => color.ID == ID);
+        public async Task<Color> Get(int ID) {
+            var colors = await GetColors();
+            return colors.Find(color => color.ID == ID);
         }
 
-        public List<Color> Get(List<int> IDs) {
-            return Colors.Where(color => IDs.Contains(color.ID)).ToList();
-        }
-
-        public void Reset() {
-            return;
+        public async Task<List<Color>> Get(List<int> IDs) {
+            var colors = await GetColors();
+            return colors.Where(color => IDs.Contains(color.ID)).ToList();
         }
     }
 }

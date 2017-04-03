@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model.Story
+namespace GuildWars2.API.Model.Story
 {
     public class StoryChapter
     {

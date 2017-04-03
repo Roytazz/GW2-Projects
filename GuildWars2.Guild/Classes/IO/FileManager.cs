@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GuildWars2Guild.Classes.IO
+namespace GuildWars2.Guild.Classes.IO
 {
     public static class FileManager
     {

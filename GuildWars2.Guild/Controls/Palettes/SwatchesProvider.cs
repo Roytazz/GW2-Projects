@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 
-namespace GuildWars2Guild.Controls.Palettes
+namespace GuildWars2.Guild.Controls.Palettes
 {
     public static class SwatchesManager
     {

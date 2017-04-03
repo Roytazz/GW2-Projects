@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GuildWars2API.Model.Character
+namespace GuildWars2.API.Model.Character
 {
     public class WvWAbilities
     {

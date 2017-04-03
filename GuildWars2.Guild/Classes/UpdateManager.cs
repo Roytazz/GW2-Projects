@@ -1,12 +1,11 @@
-﻿using GuildWars2API.Model.Guild;
-using GuildWars2Guild.Classes.IO;
-using GuildWars2Guild.Classes.Logger;
-using GuildWars2Guild.Classes.Resources;
+﻿using GuildWars2.API.Model.Guild;
+using GuildWars2.Guild.Classes.IO;
+using GuildWars2.Guild.Classes.Logger;
+using GuildWars2.Guild.Classes.Resources;
 using System.Threading.Tasks;
 using System.Timers;
-using Utility.Providers;
 
-namespace GuildWars2Guild.Classes
+namespace GuildWars2.Guild.Classes
 {
     public static class UpdateManager
     {
@@ -75,8 +74,8 @@ namespace GuildWars2Guild.Classes
         internal static void AddNewLogs() {
             var apiKey = Properties.Settings.Default.ApiKey;        
             if(apiKey?.Length > 0) {
-                var guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName);
-                var results = GuildWars2API.GuildAPI.Logs(guildDetails?.ID, apiKey);
+                var guildDetails = ResourceProvider.Instance.GetResource<GuildDetails>(Properties.Settings.Default.GuildName).GetAwaiter().GetResult();
+                var results = GuildWars2.API.GuildAPI.Logs(guildDetails?.ID, apiKey).GetAwaiter().GetResult();
                 if(results != null)
                     LogManager.Instance.AddUniqueLog(results);
             }

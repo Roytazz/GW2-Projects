@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace GuildWars2Guild.Controls.Widgets
+namespace GuildWars2.Guild.Controls.Widgets
 {
     /// <summary>
     /// Interaction logic for TradingPostValueDisplay.xaml

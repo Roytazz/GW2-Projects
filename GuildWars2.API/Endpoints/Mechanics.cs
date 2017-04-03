@@ -1,187 +1,242 @@
-﻿using GuildWars2API.Model;
-using GuildWars2API.Model.Mechanics;
+﻿using GuildWars2.API.Model;
+using GuildWars2.API.Model.Mechanics;
+using GuildWars2.API.Network;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace GuildWars2API
+namespace GuildWars2.API
 {
     public static class MechanicsAPI
     {
         private static UrlBuilder Builder { get { return new UrlBuilder(); } }
 
         #region Profession
-        public static List<string> ProfessionIDs()
+        public static Task<List<string>> ProfessionIDs()
         {
             return Builder.AddDirective("professions")
-                .Request<List<string>>();
+                .RequestAsync<List<string>>();
         }
 
-        public static List<ProfessionInfo> Professions()
+        public static Task<List<ProfessionInfo>> Professions()
         {
             return Builder.AddDirective("professions")
                 .AddParam("ids", "all")
-                .Request<List<ProfessionInfo>>();
+                .RequestAsync<List<ProfessionInfo>>();
         }
 
-        public static List<ProfessionInfo> Professions(int pageCount, int page)
+        public static Task<List<ProfessionInfo>> Professions(int pageCount, int page)
         {
             return Builder.AddDirective("professions")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<ProfessionInfo>>();
+                .RequestAsync<List<ProfessionInfo>>();
         }
 
-        public static ProfessionInfo Professions(string ID)
+        public static Task<ProfessionInfo> Professions(string ID)
         {
             return Builder.AddDirective("professions")
                 .AddDirective(ID)
-                .Request<ProfessionInfo>();
+                .RequestAsync<ProfessionInfo>();
         }
 
-        public static List<ProfessionInfo> Professions(List<string> IDs)
+        public static Task<List<ProfessionInfo>> Professions(List<string> IDs)
         {
             return Builder.AddDirective("professions")
                 .AddParam("ids", IDs)
-                .Request<List<ProfessionInfo>>();
+                .RequestAsync<List<ProfessionInfo>>();
         }
         #endregion Profession
 
         #region Specialization
-        public static List<int> SpecializationIDs()
+        public static Task<List<int>> SpecializationIDs()
         {
             return Builder.AddDirective("specializations")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Specialization> Specializations()
+        public static Task<List<Specialization>> Specializations()
         {
             return Builder.AddDirective("specializations")
                 .AddParam("ids", "all")
-                .Request<List<Specialization>>();
+                .RequestAsync<List<Specialization>>();
         }
 
-        public static List<Specialization> Specializations(int pageCount, int page)
+        public static Task<List<Specialization>> Specializations(int pageCount, int page)
         {
             return Builder.AddDirective("specializations")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Specialization>>();
+                .RequestAsync<List<Specialization>>();
         }
 
-        public static Specialization Specializations(int ID)
+        public static Task<Specialization> Specializations(int ID)
         {
             return Builder.AddDirective("specializations")
                 .AddDirective(ID.ToString())
-                .Request<Specialization>();
+                .RequestAsync<Specialization>();
         }
 
-        public static List<Specialization> Specializations(List<int> IDs)
+        public static Task<List<Specialization>> Specializations(List<int> IDs)
         {
             return Builder.AddDirective("specializations")
                 .AddParam("ids", IDs)
-                .Request<List<Specialization>>();
+                .RequestAsync<List<Specialization>>();
         }
+
+        #region Elite Specializations
+
+        public static List<int> EliteSpecializationIDs(Profession profession) {
+            var eliteSpecs = new Dictionary<Profession, List<int>> {
+                { Profession.Warrior, new List<int> { 18 } },
+                { Profession.Guardian, new List<int> { 27 } },
+                { Profession.Revenant, new List<int> { 52 } },
+                { Profession.Ranger, new List<int> { 5 } },
+                { Profession.Engineer, new List<int> { 43 } },
+                { Profession.Thief, new List<int> { 5 } },
+                { Profession.Elementalist, new List<int> { 48 } },
+                { Profession.Mesmer, new List<int> { 40 } },
+                { Profession.Necromancer, new List<int> { 34 } }
+            };
+            return eliteSpecs[profession];
+        }
+
+        public static EliteSpecialization EliteSpecializations(Profession profession) {
+            switch (profession) {
+                case Profession.Guardian:
+                return EliteSpecialization.Dragonhunter;
+
+                case Profession.Warrior:
+                return EliteSpecialization.Berserker;
+
+                case Profession.Revenant:
+                return EliteSpecialization.Herald;
+
+                case Profession.Ranger:
+                return EliteSpecialization.Druid;
+
+                case Profession.Engineer:
+                return EliteSpecialization.Scrapper;
+
+                case Profession.Thief:
+                return EliteSpecialization.Daredevil;
+
+                case Profession.Elementalist:
+                return EliteSpecialization.Tempest;
+
+                case Profession.Mesmer:
+                return EliteSpecialization.Chronomancer;
+
+                case Profession.Necromancer:
+                return EliteSpecialization.Reaper;
+
+                default:
+                return default(EliteSpecialization);
+            }
+        }
+        #endregion Elite Specializations
+
         #endregion Specialization
 
         #region Skills
-        public static List<int> SkillIDs()
+        public static Task<List<int>> SkillIDs()
         {
             return Builder.AddDirective("skills")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Skill> Skills()
+        public static Task<List<Skill>> Skills()
         {
             return Builder.AddDirective("skills")
                 .AddParam("ids", "all")
-                .Request<List<Skill>>();
+                .RequestAsync<List<Skill>>();
         }
 
-        public static List<Skill> Skills(int pageCount, int page)
+        public static Task<List<Skill>> Skills(int pageCount, int page)
         {
             return Builder.AddDirective("skills")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Skill>>();
+                .RequestAsync<List<Skill>>();
         }
 
-        public static Skill Skills(int ID)
+        public static Task<Skill> Skills(int ID)
         {
             return Builder.AddDirective("skills")
                 .AddDirective(ID.ToString())
-                .Request<Skill>();
+                .RequestAsync<Skill>();
         }
 
-        public static List<Skill> Skills(List<int> IDs)
+        public static Task<List<Skill>> Skills(List<int> IDs)
         {
             return Builder.AddDirective("skills")
                 .AddParam("ids", IDs)
-                .Request<List<Skill>>();
+                .RequestAsync<List<Skill>>();
         }
         #endregion Skills
 
         #region Traits
-        public static List<int> TraitIDs()
+        public static Task<List<int>> TraitIDs()
         {
             return Builder.AddDirective("traits")
-                .Request<List<int>>();
+                .RequestAsync<List<int>>();
         }
 
-        public static List<Trait> Traits()
+        public static Task<List<Trait>> Traits()
         {
             return Builder.AddDirective("traits")
                 .AddParam("ids", "all")
-                .Request<List<Trait>>();
+                .RequestAsync<List<Trait>>();
         }
 
-        public static List<Trait> Traits(int pageCount, int page)
+        public static Task<List<Trait>> Traits(int pageCount, int page)
         {
             return Builder.AddDirective("traits")
                 .AddParam("page", page.ToString())
                 .AddParam("page_size", pageCount.ToString())
-                .Request<List<Trait>>();
+                .RequestAsync<List<Trait>>();
         }
 
-        public static Trait Traits(int ID)
+        public static Task<Trait> Traits(int ID)
         {
             return Builder.AddDirective("traits")
                 .AddDirective(ID.ToString())
-                .Request<Trait>();
+                .RequestAsync<Trait>();
         }
 
-        public static List<Trait> Traits(List<int> IDs)
+        public static Task<List<Trait>> Traits(List<int> IDs)
         {
             return Builder.AddDirective("traits")
                 .AddParam("ids", IDs)
-                .Request<List<Trait>>();
+                .RequestAsync<List<Trait>>();
         }
         #endregion Traits
 
         #region Legends
-        public static List<LegendType> LegendIDs()
+        public static Task<List<LegendType>> LegendIDs()
         {
             return Builder.AddDirective("legends")
-                .Request<List<LegendType>>();
+                .RequestAsync<List<LegendType>>();
         }
 
-        public static List<Legend> Legends()
+        public static Task<List<Legend>> Legends()
         {
             return Builder.AddDirective("legends")
                 .AddParam("ids", "all")
-                .Request<List<Legend>>();
+                .RequestAsync<List<Legend>>();
         }
 
-        public static Legend Legends(LegendType ID)
+        public static Task<Legend> Legends(LegendType ID)
         {
             return Builder.AddDirective("legends")
                 .AddDirective(ID.ToString())
-                .Request<Legend>();
+                .RequestAsync<Legend>();
         }
 
-        public static List<Legend> Legends(List<LegendType> IDs)
+        public static Task<List<Legend>> Legends(List<LegendType> IDs)
         {
             return Builder.AddDirective("legends")
                 .AddParam("ids", IDs)
-                .Request<List<Legend>>();
+                .RequestAsync<List<Legend>>();
         }
         #endregion Legends
     }

@@ -1,8 +1,8 @@
-﻿using GuildWars2API.Model.Commerce;
-using GuildWars2API.Model.Guild;
-using GuildWars2Guild.Classes;
-using GuildWars2Guild.Classes.MVVM;
-using GuildWars2Guild.Model.ViewModel.Bases;
+﻿using GuildWars2.API.Model.Commerce;
+using GuildWars2.API.Model.Guild;
+using GuildWars2.Guild.Classes;
+using GuildWars2.Guild.Classes.MVVM;
+using GuildWars2.Guild.Model.ViewModel.Bases;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace GuildWars2Guild.Model.ViewModel
+namespace GuildWars2.Guild.Model.ViewModel
 {
     class LotteryVM : FilterVM<GoldEntry>
     {

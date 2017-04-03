@@ -1,0 +1,43 @@
+﻿@using GuildWars2.Web.Data.Extensions
+
+@model GuildWars2.API.Model.Character.Character
+
+<div class="col s12 m12 l6">
+    <div class="card-panel row no-padding valign-wrapper z-depth-2">
+        <!--Image-->
+        <div class="col s2 center-align">
+            <img src="@Html.Raw($"/images/icons/classes/{Model.Specialization()}.png")" class="responsive-img" />
+        </div>
+        <!--Content-->
+        <div class="col s9 row no-padding">
+            <!--Content Container-->
+            <div class="row no-padding no-margin-bot">
+                <div class="col s12 no-padding">
+                    <h5 class="no-margin-bot valign-wrapper">
+                        @Model.Name
+                        <span class="gender-text @Model.Gender.ToString().ToLower()"><b>(@Model.Gender.ToString().First())</b></span>
+                    </h5>
+                </div>
+            </div>
+            <div class="row no-padding no-margin-bot">
+                <div class="col s7 l5 no-padding no-margin-bot row">
+                    <b class="truncate @Model.Profession.ToString().ToLower()-color">
+                        <!--<img src="@Html.Raw($"/images/icons/races/{Model.Race.ToString()}_small.png")" class="responsive-img race-icon" />-->
+                        @($"{Model.Race} {Model.Specialization()}")
+                    </b>
+                </div>
+                <div class="col s5 l7 no-pad-left">
+                    Lvl. @Model.Level
+                </div>
+            </div>
+            <div class="row no-padding no-margin-bot">
+                @if (!string.IsNullOrEmpty(Model.Guild)) {
+                    @Html.Load(Model.GetHashCode(), Url.Action("GuildTag", "Account", new { guildID = Model.Guild }))
+                }
+            </div>
+        </div>
+        <div class="col s1 no-padding">
+            <i class="material-icons">more_vert</i>
+        </div>
+    </div>
+</div>
