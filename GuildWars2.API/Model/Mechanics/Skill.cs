@@ -56,18 +56,6 @@ namespace GuildWars2.API.Model.Mechanics
         public int ToolbeltSkill { get; set; }
     }
 
-    public enum SkillType
-    {
-        Bundle,
-        Elite,
-        Heal,
-        Profession,
-        Utility,
-        Weapon,
-        ToolBelt,
-        Monster
-    }
-
     public enum SkillFactType
     {
         AttributeAdjust,
@@ -87,31 +75,9 @@ namespace GuildWars2.API.Model.Mechanics
         Radius,
         Range,
         Recharge,
+        StunBreak,
         Time,
         Unblockable
-    }
-
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum WeaponSlot 
-    {
-        [EnumMember(Value = "downed_1")] Downed1,
-        [EnumMember(Value = "downed_2")] Downed2,
-        [EnumMember(Value = "downed_3")] Downed3,
-        [EnumMember(Value = "downed_4")] Downed4,
-        [EnumMember(Value = "profession_1")] Profession1,
-        [EnumMember(Value = "profession_2")] Profession2,
-        [EnumMember(Value = "profession_3")] Profession3,
-        [EnumMember(Value = "profession_4")] Profession4,
-        [EnumMember(Value = "profession_5")] Profession5,
-        Utility,
-        Elite,
-        Heal,
-        [EnumMember(Value = "weapon_1")] Weapon1,
-        [EnumMember(Value = "weapon_2")] Weapon2,
-        [EnumMember(Value = "weapon_3")] Weapon3,
-        [EnumMember(Value = "weapon_4")] Weapon4,
-        [EnumMember(Value = "weapon_5")] Weapon5,
-        ToolBelt
     }
 
     public enum SkillCategory

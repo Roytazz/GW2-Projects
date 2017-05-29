@@ -84,6 +84,9 @@
     <Compile Include="Model\Character\CharacterCraftingDiscipline.cs" />
     <Compile Include="Model\Character\PvPEquipment.cs" />
     <Compile Include="Model\Character\CharacterSpecializationInfo.cs" />
+    <Compile Include="Model\Character\SAB\SABProgress.cs" />
+    <Compile Include="Model\Character\SAB\SABUnlock.cs" />
+    <Compile Include="Model\Character\SAB\SABZone.cs" />
     <Compile Include="Model\Character\WvWAbilities.cs" />
     <Compile Include="Model\Commerce\Exchange.cs" />
     <Compile Include="Model\Commerce\ItemListingAggregated.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="Model\Mechanics\ClassMechanic.cs" />
     <Compile Include="Model\Mechanics\Legend.cs" />
     <Compile Include="Model\Mechanics\Profession.cs" />
+    <Compile Include="Model\Mechanics\ProfessionSkill.cs" />
     <Compile Include="Model\Mechanics\ProfessionWeapon.cs" />
     <Compile Include="Model\Mechanics\Skill.cs" />
     <Compile Include="Model\Mechanics\Fact.cs" />
@@ -146,11 +150,13 @@
     <Compile Include="Model\Miscellaneous\Asset.cs" />
     <Compile Include="Model\Miscellaneous\Dungeon.cs" />
     <Compile Include="Model\Miscellaneous\Glider.cs" />
+    <Compile Include="Model\Miscellaneous\MailCarrier.cs" />
     <Compile Include="Model\Miscellaneous\Mastery.cs" />
     <Compile Include="Model\Miscellaneous\MasteryLevel.cs" />
     <Compile Include="Model\Miscellaneous\Mini.cs" />
     <Compile Include="Model\Miscellaneous\Outfit.cs" />
     <Compile Include="Model\Miscellaneous\Pet.cs" />
+    <Compile Include="Model\Miscellaneous\Race.cs" />
     <Compile Include="Model\Miscellaneous\Raids\Raid.cs" />
     <Compile Include="Model\Miscellaneous\Raids\RaidEvent.cs" />
     <Compile Include="Model\Miscellaneous\Raids\RaidWing.cs" />
@@ -161,6 +167,8 @@
     <Compile Include="Model\PvP\Division.cs" />
     <Compile Include="Model\PvP\DivisionTier.cs" />
     <Compile Include="Model\PvP\GuildLeaderboard.cs" />
+    <Compile Include="Model\PvP\Hero.cs" />
+    <Compile Include="Model\PvP\HeroSkin.cs" />
     <Compile Include="Model\PvP\LeaderboardEntry.cs" />
     <Compile Include="Model\PvP\LeaderboardTier.cs" />
     <Compile Include="Model\PvP\Leaderbord.cs" />
@@ -202,9 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MysticForgeRecipes.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Impl.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -422,6 +422,58 @@ namespace GuildWars2.API
         }
         #endregion Gliders
 
+        #region Races
+        public static Task<List<Model.Race>> RaceIDs() {
+            return Builder.AddDirective("races")
+                .RequestAsync<List<Model.Race>>();
+        }
+
+        public static Task<List<Model.Miscellaneous.Race>> Races(int pageCount, int page) {
+            return Builder.AddDirective("races")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<Model.Miscellaneous.Race>>();
+        }
+
+        public static Task<Model.Miscellaneous.Race> Races(Model.Race ID) {
+            return Builder.AddDirective("races")
+                .AddDirective(ID.ToString())
+                .RequestAsync<Model.Miscellaneous.Race>();
+        }
+
+        public static Task<List<Model.Miscellaneous.Race>> Races(List<Model.Race> IDs) {
+            return Builder.AddDirective("races")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<Model.Miscellaneous.Race>>();
+        }
+        #endregion
+
+        #region Mail Carriers
+        public static Task<List<int>> MailCarrierIDs() {
+            return Builder.AddDirective("mailcarriers")
+                .RequestAsync<List<int>>();
+        }
+
+        public static Task<List<MailCarrier>> MailCarriers(int pageCount, int page) {
+            return Builder.AddDirective("mailcarriers")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<MailCarrier>>();
+        }
+
+        public static Task<MailCarrier> MailCarriers(int ID) {
+            return Builder.AddDirective("mailcarriers")
+                .AddDirective(ID.ToString())
+                .RequestAsync<MailCarrier>();
+        }
+
+        public static Task<List<MailCarrier>> MailCarriers(List<int> IDs) {
+            return Builder.AddDirective("mailcarriers")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<MailCarrier>>();
+        }
+        #endregion Mail Carriers
+
         public static Task<Build> CurrentBuild() {
             return Builder.AddDirective("build")
                 .RequestAsync<Build>();

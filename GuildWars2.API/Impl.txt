@@ -1,3 +1,0 @@
-﻿/v2/account/pvp/heroes -- requires backend support.
-/v2/pvp/heroes -- requires backend support.
-/v2/guild/:id/storage -- impl.

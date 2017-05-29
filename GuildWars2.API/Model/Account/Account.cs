@@ -9,6 +9,9 @@ namespace GuildWars2.API.Model.Account
         [JsonProperty("id")]
         public string ID { get; set; }
 
+        [JsonProperty("age")]
+        public int Age { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 

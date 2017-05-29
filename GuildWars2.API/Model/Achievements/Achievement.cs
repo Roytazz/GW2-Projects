@@ -60,6 +60,10 @@ namespace GuildWars2.API.Model.Achievements
         IgnoreNearlyComplete,
         Repeatable,
         RequiresUnlock,
-        Hidden
+        Hidden,
+        Daily,
+        Weekly,
+        Monthly,
+        Permanent
     }
 }

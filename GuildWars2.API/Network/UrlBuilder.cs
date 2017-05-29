@@ -27,7 +27,8 @@ namespace GuildWars2.API.Network
         }
 
         public async Task<T> RequestAsync<T>(string apiKey, API api = API.Guildwars2V2) where T : new() {
-            return await WebHandler.GetRequestAsync<T>(GetURL(api), new Dictionary<string, string>() { { "Authorization", string.Format("Bearer {0}", apiKey) } });
+            AddParam("access_token", apiKey);
+            return await WebHandler.GetRequestAsync<T>(GetURL(api));
         }
 
         public UrlBuilder AddDirective(string directive)

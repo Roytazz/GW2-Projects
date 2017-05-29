@@ -32,6 +32,8 @@ namespace GuildWars2.API.Model.Items
 
         [JsonProperty("bound_to")]
         public string BoundTo { get; set; }
+
+        public List<string> Dyes { get; set; }
     }
 
     public enum EquipmentType {

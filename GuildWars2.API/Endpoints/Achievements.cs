@@ -11,19 +11,16 @@ namespace GuildWars2.API
         private static UrlBuilder Builder { get { return new UrlBuilder("achievements"); } }
 
         #region Achievements
-        public static Task<List<int>> AchievementIDs()
-        {
+        public static Task<List<int>> AchievementIDs() {
             return Builder.RequestAsync<List<int>>();
         }
 
-        public static Task<Achievement> Achievements(int ID)
-        {
+        public static Task<Achievement> Achievements(int ID) {
             return Builder.AddDirective(ID.ToString())
                 .RequestAsync<Achievement>();
         }
 
-        public static Task<List<Achievement>> Achievements(List<int> IDs)
-        {
+        public static Task<List<Achievement>> Achievements(List<int> IDs) {
             return Builder.AddParam("ids", IDs)
                 .RequestAsync<List<Achievement>>();
         }

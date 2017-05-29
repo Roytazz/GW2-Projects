@@ -181,6 +181,13 @@ namespace GuildWars2.API
         }
         #endregion Details
 
+        public static Task<List<string>> Search(string name) {
+            return Builder.AddDirective("guild")
+                .AddDirective("search")
+                .AddParam("name", name)
+                .RequestAsync<List<string>>();
+        }
+
         public static Task<List<LogEntry>> Logs(string guildID, string apiKey)
         {
             return Builder.AddDirective("guild")

@@ -32,5 +32,17 @@ namespace GuildWars2.API
             return Builder.AddDirective(name)
                 .RequestAsync<Character>(apiKey);
         }
+
+        public static Task<List<string>> HeroPoints(string name, string apiKey) {
+            return Builder.AddDirective(name)
+                .AddDirective("heropoints")
+                .RequestAsync<List<string>>(apiKey);
+        }
+
+        public static Task<SABProgress> SABProgress(string name, string apiKey) {
+            return Builder.AddDirective(name)
+                .AddDirective("sab")
+                .RequestAsync<SABProgress>(apiKey);
+        }
     }
 }

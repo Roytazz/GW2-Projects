@@ -136,5 +136,11 @@ namespace GuildWars2.API
             return Builder.AddDirective("gliders")
                 .RequestAsync<List<int>>(apiKey);
         }
+
+        public static Task<List<int>> PvPHeroes(string apiKey) {
+            return Builder.AddDirective("pvp")
+                .AddDirective("heroes")
+                .RequestAsync<List<int>>(apiKey);
+        }
     }
 }

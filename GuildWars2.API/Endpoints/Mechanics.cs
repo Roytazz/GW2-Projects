@@ -11,10 +11,10 @@ namespace GuildWars2.API
         private static UrlBuilder Builder { get { return new UrlBuilder(); } }
 
         #region Profession
-        public static Task<List<string>> ProfessionIDs()
+        public static Task<List<Profession>> ProfessionIDs()
         {
             return Builder.AddDirective("professions")
-                .RequestAsync<List<string>>();
+                .RequestAsync<List<Profession>>();
         }
 
         public static Task<List<ProfessionInfo>> Professions()
@@ -32,14 +32,14 @@ namespace GuildWars2.API
                 .RequestAsync<List<ProfessionInfo>>();
         }
 
-        public static Task<ProfessionInfo> Professions(string ID)
+        public static Task<ProfessionInfo> Professions(Profession ID)
         {
             return Builder.AddDirective("professions")
-                .AddDirective(ID)
+                .AddDirective(ID.ToString())
                 .RequestAsync<ProfessionInfo>();
         }
 
-        public static Task<List<ProfessionInfo>> Professions(List<string> IDs)
+        public static Task<List<ProfessionInfo>> Professions(List<Profession> IDs)
         {
             return Builder.AddDirective("professions")
                 .AddParam("ids", IDs)

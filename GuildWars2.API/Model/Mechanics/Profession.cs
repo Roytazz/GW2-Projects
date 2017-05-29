@@ -6,7 +6,7 @@ namespace GuildWars2.API.Model.Mechanics
     public class ProfessionInfo
     {
         [JsonProperty("id")]
-        public string ID { get; set; }
+        public Profession ID { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -25,5 +25,8 @@ namespace GuildWars2.API.Model.Mechanics
 
         [JsonProperty("weapons")]
         public Dictionary<Weapon, ProfessionWeapon> Weapons { get; set; }
+
+        [JsonProperty("skills")]
+        public List<ProfessionSkill> Skills { get; set; } 
     }
 }

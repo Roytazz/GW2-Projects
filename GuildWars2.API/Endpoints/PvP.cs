@@ -213,6 +213,38 @@ namespace GuildWars2.API
                .RequestAsync<List<BaseLeaderboard>>();
         }
         #endregion Season Leaderboards
+
+        #region Heroes
+        public static Task<List<string>> HeroIDs() {
+            return Builder.AddDirective("heroes")
+                .RequestAsync<List<string>>();
+        }
+
+        public static Task<List<Hero>> Heroes() {
+            return Builder.AddDirective("heroes")
+                .AddParam("ids", "all")
+                .RequestAsync<List<Hero>>();
+        }
+
+        public static Task<List<Hero>> Heroes(int pageCount, int page) {
+            return Builder.AddDirective("heroes")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<Hero>>();
+        }
+
+        public static Task<Hero> Heroes(string ID) {
+            return Builder.AddDirective("heroes")
+                .AddDirective(ID.ToString())
+                .RequestAsync<Hero>();
+        }
+
+        public static Task<List<Hero>> Heroes(List<string> IDs) {
+            return Builder.AddDirective("heroes")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<Hero>>();
+        }
+        #endregion Heroes
     }
 
     public enum Region

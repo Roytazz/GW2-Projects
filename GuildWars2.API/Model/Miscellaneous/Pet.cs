@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GuildWars2.API.Model.Mechanics;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,8 @@ namespace GuildWars2.API.Model.Miscellaneous
 
         [JsonProperty("icon")]
         public string Icon { get; set; }
+
+        [JsonProperty("skills")]
+        public List<WeaponSkill> Skills { get; set; }
     }
 }
