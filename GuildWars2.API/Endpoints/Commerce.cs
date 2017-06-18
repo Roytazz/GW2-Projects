@@ -130,5 +130,10 @@ namespace GuildWars2.API
                 .RequestAsync<Exchange>();
         }
         #endregion Exchange
+
+        public static Task<DeliveryBox> DeliveryBox(string apiKey) {
+            return Builder.AddDirective("delivery")
+                .RequestAsync<DeliveryBox>();
+        }
     }
 }

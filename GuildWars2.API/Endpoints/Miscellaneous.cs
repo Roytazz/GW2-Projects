@@ -1,4 +1,5 @@
 ﻿using GuildWars2.API.Model;
+using GuildWars2.API.Model.Account;
 using GuildWars2.API.Model.Miscellaneous;
 using GuildWars2.API.Network;
 using System.Collections.Generic;
@@ -473,6 +474,51 @@ namespace GuildWars2.API
                 .RequestAsync<List<MailCarrier>>();
         }
         #endregion Mail Carriers
+
+        #region Cats
+        public static Task<List<int>> CatIDs() {
+            return Builder.AddDirective("cats")
+                .RequestAsync<List<int>>();
+        }
+
+        public static Task<List<Cat>> Cats(int pageCount, int page) {
+            return Builder.AddDirective("cats")
+                .AddParam("page", page.ToString())
+                .AddParam("page_size", pageCount.ToString())
+                .RequestAsync<List<Cat>>();
+        }
+
+        public static Task<Cat> Cats(int ID) {
+            return Builder.AddDirective("cats")
+                .AddDirective(ID.ToString())
+                .RequestAsync<Cat>();
+        }
+
+        public static Task<List<Cat>> Cats(List<int> IDs) {
+            return Builder.AddDirective("cats")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<Cat>>();
+        }
+        #endregion Cats
+
+        #region Nodes
+        public static Task<List<string>> NodeIDs() {
+            return Builder.AddDirective("nodes")
+                .RequestAsync<List<string>>();
+        }
+
+        public static Task<Node> Nodes(string ID) {
+            return Builder.AddDirective("nodes")
+                .AddDirective(ID.ToString())
+                .RequestAsync<Node>();
+        }
+
+        public static Task<List<Node>> Nodes(List<string> IDs) {
+            return Builder.AddDirective("nodes")
+                .AddParam("ids", IDs)
+                .RequestAsync<List<Node>>();
+        }
+        #endregion Nodes
 
         public static Task<Build> CurrentBuild() {
             return Builder.AddDirective("build")

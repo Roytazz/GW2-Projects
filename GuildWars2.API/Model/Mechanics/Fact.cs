@@ -78,4 +78,28 @@ namespace GuildWars2.API.Model.Mechanics
         Ethereal,
         Water
     }
+
+    public enum SkillFactType
+    {
+        AttributeAdjust,
+        Buff,
+        BuffConversion,
+        ComboField,
+        ComboFinisher,
+        Damage,
+        Distance,
+        Duration,
+        Heal,
+        HealingAdjust,
+        NoData,
+        Number,
+        Percent,
+        PrefixedBuff,
+        Radius,
+        Range,
+        Recharge,
+        StunBreak,
+        Time,
+        Unblockable
+    }
 }

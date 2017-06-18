@@ -16,7 +16,7 @@ namespace GuildWars2.API.Model.Items
         public string UnlockDetails { get; set; }
 
         [JsonProperty("unlock_items")]
-        public List<object> UnlockItems { get; set; }
+        public List<int> UnlockItems { get; set; } 
 
         [JsonProperty("order")]
         public int Order { get; set; }

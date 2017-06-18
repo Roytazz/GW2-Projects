@@ -31,15 +31,15 @@ namespace GuildWars2.API.Model.Account
         public DateTime Created { get; set; }
 
         [JsonProperty("fractal_level")]
-        public bool FractalLevel { get; set; }
+        public int FractalLevel { get; set; }
 
         [JsonProperty("daily_ap")]
-        public bool DailyAP { get; set; }
+        public int DailyAP { get; set; }
 
         [JsonProperty("monthly_ap")]
-        public bool MonthlyAP { get; set; }
+        public int MonthlyAP { get; set; }
 
         [JsonProperty("wvw_rank")]
-        public bool WvWRank { get; set; }
+        public int WvWRank { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace GuildWars2.API.Model.PvP
         public Profession Profession { get; set; }
 
         [JsonProperty("scores")]
-        public object Scores { get; set; }
+        public Dictionary<Team, int> Scores { get; set; }  
 
         [JsonProperty("rating_type")]
         public GameRating RatingType { get; set; }

@@ -217,3 +217,5 @@ client_secret.json
 
 xTest/
 GuildWars2.Guild/
+
+*.d.ts

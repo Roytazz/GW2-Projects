@@ -11,6 +11,9 @@ namespace GuildWars2.API.Model.Items
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("order")]
+        public int Order { get; set; }
+
         [JsonProperty("items")]
         public List<int> Items { get; set; }
     }

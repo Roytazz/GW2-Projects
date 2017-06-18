@@ -1,0 +1,7 @@
+﻿Not Updated/Implemented:
+
+/pvp
+/account/pvp
+
+/wvw
+/account/wvw

@@ -1,4 +1,6 @@
 ﻿using GuildWars2.API.Model.Account;
+using GuildWars2.API.Model.Items;
+using GuildWars2.API.Model.Miscellaneous;
 using GuildWars2.API.Network;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -38,10 +40,10 @@ namespace GuildWars2.API
         }
         #endregion Achievements
 
-        public static Task<List<BankEntity>> Bank(string apiKey)
+        public static Task<List<InventoryEntity>> Bank(string apiKey)
         {
             return Builder.AddDirective("bank")
-                .RequestAsync<List<BankEntity>>(apiKey);
+                .RequestAsync<List<InventoryEntity>>(apiKey);
         }
 
         public static Task<List<int>> Dyes(string apiKey)
@@ -56,10 +58,10 @@ namespace GuildWars2.API
                 .RequestAsync<List<AccountFinisher>>(apiKey);
         }
 
-        public static Task<List<Inventory>> SharedInventory(string apiKey)
+        public static Task<List<InventoryEntity>> SharedInventory(string apiKey)
         {
             return Builder.AddDirective("inventory")
-                .RequestAsync<List<Inventory>>(apiKey);
+                .RequestAsync<List<InventoryEntity>>(apiKey);
         }
 
         public static Task<List<Material>> MaterialStorage(string apiKey)
@@ -110,6 +112,12 @@ namespace GuildWars2.API
                 .RequestAsync<List<AccountMastery>>(apiKey);
         }
 
+        public static Task<AccountMasterySummary> MasterySummary(string apiKey) {
+            return Builder.AddDirective("mastery")
+                .AddDirective("points")
+                .RequestAsync<AccountMasterySummary>(apiKey);
+        }
+
         public static Task<List<string>> Raids(string apiKey) {
             return Builder.AddDirective("raids")
                 .RequestAsync<List<string>>(apiKey);
@@ -134,6 +142,11 @@ namespace GuildWars2.API
         
         public static Task<List<int>> Gliders(string apiKey) {
             return Builder.AddDirective("gliders")
+                .RequestAsync<List<int>>(apiKey);
+        }
+
+        public static Task<List<int>> MailCarriers(string apiKey) {
+            return Builder.AddDirective("mailcarriers")
                 .RequestAsync<List<int>>(apiKey);
         }
 

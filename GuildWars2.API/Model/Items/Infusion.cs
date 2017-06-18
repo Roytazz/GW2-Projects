@@ -9,6 +9,6 @@ namespace GuildWars2.API.Model.Items
         public int ItemID { get; set; }
 
         [JsonProperty("flags")]
-        public List<string> Flags { get; set; }
+        public List<InfusionUpgradeFlag> Flags { get; set; } 
     }
 }

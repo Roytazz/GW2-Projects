@@ -62,9 +62,11 @@
     <Compile Include="Endpoints\WvW.cs" />
     <Compile Include="Model\Account\Account.cs" />
     <Compile Include="Model\Account\AccountAchievement.cs" />
-    <Compile Include="Model\Account\BankEntity.cs" />
-    <Compile Include="Model\Account\Cat.cs" />
-    <Compile Include="Model\Account\Inventory.cs" />
+    <Compile Include="Model\Account\AccountMasterySummary.cs" />
+    <Compile Include="Model\Account\AccountMasteryRegion.cs" />
+    <Compile Include="Model\Items\InventoryEntity.cs" />
+    <Compile Include="Model\Commerce\DeliveryBox.cs" />
+    <Compile Include="Model\Miscellaneous\Cat.cs" />
     <Compile Include="Model\Account\AccountFinisher.cs" />
     <Compile Include="Model\Account\AccountMastery.cs" />
     <Compile Include="Model\Account\Material.cs" />
@@ -78,7 +80,6 @@
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\Character\Character.cs" />
     <Compile Include="Model\Character\Bag.cs" />
-    <Compile Include="Model\Character\BagItem.cs" />
     <Compile Include="Model\Character\CharacterSkills.cs" />
     <Compile Include="Model\Character\CharacterSkillTree.cs" />
     <Compile Include="Model\Character\CharacterCraftingDiscipline.cs" />
@@ -141,27 +142,84 @@
     <Compile Include="Model\Mechanics\Fact.cs" />
     <Compile Include="Model\Mechanics\Specialization.cs" />
     <Compile Include="Model\Mechanics\TrainingInfo.cs" />
-    <Compile Include="Model\Mechanics\TrainingTrack.cs" />
+    <Compile Include="Model\Mechanics\TrainingTrack.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>TrainingTrack.d.ts</LastGenOutput>
+    </Compile>
     <Compile Include="Model\Mechanics\Trait.cs" />
     <Compile Include="Model\Mechanics\WeaponSkill.cs" />
-    <Compile Include="Model\Miscellaneous\Color.cs" />
-    <Compile Include="Model\Miscellaneous\ColorDetails.cs" />
-    <Compile Include="Model\Miscellaneous\Currency.cs" />
-    <Compile Include="Model\Miscellaneous\Asset.cs" />
-    <Compile Include="Model\Miscellaneous\Dungeon.cs" />
-    <Compile Include="Model\Miscellaneous\Glider.cs" />
-    <Compile Include="Model\Miscellaneous\MailCarrier.cs" />
-    <Compile Include="Model\Miscellaneous\Mastery.cs" />
-    <Compile Include="Model\Miscellaneous\MasteryLevel.cs" />
-    <Compile Include="Model\Miscellaneous\Mini.cs" />
-    <Compile Include="Model\Miscellaneous\Outfit.cs" />
-    <Compile Include="Model\Miscellaneous\Pet.cs" />
-    <Compile Include="Model\Miscellaneous\Race.cs" />
-    <Compile Include="Model\Miscellaneous\Raids\Raid.cs" />
-    <Compile Include="Model\Miscellaneous\Raids\RaidEvent.cs" />
-    <Compile Include="Model\Miscellaneous\Raids\RaidWing.cs" />
-    <Compile Include="Model\Miscellaneous\Server.cs" />
-    <Compile Include="Model\Miscellaneous\Title.cs" />
+    <Compile Include="Model\Miscellaneous\Color.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Color.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\ColorDetails.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>ColorDetails.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Currency.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Currency.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Asset.cs">
+      <LastGenOutput>Asset.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Dungeon.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Dungeon.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Glider.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Glider.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\MailCarrier.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>MailCarrier.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Mastery.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Mastery.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\MasteryLevel.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>MasteryLevel.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Mini.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Mini.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Node.cs" />
+    <Compile Include="Model\Miscellaneous\Outfit.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Outfit.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Pet.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Pet.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Race.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Race.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Raids\Raid.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Raid.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Raids\RaidEvent.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>RaidEvent.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Raids\RaidWing.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>RaidWing.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Server.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Server.d.ts</LastGenOutput>
+    </Compile>
+    <Compile Include="Model\Miscellaneous\Title.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Title.d.ts</LastGenOutput>
+    </Compile>
     <Compile Include="Model\PvP\Amulet.cs" />
     <Compile Include="Model\PvP\BaseLeaderboard.cs" />
     <Compile Include="Model\PvP\Division.cs" />
@@ -205,11 +263,102 @@
     <Compile Include="Network\UrlBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="MysticForgeRecipes.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MysticForgeRecipes.json" />
+    <TypeScriptCompile Include="Model\Mechanics\TrainingTrack.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainingTrack.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Color.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Color.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\ColorDetails.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ColorDetails.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Currency.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Currency.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Dungeon.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dungeon.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Glider.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Glider.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\MailCarrier.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailCarrier.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Mastery.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mastery.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\MasteryLevel.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MasteryLevel.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Mini.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mini.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Outfit.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Outfit.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Pet.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Pet.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Race.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Race.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Raids\Raid.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Raid.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Raids\RaidEvent.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RaidEvent.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Raids\RaidWing.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RaidWing.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Server.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Server.cs</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Model\Miscellaneous\Title.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Title.cs</DependentUpon>
+    </TypeScriptCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Endpoints.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
