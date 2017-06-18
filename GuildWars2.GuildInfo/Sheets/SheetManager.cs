@@ -35,13 +35,39 @@ namespace GuildWars2.GuildInfo.Sheets
         }
 
         public void Write<T>(List<T> values, SheetType sheet) where T : ISheetItem {
-            ValueRange valueRange = new ValueRange() {
+            var valueRange = new ValueRange() {
                 MajorDimension = "ROWS",
                 Values = FlattenCollection(values)
             };
-            SpreadsheetsResource.ValuesResource.UpdateRequest update = _service.Spreadsheets.Values.Update(valueRange, GetSheetId(sheet), $"{RangeCreator.CreateRange(values)}");
+            var update = _service.Spreadsheets.Values.Update(valueRange, GetSheetId(sheet), RangeCreator.Range(values));
             update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
-            UpdateValuesResponse result = update.Execute();
+            var result = update.Execute();
+        }
+
+        public void Append<T>(List<T> values, SheetType sheet) where T : ISheetItem {
+            var valueRange = new ValueRange() {
+                MajorDimension = "ROWS",
+                Values = FlattenCollection(values)
+            };
+            var append = _service.Spreadsheets.Values.Append(valueRange, GetSheetId(sheet), RangeCreator.Range(values));
+            append.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.RAW;
+            var result = append.Execute();
+        }
+
+        public List<T> Read<T>(SheetType sheet) where T : ISheetItem {
+            var append = _service.Spreadsheets.Values.Get(GetSheetId(sheet), RangeCreator.EndlessRange<T>());
+            var result = append.Execute();
+
+            var values = new List<T>();
+            if (result.Values != null && result.Values.Count > 0) {
+                result.Values.RemoveAt(0);  //Remove Header
+                foreach (var row in result.Values) {
+                    var obj = Activator.CreateInstance<T>();
+                    obj.Parse(row);
+                    values.Add(obj);
+                }
+            }
+            return values;
         }
 
         private static List<IList<object>> FlattenCollection<T>(List<T> values) where T : ISheetItem {
@@ -54,8 +80,10 @@ namespace GuildWars2.GuildInfo.Sheets
             switch (type) {
                 case SheetType.Roster:
                 return "15b1rq6FvDZk8QWboBHCL0yiCorZwI2UJ0_CsuwJYDQ8";
+
                 case SheetType.Squires:
                 return "1X7jfE8wwBWrFfBZKuFtr5oeCGE2AVmW-OE46QW-rZqo";
+
                 default:
                 return "";
             }

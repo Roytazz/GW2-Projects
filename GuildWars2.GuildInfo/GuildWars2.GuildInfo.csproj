@@ -73,6 +73,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DBManager.cs" />
+    <Compile Include="Database\GW2Context.cs" />
+    <Compile Include="Migrations\201704062255062_InitialCreate.cs" />
+    <Compile Include="Migrations\201704062255062_InitialCreate.Designer.cs">
+      <DependentUpon>201704062255062_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704062336332_add-members.cs" />
+    <Compile Include="Migrations\201704062336332_add-members.Designer.cs">
+      <DependentUpon>201704062336332_add-members.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RankLogEntry.cs" />
     <Compile Include="Models\SquireLogEntry.cs" />
     <Compile Include="Models\ISheetItem.cs" />
@@ -82,7 +93,14 @@
     <Compile Include="Sheets\SheetManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Include="..\DependencyValidation1\DependencyValidation1.layerdiagram">
+      <Link>DependencyValidation1.layerdiagram</Link>
+      <Visible>False</Visible>
+    </AdditionalFiles>
     <None Include="App.config" />
+    <None Include="client_secret.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +108,14 @@
       <Project>{DC595D19-8FA3-4788-8140-DBEA3B967D85}</Project>
       <Name>GuildWars2.API</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704062255062_InitialCreate.resx">
+      <DependentUpon>201704062255062_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704062336332_add-members.resx">
+      <DependentUpon>201704062336332_add-members.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

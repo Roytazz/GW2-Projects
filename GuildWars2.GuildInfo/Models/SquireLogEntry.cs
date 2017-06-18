@@ -1,27 +1,31 @@
 ﻿using GuildWars2.API.Model.Guild;
+using System;
 using System.Collections.Generic;
 
 namespace GuildWars2.GuildInfo.Models
 {
     internal class SquireLogEntry : ISheetItem
     {
-        Member _member;
-
-        public SquireLogEntry(Member entry) {
-            _member = entry;
-        }
+        public Member Member { get; set; }
 
         public IList<object> Flatten() {
             return new List<object> {
-                _member.Joined.ToShortDateString(),
-                _member.Name
+                Member.Joined.ToShortDateString(),
+                Member.Name
             };
         }
 
         public IList<object> Header() {
             return new List<object> {
-                nameof(_member.Joined),
-                nameof(_member.Name)
+                nameof(Member.Joined),
+                nameof(Member.Name)
+            };
+        }
+
+        public void Parse(IList<object> values) {
+            Member = new Member {
+                Joined = DateTime.Parse(values[0].ToString()),
+                Name = values[1].ToString()
             };
         }
     }
