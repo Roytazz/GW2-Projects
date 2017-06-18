@@ -22,8 +22,7 @@ namespace GuildWars2.Web.Data.Users
         {
             _db = context;
         }
-
-
+        
         public async Task<List<ApiKeyInfo>> GetKeysAsync(ApplicationUser user) 
         {
             return await _db.ApiKeyInfo.Where(c => c.ApplicationUserId == user.Id).ToListAsync();

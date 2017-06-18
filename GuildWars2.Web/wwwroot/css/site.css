@@ -6477,6 +6477,39 @@ main {
 .gender-text.female {
   color: #fd28ff; }
 
+/*
+Profession	Lighter	Light	Medium	Dark	Website
+--
+Guardian	#CFEEFD	#BCE8FD	#72C1D9	#186885	#8AF7F5	
+Revenant	#EBC9C2	#E4AEA3	#D16E5A	#A66356	[TBA]	
+Warrior	    #FFF5BB	#FFF2A4	#FFD166	#CAAA2A	#F4983D	
+Engineer	#E8C89F	#E8BC84	#D09C59	#87581D	#f4b362	
+Ranger	    #E2F6D1	#D2F6BC	#8CDC82	#67A833	#776F1B	
+Thief	    #E6D5D7	#DEC6C9	#C08F95	#974550	#974550	
+Elemele     #F6D2D1	#F6BEBC	#F68A87	#DC423E	#903B24	
+Mesmer	    #D7B2EA	#D09EEA	#B679D5	#69278A	#b679d5	
+Necromancer	#D5EDE1	#BFE6D0	#52A76F	#2C9D5D	#456C40	
+
+
+
+Race	    Rows	Subheader	Sub.border	Header	Border
+--
+Asura	    #F1EBFD	#D1BDF8	    #A797C6	    #A27BF1	#8262C1
+Charr	    #FFEBED	#FFBCC3	    #CC969C	    #FE7887	#CB606C
+Human	    #FFFBE8	#FFF2B3	    #CCC28F	    #FFE566	#CCB752
+Norn	    #EAF5FF	#BADDFF	    #95B1CC	    #75BAFF	#5E95CC
+Sylvari	    #E7FBE8	#B0F3B2	    #8DC28E	    #61E665	#4EB851
+
+Guardian	#EAF6F9	#B9E0EC	    #94B3BD	    #72C1D9	#5B9AAE
+Revenant	#F6ECE9	#E4A598	    #BFA8A0	    #D16E5A	#A65747
+Warrior	    #FFF8E8	#FFE8B3	    #CCBA8F	    #FFD166	#CCA752
+Engineer	#F8EBDA	#E8BC84	    #BA966A	    #D09C59	#A67D47
+Ranger	    #EEFAE3	#C7EFA2	    #9FBF82	    #8EDF44	#72B236
+Thief	    #F5EEEF	#DEC6C9	    #B29EA1	    #C08F95	#9A7277
+Elemele 	#FEEEED	#FBC5C3	    #C99E9C	    #F68A87	#C56E6C
+Mesmer	    #F4EBF9	#DBBCEA	    #AF96BB	    #B679D5	#9261AA
+Necromancer	#E5F2EA	#A9D3B7	    #87A992	    #52A76F	#428659
+*/
 .guardian-color {
   color: #47a9ff; }
 
