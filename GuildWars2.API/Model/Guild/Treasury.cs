@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GuildWars2.API.Model.Guild
 {
-    class Treasury
+    public class Treasury
     {
         [JsonProperty("id")]
         public int ID { get; set; }

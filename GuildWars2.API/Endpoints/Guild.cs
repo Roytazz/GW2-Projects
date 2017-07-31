@@ -228,11 +228,18 @@ namespace GuildWars2.API
                 .RequestAsync<List<Stash>>(apiKey);
         }
 
-        public static Task<List<Stash>> Treasury(string guildID, string apiKey)
+        public static Task<List<Treasury>> Treasury(string guildID, string apiKey) 
         {
             return Builder.AddDirective("guild")
                 .AddDirective(guildID)
                 .AddDirective("treasury")
+                .RequestAsync<List<Treasury>>(apiKey);
+        }
+
+        public static Task<List<Stash>> Storage(string guildID, string apiKey) {    //Undocumented Endpoint
+            return Builder.AddDirective("guild")
+                .AddDirective(guildID)
+                .AddDirective("storage")
                 .RequestAsync<List<Stash>>(apiKey);
         }
 

@@ -26,6 +26,6 @@ namespace GuildWars2.API.Model.Mechanics
         [EnumMember(Value = "weapon_2")] Weapon2,
         [EnumMember(Value = "weapon_3")] Weapon3,
         [EnumMember(Value = "weapon_4")] Weapon4,
-        [EnumMember(Value = "weapon_5")] Weapon5,
+        [EnumMember(Value = "weapon_5")] Weapon5
     }
 }
