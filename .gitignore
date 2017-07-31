@@ -219,3 +219,4 @@ xTest/
 GuildWars2.Guild/
 
 *.d.ts
+/GuildWars2.Discord/Properties/Resources.resx
