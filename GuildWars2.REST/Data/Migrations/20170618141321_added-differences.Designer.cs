@@ -8,9 +8,10 @@ using GuildWars2.REST.Data;
 namespace GuildWars2.REST.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170618141321_added-differences")]
+    partial class addeddifferences
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -95,31 +96,13 @@ namespace GuildWars2.REST.Data.Migrations
 
                     b.Property<int>("Count");
 
-                    b.Property<int>("CurrencyID");
+                    b.Property<int>("CurrencyId");
 
                     b.Property<int>("Difference");
 
                     b.HasKey("ID");
 
                     b.ToTable("CurrencyDifference");
-                });
-
-            modelBuilder.Entity("GuildWars2.REST.Model.UserCurrencyTrend", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AccountName");
-
-                    b.Property<int>("Count");
-
-                    b.Property<int>("CurrencyID");
-
-                    b.Property<DateTime>("Date");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("CurrencyTrend");
                 });
 
             modelBuilder.Entity("GuildWars2.REST.Model.UserItemStackDifference", b =>
@@ -133,31 +116,11 @@ namespace GuildWars2.REST.Data.Migrations
 
                     b.Property<int>("Difference");
 
-                    b.Property<int>("ItemID");
-
-                    b.Property<int>("SkinID");
+                    b.Property<int>("ItemId");
 
                     b.HasKey("ID");
 
                     b.ToTable("ItemDifference");
-                });
-
-            modelBuilder.Entity("GuildWars2.REST.Model.UserItemTrend", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AccountName");
-
-                    b.Property<int>("Count");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<int>("ItemID");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("ItemTrend");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>

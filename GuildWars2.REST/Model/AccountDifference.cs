@@ -1,4 +1,5 @@
 ﻿using GuildWars2.Manager.InventoryService;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,16 +11,20 @@ namespace GuildWars2.REST.Model
     public class UserItemStackDifference : ItemStackDifference
     {
         [Key]
+        [JsonIgnore]
         public int ID { get; set; }
 
+        [JsonIgnore]
         public string AccountName { get; set; }
     }
 
     public class UserCurrencyDifference : CurrencyDifference
     {
         [Key]
+        [JsonIgnore]
         public int ID { get; set; }
 
+        [JsonIgnore]
         public string AccountName { get; set; }
     }
 

@@ -8,9 +8,10 @@ using GuildWars2.REST.Data;
 namespace GuildWars2.REST.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170622141011_added-trend")]
+    partial class addedtrend
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -134,8 +135,6 @@ namespace GuildWars2.REST.Data.Migrations
                     b.Property<int>("Difference");
 
                     b.Property<int>("ItemID");
-
-                    b.Property<int>("SkinID");
 
                     b.HasKey("ID");
 

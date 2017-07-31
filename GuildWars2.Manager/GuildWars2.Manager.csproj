@@ -30,12 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InventoryService\AccountDifference.cs" />
     <Compile Include="InventoryService\AccountInventory.cs" />
+    <Compile Include="InventoryService\CurrencyDifference.cs" />
     <Compile Include="InventoryService\InventoryManager.cs" />
+    <Compile Include="InventoryService\StackDifference.cs" />
     <Compile Include="ValueService\ServiceFilterComparer.cs" />
     <Compile Include="ValueService\ServiceFilterBuilder.cs" />
     <Compile Include="IValue.cs" />
@@ -49,6 +55,8 @@
       <Name>GuildWars2.API</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

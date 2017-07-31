@@ -1,7 +1,7 @@
 ﻿using GuildWars2.REST.Database;
+using GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GuildWars2.REST.Controllers
@@ -18,8 +18,8 @@ namespace GuildWars2.REST.Controllers
             return await _userStore.FindByNameAsync(User.Claims.ToList()[0].Value);
         }
 
-        protected async Task<AppUser> GetUserAsync(ClaimsPrincipal principal) {
-            return await _userStore.FindByNameAsync(principal.Claims.ToList()[0].Value);
+        protected async Task<ApiKey> ActiveKey() {
+            return await _userStore.GetActiveKey(await CurrentUser());
         }
     }
 }

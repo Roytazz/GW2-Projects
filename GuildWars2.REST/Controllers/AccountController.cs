@@ -16,20 +16,65 @@ namespace GuildWars2.REST.Controllers
     {
         public AccountController(AppUserStore userManager) : base(userManager) { }
 
-        public async Task<AccountDifference> InOut(int keyID) {
-            var keys = await _userStore.GetKeysAsync(await CurrentUser());
-            if (keys.Any(x => x.Id == keyID)) {
-                var result = await _userStore.GetAccountDifference(keys.Find(x => x.Id == keyID));
-                return ConvertDifference(result);
+        [HttpGet]
+        [Route("InOut/Currencies")]
+        public async Task<List<UserCurrencyDifference>> InOutCurrencies() {
+            var key = await ActiveKey();
+            if (key != null) {
+                return await _userStore.GetAccountDifferenceCurrencies(key);
             }
             return null;
         }
 
-        private AccountDifference ConvertDifference(UserAccountDifference difference) {
-            return new AccountDifference {
-                Items = difference.Items.Cast<ItemStackDifference>().ToList(),
-                Currencies = difference.Currencies.Cast<CurrencyDifference>().ToList()
-            };
+        [HttpGet]
+        [Route("InOut/Items")]
+        public async Task<List<UserItemStackDifference>> InOutItems() {
+            var key = await ActiveKey();
+            if (key != null) {
+                return await _userStore.GetAccountDifferenceItems(key);
+            }
+            return null;
+        }
+
+        [HttpPost]
+        [Route("InOut")]
+        public async Task<bool> SaveInOut() {
+            var key = await ActiveKey();
+            if (key != null) {
+                await _userStore.SetAccountDifference(key);
+                return true;
+            }
+            return false;
+        }
+
+        [HttpGet]
+        [Route("Trend")]
+        public async Task<UserAccountTrend> Trend() {
+            var key = await ActiveKey();
+            if (key != null) {
+                return await _userStore.GetAccountTrend(key);
+            }
+            return null;
+        }
+
+        [HttpGet]
+        [Route("Trend/Item/{id}")]
+        public async Task<List<UserItemTrend>> TrendItem(int id) {
+            var key = await ActiveKey();
+            if (key != null) {
+                return await _userStore.GetItemTrend(key, id);
+            }
+            return null;
+        }
+
+        [HttpGet]
+        [Route("Trend/Currency/{id}")]
+        public async Task<List<UserCurrencyTrend>> TrendCurrency(int id) {
+            var key = await ActiveKey();
+            if (key != null) {
+                return await _userStore.GetCurrencyTrend(key, id);
+            }
+            return null;
         }
     }
 }

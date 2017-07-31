@@ -4,6 +4,7 @@ using GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,52 +51,101 @@ namespace GuildWars2.REST.Database
             }
             return 0;
         }
+
+        public async Task<ApiKey> GetActiveKey(AppUser user) {
+            return await _db.ApiKey.FirstOrDefaultAsync(x => x.ApplicationUserId == user.Id && x.Active == true);
+        }
         #endregion Keys
 
-        public async Task<UserAccountDifference> GetAccountDifference(ApiKey key) {
+        #region Difference
+        public async Task<List<UserCurrencyDifference>> GetAccountDifferenceCurrencies(ApiKey key) {
+            return await _db.CurrencyDifference.Where(x => x.AccountName.Equals(key.Name)).ToListAsync();
+        }
+
+        public async Task<List<UserItemStackDifference>> GetAccountDifferenceItems(ApiKey key) {
+            return await _db.ItemDifference.Where(x => x.AccountName.Equals(key.Name) && x.Difference != 0).ToListAsync();
+        }
+
+        private async Task<UserAccountDifference> GetAccountTotalDifference(ApiKey key) {
             return new UserAccountDifference {
                 Items = await _db.ItemDifference.Where(x => x.AccountName.Equals(key.Name)).ToListAsync(),
                 Currencies = await _db.CurrencyDifference.Where(x => x.AccountName.Equals(key.Name)).ToListAsync()
             };
         }
-        
-        public async Task SetAccountDifferences(ApiKey key) {
-            var rawCurrentState = await GetAccountDifference(key);
+
+        public async Task SetAccountDifference(ApiKey key) {
+            var rawCurrentState = await GetAccountTotalDifference(key);
             var currentState = new AccountDifference {
                 Items = rawCurrentState.Items.Cast<ItemStackDifference>().ToList(),
                 Currencies = rawCurrentState.Currencies.Cast<CurrencyDifference>().ToList()
             };
             var difference = await InventoryManager.GetAccountDifference(key.Key, currentState);
 
-            var newState = new UserAccountDifference { Items = new List<UserItemStackDifference>(), Currencies = new List<UserCurrencyDifference>() };
-            difference.Items.ForEach(x => {
-                var item = new UserItemStackDifference {
-                    Count = x.Count,
-                    ItemId = x.ItemId,
-                    AccountName = key.Name,
-                    Difference = x.Difference
-                };
-                if(rawCurrentState.Items.Any(y => y.ItemId == x.ItemId)) {
-                    item.ID = rawCurrentState.Items.Find(y => y.ItemId == x.ItemId).ID;
+            //Old Entries
+            rawCurrentState.Items.ForEach(x => {
+                if(difference.Items.Any(y => y.ItemID == x.ItemID)) {
+                    var newState = difference.Items.Find(y => y.ItemID == x.ItemID);
+                    x.Count = newState.Count;
+                    x.Difference = newState.Difference;
                 }
-                newState.Items.Add(item);
+            });
+            rawCurrentState.Currencies.ForEach(x => {
+                if (difference.Currencies.Any(y => y.CurrencyID == x.CurrencyID)) {
+                    var newState = difference.Currencies.Find(y => y.CurrencyID == x.CurrencyID);
+                    x.Count = newState.Count;
+                    x.Difference = newState.Difference;
+                }
             });
 
-            difference.Currencies.ForEach(x => {
-                var currency = new UserCurrencyDifference {
-                    Count = x.Count,
-                    AccountName = key.Name,
-                    Difference = x.Difference,
-                    CurrencyId = x.CurrencyId
-                };
-                if (rawCurrentState.Currencies.Any(y => y.CurrencyId == x.CurrencyId)) {
-                    currency.ID = rawCurrentState.Currencies.Find(y => y.CurrencyId == x.CurrencyId).ID;
-                }
-                newState.Currencies.Add(currency);
+            _db.ItemDifference.UpdateRange(rawCurrentState.Items);
+            _db.CurrencyDifference.UpdateRange(rawCurrentState.Currencies);
+            
+            //New entries
+            var newItems = new List<UserItemStackDifference>();
+            var newCurrency = new List<UserCurrencyDifference>();
+
+            var newItemsTrends = new List<UserItemTrend>();
+            var newCurrencyTrends = new List<UserCurrencyTrend>();
+
+            difference.Items.ForEach(x => {
+                newItemsTrends.Add(new UserItemTrend { ItemID = x.ItemID, Count = x.Count, AccountName = key.Name, Date = DateTime.Now });
+                if (!rawCurrentState.Items.Any(y => y.ItemID == x.ItemID))
+                    newItems.Add(new UserItemStackDifference { Count = x.Count, ItemID = x.ItemID, Difference = x.Difference, AccountName = key.Name });
             });
-            _db.ItemDifference.UpdateRange(newState.Items);
-            _db.CurrencyDifference.UpdateRange(newState.Currencies);
-            //await _db.SaveChangesAsync();
+            difference.Currencies.ForEach(x => {
+                newCurrencyTrends.Add(new UserCurrencyTrend { CurrencyID = x.CurrencyID, Count = x.Count, AccountName = key.Name, Date = DateTime.Now });
+                if (!rawCurrentState.Currencies.Any(y => y.CurrencyID == x.CurrencyID))
+                    newCurrency.Add(new UserCurrencyDifference { Count = x.Count, CurrencyID = x.CurrencyID, Difference = x.Difference, AccountName = key.Name });
+            });
+
+            _db.ItemDifference.AddRange(newItems);
+            _db.CurrencyDifference.AddRange(newCurrency);
+
+            _db.ItemTrend.AddRange(newItemsTrends);
+            _db.CurrencyTrend.AddRange(newCurrencyTrends);
+
+            await _db.SaveChangesAsync();
         }
+        #endregion Difference
+
+        #region Trend
+        public async Task<UserAccountTrend> GetAccountTrend(ApiKey key) {
+            return new UserAccountTrend {
+                Items = await _db.ItemTrend.Where(x => x.AccountName.Equals(key.Name))
+                                                    .GroupBy(x => x.AccountName).Select(grp => grp.OrderBy(x => x.Date).ToList()).ToListAsync(),
+
+                Currencies = await _db.CurrencyTrend.Where(x => x.AccountName.Equals(key.Name))
+                                                    .GroupBy(x => x.AccountName).Select(grp => grp.OrderBy(x => x.Date).ToList()).ToListAsync(),
+            };
+        }
+
+        public async Task<List<UserItemTrend>> GetItemTrend(ApiKey key, int id) {
+            return await _db.ItemTrend.Where(x => x.AccountName.Equals(key.Name) && x.ItemID == id).OrderBy(x => x.Date).ToListAsync();
+        }
+
+        public async Task<List<UserCurrencyTrend>> GetCurrencyTrend(ApiKey key, int id) {
+            return await _db.CurrencyTrend.Where(x => x.AccountName.Equals(key.Name) && x.CurrencyID == id).OrderBy(x => x.Date).ToListAsync();
+        }
+        #endregion Trend
     }
 }
