@@ -18,12 +18,12 @@ namespace GuildWars2.Discord.Modules
         [Command("daily")]
         public async Task ListDailies()
         {
-            await ReplyAsync(await _api.Dailies());  
+            await ReplyAsync(_api.Dailies());  
         }
 
         [Command("daily+")]
         public async Task ListTomorrowDailies() {
-            await ReplyAsync(await _api.TomorrowDailies());
+            await ReplyAsync(_api.TomorrowDailies());
         }
         
         [Command("dailyTomorrow")]

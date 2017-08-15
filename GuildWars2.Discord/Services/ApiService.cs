@@ -7,12 +7,14 @@ namespace GuildWars2.Discord.Services
 {
     public class ApiService
     {
-        public async Task<string> Dailies() {
+        public string Dailies()
+        {
             //var result = await API.AchievementsAPI.DailyAchievements();
             return "today";
         }
 
-        public async Task<string> TomorrowDailies() {
+        public string TomorrowDailies()
+        {
             //var result = await API.AchievementsAPI.DailyAchievementsTomorrow();
             return "tomorrow";
         }
