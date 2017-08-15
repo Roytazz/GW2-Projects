@@ -1,4 +1,5 @@
-﻿using GuildWars2.Manager.InventoryService;
+﻿using GuildWars2.API.Model.Items;
+using GuildWars2.Manager.InventoryService;
 using GuildWars2.REST.Data;
 using GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Identity;
@@ -24,7 +25,11 @@ namespace GuildWars2.REST.Database
 
         #region Keys
         public async Task<List<ApiKey>> GetKeysAsync(AppUser user) {
-            return await _db.ApiKey.Where(c => c.ApplicationUserId == user.Id).ToListAsync();
+            var keys = await _db.ApiKey.Where(c => c.ApplicationUserId == user.Id).ToListAsync();
+            if (keys.Count > 0 && !keys.Any(c => c.Active))
+                keys[0].Active = true;
+
+            return keys;
         }
 
         public async Task<int> AddKeyAsync(AppUser user, ApiKey key) {
@@ -67,13 +72,14 @@ namespace GuildWars2.REST.Database
         }
 
         private async Task<UserAccountDifference> GetAccountTotalDifference(ApiKey key) {
-            return new UserAccountDifference {
-                Items = await _db.ItemDifference.Where(x => x.AccountName.Equals(key.Name)).ToListAsync(),
-                Currencies = await _db.CurrencyDifference.Where(x => x.AccountName.Equals(key.Name)).ToListAsync()
+            return new UserAccountDifference
+            {
+                Items = await _db.ItemDifference.Where(x=>x.AccountName.Equals(key.Name)).GroupBy(x => x.ItemID).Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault()).ToListAsync(),
+                Currencies = await _db.CurrencyDifference.Where(x => x.AccountName.Equals(key.Name)).GroupBy(x => x.CurrencyID).Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault()).ToListAsync()
             };
         }
 
-        public async Task SetAccountDifference(ApiKey key) {
+        public async Task SetAccountDifference(ApiKey key, bool manual) {
             var rawCurrentState = await GetAccountTotalDifference(key);
             var currentState = new AccountDifference {
                 Items = rawCurrentState.Items.Cast<ItemStackDifference>().ToList(),
@@ -110,12 +116,12 @@ namespace GuildWars2.REST.Database
             difference.Items.ForEach(x => {
                 newItemsTrends.Add(new UserItemTrend { ItemID = x.ItemID, Count = x.Count, AccountName = key.Name, Date = DateTime.Now });
                 if (!rawCurrentState.Items.Any(y => y.ItemID == x.ItemID))
-                    newItems.Add(new UserItemStackDifference { Count = x.Count, ItemID = x.ItemID, Difference = x.Difference, AccountName = key.Name });
+                    newItems.Add(new UserItemStackDifference { Count = x.Count, ItemID = x.ItemID, SkinID = x.SkinID, Difference = x.Difference, AccountName = key.Name, ManualEntry = manual, Date = DateTime.Now });
             });
             difference.Currencies.ForEach(x => {
                 newCurrencyTrends.Add(new UserCurrencyTrend { CurrencyID = x.CurrencyID, Count = x.Count, AccountName = key.Name, Date = DateTime.Now });
                 if (!rawCurrentState.Currencies.Any(y => y.CurrencyID == x.CurrencyID))
-                    newCurrency.Add(new UserCurrencyDifference { Count = x.Count, CurrencyID = x.CurrencyID, Difference = x.Difference, AccountName = key.Name });
+                    newCurrency.Add(new UserCurrencyDifference { Count = x.Count, CurrencyID = x.CurrencyID, Difference = x.Difference, AccountName = key.Name, ManualEntry = manual, Date = DateTime.Now });
             });
 
             _db.ItemDifference.AddRange(newItems);
@@ -147,5 +153,9 @@ namespace GuildWars2.REST.Database
             return await _db.CurrencyTrend.Where(x => x.AccountName.Equals(key.Name) && x.CurrencyID == id).OrderBy(x => x.Date).ToListAsync();
         }
         #endregion Trend
+
+        public void Test()
+        {
+        }
     }
 }

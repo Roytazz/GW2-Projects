@@ -1,13 +1,9 @@
 ﻿using GuildWars2.API.Model.Commerce;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GuildWars2.Manager
+namespace GuildWars2.Manager.ValueService
 {
-    public interface IValue
+    public interface IValue : IComparable<IValue>
     {
         ItemPrice Value();
     }

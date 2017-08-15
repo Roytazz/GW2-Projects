@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GuildWars2.API.Model.Commerce;
+using Newtonsoft.Json;
 
 namespace GuildWars2.Manager.InventoryService
 {
@@ -15,5 +11,7 @@ namespace GuildWars2.Manager.InventoryService
         public int Count { get; set; }
 
         public int Difference { get; set; }
+
+        public ItemPrice Value { get; set; }
     }
 }

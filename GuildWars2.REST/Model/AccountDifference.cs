@@ -16,6 +16,12 @@ namespace GuildWars2.REST.Model
 
         [JsonIgnore]
         public string AccountName { get; set; }
+
+        [JsonIgnore]
+        public DateTime Date { get; set; }
+
+        [JsonIgnore]
+        public bool ManualEntry { get; set; }
     }
 
     public class UserCurrencyDifference : CurrencyDifference
@@ -26,6 +32,12 @@ namespace GuildWars2.REST.Model
 
         [JsonIgnore]
         public string AccountName { get; set; }
+
+        [JsonIgnore]
+        public DateTime Date { get; set; }
+
+        [JsonIgnore]
+        public bool ManualEntry { get; set; }
     }
 
     public class UserAccountDifference

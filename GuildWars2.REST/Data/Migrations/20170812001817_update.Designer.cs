@@ -10,9 +10,10 @@ using GuildWars2.API.Model.Items;
 namespace GuildWars2.REST.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170812001817_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -100,18 +101,6 @@ namespace GuildWars2.REST.Data.Migrations
                     b.ToTable("InfixBuff");
                 });
 
-            modelBuilder.Entity("GuildWars2.API.Model.Items.Infusion", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ItemID");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Infusion");
-                });
-
             modelBuilder.Entity("GuildWars2.API.Model.Items.Item", b =>
                 {
                     b.Property<int>("ID")
@@ -196,66 +185,6 @@ namespace GuildWars2.REST.Data.Migrations
                     b.HasIndex("InfixUpgradeID");
 
                     b.ToTable("ItemDetails");
-                });
-
-            modelBuilder.Entity("GuildWars2.API.Model.Items.Recipe", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ChatLink");
-
-                    b.Property<int>("MinRating");
-
-                    b.Property<int>("OutputItemCount");
-
-                    b.Property<int>("OutputItemID");
-
-                    b.Property<int>("OutputUpgradeID");
-
-                    b.Property<int>("TimeToCraft");
-
-                    b.Property<int>("Type");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Recipe");
-                });
-
-            modelBuilder.Entity("GuildWars2.API.Model.Items.RecipeGuildIngredient", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Count");
-
-                    b.Property<int>("ItemID");
-
-                    b.Property<int?>("RecipeID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RecipeID");
-
-                    b.ToTable("RecipeGuildIngredient");
-                });
-
-            modelBuilder.Entity("GuildWars2.API.Model.Items.RecipeIngredient", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Count");
-
-                    b.Property<int>("ItemID");
-
-                    b.Property<int?>("RecipeID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RecipeID");
-
-                    b.ToTable("RecipeIngredient");
                 });
 
             modelBuilder.Entity("GuildWars2.REST.Database.AppUser", b =>
@@ -554,20 +483,6 @@ namespace GuildWars2.REST.Data.Migrations
                     b.HasOne("GuildWars2.API.Model.Items.Infix", "InfixUpgrade")
                         .WithMany()
                         .HasForeignKey("InfixUpgradeID");
-                });
-
-            modelBuilder.Entity("GuildWars2.API.Model.Items.RecipeGuildIngredient", b =>
-                {
-                    b.HasOne("GuildWars2.API.Model.Items.Recipe")
-                        .WithMany("GuildIngredients")
-                        .HasForeignKey("RecipeID");
-                });
-
-            modelBuilder.Entity("GuildWars2.API.Model.Items.RecipeIngredient", b =>
-                {
-                    b.HasOne("GuildWars2.API.Model.Items.Recipe")
-                        .WithMany("Ingredients")
-                        .HasForeignKey("RecipeID");
                 });
 
             modelBuilder.Entity("GuildWars2.REST.Model.ApiKey", b =>

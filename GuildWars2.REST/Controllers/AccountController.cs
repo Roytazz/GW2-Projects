@@ -14,7 +14,7 @@ namespace GuildWars2.REST.Controllers
     [Route("api/[controller]")]
     public class AccountController : BaseController
     {
-        public AccountController(AppUserStore userManager) : base(userManager) { }
+        public AccountController(AppUserStore userStore) : base(userStore) { }
 
         [HttpGet]
         [Route("InOut/Currencies")]
@@ -41,7 +41,7 @@ namespace GuildWars2.REST.Controllers
         public async Task<bool> SaveInOut() {
             var key = await ActiveKey();
             if (key != null) {
-                await _userStore.SetAccountDifference(key);
+                await _userStore.SetAccountDifference(key, true);
                 return true;
             }
             return false;

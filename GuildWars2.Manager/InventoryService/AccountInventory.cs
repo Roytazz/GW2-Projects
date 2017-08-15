@@ -9,93 +9,107 @@ using System.Threading.Tasks;
 
 namespace GuildWars2.Manager.InventoryService
 {
-    public class AccountInventory { 
-        private List<ExtendedItemStack> _allItems;
+    public class AccountInventory 
+    {
         private List<WalletEntry> _fullWallet;
+        private List<ExtendedItemStack> _allItems;
 
-        public Account Account { private get; set; }
-
-        public List<Character> Characters { private get; set; }
-
-        public List<InventoryEntity> Bank { private get; set; }
-
-        public List<InventoryEntity> SharedInventory { private get; set; }
-
-        public DeliveryBox DeliveryBox { private get; set; }
-
-        public List<Material> Materials { private get; set; }
-
-        public List<WalletEntry> Wallet { private get; set; }
-
-        private List<ItemStack> GuildBank { get; set; }
-
-        private string ApiKey { get; set; }
-
-        public AccountInventory(string apikey) {
-            ApiKey = apikey;
-        }
-
-        // Methods //
-
-        public List<ExtendedItemStack> GetAllItems() {
+        public List<ExtendedItemStack> Items { get {
             if (_allItems != null)
                 return _allItems;
 
-            var items = new List<ItemStack>();
+            var items = new List<ExtendedItemStack>();
 
             Characters.ForEach(x => {
                 x.Bags.ForEach(y => {
                     if (y != null) {
-                        items.Add(new ItemStack { ID = y.ID, Count = 1 });
+                        items.Add(new ExtendedItemStack { ID = y.ID, Count = 1 });
                         items.AddRange(GetItems(y.Inventory));
                     }
                 });
-                items.AddRange(GetItems(x.Equipment));
+                x.Equipment.ForEach(z => {
+                    items.AddRange(GetItems(z));
+                });
             });
             items.AddRange(GetItems(Bank));
             items.AddRange(GetItems(SharedInventory));
-            if(DeliveryBox?.Items != null)
-                items.AddRange(DeliveryBox.Items);
-            items.AddRange(Materials);
+            if (DeliveryBox?.Items != null) {
+                items.AddRange(GetItems(DeliveryBox.Items));
+            }
+            items.AddRange(GetItems(Materials.Cast<ItemStack>().ToList()));
             items.AddRange(GuildBank);
 
             //Combine identical items into 1 Stack
             var result = new List<ExtendedItemStack>();
-            items.ForEach(x => {
-                if (!result.Any(y => y.ID == x.ID)) {
-                    var count = items.Where(y => y.ID == x.ID).Sum(z => z.Count);
+            items.ForEach(x => {                                                    
+                if (!result.Any(y => y.Equals(x))) {
+                    var count = items.Where(y => y.Equals(x)).Sum(z => z.Count);
                     if (count > 0)
                         result.Add(new ExtendedItemStack { ID = x.ID, SkinID = GetSkinId(x), Count = count });
                 }
             });
+
             _allItems = result;
             return result;
+        }}
+
+        public List<WalletEntry> Currencies {
+            get {
+                if (_fullWallet != null)
+                    return _fullWallet;
+
+                var wallet = Wallet;
+                wallet.ForEach(x => {
+                    if (x.ID == 1 && DeliveryBox != null)   //ID = 1 is Gold
+                        x.Value += DeliveryBox.Coins;       //Add DeliveryBox gold to total Gold
+                });
+
+                _fullWallet = wallet;
+                return wallet;
+        }}
+
+        private Account Account { get; set; }
+
+        private List<Character> Characters { get; set; }
+
+        private List<InventoryEntity> Bank { get; set; }
+
+        private List<InventoryEntity> SharedInventory { get; set; }
+
+        private DeliveryBox DeliveryBox { get; set; }
+
+        private List<Material> Materials { get; set; }
+
+        private List<WalletEntry> Wallet { get; set; }
+
+        private List<ExtendedItemStack> GuildBank { get; set; }
+
+        public static async Task<AccountInventory> GetAccountInventory(string apiKey) {
+            var accountInv = new AccountInventory() {
+                Account = await AccountAPI.Account(apiKey),
+                Characters = await CharacterAPI.Characters(apiKey),
+                Bank = await AccountAPI.Bank(apiKey),
+                SharedInventory = await AccountAPI.SharedInventory(apiKey),
+                Materials = await AccountAPI.MaterialStorage(apiKey),
+                Wallet = await AccountAPI.Wallet(apiKey)
+            };
+            await accountInv.SetGuildBank(apiKey);
+            return accountInv;
         }
 
-        public List<WalletEntry> GetAllCurrencies() {
-            if (_fullWallet != null)
-                return _fullWallet;
+        #region Private methods
 
-            var wallet = Wallet;
-            wallet.ForEach(x => {
-                if (x.ID == 1 && DeliveryBox != null)   //ID = 1 is Gold
-                    x.Value += DeliveryBox.Coins;       //Add DeliveryBox gold to total Gold
-            });
-            _fullWallet = wallet;
-            return wallet;
-        }
-        
-        private List<ItemStack> GetItems(List<InventoryEntity> entities) {
-            var items = new List<ItemStack>();
+        private List<ExtendedItemStack> GetItems(List<ItemStack> entities) {
+            var items = new List<ExtendedItemStack>();
             entities?.ForEach(x => {
-                items.AddRange(GetItems(x));
+                items.Add(new ExtendedItemStack { ID = x.ID, Count = x.Count });
             });
             return items;
         }
 
-        private List<ItemStack> GetItems(List<Equipment> equipment) {
-            var items = new List<ItemStack>();
-            equipment?.ForEach(x => {
+        private List<ExtendedItemStack> GetItems(List<InventoryEntity> entities) {
+            var items = new List<ExtendedItemStack>();
+            entities?.ForEach(x => {
                 items.AddRange(GetItems(x));
             });
             return items;
@@ -107,22 +121,32 @@ namespace GuildWars2.Manager.InventoryService
                 return items;
 
             if (entity.Infusions?.Count > 0) {                                  //All Infusions
-                foreach (var infusion in entity.Infusions) {
-                    items.Add(new ExtendedItemStack { ID = infusion, Count = 1 });
-                }
+                entity.Infusions.ForEach(x => {
+                    items.Add(new ExtendedItemStack { ID = x, Count = 1 });
+                });
             }
 
             if (entity.Upgrades?.Count > 0) {                                  //All sigil/runes/jewels
-                foreach (var upgrade in entity.Upgrades) {
-                    items.Add(new ExtendedItemStack { ID = upgrade, Count = 1 });
-                }
+                entity.Upgrades.ForEach(x => {
+                    items.Add(new ExtendedItemStack { ID = x, Count = 1 });
+                });
             }
 
             if (entity is InventoryEntity) {                                    //Item itself
-                items.Add(new ExtendedItemStack { ID = entity.ID, SkinID = entity.Skin, Count = (entity as InventoryEntity).Count > 0 ? (entity as InventoryEntity).Count : (entity as InventoryEntity).Charges }); 
+                items.Add(new ExtendedItemStack {
+                    ID = entity.ID,
+                    SkinID = entity.Skin,
+                    Count = (entity as InventoryEntity).Count > 0 ?
+                                    (entity as InventoryEntity).Count :
+                                    (entity as InventoryEntity).Charges
+                });
             }
             else {
-                items.Add(new ExtendedItemStack { ID = entity.ID, SkinID = entity.Skin, Count = entity.Charges > 0 ? entity.Charges : 1 });  
+                items.Add(new ExtendedItemStack {
+                    ID = entity.ID,
+                    SkinID = entity.Skin,
+                    Count = entity.Charges > 0 ? entity.Charges : 1
+                });
             }
             return items;
         }
@@ -134,34 +158,23 @@ namespace GuildWars2.Manager.InventoryService
                 return 0;
         }
 
-        private async Task SetGuildBank() {
-            GuildBank = new List<ItemStack>();
+        private async Task SetGuildBank(string apiKey) {
+            GuildBank = new List<ExtendedItemStack>();
             foreach (var guild in Account.Guilds) {
-                var members = await GuildAPI.Members(guild, ApiKey);        //Check if you are the leader and Member count. This determines if its a personal BANK GUILD
+                var members = await GuildAPI.Members(guild, apiKey);        //Check if you are the leader and Member count. This determines if its a personal BANK GUILD
                 if (members.Count > 0 && members.Count <= 5) {
-                    var stash = await GuildAPI.Stash(guild, ApiKey);
+                    var stash = await GuildAPI.Stash(guild, apiKey);
                     stash.ForEach(x => {
-                        Wallet.Find(y => y.ID == 1).Value += x.Coins;           
+                        Wallet.Find(y => y.ID == 1).Value += x.Coins;
                         x.Inventory.ForEach(z => {
                             if (z != null)
-                                GuildBank.Add(z);
+                                GuildBank.Add(new ExtendedItemStack { ID = z.ID, Count = z.Count });
                         });
                     });
                 }
             }
         }
 
-        public static async Task<AccountInventory> GetAccountInventory(string apiKey) {
-            var accountInv = new AccountInventory(apiKey) {
-                Account = await AccountAPI.Account(apiKey),
-                Characters = await CharacterAPI.Characters(apiKey),
-                Bank = await AccountAPI.Bank(apiKey),
-                SharedInventory = await AccountAPI.SharedInventory(apiKey),
-                Materials = await AccountAPI.MaterialStorage(apiKey),
-                Wallet = await AccountAPI.Wallet(apiKey)
-            };
-            await accountInv.SetGuildBank();
-            return accountInv;
-        }
+        #endregion Private methods
     }
 }

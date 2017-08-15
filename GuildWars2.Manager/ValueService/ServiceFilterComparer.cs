@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace GuildWars2.Manager.ValueService
@@ -18,13 +17,20 @@ namespace GuildWars2.Manager.ValueService
         }
 
         internal IValue CalculateValue<TItem>(TItem item) {
-            return GetService(item)?.CalculateValue(item);
+            var services = GetServices(item);
+            if (services == null)
+                return null;
+
+            //Compares all values from the available services
+            List<IValue> values = new List<IValue>();
+            services.ForEach(x => {
+                values.Add(x.CalculateValue(item));
+            });
+            return values.OrderBy(x => x.Value()).FirstOrDefault();
         }
 
-        private IValueService GetService<TItem>(TItem item) {
+        private List<IValueService> GetServices<TItem>(TItem item) {
             int priority = -1;
-            IValueService resultService = null;
-
             foreach (var service in _services) {
                 foreach (var filter in service.Value) {
 
@@ -32,20 +38,20 @@ namespace GuildWars2.Manager.ValueService
                     if (filter.GetType() != typeof(ServiceFilter<TItem>))   
                         continue;
 
-                    //Check if filter is true. If true compare priority and take highest
-                    if ((filter as ServiceFilter<TItem>).Filter(item)) {
-
-                        //Found new one
-                        if (priority < filter.Priority) {
-                            priority = filter.Priority;
-                            resultService = service.Key;
-                        }
-                        else if (priority == filter.Priority)
-                            Debug.WriteLine("FOUND EQUAL PRIORITY - NOT GOOD!");
+                    //Check if filter is true and if priority is higher
+                    if ((filter as ServiceFilter<TItem>).Filter(item) && priority < filter.Priority) {
+                        priority = filter.Priority;
                     }
                 }
             }
-            return resultService;
+
+            //Get all services with the highest priority
+            var resultServices = new List<IValueService>();
+            foreach (var service in _services) {
+                if(service.Value.Any(x => x.Priority == priority))
+                    resultServices.Add(service.Key);
+            }
+            return resultServices;
         }
     }
 

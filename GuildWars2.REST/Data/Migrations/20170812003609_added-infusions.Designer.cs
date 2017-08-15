@@ -10,9 +10,10 @@ using GuildWars2.API.Model.Items;
 namespace GuildWars2.REST.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170812003609_added-infusions")]
+    partial class addedinfusions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -105,9 +106,13 @@ namespace GuildWars2.REST.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("ItemDetailsID");
+
                     b.Property<int>("ItemID");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ItemDetailsID");
 
                     b.ToTable("Infusion");
                 });
@@ -540,6 +545,13 @@ namespace GuildWars2.REST.Data.Migrations
                     b.HasOne("GuildWars2.API.Model.Items.Infix")
                         .WithMany("Attributes")
                         .HasForeignKey("InfixID");
+                });
+
+            modelBuilder.Entity("GuildWars2.API.Model.Items.Infusion", b =>
+                {
+                    b.HasOne("GuildWars2.API.Model.Items.ItemDetails")
+                        .WithMany("InfusionSlots")
+                        .HasForeignKey("ItemDetailsID");
                 });
 
             modelBuilder.Entity("GuildWars2.API.Model.Items.Item", b =>

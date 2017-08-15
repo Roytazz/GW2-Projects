@@ -13,11 +13,8 @@ namespace GuildWars2.REST.Controllers
 {
     [Route("api/[controller]/[Action]")]
     public class UserController : BaseController {
-        private UserManager<AppUser> _userManager;
 
-        public UserController(UserManager<AppUser> userManager, AppUserStore userStore) : base(userStore) {
-            _userManager = userManager;
-        }
+        public UserController(AppUserStore userStore, UserManager<AppUser> userManager) : base(userStore, userManager) { }
         
         [HttpPost]
         public async Task<bool> Register([FromBody]RegisterModel model) {
