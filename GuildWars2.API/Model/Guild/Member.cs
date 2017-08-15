@@ -12,6 +12,6 @@ namespace GuildWars2.API.Model.Guild
         public string RankName { get; set; }
         
         [JsonProperty("joined")]
-        public DateTime Joined { get; set; } 
+        public DateTime? Joined { get; set; } 
     }
 }

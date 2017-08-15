@@ -76,6 +76,7 @@ namespace GuildWars2.API.Model.Items
         AccountBindOnUse,
         AccountBound,
         BulkConsume,
+        DeleteWarning,
         HideSuffix,
         MonsterOnly,
         NoMysticForge,
