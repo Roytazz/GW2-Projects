@@ -3,6 +3,7 @@ using GuildWars2.REST.Authentication;
 using GuildWars2.REST.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -20,7 +21,7 @@ namespace GuildWars2.REST
         private void ConfigureAuth(IApplicationBuilder app) {
 
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("TokenAuthentication:SecretKey").Value));
-            var signInManager = app.ApplicationServices.GetService(typeof(SignInManager<AppUser>)) as SignInManager<AppUser>;
+            var signInManager = app.ApplicationServices.GetService(typeof(SignInManager<IdentityUser>)) as SignInManager<IdentityUser>;
 
             var tokenProviderOptions = new TokenProviderOptions {
                 Path = Configuration.GetSection("TokenAuthentication:TokenPath").Value,
@@ -31,7 +32,6 @@ namespace GuildWars2.REST
             };
 
             var tokenValidationParameters = new TokenValidationParameters {
-                
                 ValidateIssuerSigningKey = true,    // The signing key must match!
                 IssuerSigningKey = signingKey,      // Validate the JWT Issuer (iss) claim
                 ValidateIssuer = true,
@@ -61,7 +61,7 @@ namespace GuildWars2.REST
             app.UseMiddleware<TokenProviderMiddleware>(Options.Create(tokenProviderOptions));
         }
 
-        private async Task<ClaimsIdentity> GetIdentity(SignInManager<AppUser> signInManager, string username, string password) {
+        private async Task<ClaimsIdentity> GetIdentity(SignInManager<IdentityUser> signInManager, string username, string password) {
             var result = await signInManager.PasswordSignInAsync(username, password, false, false);
             if (result.Succeeded) {
                 return new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { });

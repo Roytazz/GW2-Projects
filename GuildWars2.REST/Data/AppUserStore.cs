@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GuildWars2.REST.Database
 {
-    public class AppUserStore : UserStore<AppUser>
+    public class AppUserStore : UserStore<IdentityUser>
     {
         private AppDbContext _db;
 
@@ -24,7 +24,7 @@ namespace GuildWars2.REST.Database
         }
 
         #region Keys
-        public async Task<List<ApiKey>> GetKeysAsync(AppUser user) {
+        public async Task<List<ApiKey>> GetKeysAsync(IdentityUser user) {
             var keys = await _db.ApiKey.Where(c => c.ApplicationUserId == user.Id).ToListAsync();
             if (keys.Count > 0 && !keys.Any(c => c.Active))
                 keys[0].Active = true;
@@ -32,13 +32,13 @@ namespace GuildWars2.REST.Database
             return keys;
         }
 
-        public async Task<int> AddKeyAsync(AppUser user, ApiKey key) {
+        public async Task<int> AddKeyAsync(IdentityUser user, ApiKey key) {
             key.ApplicationUserId = user.Id;
             await _db.ApiKey.AddAsync(key);
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteKeyAsync(AppUser user, int id) {
+        public async Task<int> DeleteKeyAsync(IdentityUser user, int id) {
             var key = await _db.ApiKey.FirstAsync(x => x.Id == id);
             if (key?.ApplicationUserId == user.Id) {
                 _db.ApiKey.Remove(key);
@@ -47,7 +47,7 @@ namespace GuildWars2.REST.Database
             return 0;
         }
 
-        public async Task<int> ActivateKeyAsync(AppUser user, int id) {
+        public async Task<int> ActivateKeyAsync(IdentityUser user, int id) {
             var keys = await GetKeysAsync(user);
             if (keys.Any(key => key.Id == id)) {
                 keys.ForEach(c => c.Active = (c.Id == id));
@@ -57,7 +57,7 @@ namespace GuildWars2.REST.Database
             return 0;
         }
 
-        public async Task<ApiKey> GetActiveKey(AppUser user) {
+        public async Task<ApiKey> GetActiveKey(IdentityUser user) {
             return await _db.ApiKey.FirstOrDefaultAsync(x => x.ApplicationUserId == user.Id && x.Active == true);
         }
         #endregion Keys
@@ -72,11 +72,16 @@ namespace GuildWars2.REST.Database
         }
 
         private async Task<UserAccountDifference> GetAccountTotalDifference(ApiKey key) {
-            return new UserAccountDifference
-            {
-                Items = await _db.ItemDifference.Where(x=>x.AccountName.Equals(key.Name)).GroupBy(x => x.ItemID).Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault()).ToListAsync(),
-                Currencies = await _db.CurrencyDifference.Where(x => x.AccountName.Equals(key.Name)).GroupBy(x => x.CurrencyID).Select(x => x.OrderByDescending(y => y.Date).FirstOrDefault()).ToListAsync()
+            return new UserAccountDifference {
+                Items = await _db.ItemDifference.Where(x => x.AccountName.Equals(key.Name)).OrderByDescending(y => y.Date).ToListAsync(),
+                Currencies = await _db.CurrencyDifference.Where(x => x.AccountName.Equals(key.Name)).OrderByDescending(y => y.Date).ToListAsync()
             };
+        }
+
+        public async Task ClearAccountDifference(ApiKey key) {
+            _db.ItemDifference.RemoveRange(_db.ItemDifference.Where(x => x.AccountName.Equals(key.Name)));
+            //_db.CurrencyDifference.RemoveRange(_db.CurrencyDifference.Where(x => x.AccountName.Equals(key.Name)));
+            await _db.SaveChangesAsync();
         }
 
         public async Task SetAccountDifference(ApiKey key, bool manual) {
@@ -89,10 +94,12 @@ namespace GuildWars2.REST.Database
 
             //Old Entries
             rawCurrentState.Items.ForEach(x => {
-                if(difference.Items.Any(y => y.ItemID == x.ItemID)) {
-                    var newState = difference.Items.Find(y => y.ItemID == x.ItemID);
+                if (difference.Items.Any(y => y.Equals(x))) {
+                    var newState = difference.Items.Find(y => y.Equals(x));
                     x.Count = newState.Count;
                     x.Difference = newState.Difference;
+                    x.SkinID = newState.SkinID;
+                    x.StatID = newState.StatID;
                 }
             });
             rawCurrentState.Currencies.ForEach(x => {
@@ -105,7 +112,7 @@ namespace GuildWars2.REST.Database
 
             _db.ItemDifference.UpdateRange(rawCurrentState.Items);
             _db.CurrencyDifference.UpdateRange(rawCurrentState.Currencies);
-            
+
             //New entries
             var newItems = new List<UserItemStackDifference>();
             var newCurrency = new List<UserCurrencyDifference>();
@@ -115,13 +122,13 @@ namespace GuildWars2.REST.Database
 
             difference.Items.ForEach(x => {
                 newItemsTrends.Add(new UserItemTrend { ItemID = x.ItemID, Count = x.Count, AccountName = key.Name, Date = DateTime.Now });
-                if (!rawCurrentState.Items.Any(y => y.ItemID == x.ItemID))
-                    newItems.Add(new UserItemStackDifference { Count = x.Count, ItemID = x.ItemID, SkinID = x.SkinID, Difference = x.Difference, AccountName = key.Name, ManualEntry = manual, Date = DateTime.Now });
+                if (!rawCurrentState.Items.Any(y => y.Equals(x)))
+                    newItems.Add(new UserItemStackDifference(x, key));
             });
             difference.Currencies.ForEach(x => {
                 newCurrencyTrends.Add(new UserCurrencyTrend { CurrencyID = x.CurrencyID, Count = x.Count, AccountName = key.Name, Date = DateTime.Now });
                 if (!rawCurrentState.Currencies.Any(y => y.CurrencyID == x.CurrencyID))
-                    newCurrency.Add(new UserCurrencyDifference { Count = x.Count, CurrencyID = x.CurrencyID, Difference = x.Difference, AccountName = key.Name, ManualEntry = manual, Date = DateTime.Now });
+                    newCurrency.Add(new UserCurrencyDifference(x, key));
             });
 
             _db.ItemDifference.AddRange(newItems);
@@ -154,8 +161,9 @@ namespace GuildWars2.REST.Database
         }
         #endregion Trend
 
-        public void Test()
-        {
+        public void Test() {
+            var test = _db.ItemDifference.Where(x => x.AccountName.Contains("Marla") && x.ItemID == 79157);
+            return;
         }
     }
 }

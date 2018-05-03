@@ -1,4 +1,5 @@
 ﻿using GuildWars2.REST.Database;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,6 @@ namespace GuildWars2.REST.Model
         public string ApplicationUserId { get; set; }
 
         [JsonIgnore]
-        public virtual AppUser ApplicationUser { get; set; }
+        public virtual IdentityUser ApplicationUser { get; set; }
     }
 }

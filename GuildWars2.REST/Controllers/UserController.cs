@@ -2,6 +2,7 @@
 using GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,13 @@ namespace GuildWars2.REST.Controllers
     [Route("api/[controller]/[Action]")]
     public class UserController : BaseController {
 
-        public UserController(AppUserStore userStore, UserManager<AppUser> userManager) : base(userStore, userManager) { }
+        public UserController(UserManager<IdentityUser> userManager, AppUserStore userStore) : base(userStore, userManager) { }
         
         [HttpPost]
         public async Task<bool> Register([FromBody]RegisterModel model) {
             if (ModelState.IsValid) {
-                var user = new AppUser { UserName = model.Username, Email = model.Email };
+                var user = new IdentityUser { UserName = model.Username, Email = model.Email };
+                var test = _userManager.Users.Count();
                 var result = await _userManager.CreateAsync(user, model.Password);
                 return result.Succeeded;
             }

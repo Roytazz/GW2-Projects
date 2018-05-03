@@ -12,9 +12,10 @@ namespace GuildWars2.REST.Controllers
         public JobController(AppUserStore userStore) : base(userStore) { }
 
         [HttpGet]
-        public async Task Index()
+        public async Task<bool> Index()
         {
             _userStore.Test();
+            return await Task.Factory.StartNew(() => { return true; });
         }
     }
 }

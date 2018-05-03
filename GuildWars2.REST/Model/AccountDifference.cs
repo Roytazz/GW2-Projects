@@ -22,6 +22,19 @@ namespace GuildWars2.REST.Model
 
         [JsonIgnore]
         public bool ManualEntry { get; set; }
+
+        public UserItemStackDifference() { }
+
+        public UserItemStackDifference(ItemStackDifference diff, ApiKey key) {
+            Count = diff.Count;
+            ItemID = diff.ItemID;
+            SkinID = diff.SkinID;
+            StatID = diff.StatID;
+            Difference = diff.Difference;
+            AccountName = key.Name;
+            ManualEntry = true;
+            Date = DateTime.Now;
+        }
     }
 
     public class UserCurrencyDifference : CurrencyDifference
@@ -38,6 +51,17 @@ namespace GuildWars2.REST.Model
 
         [JsonIgnore]
         public bool ManualEntry { get; set; }
+
+        public UserCurrencyDifference() { }
+
+        public UserCurrencyDifference(CurrencyDifference diff, ApiKey key) {
+            Count = diff.Count;
+            CurrencyID = diff.CurrencyID;
+            Difference = diff.Difference;
+            AccountName = key.Name;
+            ManualEntry = true;
+            Date = DateTime.Now;
+        }
     }
 
     public class UserAccountDifference

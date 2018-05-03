@@ -1,6 +1,7 @@
 ﻿using GuildWars2.REST.Database;
 using GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,14 +10,15 @@ namespace GuildWars2.REST.Controllers
 {
     public abstract class BaseController : Controller
     {
-        protected UserManager<AppUser> _userManager;
+        protected UserManager<IdentityUser> _userManager;
         protected AppUserStore _userStore;
 
-        public BaseController(AppUserStore userStore, UserManager<AppUser> userManager = null) {
+        public BaseController(AppUserStore userStore, UserManager<IdentityUser> userManager = null) {
             _userStore = userStore;
+            _userManager = userManager;
         }
 
-        protected async Task<AppUser> CurrentUser() {
+        protected async Task<IdentityUser> CurrentUser() {
             return await _userStore.FindByNameAsync(User.Claims.ToList()[0].Value);
         }
 

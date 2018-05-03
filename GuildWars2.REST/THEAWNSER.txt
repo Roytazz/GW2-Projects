@@ -1,2 +1,5 @@
-﻿When commands arent recognised: C:\Users\Roy\.nuget\packages\Microsoft.EntityFrameworkCore.Tools\1.1.1\tools\init.ps1
-When EF.Design is not found: Try to set on the project you are doing migration with right-click and "Set as startup project"
+﻿When commands arent recognised: 
+	C:\Users\Roy\.nuget\packages\Microsoft.EntityFrameworkCore.Tools\1.1.1\tools\init.ps1
+
+When EF.Design is not found: 
+	Try to set on the project you are doing migration with right-click and "Set as startup project"

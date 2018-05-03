@@ -47,6 +47,17 @@ namespace GuildWars2.REST.Controllers
             return false;
         }
 
+        [HttpPost]
+        [Route("InOut/Clear")]
+        public async Task<bool> ClearInOut() {
+            var key = await ActiveKey();
+            if (key != null) {
+                await _userStore.ClearAccountDifference(key);
+                return true;
+            }
+            return false;
+        }
+
         [HttpGet]
         [Route("Trend")]
         public async Task<UserAccountTrend> Trend() {

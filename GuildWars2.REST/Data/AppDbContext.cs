@@ -8,7 +8,7 @@ using GuildWars2.API.Model;
 
 namespace GuildWars2.REST.Data
 {
-    public class AppDbContext : IdentityDbContext<AppUser>
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<ApiKey> ApiKey { get; set; }
 

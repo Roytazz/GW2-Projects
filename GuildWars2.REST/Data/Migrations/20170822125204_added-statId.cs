@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GuildWars2.REST.Data.Migrations
 {
-    public partial class addedskinId : Migration
+    public partial class addedstatId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "SkinID",
+                name: "StatID",
                 table: "ItemDifference",
                 nullable: false,
                 defaultValue: 0);
@@ -18,7 +18,7 @@ namespace GuildWars2.REST.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "SkinID",
+                name: "StatID",
                 table: "ItemDifference");
         }
     }
