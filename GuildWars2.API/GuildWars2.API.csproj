@@ -263,7 +263,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MysticForgeRecipes.json" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Model\Mechanics\TrainingTrack.d.ts">
