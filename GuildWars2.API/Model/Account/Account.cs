@@ -25,7 +25,7 @@ namespace GuildWars2.API.Model.Account
         public List<string> Guilds { get; set; }
 
         [JsonProperty("access")]
-        public Access Access { get; set; }
+        public List<Access> Access { get; set; }
 
         [JsonProperty("created")]
         public DateTime Created { get; set; }

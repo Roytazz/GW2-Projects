@@ -44,7 +44,8 @@ namespace GuildWars2.API.Model
         None,
         PlayForFree,
         GuildWars2,
-        HeartOfThorns
+        HeartOfThorns,
+        PathOfFire
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -78,14 +79,23 @@ namespace GuildWars2.API.Model
     public enum EliteSpecialization
     {
         Dragonhunter,
+        Firebrand,
         Berserker,
+        Spellbreaker,
         Herald,
+        Renegade,
         Druid,
+        Soulbeast,
         Scrapper,
+        Holosmith,
         Daredevil,
+        Deadeye,
         Tempest,
+        Weaver,
         Chronomancer,
-        Reaper
+        Mirage,
+        Reaper,
+        Scourge
     }
     
     public enum Race
