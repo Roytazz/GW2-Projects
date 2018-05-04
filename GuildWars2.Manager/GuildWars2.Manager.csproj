@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +42,7 @@
     <Compile Include="InventoryService\Model\CurrencyDifference.cs" />
     <Compile Include="InventoryService\InventoryManager.cs" />
     <Compile Include="InventoryService\Model\StackDifference.cs" />
+    <Compile Include="StaticInfo.cs" />
     <Compile Include="ValueService\ServiceFilterComparer.cs" />
     <Compile Include="ValueService\ServiceFilterBuilder.cs" />
     <Compile Include="ValueService\IValue.cs" />

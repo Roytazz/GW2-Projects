@@ -2,6 +2,8 @@
 using GuildWars2.API.Model.Items;
 using Newtonsoft.Json;
 
+using static GuildWars2.Manager.StaticInfo;
+
 namespace GuildWars2.Manager.InventoryService
 {
     public class ItemStackDifference
@@ -12,6 +14,9 @@ namespace GuildWars2.Manager.InventoryService
         [JsonProperty("skinId")]
         public int SkinID { get; set; }
 
+        [JsonProperty("statId")]
+        public int StatID { get; set; }
+
         public int Count { get; set; }
 
         public int Difference { get; set; }
@@ -21,11 +26,17 @@ namespace GuildWars2.Manager.InventoryService
         public override bool Equals(object obj) {
             if (obj is ExtendedItemStack) {
                 var item = obj as ExtendedItemStack;
-                return item != null && SkinID == item.SkinID && ItemID == item.ID;
+                if (item != null && IsLegendary(ItemID) && IsLegendary(item.ID)) {
+                    return item != null && SkinID == item.SkinID && ItemID == item.ID;
+                }
+                return item != null && SkinID == item.SkinID && ItemID == item.ID && StatID == item.StatID;
             }
             if (obj is ItemStackDifference) {
                 var item = obj as ItemStackDifference;
-                return item != null && SkinID == item.SkinID && ItemID == item.ItemID;
+                if (item != null && IsLegendary(ItemID) && IsLegendary(item.ItemID)) {
+                    return item != null && SkinID == item.SkinID && ItemID == item.ItemID;
+                }
+                return item != null && SkinID == item.SkinID && ItemID == item.ItemID && StatID == item.StatID;
             }
             return false;
         }
@@ -35,6 +46,9 @@ namespace GuildWars2.Manager.InventoryService
             unchecked {
                 hash = hash * 31 + ItemID;
                 hash = hash * 31 + SkinID;
+                if (IsLegendary(ItemID)) {
+                    hash = hash * 31 + StatID;
+                }
             }
             return hash;
         }
@@ -45,14 +59,26 @@ namespace GuildWars2.Manager.InventoryService
         [JsonProperty("skinId")]
         public int SkinID { get; set; }
 
+        [JsonProperty("statId")]
+        public int StatID { get; set; }
+
+        [JsonIgnore]
+        public EquipmentType Type { get; set; }
+
         public override bool Equals(object obj) {
             if (obj is ExtendedItemStack) {
                 var item = obj as ExtendedItemStack;
-                return item != null && SkinID == item.SkinID && ID == item.ID;
+                if (item != null && IsLegendary(ID) && IsLegendary(item.ID)) {
+                    return item != null && SkinID == item.SkinID && ID == item.ID;
+                }
+                return item != null && SkinID == item.SkinID && ID == item.ID && StatID == item.StatID;
             }
             if(obj is ItemStackDifference) {
                 var item = obj as ItemStackDifference;
-                return item != null && SkinID == item.SkinID && ID == item.ItemID;
+                if (item != null && IsLegendary(ID) && IsLegendary(item.ItemID)) {
+                    return item != null && SkinID == item.SkinID && ID == item.ItemID;
+                }
+                return item != null && SkinID == item.SkinID && ID == item.ItemID && StatID == item.StatID;
             }
             return false;
         }
@@ -62,6 +88,9 @@ namespace GuildWars2.Manager.InventoryService
             unchecked { 
                 hash = hash * 31 + ID;
                 hash = hash * 31 + SkinID;
+                if (IsLegendary(ID)) {
+                    hash = hash * 31 + StatID;
+                }
             }
             return hash;
         }

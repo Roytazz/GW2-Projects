@@ -45,7 +45,7 @@ namespace GuildWars2.Manager.InventoryService
                 if (!result.Any(y => y.Equals(x))) {
                     var count = items.Where(y => y.Equals(x)).Sum(z => z.Count);
                     if (count > 0)
-                        result.Add(new ExtendedItemStack { ID = x.ID, SkinID = GetSkinId(x), Count = count });
+                        result.Add(new ExtendedItemStack { ID = x.ID, SkinID = GetSkinId(x), StatID = x.StatID, Count = count });
                 }
             });
 
@@ -136,6 +136,7 @@ namespace GuildWars2.Manager.InventoryService
                 items.Add(new ExtendedItemStack {
                     ID = entity.ID,
                     SkinID = entity.Skin,
+                    StatID = entity.Stats != null ? entity.Stats.ID : 0,
                     Count = (entity as InventoryEntity).Count > 0 ?
                                     (entity as InventoryEntity).Count :
                                     (entity as InventoryEntity).Charges
@@ -145,6 +146,7 @@ namespace GuildWars2.Manager.InventoryService
                 items.Add(new ExtendedItemStack {
                     ID = entity.ID,
                     SkinID = entity.Skin,
+                    StatID = entity.Stats != null ? entity.Stats.ID : 0,
                     Count = entity.Charges > 0 ? entity.Charges : 1
                 });
             }

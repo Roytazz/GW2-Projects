@@ -16,6 +16,7 @@ namespace GuildWars2.Manager.InventoryService
                     newState.Items.Add(new ItemStackDifference {
                         ItemID = x.ItemID,
                         SkinID = x.SkinID,
+                        StatID = x.StatID,
                         Count = newItem.Count,
                         Difference = newItem.Count - x.Count
                     });
@@ -24,6 +25,7 @@ namespace GuildWars2.Manager.InventoryService
                     newState.Items.Add(new ItemStackDifference {
                         ItemID = x.ItemID,
                         SkinID = x.SkinID,
+                        StatID = x.StatID,
                         Count = 0,
                         Difference = x.Count * -1
                     });
@@ -53,6 +55,7 @@ namespace GuildWars2.Manager.InventoryService
                     newState.Items.Add(new ItemStackDifference {
                         ItemID = x.ID,
                         SkinID = x.SkinID,
+                        StatID = x.StatID,
                         Count = x.Count,
                         Difference = x.Count
                     });
