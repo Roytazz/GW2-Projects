@@ -111,6 +111,10 @@ namespace GuildWars2.API
         #endregion Recipes
 
         #region Mystic Forge
+
+        //A Thing to keep in mind while using the Mystic Forge API of GW2Profits is that its maintained by hand. 
+        //As of now, recipes added over a month ago to the game, are not added to the API.
+
         public static Task<List<RecipeMysticForge>> SearchMysticForgeRecipesByOutput(int ID)
         {
             return Builder/*.AddParam("disciplines", "Mystic Forge")*/      //Weird API thing with AND OR

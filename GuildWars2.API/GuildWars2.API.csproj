@@ -63,6 +63,7 @@
     <Compile Include="Model\Account\AccountAchievement.cs" />
     <Compile Include="Model\Account\AccountMasterySummary.cs" />
     <Compile Include="Model\Account\AccountMasteryRegion.cs" />
+    <Compile Include="Model\Commerce\ItemListingHistory.cs" />
     <Compile Include="Model\Items\InventoryEntity.cs" />
     <Compile Include="Model\Commerce\DeliveryBox.cs" />
     <Compile Include="Model\Miscellaneous\Cat.cs" />
