@@ -12,9 +12,10 @@ using System;
 namespace GuildWars2.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180511002253_added-category")]
+    partial class addedcategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,8 +37,7 @@ namespace GuildWars2.Data.Migrations
 
             modelBuilder.Entity("GuildWars2.Data.Model.CategoryValue", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("UserID");
 
                     b.Property<int>("CategoryID");
 
@@ -45,11 +45,9 @@ namespace GuildWars2.Data.Migrations
 
                     b.Property<int>("Delta");
 
-                    b.Property<int>("UserID");
-
                     b.Property<int>("Value");
 
-                    b.HasKey("ID");
+                    b.HasKey("UserID", "CategoryID", "Date");
 
                     b.ToTable("CategoryValue");
                 });
@@ -60,7 +58,7 @@ namespace GuildWars2.Data.Migrations
 
                     b.Property<int>("ItemID");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("CreationDate");
 
                     b.HasKey("UserID", "ItemID");
 
@@ -69,26 +67,23 @@ namespace GuildWars2.Data.Migrations
 
             modelBuilder.Entity("GuildWars2.Data.Model.Item", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Amount");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<int>("Delta");
+                    b.Property<int>("UserID");
 
                     b.Property<int>("ItemID");
-
-                    b.Property<int>("Location");
 
                     b.Property<int>("SkinID");
 
                     b.Property<int>("StatID");
 
-                    b.Property<int>("UserID");
+                    b.Property<DateTime>("Date");
 
-                    b.HasKey("ID");
+                    b.Property<int>("Amount");
+
+                    b.Property<int>("Delta");
+
+                    b.Property<int>("Location");
+
+                    b.HasKey("UserID", "ItemID", "SkinID", "StatID", "Date");
 
                     b.ToTable("Item");
                 });
@@ -99,7 +94,7 @@ namespace GuildWars2.Data.Migrations
 
                     b.Property<int>("SkinID");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("CreationDate");
 
                     b.HasKey("UserID", "SkinID");
 
@@ -120,20 +115,17 @@ namespace GuildWars2.Data.Migrations
 
             modelBuilder.Entity("GuildWars2.Data.Model.WalletEntry", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Amount");
+                    b.Property<int>("UserID");
 
                     b.Property<int>("CurrencyID");
+
+                    b.Property<int>("Amount");
 
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("Delta");
 
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ID");
+                    b.HasKey("UserID", "CurrencyID");
 
                     b.ToTable("Wallet");
                 });

@@ -2,11 +2,11 @@
 
 namespace GuildWars2.Data.Model
 {
-    public class User
+    public class Category
     {
         [Key]
-        public string ID { get; set; }
+        public int ID { get; set; }
 
-        public string Key { get; set; }
+        public string Name { get; set; }
     }
 }
