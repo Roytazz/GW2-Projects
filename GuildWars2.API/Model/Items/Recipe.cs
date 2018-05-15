@@ -101,7 +101,7 @@ namespace GuildWars2.API.Model.Items
         GuildConsumable,
         GuildDecoration,
         GuildConsumableWvw,
-        /*CraftingMaterial*/
+        CraftingMaterial
     }
 
     public enum RecipeFlag

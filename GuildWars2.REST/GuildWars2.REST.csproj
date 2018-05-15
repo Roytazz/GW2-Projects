@@ -42,7 +42,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GuildWars2.Manager\GuildWars2.Manager.csproj" />
+    <ProjectReference Include="..\GuildWars2.Manager\Obsolete.GuildWars2.Manager.csproj" />
   </ItemGroup>
 
 </Project>

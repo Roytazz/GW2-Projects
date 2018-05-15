@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace GuildWars2.Data.Model
 {
-    public class Dye : DateEntry
-    {
+    public class Key {
         //[Key]
         public int UserID { get; set; }
 
         //[Key]
-        public int ItemID { get; set; }
+        public string APIKey { get; set; }
     }
 }

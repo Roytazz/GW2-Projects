@@ -60,6 +60,7 @@ namespace GuildWars2.API.Model
         Scribe,
         Tailor,
         Weaponsmith,
+        Merchant,
         [EnumMember(Value = "Mystic Forge")] MysticForge
     }
 

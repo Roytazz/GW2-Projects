@@ -42,13 +42,7 @@
     <Compile Include="InventoryService\Model\CurrencyDifference.cs" />
     <Compile Include="InventoryService\InventoryManager.cs" />
     <Compile Include="InventoryService\Model\StackDifference.cs" />
-    <Compile Include="StaticInfo.cs" />
-    <Compile Include="ValueService\ServiceFilterComparer.cs" />
-    <Compile Include="ValueService\ServiceFilterBuilder.cs" />
-    <Compile Include="ValueService\IValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Recipes\ItemRecipeTreeNode.cs" />
-    <Compile Include="ValueService\ValueFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GuildWars2.API\GuildWars2.API.csproj">

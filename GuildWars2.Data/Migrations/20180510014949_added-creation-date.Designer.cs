@@ -10,7 +10,7 @@ using System;
 
 namespace GuildWars2.Data.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(GW2DataContext))]
     [Migration("20180510014949_added-creation-date")]
     partial class addedcreationdate
     {

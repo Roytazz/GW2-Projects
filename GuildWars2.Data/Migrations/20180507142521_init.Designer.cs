@@ -9,7 +9,7 @@ using System;
 
 namespace GuildWars2.Data.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(GW2DataContext))]
     [Migration("20180507142521_init")]
     partial class init
     {
