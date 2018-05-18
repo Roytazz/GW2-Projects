@@ -68,6 +68,7 @@
     <Compile Include="Model\Commerce\ItemListingHistory.cs" />
     <Compile Include="Model\Items\InventoryEntity.cs" />
     <Compile Include="Model\Commerce\DeliveryBox.cs" />
+    <Compile Include="Model\Items\ItemRecipeTreeNode.cs" />
     <Compile Include="Model\Miscellaneous\Cat.cs" />
     <Compile Include="Model\Account\AccountFinisher.cs" />
     <Compile Include="Model\Account\AccountMastery.cs" />
