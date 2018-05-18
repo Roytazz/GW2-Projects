@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildWars2.API", "GuildWars2.API\GuildWars2.API.csproj", "{DC595D19-8FA3-4788-8140-DBEA3B967D85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obsolete.GuildWars2.Manager", "GuildWars2.Manager\Obsolete.GuildWars2.Manager.csproj", "{2B140250-BD8E-4412-9E5B-B3E4B840695C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obsolete.GuildWars2.Manager", "Obsolete.GuildWars2.Manager\Obsolete.GuildWars2.Manager.csproj", "{2B140250-BD8E-4412-9E5B-B3E4B840695C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildWars2.REST", "GuildWars2.REST\GuildWars2.REST.csproj", "{93DDF2E1-16FF-4EF4-9C48-C62143D61E66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Old.GuildWars2.REST", "Old.GuildWars2.REST\Old.GuildWars2.REST.csproj", "{93DDF2E1-16FF-4EF4-9C48-C62143D61E66}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildWars2.Data", "GuildWars2.Data\GuildWars2.Data.csproj", "{C793DDA1-D778-471D-A9A0-04421D02A73E}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xTest", "xTest\xTest.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildWars2.Worker", "GuildWars2.Worker\GuildWars2.Worker.csproj", "{9454A1C3-C9E6-4C10-A237-B29EAE2458DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildWars2.Value", "GuildWars2.Value\GuildWars2.Value.csproj", "{D509888D-5E20-45FD-9AA7-0ABC241736E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildWars2.Value", "GuildWars2.Value\GuildWars2.Value.csproj", "{D509888D-5E20-45FD-9AA7-0ABC241736E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
