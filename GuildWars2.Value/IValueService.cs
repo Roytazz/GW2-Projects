@@ -9,8 +9,8 @@ namespace GuildWars2.Value
     {
         bool IsApplicable(T item);
 
-        Task<ValueResult<T>> CalculateValueAsync(T item);
+        Task<ValueResult<T>> CalculateValue(T item, bool takeHighestValue);
 
-        Task<List<ValueResult<T>>> CalculateValue(List<T> items);
+        Task<List<ValueResult<T>>> CalculateValue(List<T> items, bool takeHighestValue);
     }
 }
