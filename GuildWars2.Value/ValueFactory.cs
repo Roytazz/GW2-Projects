@@ -10,13 +10,6 @@ namespace GuildWars2.Value
 {
     public static class ValueFactory
     {
-        private static readonly string DomainName = "ValueFactoryTempDomain";
-
-        public static async Task<ValueResult<TItem>> CalculateValue<TItem>(TItem item, bool takeHighestValue = true) {
-            var result = await CalculateValue(new List<TItem>() { item }, takeHighestValue);
-            return result?.FirstOrDefault();
-        }
-
         public static async Task<List<ValueResult<TItem>>> CalculateValue<TItem>(List<TItem> items, bool takeHighestValue = true) {
             List<ValueResult<TItem>> correctValues = new List<ValueResult<TItem>>();
 
@@ -25,19 +18,21 @@ namespace GuildWars2.Value
                 if (serviceObj == null)
                     continue;
 
-                var values = await serviceObj.CalculateValue(items, takeHighestValue);
-                foreach (var value in values) {
-                    if (correctValues.Any(x => x.Item.GetHashCode() == value.Item.GetHashCode())) {
+                var valueResults = await serviceObj.CalculateValue(items, takeHighestValue);
+                foreach (var result in valueResults) {
+                    if (correctValues.Any(x => x.Item.GetHashCode() == result.Item.GetHashCode())) {
+                        var existingValue = correctValues.Find(x => x.Item.GetHashCode() == result.Item.GetHashCode());
+                        if (result.Value == null)
+                            continue;
 
-                        var existingValue = correctValues.Find(x => x.Item.GetHashCode() == value.Item.GetHashCode());
-                        if ((takeHighestValue && value.Value > existingValue.Value)
-                                || (!takeHighestValue && value.Value < existingValue.Value)) {
+                        else if ((takeHighestValue && result.Value > existingValue.Value)
+                                || (!takeHighestValue && result.Value < existingValue.Value)) {
                             correctValues.Remove(existingValue);
-                            correctValues.Add(value);
+                            correctValues.Add(result);
                         }
                     }
                     else {
-                        correctValues.Add(value);
+                        correctValues.Add(result);
                     }
                 }
             }
