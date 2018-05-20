@@ -1,6 +1,7 @@
 ﻿using GuildWars2.API;
 using GuildWars2.API.Model.Commerce;
 using GuildWars2.API.Model.Items;
+using GuildWars2.Data;
 using GuildWars2.Data.Database;
 using GuildWars2.Data.Model;
 using GuildWars2.Value;
@@ -14,31 +15,21 @@ namespace GuildWars2.Worker.Worker
     public class DyeWorker : IWorker
     {
         public async Task Run(CancellationToken token, params string[] apiKeys) {
-            foreach (var key in apiKeys) {
+            await Run(token, apiKeys.ToList());
+        }
+
+        public async Task Run(CancellationToken token, List<string> apiKeys) {
+            foreach (var apiKey in apiKeys) {                  
                 token.ThrowIfCancellationRequested();
-                var dyes = await GetAccountDyes(key);
-                var values = await ValueFactory.CalculateValue(dyes);
-                var totalValue = values.Sum(x => x.Value.Coins);
-                using (var db = new DataContextFactory().CreateDbContext()) {
-                    var user = db.User.FirstOrDefault(x => x.ID == db.Key.FirstOrDefault(y => y.APIKey.Equals(key)).UserID);
-                    if (user == null)
-                        continue;
+                var currentDyes = await GetAccountDyes(apiKey);
+                var savedDyes = DyeAPI.GetAccountDyes(apiKey);
+                var newDyes = currentDyes.Where(x => !savedDyes.Any(y => y.DyeID == x.ID)).ToList();
+                if(newDyes.Count > 0)
+                    DyeAPI.AddDyes(newDyes, apiKey);
 
-                    var latestEntry = db.CategoryValue.Where(x => x.UserID == user.ID && x.CategoryID == (int)CategoryType.Dyes).OrderByDescending(x => x.Date).FirstOrDefault();
-                    if (latestEntry == null)
-                        latestEntry = new CategoryValue { Value = 0 };
-                    db.CategoryValue.Add(new CategoryValue { CategoryID = (int)CategoryType.Dyes, Value = totalValue, Delta = totalValue - latestEntry.Value });
-
-                    var currentDyes = db.Dye.Where(x => x.UserID == user.ID).ToList();
-                    var newDyes = dyes.Where(x => !currentDyes.Any(y => y.DyeID == x.ID));
-                    var dyesToAdd = new List<Dye>();
-                    foreach (var dye in newDyes) {
-                        dyesToAdd.Add(new Dye { DyeID = dye.ID, UserID = user.ID });
-                    }
-                    db.Dye.AddRange(dyesToAdd);
-
-                    //await db.SaveChangesAsync();
-                }
+                var values = await ValueFactory.CalculateValue(currentDyes);
+                if (values.Count > 0)
+                    await DataAPI.AddCategoryEntry(CategoryType.Dyes, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
             }
         }
 
@@ -46,11 +37,6 @@ namespace GuildWars2.Worker.Worker
             var dyes = await AccountAPI.Dyes(apiKey);
             var colors = await MiscellaneousAPI.Colors(dyes);
             return await ItemAPI.Items(colors.Select(x => x.Item).ToList());
-        }
-
-        private async Task<ItemPrice> GetDyeValue(API.Model.Items.Item dye) {
-            var result = await ValueFactory.CalculateValue(dye);
-            return result.Value;
         }
     }
 }

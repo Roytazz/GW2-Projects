@@ -8,6 +8,6 @@ namespace GuildWars2.Worker.Worker
 {
     interface IWorker
     {
-        Task Run(CancellationToken token, params string[] apiKeys);        
+        Task Run(CancellationToken token, List<string> apiKeys);        
     }
 }
