@@ -9,11 +9,11 @@ namespace GuildWars2.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "GuildWars2.Data");
+                name: "GuildWars2.UserData");
 
             migrationBuilder.CreateTable(
                 name: "CategoryValue",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 columns: table => new
                 {
                     Date = table.Column<DateTime>(nullable: false),
@@ -31,7 +31,7 @@ namespace GuildWars2.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "User",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -45,7 +45,7 @@ namespace GuildWars2.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Dye",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 columns: table => new
                 {
                     Date = table.Column<DateTime>(nullable: false),
@@ -58,7 +58,7 @@ namespace GuildWars2.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Dye_User_UserID",
                         column: x => x.UserID,
-                        principalSchema: "GuildWars2.Data",
+                        principalSchema: "GuildWars2.UserData",
                         principalTable: "User",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -66,7 +66,7 @@ namespace GuildWars2.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Item",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 columns: table => new
                 {
                     Date = table.Column<DateTime>(nullable: false),
@@ -86,7 +86,7 @@ namespace GuildWars2.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Item_User_UserID",
                         column: x => x.UserID,
-                        principalSchema: "GuildWars2.Data",
+                        principalSchema: "GuildWars2.UserData",
                         principalTable: "User",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -94,7 +94,7 @@ namespace GuildWars2.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Key",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 columns: table => new
                 {
                     APIKey = table.Column<string>(nullable: false),
@@ -106,7 +106,7 @@ namespace GuildWars2.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Key_User_UserID",
                         column: x => x.UserID,
-                        principalSchema: "GuildWars2.Data",
+                        principalSchema: "GuildWars2.UserData",
                         principalTable: "User",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -114,11 +114,12 @@ namespace GuildWars2.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Mini",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 columns: table => new
                 {
                     Date = table.Column<DateTime>(nullable: false),
                     MiniID = table.Column<int>(nullable: false),
+                    ItemID = table.Column<int>(nullable: false),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -127,7 +128,7 @@ namespace GuildWars2.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Mini_User_UserID",
                         column: x => x.UserID,
-                        principalSchema: "GuildWars2.Data",
+                        principalSchema: "GuildWars2.UserData",
                         principalTable: "User",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -135,7 +136,7 @@ namespace GuildWars2.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Skin",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 columns: table => new
                 {
                     Date = table.Column<DateTime>(nullable: false),
@@ -148,7 +149,7 @@ namespace GuildWars2.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Skin_User_UserID",
                         column: x => x.UserID,
-                        principalSchema: "GuildWars2.Data",
+                        principalSchema: "GuildWars2.UserData",
                         principalTable: "User",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -156,7 +157,7 @@ namespace GuildWars2.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Wallet",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 columns: table => new
                 {
                     Date = table.Column<DateTime>(nullable: false),
@@ -164,7 +165,7 @@ namespace GuildWars2.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserID = table.Column<int>(nullable: false),
                     CurrencyID = table.Column<int>(nullable: false),
-                    Amount = table.Column<int>(nullable: false),
+                    Value = table.Column<int>(nullable: false),
                     Delta = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -173,7 +174,7 @@ namespace GuildWars2.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Wallet_User_UserID",
                         column: x => x.UserID,
-                        principalSchema: "GuildWars2.Data",
+                        principalSchema: "GuildWars2.UserData",
                         principalTable: "User",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -181,13 +182,13 @@ namespace GuildWars2.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Item_UserID",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 table: "Item",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Wallet_UserID",
-                schema: "GuildWars2.Data",
+                schema: "GuildWars2.UserData",
                 table: "Wallet",
                 column: "UserID");
         }
@@ -196,35 +197,35 @@ namespace GuildWars2.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CategoryValue",
-                schema: "GuildWars2.Data");
+                schema: "GuildWars2.UserData");
 
             migrationBuilder.DropTable(
                 name: "Dye",
-                schema: "GuildWars2.Data");
+                schema: "GuildWars2.UserData");
 
             migrationBuilder.DropTable(
                 name: "Item",
-                schema: "GuildWars2.Data");
+                schema: "GuildWars2.UserData");
 
             migrationBuilder.DropTable(
                 name: "Key",
-                schema: "GuildWars2.Data");
+                schema: "GuildWars2.UserData");
 
             migrationBuilder.DropTable(
                 name: "Mini",
-                schema: "GuildWars2.Data");
+                schema: "GuildWars2.UserData");
 
             migrationBuilder.DropTable(
                 name: "Skin",
-                schema: "GuildWars2.Data");
+                schema: "GuildWars2.UserData");
 
             migrationBuilder.DropTable(
                 name: "Wallet",
-                schema: "GuildWars2.Data");
+                schema: "GuildWars2.UserData");
 
             migrationBuilder.DropTable(
                 name: "User",
-                schema: "GuildWars2.Data");
+                schema: "GuildWars2.UserData");
         }
     }
 }

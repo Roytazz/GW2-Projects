@@ -21,14 +21,14 @@ namespace GuildWars2.Worker.Worker
             foreach (var apiKey in apiKeys) {
                 token.ThrowIfCancellationRequested();
                 var currentSkins = await GetAccountSkins(apiKey);
-                var savedSkins = SkinAPI.GetAccountSkins(apiKey);
+                var savedSkins = UserAPI.GetAccountSkins(apiKey);
                 var newSkins = currentSkins.Where(x => !savedSkins.Any(y => y.SkinID == x.ID)).ToList();
                 if (newSkins.Count > 0)
-                    await SkinAPI.AddSkins(newSkins, apiKey);
+                    await UserAPI.AddSkins(newSkins, apiKey);
 
                 var values = await ValueFactory.CalculateValue(currentSkins);
                 if(values.Count > 0)
-                    await DataAPI.AddCategoryEntry(CategoryType.Skins, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
+                    await UserAPI.AddCategoryEntry(CategoryType.Skins, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
             }
         }
 

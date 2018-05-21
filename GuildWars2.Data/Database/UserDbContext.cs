@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GuildWars2.Data.Database
 {
-    internal class GW2DataContext : DbContext {
+    internal class UserDbContext : DbContext {
         
-        internal const string SCHEMA_NAME = "GuildWars2.Data";
+        internal const string SCHEMA_NAME = "GuildWars2.UserData";
 
         #region Tables
         public DbSet<User> User { get; set; }
@@ -23,16 +23,16 @@ namespace GuildWars2.Data.Database
 
         public DbSet<WalletEntry> Wallet { get; set; }
 
-        public DbSet<Skin> Skin { get; set; }
+        public DbSet<Model.Skin> Skin { get; set; }
 
         public DbSet<Dye> Dye { get; set; }
 
         public DbSet<Mini> Mini { get; set; }
         #endregion Tables
 
-        public GW2DataContext() : base() { }
+        public UserDbContext() : base() { }
 
-        public GW2DataContext(DbContextOptions options) : base(options) { }
+        public UserDbContext(DbContextOptions options) : base(options) { }
         
         protected override void OnModelCreating(ModelBuilder builder) {
             builder.HasDefaultSchema(SCHEMA_NAME);
@@ -61,19 +61,6 @@ namespace GuildWars2.Data.Database
             foreach (var entry in entries) {
                 (entry.Entity as DateEntry).Date = date;
             }
-        }
-    }
-
-    internal class ContextFactory : IDesignTimeDbContextFactory<GW2DataContext> {
-
-        public GW2DataContext CreateDbContext() {
-            return CreateDbContext(new string[] { string.Empty });
-        }
-
-        public GW2DataContext CreateDbContext(string[] args) {
-            var builder = new DbContextOptionsBuilder<GW2DataContext>();
-            builder.UseSqlServer($"Server=(localdb)\\mssqllocaldb;Database=aspnet-{GW2DataContext.SCHEMA_NAME};Trusted_Connection=True;MultipleActiveResultSets=true");
-            return new GW2DataContext(builder.Options);
         }
     }
 }

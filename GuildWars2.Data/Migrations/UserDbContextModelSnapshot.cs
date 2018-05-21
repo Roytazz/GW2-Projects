@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GuildWars2.Data.Migrations
 {
-    [DbContext(typeof(GW2DataContext))]
-    partial class GW2DataContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(UserDbContext))]
+    partial class UserDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("GuildWars2.Data")
+                .HasDefaultSchema("GuildWars2.UserData")
                 .HasAnnotation("ProductVersion", "2.1.0-rc1-32029")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);

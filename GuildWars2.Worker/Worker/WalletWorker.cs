@@ -18,7 +18,7 @@ namespace GuildWars2.Worker.Worker
         public async Task Run(CancellationToken token, List<string> apiKeys) {
             foreach (var apiKey in apiKeys) {
                 var wallet = await AccountAPI.Wallet(apiKey);
-                await WalletAPI.AddWalletEntries(wallet, apiKey);
+                await UserAPI.AddWalletEntries(wallet, apiKey);
             }
         }
     }

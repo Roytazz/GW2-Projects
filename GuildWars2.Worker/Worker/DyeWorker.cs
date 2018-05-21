@@ -22,14 +22,14 @@ namespace GuildWars2.Worker.Worker
             foreach (var apiKey in apiKeys) {                  
                 token.ThrowIfCancellationRequested();
                 var currentDyes = await GetAccountDyes(apiKey);
-                var savedDyes = DyeAPI.GetAccountDyes(apiKey);
+                var savedDyes = UserAPI.GetAccountDyes(apiKey);
                 var newDyes = currentDyes.Where(x => !savedDyes.Any(y => y.DyeID == x.ID)).ToList();
                 if(newDyes.Count > 0)
-                    DyeAPI.AddDyes(newDyes, apiKey);
+                    UserAPI.AddDyes(newDyes, apiKey);
 
                 var values = await ValueFactory.CalculateValue(currentDyes);
                 if (values.Count > 0)
-                    await DataAPI.AddCategoryEntry(CategoryType.Dyes, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
+                    await UserAPI.AddCategoryEntry(CategoryType.Dyes, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
             }
         }
 
