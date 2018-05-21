@@ -7,6 +7,8 @@ namespace GuildWars2.Data.Model
         //[Key]
         public int MiniID { get; set; }
 
+        public int ItemID { get; set; }
+
         //[Key]
         public int UserID { get; set; }
 

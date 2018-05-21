@@ -23,7 +23,7 @@ namespace GuildWars2.Worker.Worker
                 var currentMinis = await GetAccountMinis(apiKey);
                 var savedMinis = MiniAPI.GetAccountMinis(apiKey);
                 var newMinis = currentMinis.Where(x => !savedMinis.Any(y => y.MiniID == x.ID)).ToList();
-                if (newMinis.Count > 0)
+                if (newMinis.Count > 0) 
                     MiniAPI.AddMinis(newMinis, apiKey);
 
                 var values = await ValueFactory.CalculateValue(currentMinis);
@@ -32,10 +32,9 @@ namespace GuildWars2.Worker.Worker
             }
         }
 
-        private async Task<List<API.Model.Items.Item>> GetAccountMinis(string apiKey) {
+        private async Task<List<API.Model.Miscellaneous.Mini>> GetAccountMinis(string apiKey) {
             var miniIDs = await AccountAPI.Minis(apiKey);
-            var minis = await MiscellaneousAPI.Minis(miniIDs);
-            return await ItemAPI.Items(minis.Select(x => x.ItemID).ToList());
+            return await MiscellaneousAPI.Minis(miniIDs);
         }
     }
 }
