@@ -1,5 +1,6 @@
 ﻿using GuildWars2.API.Model;
 using GuildWars2.API.Model.Items;
+using GuildWars2.Data.Model.Data;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -13,6 +14,8 @@ namespace GuildWars2.Data.Database
         internal const string SCHEMA_NAME = "GuildWars2.GW2Data";
 
         public DbSet<Item> Item { get; set; }
+
+        public DbSet<ItemSellable> ItemSellable { get; set; }
 
         public DataDbContext(DbContextOptions options) : base(options) { }
 
