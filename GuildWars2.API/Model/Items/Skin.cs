@@ -46,7 +46,7 @@ namespace GuildWars2.API.Model.Items
         ShowInWardrobe,
         NoCost,
         HideIfLocked,
-        OverrrideRarity
+        OverrideRarity
     }
 
     public enum SkinRestriction
