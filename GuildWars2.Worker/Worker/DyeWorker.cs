@@ -22,10 +22,10 @@ namespace GuildWars2.Worker.Worker
             foreach (var apiKey in apiKeys) {                  
                 token.ThrowIfCancellationRequested();
                 var currentDyes = await GetAccountDyes(apiKey);
-                var savedDyes = UserAPI.GetAccountDyes(apiKey);
+                var savedDyes = await UserAPI.GetAccountDyes(apiKey);
                 var newDyes = currentDyes.Where(x => !savedDyes.Any(y => y.DyeID == x.ID)).ToList();
                 if(newDyes.Count > 0)
-                    UserAPI.AddDyes(newDyes, apiKey);
+                    await UserAPI.AddDyes(newDyes, apiKey);
 
                 var values = await ValueFactory.CalculateValue(currentDyes);
                 if (values.Count > 0)

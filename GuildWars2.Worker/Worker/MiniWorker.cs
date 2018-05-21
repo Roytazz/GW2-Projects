@@ -21,10 +21,10 @@ namespace GuildWars2.Worker.Worker
             foreach (var apiKey in apiKeys) {
                 token.ThrowIfCancellationRequested();
                 var currentMinis = await GetAccountMinis(apiKey);
-                var savedMinis = UserAPI.GetAccountMinis(apiKey);
+                var savedMinis = await UserAPI.GetAccountMinis(apiKey);
                 var newMinis = currentMinis.Where(x => !savedMinis.Any(y => y.MiniID == x.ID)).ToList();
                 if (newMinis.Count > 0)
-                    UserAPI.AddMinis(newMinis, apiKey);
+                    await UserAPI.AddMinis(newMinis, apiKey);
 
                 var values = await ValueFactory.CalculateValue(currentMinis);
                 if (values.Count > 0)

@@ -16,6 +16,10 @@ namespace GuildWars2.Worker.ValueService
         }
 
         public Task<List<ValueResult<Skin>>> CalculateValue(List<Skin> items, bool takeHighestValue) {
+            foreach (var skin in items {
+
+            }
+
             throw new NotImplementedException();    //Get all items with the given SkinID and compare their values. 
         }                                           //To do this, we want to index all items first, instead of calling the API every time.
 

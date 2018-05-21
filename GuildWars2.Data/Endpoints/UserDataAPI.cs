@@ -1,6 +1,7 @@
 ﻿using GuildWars2.API;
 using GuildWars2.Data.Database;
 using GuildWars2.Data.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,18 +14,18 @@ namespace GuildWars2.Data
     public static class UserAPI            
     {
         #region Dyes
-        public static List<Dye> GetAccountDyes(string apiKey) {
+        public static async Task<List<Dye>> GetAccountDyes(string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user != null)
-                    return db.Dye.Where(x => x.UserID == user.ID).ToList();
+                    return await db.Dye.Where(x => x.UserID == user.ID).ToListAsync();
             }
             return new List<Dye>();
         }
 
-        public static async void AddDyes(List<API.Model.Items.Item> dyes, string apiKey) {
+        public static async Task AddDyes(List<API.Model.Items.Item> dyes, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user == null)
                     return;
                 foreach (var dye in dyes) {
@@ -36,18 +37,18 @@ namespace GuildWars2.Data
         #endregion Dyes
 
         #region Minis
-        public static List<Mini> GetAccountMinis(string apiKey) {
+        public static async Task<List<Mini>> GetAccountMinis(string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user != null)
-                    return db.Mini.Where(x => x.UserID == user.ID).ToList();
+                    return await db.Mini.Where(x => x.UserID == user.ID).ToListAsync();
             }
             return new List<Mini>();
         }
 
-        public static async void AddMinis(List<API.Model.Miscellaneous.Mini> minis, string apiKey) {
+        public static async Task AddMinis(List<API.Model.Miscellaneous.Mini> minis, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user == null)
                     return;
                 foreach (var mini in minis) {
@@ -59,18 +60,18 @@ namespace GuildWars2.Data
         #endregion Minis
 
         #region Skins
-        public static List<Skin> GetAccountSkins(string apiKey) {
+        public static async Task<List<Skin>> GetAccountSkins(string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user != null)
-                    return db.Skin.Where(x => x.UserID == user.ID).ToList();
+                    return await db.Skin.Where(x => x.UserID == user.ID).ToListAsync();
             }
             return new List<Skin>();
         }
 
         public static async Task AddSkins(List<API.Model.Items.Skin> skins, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user == null)
                     return;
                 foreach (var skin in skins) {
@@ -84,12 +85,12 @@ namespace GuildWars2.Data
         #region Wallet
         public static async Task AddWalletEntries(List<API.Model.Account.WalletEntry> entries, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user == null)
                     return;
 
                 foreach (var entry in entries) {
-                    var latestEntry = db.Wallet.Where(x => x.UserID == user.ID && x.CurrencyID == entry.ID).OrderByDescending(x => x.Date).FirstOrDefault();
+                    var latestEntry = await db.Wallet.Where(x => x.UserID == user.ID && x.CurrencyID == entry.ID).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
                     if (latestEntry != null)
                         db.Wallet.Add(new Model.WalletEntry { UserID = user.ID, CurrencyID = entry.ID, Value = entry.Value, Delta = entry.Value - latestEntry.Value });
                     else
@@ -102,11 +103,11 @@ namespace GuildWars2.Data
 
         public async static Task AddCategoryEntry(CategoryType type, int value, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user == null)
                     return;
 
-                var latestEntry = db.CategoryValue.Where(x => x.UserID == user.ID && x.Category == type).OrderByDescending(x => x.Date).FirstOrDefault();
+                var latestEntry = await db.CategoryValue.Where(x => x.UserID == user.ID && x.Category == type).OrderByDescending(x => x.Date).FirstOrDefaultAsync();
                 if (latestEntry == null)
                     db.CategoryValue.Add(new CategoryValue { Category = type, Value = value, Delta = 0, UserID = user.ID });
                 else
@@ -116,11 +117,11 @@ namespace GuildWars2.Data
             }
         }
 
-        internal static User GetUser(string apiKey) {
+        internal static async Task<User> GetUser(string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
                 if (db.Key.Any(x => x.APIKey.Equals(apiKey))) {
-                    var key = db.Key.FirstOrDefault(x => x.APIKey.Equals(apiKey));
-                    return db.User.FirstOrDefault(x => x.ID == key.UserID);
+                    var key = await db.Key.FirstOrDefaultAsync(x => x.APIKey.Equals(apiKey));
+                    return await db.User.FirstOrDefaultAsync(x => x.ID == key.UserID);
                 }
                 else
                     return null;
@@ -129,7 +130,7 @@ namespace GuildWars2.Data
 
         public static async Task AddUser(string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = GetUser(apiKey);
+                var user = await GetUser(apiKey);
                 if (user == null) {
                     var account = await AccountAPI.Account(apiKey);
                     if (db.User.Any(x => x.AccountName.Equals(account.Name))) {

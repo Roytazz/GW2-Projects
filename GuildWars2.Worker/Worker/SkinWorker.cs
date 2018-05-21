@@ -21,7 +21,7 @@ namespace GuildWars2.Worker.Worker
             foreach (var apiKey in apiKeys) {
                 token.ThrowIfCancellationRequested();
                 var currentSkins = await GetAccountSkins(apiKey);
-                var savedSkins = UserAPI.GetAccountSkins(apiKey);
+                var savedSkins = await UserAPI.GetAccountSkins(apiKey);
                 var newSkins = currentSkins.Where(x => !savedSkins.Any(y => y.SkinID == x.ID)).ToList();
                 if (newSkins.Count > 0)
                     await UserAPI.AddSkins(newSkins, apiKey);
