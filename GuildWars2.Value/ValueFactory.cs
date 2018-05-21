@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using GuildWars2.API.Items;
 using System.Reflection;
 using System.IO;
 
@@ -18,6 +17,7 @@ namespace GuildWars2.Value
                 if (serviceObj == null)
                     continue;
 
+                items = items.Where(x => serviceObj.IsApplicable(x)).ToList();
                 var valueResults = await serviceObj.CalculateValue(items, takeHighestValue);
                 foreach (var result in valueResults) {
                     if (correctValues.Any(x => x.Item.GetHashCode() == result.Item.GetHashCode())) {
