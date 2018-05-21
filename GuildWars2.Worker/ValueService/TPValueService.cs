@@ -1,10 +1,8 @@
-﻿using GuildWars2.API.Model.Commerce;
-using GuildWars2.API.Model.Items;
+﻿using GuildWars2.API.Model.Items;
+using GuildWars2.Data.Endpoints;
 using GuildWars2.Value;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GuildWars2.Worker.ValueService
@@ -17,7 +15,8 @@ namespace GuildWars2.Worker.ValueService
         }
 
         public async Task<List<ValueResult<Item>>> CalculateValue(List<Item> items, bool takeHighestValue) {
-            var listings = await API.CommerceAPI.ListingsAggregated(items.ToList().Select(item => item.ID).ToList());
+            var sellableItems = await DataAPI.GetItemSellable(items.Select(x => x.ID).ToList());
+            var listings = await API.CommerceAPI.ListingsAggregated(sellableItems);
             if (listings == null)
                 return null;
 
