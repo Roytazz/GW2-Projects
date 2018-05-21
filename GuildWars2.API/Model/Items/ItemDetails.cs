@@ -83,16 +83,19 @@ namespace GuildWars2.API.Model.Items
         public int MaxPower { get; set; }
     }
 
-    public enum ConsumableUnlockType
+    public enum ConsumableUnlockType    
     {
         BagSlot,
         BankTab,
+        Champion,
         CollectibleCapacity,
         Content,
         CraftingRecipe,
         Dye,
-        Outfit,
         GliderSkin,
-        Champion
+        Minipet,
+        Ms,
+        Outfit,
+        SharedSlot
     }
 }

@@ -62,6 +62,7 @@ namespace GuildWars2.API.Model.Items
         CraftingMaterial,
         Gathering,
         Gizmo,
+        Key,
         MiniPet,
         Tool,
         Trait,
@@ -73,11 +74,13 @@ namespace GuildWars2.API.Model.Items
 
     public enum ItemFlag
     {
+        Attuned,
         AccountBindOnUse,
         AccountBound,
         BulkConsume,
         DeleteWarning,
         HideSuffix,
+        Infused,
         MonsterOnly,
         NoMysticForge,
         NoSalvage,
@@ -86,6 +89,7 @@ namespace GuildWars2.API.Model.Items
         NoUnderwater,
         SoulbindOnAcquire,
         SoulBindOnUse,
+        Tonic,
         Unique
     }
 
@@ -104,6 +108,8 @@ namespace GuildWars2.API.Model.Items
         Ranger,
         Thief,
         Warrior,
-        Revenant
+        Revenant,
+        Female,
+        Male
     }
 }
