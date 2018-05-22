@@ -23,10 +23,11 @@ namespace GuildWars2.Worker.ValueService
             var result = new List<ValueResult<Item>>();
             foreach (var item in items) {
                 if (listings.Any(x => x.ItemID == item.ID)) {
-                    if (takeHighestValue)
-                        result.Add(new ValueResult<Item> { Item = item, Value = listings.Where(x => x.ItemID == item.ID).FirstOrDefault().Sells?.Price });
-                    else
-                        result.Add(new ValueResult<Item> { Item = item, Value = listings.Where(x => x.ItemID == item.ID).FirstOrDefault().Buys?.Price });
+                    var listing = listings.Where(x => x.ItemID == item.ID).FirstOrDefault();
+                    if (takeHighestValue) 
+                        result.Add(new ValueResult<Item> { Item = item, Value = listing.Sells?.Price });
+                    else 
+                        result.Add(new ValueResult<Item> { Item = item, Value = listing.Buys?.Price });
                 }
                 else
                     result.Add(new ValueResult<Item> { Item = item });
