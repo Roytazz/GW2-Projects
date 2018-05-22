@@ -52,6 +52,17 @@ namespace GuildWars2.Data.Endpoints
                 await db.SaveChangesAsync();
             }
         }
+
+        public static async Task<Dictionary<int, List<int>>> GetSkinItemGroups(List<int> skinIDs) {
+            var result = new Dictionary<int, List<int>>();
+            using (var db = new DataContextFactory().CreateDbContext()) {
+                foreach (var skinID in skinIDs) {
+                    var items = await db.Item.Where(x => x.DefaultSkin == skinID).Select(x=>x.ID).ToListAsync();
+                    result.Add(skinID, items);
+                }
+            }
+            return result;
+        }
         #endregion Items
 
         #region ItemSellable

@@ -1,6 +1,8 @@
-﻿using GuildWars2.API.Model.Items;
+﻿using GuildWars2.API;
+using GuildWars2.API.Model.Items;
 using GuildWars2.Data.Endpoints;
 using GuildWars2.Value;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +19,24 @@ namespace GuildWars2.Worker.ValueService
         }
 
         public async Task<List<ValueResult<Skin>>> CalculateValue(List<Skin> items, bool takeHighestValue) {
-            var skinItems = await DataAPI.GetItems((x) => items.Select(y=>y.ID).Contains(x.DefaultSkin));
-            skinItems = skinItems.GroupBy(x => x.ID).Select(x => x.First()).ToList();
-            var values = await ValueFactory.CalculateValue(skinItems, takeHighestValue);
-            values = values.Where(x => x.Value != null).ToList();
+            var skinItemGrps = await DataAPI.GetSkinItemGroups(items.Select(x => x.ID).ToList());
+            List<int> ids = new List<int>();
+            foreach (var IDGroup in skinItemGrps.Values) {
+                ids.AddRange(IDGroup);
+            }
+            var sellableItems = await DataAPI.GetItemSellable(ids);
+            var allListings = await CommerceAPI.ListingsAggregated(sellableItems);
 
             var results = new List<ValueResult<Skin>>();
-            foreach (var skin in items) {
-                var highestValue = values.Where(x => x.Item.DefaultSkin == skin.ID).OrderByDescending(x => x.Value?.Coins).FirstOrDefault();
-                results.Add(new ValueResult<Skin> { Item = skin, Value = highestValue?.Value });
+            foreach (var skin in skinItemGrps) {
+                if (takeHighestValue) {
+                    var listing = allListings.Where(x => skin.Value.Contains(x.ItemID)).OrderBy(x => x.Sells.Price).FirstOrDefault();
+                    results.Add(new ValueResult<Skin> { Item = items.Where(x=>x.ID == skin.Key).FirstOrDefault(), Value = listing?.Sells.Price });
+                }
+                else {
+                    var listing = allListings.Where(x => skin.Value.Contains(x.ItemID)).OrderBy(x => x.Sells.Price).FirstOrDefault();
+                    results.Add(new ValueResult<Skin> { Item = items.Where(x => x.ID == skin.Key).FirstOrDefault(), Value = listing?.Buys.Price });
+                }
             }
             return results;                      
         }                                           

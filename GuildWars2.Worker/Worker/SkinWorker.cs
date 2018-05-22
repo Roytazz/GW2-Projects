@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GuildWars2.Worker.Worker
 {
-    class SkinWorker : IWorker
+    public class SkinWorker : IWorker
     {
         public async Task Run(CancellationToken token, params string[] apiKeys) {
             await Run(token, apiKeys.ToList());
@@ -27,7 +27,8 @@ namespace GuildWars2.Worker.Worker
                     await UserAPI.AddSkins(newSkins, apiKey);
 
                 var values = await ValueFactory.CalculateValue(currentSkins);
-                if(values.Count > 0)
+                values = values.OrderByDescending(x => x.Value?.Coins).ToList();
+                if (values.Count > 0) 
                     await UserAPI.AddCategoryEntry(CategoryType.Skins, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
             }
         }
