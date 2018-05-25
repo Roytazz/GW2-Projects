@@ -33,6 +33,7 @@ namespace GuildWars2.Data.Model
         GuildBank = 2,
         Character = 3,
         SharedInventory = 4,
-        MaterialStorage = 5
+        MaterialStorage = 5,
+        DeliveryBox = 6
     }
 }
