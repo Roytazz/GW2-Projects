@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GuildWars2.Worker
 {
-    public class WalletWorker : IAccountWorker
+    public class WalletWorker : IUserWorker
     {
         public async Task Run(CancellationToken token, params string[] apiKeys) {
             await Run(token, apiKeys.ToList());

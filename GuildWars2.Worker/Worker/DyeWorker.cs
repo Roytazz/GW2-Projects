@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GuildWars2.Worker
 {
-    public class DyeWorker : IAccountWorker
+    public class DyeWorker : IUserWorker
     {
         public async Task Run(CancellationToken token, params string[] apiKeys) {
             await Run(token, apiKeys.ToList());

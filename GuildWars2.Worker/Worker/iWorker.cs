@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GuildWars2.Worker
 {
-    interface IAccountWorker
+    interface IUserWorker
     {
         Task Run(CancellationToken token, List<string> apiKeys);        
     }
 
-    interface IWorker
+    interface IDataWorker
     {
         Task Run(CancellationToken token);
     }
