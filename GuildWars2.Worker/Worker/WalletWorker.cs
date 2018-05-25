@@ -1,15 +1,13 @@
 ﻿using GuildWars2.API;
 using GuildWars2.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GuildWars2.Worker.Worker
+namespace GuildWars2.Worker
 {
-    public class WalletWorker : IWorker
+    public class WalletWorker : IAccountWorker
     {
         public async Task Run(CancellationToken token, params string[] apiKeys) {
             await Run(token, apiKeys.ToList());

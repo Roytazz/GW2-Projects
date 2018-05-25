@@ -4,10 +4,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GuildWars2.Worker.Worker
+namespace GuildWars2.Worker
 {
-    interface IWorker
+    interface IAccountWorker
     {
         Task Run(CancellationToken token, List<string> apiKeys);        
+    }
+
+    interface IWorker
+    {
+        Task Run(CancellationToken token);
     }
 }

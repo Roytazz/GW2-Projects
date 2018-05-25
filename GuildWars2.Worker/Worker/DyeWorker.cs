@@ -1,8 +1,5 @@
 ﻿using GuildWars2.API;
-using GuildWars2.API.Model.Commerce;
-using GuildWars2.API.Model.Items;
 using GuildWars2.Data;
-using GuildWars2.Data.Database;
 using GuildWars2.Data.Model;
 using GuildWars2.Value;
 using System.Collections.Generic;
@@ -10,9 +7,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GuildWars2.Worker.Worker
+namespace GuildWars2.Worker
 {
-    public class DyeWorker : IWorker
+    public class DyeWorker : IAccountWorker
     {
         public async Task Run(CancellationToken token, params string[] apiKeys) {
             await Run(token, apiKeys.ToList());

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GuildWars2.Worker.Worker
+namespace GuildWars2.Worker
 {
-    public class SkinWorker : IWorker
+    public class SkinWorker : IAccountWorker
     {
         public async Task Run(CancellationToken token, params string[] apiKeys) {
             await Run(token, apiKeys.ToList());
