@@ -73,7 +73,7 @@ namespace GuildWars2.Worker.ValueService
         }
     }
     
-    internal class ItemAmountHelper
+    class ItemAmountHelper
     {
         public int ItemID { get; set; }
         public int Amount { get; set; }
