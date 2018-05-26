@@ -20,20 +20,7 @@ namespace GuildWars2.Data.Model
 
         public int Delta { get; set; }
 
-        public InventoryType Location { get; set; }
-
         [ForeignKey(nameof(UserID))]
         public User User { get; set; }
-    }
-
-    public enum InventoryType
-    {
-        Unknown = 0,
-        Bank = 1,
-        GuildBank = 2,
-        Character = 3,
-        SharedInventory = 4,
-        MaterialStorage = 5,
-        DeliveryBox = 6
     }
 }
