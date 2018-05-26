@@ -25,4 +25,8 @@
     <Folder Include="Sceduler\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="JsonDiffPatch.Net" Version="2.1.0" />
+  </ItemGroup>
+
 </Project>
