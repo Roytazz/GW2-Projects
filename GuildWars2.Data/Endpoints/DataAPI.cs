@@ -3,11 +3,9 @@ using GuildWars2.API.Model.Items;
 using GuildWars2.Data.Database;
 using GuildWars2.Data.Model.Data;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GuildWars2.Data.Endpoints
@@ -19,15 +17,10 @@ namespace GuildWars2.Data.Endpoints
             using(var db = new DataContextFactory().CreateDbContext()) {
                 foreach (var item in items) {
                     if (db.Item.Any(x => x.ID == item.ID)) {
-                        var foundItem = await db.Item.FirstOrDefaultAsync(x => x.ID == item.ID);
-                        if (!foundItem.IsEqual(item)) {
-                            var dbItem = await db.Item.FirstOrDefaultAsync(x => x.ID == item.ID);
-                            db.Item.Remove(dbItem);
-                            db.Item.Add(item);
-                        }
+                        var existingItem = await db.Item.FirstOrDefaultAsync(x => x.ID == item.ID);
+                        db.Item.Remove(existingItem);
                     }
-                    else
-                        db.Item.Add(item);
+                    db.Item.Add(item);
                 }
                 await db.SaveChangesAsync();
             }
@@ -66,11 +59,12 @@ namespace GuildWars2.Data.Endpoints
         #endregion Items
 
         #region ItemSellable
-        public static async Task AddItemSellable(List<Item> items, List<ItemListingAggregated> listings) {  
+        public static async Task AddItemSellable(List<Item> items, List<ItemListingAggregated> listings) {   
             using (var db = new DataContextFactory().CreateDbContext()) {
+                var existingItems = db.ItemSellable.Where(x => items.Select(y => y.ID).ToList().Contains(x.ItemID));
                 foreach (var item in items) {
                     var isSellable = listings.Any(x => x.ItemID == item.ID);
-                    if (isSellable && db.ItemSellable.Any(x => x.ItemID == item.ID)) {
+                    if (isSellable && existingItems.Any(x => x.ItemID == item.ID)) {
                         var existingItem = await db.ItemSellable.FirstOrDefaultAsync(x => x.ItemID == item.ID);
                         db.Attach(existingItem);
                         existingItem.Sellable = isSellable;
@@ -93,13 +87,5 @@ namespace GuildWars2.Data.Endpoints
             }
         }
         #endregion ItemSellable
-    }
-
-    public static class ItemExtension
-    {
-        public static bool IsEqual(this Item obj, Item item) {
-            //TODO
-            return true;
-        }
     }
 }
