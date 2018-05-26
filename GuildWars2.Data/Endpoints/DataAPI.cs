@@ -15,11 +15,11 @@ namespace GuildWars2.Data.Endpoints
         #region Items
         public static async Task AddItems(List<Item> items) {
             using(var db = new DataContextFactory().CreateDbContext()) {
+                var existingItems = await db.Item.Where(x => items.Select(y=>y.ID).Contains(x.ID)).ToListAsync();
                 foreach (var item in items) {
-                    if (db.Item.Any(x => x.ID == item.ID)) {
-                        var existingItem = await db.Item.FirstOrDefaultAsync(x => x.ID == item.ID);
-                        db.Item.Remove(existingItem);
-                    }
+                    if (db.Item.Any(x => x.ID == item.ID)) 
+                        db.Item.Remove(existingItems.FirstOrDefault(x=>x.ID == item.ID));
+                    
                     db.Item.Add(item);
                 }
                 await db.SaveChangesAsync();
@@ -61,11 +61,11 @@ namespace GuildWars2.Data.Endpoints
         #region ItemSellable
         public static async Task AddItemSellable(List<Item> items, List<ItemListingAggregated> listings) {   
             using (var db = new DataContextFactory().CreateDbContext()) {
-                var existingItems = db.ItemSellable.Where(x => items.Select(y => y.ID).ToList().Contains(x.ItemID));
+                var existingItems = await db.ItemSellable.Where(x => items.Select(y => y.ID).Contains(x.ItemID)).ToListAsync();
                 foreach (var item in items) {
                     var isSellable = listings.Any(x => x.ItemID == item.ID);
-                    if (isSellable && existingItems.Any(x => x.ItemID == item.ID)) {
-                        var existingItem = await db.ItemSellable.FirstOrDefaultAsync(x => x.ItemID == item.ID);
+                    if (existingItems.Any(x => x.ItemID == item.ID)) {
+                        var existingItem = existingItems.FirstOrDefault(x => x.ItemID == item.ID);
                         db.Attach(existingItem);
                         existingItem.Sellable = isSellable;
                     }
