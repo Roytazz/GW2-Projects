@@ -164,7 +164,7 @@ namespace GuildWars2.API
         public static Task<DeliveryBox> DeliveryBox(string apiKey) {
             return Builder.AddDirective("commerce")
                 .AddDirective("delivery")
-                .RequestAsync<DeliveryBox>();
+                .RequestAsync<DeliveryBox>(apiKey);
         }
     }
 }
