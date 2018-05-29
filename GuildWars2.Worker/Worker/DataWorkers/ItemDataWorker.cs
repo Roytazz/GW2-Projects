@@ -14,7 +14,7 @@ namespace GuildWars2.Worker.DataWorker
         private static readonly int MAX_ITEM_PER_PAGE = 200;
 
         public async Task Run(CancellationToken token) {
-            var page = 228;
+            var page = 0;
             Write(nameof(ItemDataWorker) + " starting...");
             while (true) {
                 Write("Requesting Page #" + page + "...");
