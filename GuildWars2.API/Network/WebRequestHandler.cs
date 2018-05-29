@@ -36,7 +36,8 @@ namespace GuildWars2.API.Network
                 }
             }
             catch (WebException ex) {
-                Debug.WriteLine($"[ERROR] NetworkManager couldn't resolve the result: {GetWebExDetail(ex)}");
+                Debug.WriteLine($"[ERROR] {request.RequestUri.PathAndQuery}");
+                Debug.WriteLine(GetWebExDetail(ex));
                 return new T();
             }
             catch (Exception ex) {
