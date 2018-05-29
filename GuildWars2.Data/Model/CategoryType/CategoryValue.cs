@@ -26,6 +26,7 @@ namespace GuildWars2.Data.Model
         SharedInventory = 4,
         Skins = 5,
         Dyes = 6,
-        Minis = 7
+        Minis = 7,
+        DeliveryBox = 8
     }
 }

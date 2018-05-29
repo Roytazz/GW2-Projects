@@ -13,6 +13,25 @@ namespace GuildWars2.Data
     /// </summary>
     public static class UserAPI            
     {
+        #region Items
+        public static async Task AddAccountItems(List<Item> items, string apiKey) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                var user = await GetUser(apiKey);
+                if (user == null)
+                    return;
+
+                var currentItems = await db.Item.Where(x => x.UserID == user.ID).ToListAsync();
+                var newItems = GetDifference(items, currentItems);
+                newItems.ForEach(x => x.UserID = user.ID);
+
+                db.RemoveRange(currentItems);
+                db.AddRange(newItems);
+
+                await db.SaveChangesAsync();
+            }
+        }
+        #endregion Items
+
         #region Dyes
         public static async Task<List<Dye>> GetAccountDyes(string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
@@ -101,6 +120,7 @@ namespace GuildWars2.Data
         }
         #endregion Wallet
 
+        #region Category
         public async static Task AddCategoryEntry(CategoryType type, int value, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
                 var user = await GetUser(apiKey);
@@ -116,7 +136,9 @@ namespace GuildWars2.Data
                 await db.SaveChangesAsync();
             }
         }
+        #endregion Category
 
+        #region User
         internal static async Task<User> GetUser(string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
                 if (db.Key.Any(x => x.APIKey.Equals(apiKey))) {
@@ -146,6 +168,42 @@ namespace GuildWars2.Data
                     await db.SaveChangesAsync();
                 }
             }
+        }
+        #endregion User
+
+        private static List<Item> GetDifference(List<Item> newItems, List<Item> oldItems) {
+            var result = new List<Item>();
+            foreach (var newItem in newItems) {
+                if(oldItems.Any(x=>x.ItemID == newItem.ItemID && x.SkinID == newItem.SkinID && x.StatID == newItem.StatID)) {
+                    var oldItem = oldItems.FirstOrDefault(x => x.ItemID == newItem.ItemID && x.SkinID == newItem.SkinID && x.StatID == newItem.StatID);
+                    result.Add(new Item {
+                        ItemID = newItem.ItemID,
+                        SkinID = newItem.SkinID,
+                        StatID = newItem.StatID,
+                        Amount = newItem.Amount,
+                        Delta = newItem.Amount - oldItem.Amount
+                    });
+                }
+                else {
+                    result.Add(newItem);
+                }
+            }
+
+            foreach (var oldItem in oldItems) {
+                if (!newItems.Any(x => x.ItemID == oldItem.ItemID && x.SkinID == oldItem.SkinID && x.StatID == oldItem.StatID)) {
+                    if (oldItem.Amount != 0) {          //Dont want to add another entry with 0 amount, to prevent endless 0-amount entries for items that dont exist anymore.
+                        result.Add(new Item {
+                            ItemID = oldItem.ItemID,
+                            SkinID = oldItem.SkinID,
+                            StatID = oldItem.StatID,
+                            Amount = 0,
+                            Delta = oldItem.Amount * -1
+                        });
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }
