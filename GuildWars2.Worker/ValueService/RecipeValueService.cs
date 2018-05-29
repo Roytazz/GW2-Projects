@@ -47,9 +47,9 @@ namespace GuildWars2.Worker.ValueService
             ItemPrice itemPrice = null;                                                                                         //Might be bcs the wiki uses vendor prices and we only use TP prices.
             if (listings.Any(x => x.ItemID == node.ItemID)) {                                                                   //Will improve further with visual representation eventually.
                 if(takeHighestValue)
-                    itemPrice = listings.Find(x => x.ItemID == node.ItemID).Sells.Price;
+                    itemPrice = listings.FirstOrDefault(x => x.ItemID == node.ItemID).Sells.Price;
                 else
-                    itemPrice = listings.Find(x => x.ItemID == node.ItemID).Buys.Price;
+                    itemPrice = listings.FirstOrDefault(x => x.ItemID == node.ItemID).Buys.Price;
             }
 
             ItemPrice allChildrenValue = null;
