@@ -13,38 +13,34 @@ namespace GuildWars2.Worker.DataWorker
     {
         private static readonly int MAX_ITEM_PER_PAGE = 200;
 
+        public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+
         public async Task Run(CancellationToken token) {
             var page = 0;
-            Write(nameof(ItemDataWorker) + " starting...");
             while (true) {
-                Write("Requesting Page #" + page + "...");
+                token.ThrowIfCancellationRequested();
+
+                SetProgress("Requesting Page #" + page + "...", 0);
                 var pageResult = await ItemAPI.Items(MAX_ITEM_PER_PAGE, page);
+                SetProgress("Retrieving saved items", 10);
                 var itemIDs = pageResult.Select(x => x.ID).ToList();
                 var dbItems = await DataAPI.GetItems(itemIDs);
+                SetProgress("Comparing saved and retrieved items", 35);
                 var newItems = GetNewItems(pageResult, dbItems);
 
-                Write("Retrieved " + newItems.Count + " new/changed items. Saving to DB...");
-
+                SetProgress("Saving" + newItems.Count + " new/changed items", 50);
                 await DataAPI.AddItems(newItems);
-                Write("Saving completed! Requesting ItemListings...");
 
+                SetProgress("Requesting ItemListings", 80);
                 var listings = await CommerceAPI.ListingsAggregated(pageResult.Select(x => x.ID).ToList());
 
-                Write("Done Requesting ItemListings. Saving to DB...");
-
+                SetProgress("Updating ItemListings", 90);
                 await DataAPI.AddItemSellable(pageResult, listings);
-                Write("Saving completed!");
 
                 page++;
                 if (pageResult.Count < 200)
                     break;
             }
-            Write(string.Empty);
-            Write(nameof(ItemDataWorker) + " done.");
-        }
-
-        private void Write(string msg) {
-            Console.WriteLine(msg);
         }
 
         private List<Item> GetNewItems(List<Item> apiItems, List<Item> dbItems) {
@@ -59,6 +55,10 @@ namespace GuildWars2.Worker.DataWorker
                     result.Add(apiItem);
             }
             return result;
+        }
+
+        private void SetProgress(string msg, int partialProgress) {
+            ProgressChanged?.Invoke(this, new ProgressChangedEventArgs { Message = msg, PartialProgress = partialProgress });
         }
     }
 }

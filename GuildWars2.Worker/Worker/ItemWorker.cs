@@ -5,6 +5,7 @@ using GuildWars2.API.Model.Commerce;
 using GuildWars2.API.Model.Items;
 using GuildWars2.Data;
 using GuildWars2.Value;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -14,35 +15,55 @@ namespace GuildWars2.Worker
 {
     public class ItemWorker : IUserWorker
     {
+        public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+
         public async Task Run(CancellationToken token, params string[] apiKeys) {
             await Run(token, apiKeys.ToList());
         }
 
         public async Task Run(CancellationToken token, List<string> apiKeys) {
             foreach (string apiKey in apiKeys) {
+                token.ThrowIfCancellationRequested();
+                var overallProgress = (apiKeys.IndexOf(apiKey) / apiKeys.Count) * 100;
+
+                SetProgress("Retrieving account items", 0, overallProgress);
                 var account = new AccountInventory();
                 await account.Populate(apiKey);
 
+                SetProgress("Saving account items", 15, overallProgress);
                 await UserAPI.AddAccountItems(account.Total(), apiKey);
+                SetProgress("Saving wallet entries", 20, overallProgress);
                 await UserAPI.AddWalletEntries(account.Wallet, apiKey);
 
+                SetProgress("Calculating deliverybox value", 40, overallProgress);
+                var deliveryBoxValues = await ValueFactory.CalculateValue(ConvertToSimpleAPIItem(account.DeliveryBox));
+                SetProgress("Saving deliverybox value", 45, overallProgress);
+                await UserAPI.AddCategoryEntry(Data.Model.CategoryType.DeliveryBox, MultiplyAmounts(account.DeliveryBox, deliveryBoxValues), apiKey);
+
+                SetProgress("Calculating bank value", 50, overallProgress);
                 var bankValue = await ValueFactory.CalculateValue(ConvertToSimpleAPIItem(account.Bank));
+                SetProgress("Saving bank value", 55, overallProgress);
                 await UserAPI.AddCategoryEntry(Data.Model.CategoryType.Bank, MultiplyAmounts(account.Bank, bankValue), apiKey);
 
+                SetProgress("Calculating characters value", 60, overallProgress);
                 var characterValues = await ValueFactory.CalculateValue(ConvertToSimpleAPIItem(account.Characters));
+                SetProgress("Saving characters value", 65, overallProgress);
                 await UserAPI.AddCategoryEntry(Data.Model.CategoryType.Characters, MultiplyAmounts(account.Characters, characterValues), apiKey);
 
+                SetProgress("Calculating guildbank value", 70, overallProgress);
                 var guildBankValues = await ValueFactory.CalculateValue(ConvertToSimpleAPIItem(account.GuildBank));
+                SetProgress("Saving guildbank value", 75, overallProgress);
                 await UserAPI.AddCategoryEntry(Data.Model.CategoryType.GuildBank, MultiplyAmounts(account.GuildBank, guildBankValues), apiKey);
 
+                SetProgress("Calculating material storage value", 80, overallProgress);
                 var materialValues = await ValueFactory.CalculateValue(ConvertToSimpleAPIItem(account.MaterialStorage));
+                SetProgress("Saving material storage value", 85, overallProgress);
                 await UserAPI.AddCategoryEntry(Data.Model.CategoryType.MaterialStorage, MultiplyAmounts(account.MaterialStorage, materialValues), apiKey);
 
+                SetProgress("Caculating shared inventory value", 90, overallProgress);
                 var sharedInventoryValues = await ValueFactory.CalculateValue(ConvertToSimpleAPIItem(account.SharedInventory));
+                SetProgress("Saving shared inventory value", 95, overallProgress);
                 await UserAPI.AddCategoryEntry(Data.Model.CategoryType.SharedInventory, MultiplyAmounts(account.SharedInventory, sharedInventoryValues), apiKey);
-
-                var deliveryBoxValues = await ValueFactory.CalculateValue(ConvertToSimpleAPIItem(account.DeliveryBox));
-                await UserAPI.AddCategoryEntry(Data.Model.CategoryType.DeliveryBox, MultiplyAmounts(account.DeliveryBox, deliveryBoxValues), apiKey);
             }
         }
 
@@ -62,6 +83,10 @@ namespace GuildWars2.Worker
             }
 
             return totalValue;
+        }
+
+        private void SetProgress(string msg, int partialProgress, int overallProgress) {
+            ProgressChanged?.Invoke(this, new ProgressChangedEventArgs { Message = msg, PartialProgress = partialProgress, OverallProgress = overallProgress });
         }
     }
 
