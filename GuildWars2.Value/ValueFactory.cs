@@ -17,8 +17,8 @@ namespace GuildWars2.Value
                 if (serviceObj == null)
                     continue;
 
-                items = items.Where(x => serviceObj.IsApplicable(x)).ToList();
-                var valueResults = await serviceObj.CalculateValue(items, takeHighestValue);
+                var applicableItems = items.Where(x => serviceObj.IsApplicable(x)).ToList();
+                var valueResults = await serviceObj.CalculateValue(applicableItems, takeHighestValue);
                 foreach (var result in valueResults) {
                     if (correctValues.Any(x => x.Item.GetHashCode() == result.Item.GetHashCode())) {
                         var existingValue = correctValues.FirstOrDefault(x => x.Item.GetHashCode() == result.Item.GetHashCode());
