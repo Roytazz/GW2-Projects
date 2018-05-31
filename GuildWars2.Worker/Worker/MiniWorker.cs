@@ -21,7 +21,7 @@ namespace GuildWars2.Worker
         public async Task Run(CancellationToken token, List<string> apiKeys) {
             foreach (var apiKey in apiKeys) {
                 token.ThrowIfCancellationRequested();
-                var overallProgress = (apiKeys.IndexOf(apiKey) / apiKeys.Count) * 100;
+                var overallProgress = (int)Math.Round(((double)apiKeys.IndexOf(apiKey) / apiKeys.Count) * 100, 0);
 
                 SetProgress("Retrieving unlocked minis", 0, overallProgress);
                 var currentMinis = await GetAccountMinis(apiKey);
@@ -31,13 +31,13 @@ namespace GuildWars2.Worker
                 SetProgress("Saving new minis", 50, overallProgress);
                 var newMinis = currentMinis.Where(x => !savedMinis.Any(y => y.MiniID == x.ID)).ToList();
                 if (newMinis.Count > 0)
-                    await UserAPI.AddMinis(newMinis, apiKey);
+                    //await UserAPI.AddMinis(newMinis, apiKey);
 
                 SetProgress("Calculating total mini value", 70, overallProgress);
                 var values = await ValueFactory.CalculateValue(currentMinis);
                 if (values.Count > 0) {
                     SetProgress("Saving total mini value", 90, overallProgress);
-                    await UserAPI.AddCategoryEntry(CategoryType.Minis, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
+                    //await UserAPI.AddCategoryEntry(CategoryType.Minis, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
                 }
             }
         }
