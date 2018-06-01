@@ -21,7 +21,7 @@ namespace GuildWars2.Worker
         public async Task Run(CancellationToken token, List<string> apiKeys) {
             foreach (var apiKey in apiKeys) {
                 token.ThrowIfCancellationRequested();
-                var overallProgress = (apiKeys.IndexOf(apiKey) / apiKeys.Count) * 100;
+                var overallProgress = (int)Math.Round(((double)apiKeys.IndexOf(apiKey) / apiKeys.Count) * 100, 0);
 
                 SetProgress("Retrieving unlocked skins", 0, overallProgress);
                 var currentSkins = await GetAccountSkins(apiKey);

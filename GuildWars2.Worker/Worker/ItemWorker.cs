@@ -24,7 +24,7 @@ namespace GuildWars2.Worker
         public async Task Run(CancellationToken token, List<string> apiKeys) {
             foreach (string apiKey in apiKeys) {
                 token.ThrowIfCancellationRequested();
-                var overallProgress = (apiKeys.IndexOf(apiKey) / apiKeys.Count) * 100;
+                var overallProgress = (int)Math.Round(((double)apiKeys.IndexOf(apiKey) / apiKeys.Count) * 100, 0);
 
                 SetProgress("Retrieving account items", 0, overallProgress);
                 var account = new AccountInventory();
