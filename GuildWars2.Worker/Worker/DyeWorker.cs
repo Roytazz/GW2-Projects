@@ -31,13 +31,13 @@ namespace GuildWars2.Worker
                 SetProgress("Saving new dyes", 50, overallProgress);
                 var newDyes = currentDyes.Where(x => !savedDyes.Any(y => y.DyeID == x.ID)).ToList();
                 if(newDyes.Count > 0)
-                    //await UserAPI.AddDyes(newDyes, apiKey);
+                    await UserAPI.AddDyes(newDyes, apiKey);
 
                 SetProgress("Calculating total dye value", 65, overallProgress);
                 var values = await ValueFactory.CalculateValue(currentDyes);
                 if (values.Count > 0) {
                     SetProgress("Saving total dye value", 90, overallProgress);
-                    //await UserAPI.AddCategoryEntry(CategoryType.Dyes, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
+                    await UserAPI.AddCategoryEntry(CategoryType.Dyes, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
                 }
             }
         }
