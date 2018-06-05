@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GuildWars2.API.Providers
 {
+    [Obsolete]
     public interface IResourceProvider<T>
     {
         int Capacity { get; set; }

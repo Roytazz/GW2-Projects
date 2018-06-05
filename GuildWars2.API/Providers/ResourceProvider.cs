@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace GuildWars2.API.Providers
 {
+    [Obsolete]
     public class ResourceProvider
     {
         private static int CAPACITY = 1000;
