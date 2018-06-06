@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="HtmlDiff">
+      <HintPath>..\..\HtmlDiff\HtmlDiff\bin\Debug\netcoreapp2.0\HtmlDiff.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <HintPath>System</HintPath>
     </Reference>
