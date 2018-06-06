@@ -1,5 +1,4 @@
 ﻿using GuildWars2.API.Model;
-using GuildWars2.API.Model.Account;
 using GuildWars2.API.Model.Miscellaneous;
 using GuildWars2.API.Network;
 using System.Collections.Generic;
