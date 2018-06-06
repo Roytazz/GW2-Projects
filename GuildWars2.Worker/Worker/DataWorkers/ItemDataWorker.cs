@@ -1,9 +1,13 @@
 ﻿using GuildWars2.API;
 using GuildWars2.API.Model.Items;
 using GuildWars2.Data.Endpoints;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,12 +16,16 @@ namespace GuildWars2.Worker.DataWorker
     public class ItemDataWorker : IDataWorker
     {
         private static readonly int MAX_ITEM_PER_PAGE = 200;
+        private static readonly string FILE_LOCATION = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "new-entries.json");
+
         private bool _waitForUser;
+        private bool _saveNewItems;
 
         public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
 
-        public ItemDataWorker(bool waitForUser = false) {
+        public ItemDataWorker(bool waitForUser = false, bool saveNewItems = false) {
             _waitForUser = waitForUser;
+            _saveNewItems = saveNewItems;
         }
 
         public async Task Run(CancellationToken token) {
@@ -51,21 +59,43 @@ namespace GuildWars2.Worker.DataWorker
         }
 
         private List<Item> GetNewItems(List<Item> apiItems, List<Item> dbItems) {
-            var result = new List<Item>();
+            var newItems = new List<Item>();
+            var changedItems = new List<Item>();
+
             foreach (var apiItem in apiItems) {
                 if (dbItems.Any(x => x.ID == apiItem.ID)) {
-                    var isNew = new DiffConsoleHelper<Item>(apiItem, dbItems.FirstOrDefault(x => x.ID == apiItem.ID)).DiffObject(_waitForUser);
-                    if (isNew)
-                        result.Add(apiItem);
+                    var isChanged = new DiffConsoleHelper<Item>(apiItem, dbItems.FirstOrDefault(x => x.ID == apiItem.ID)).DiffObject(_waitForUser);
+                    if (isChanged)
+                        changedItems.Add(apiItem);
                 }
                 else
-                    result.Add(apiItem);
+                    newItems.Add(apiItem);
             }
-            return result;
+
+            if (_saveNewItems)
+                WriteNewItems(newItems);
+
+            return newItems.Concat(changedItems).ToList();
         }
 
         private void SetProgress(string msg, int partialProgress) {
             ProgressChanged?.Invoke(this, new ProgressChangedEventArgs { Message = msg, PartialProgress = partialProgress });
+        }
+
+        private void WriteNewItems(List<Item> newItems) {
+            var jsonData = string.Empty;
+            if (File.Exists(FILE_LOCATION)) {
+                 jsonData = File.ReadAllText(FILE_LOCATION);
+            }
+
+            var items = JsonConvert.DeserializeObject<List<Item>>(jsonData) ?? new List<Item>();
+            items.AddRange(newItems);
+
+            using (FileStream fs = new FileStream(FILE_LOCATION, FileMode.Create)) {
+                using (StreamWriter w = new StreamWriter(fs, Encoding.UTF8)) {
+                    w.WriteLine(JsonConvert.SerializeObject(items));
+                }
+            }
         }
     }
 }
