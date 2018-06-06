@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,30 +21,44 @@ namespace GuildWars2.REST.Controllers
 
         [AllowAnonymous, HttpPost]
         public IActionResult CreateToken([FromBody]LoginModel login) {
-            if (Authenticate(login))
-                return Ok(new { token = BuildToken() });
+            var user = Authenticate(login);
+            if (user != null)
+                return Ok(new { token = BuildToken(user) });
             else
                 return Unauthorized();
         }
 
-        private string BuildToken() {
+        private string BuildToken(UserModel user) {
+            var claims = new List<Claim> {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserID.ToString())
+            };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Issuer"],
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Issuer"], 
+              claims,
               expires: DateTime.Now.AddDays(1),
               signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private bool Authenticate(LoginModel login) {
-            return login.Password.Equals(_config["GW2:Password"]);  //Obviously make this more secure, but for now it will do
+        private UserModel Authenticate(LoginModel login) {
+            if (login.Password.Equals(_config["GW2:Password"]))  //Obviously make this more secure, but for now it will do
+                return new UserModel { UserID = 1 };
+
+            return null;
         }
 
         public class LoginModel
         {
             public string Password { get; set; }
+        }
+
+        public class UserModel
+        {
+            public int UserID { get; set; }
         }
     }
 }
