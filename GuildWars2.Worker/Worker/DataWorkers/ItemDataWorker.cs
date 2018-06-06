@@ -20,21 +20,23 @@ namespace GuildWars2.Worker.DataWorker
             while (true) {
                 token.ThrowIfCancellationRequested();
 
-                SetProgress("Requesting Page #" + page + "...", 0);
+                SetProgress("Requesting Page #" + page, 0);
                 var pageResult = await ItemAPI.Items(MAX_ITEM_PER_PAGE, page);
-                SetProgress("Retrieving saved items", 10);
+                SetProgress("#" + page + ": Retrieving saved items", 10);
                 var itemIDs = pageResult.Select(x => x.ID).ToList();
                 var dbItems = await DataAPI.GetItems(itemIDs);
-                SetProgress("Comparing saved and retrieved items", 35);
+                SetProgress("#" + page + ": Comparing saved and retrieved items", 35);
                 var newItems = GetNewItems(pageResult, dbItems);
 
-                SetProgress("Saving" + newItems.Count + " new/changed items", 50);
-                await DataAPI.AddItems(newItems);
+                if (newItems.Count > 0) {
+                    SetProgress("#" + page + ": Saving " + newItems.Count + " new/changed items", 50);
+                    await DataAPI.AddItems(newItems);
+                }
 
-                SetProgress("Requesting ItemListings", 80);
+                SetProgress("#" + page + ": Requesting ItemListings", 80);
                 var listings = await CommerceAPI.ListingsAggregated(pageResult.Select(x => x.ID).ToList());
 
-                SetProgress("Updating ItemListings", 90);
+                SetProgress("#" + page + ": Updating ItemListings", 90);
                 await DataAPI.AddItemSellable(pageResult, listings);
 
                 page++;
@@ -47,7 +49,7 @@ namespace GuildWars2.Worker.DataWorker
             var result = new List<Item>();
             foreach (var apiItem in apiItems) {
                 if (dbItems.Any(x => x.ID == apiItem.ID)) {
-                    var isNew = JsonDiffConsoleHelper.DiffObject(apiItem, dbItems.FirstOrDefault(x => x.ID == apiItem.ID));
+                    var isNew = new DiffConsoleHelper<Item>(apiItem, dbItems.FirstOrDefault(x => x.ID == apiItem.ID)).DiffObject();
                     if (isNew)
                         result.Add(apiItem);
                 }

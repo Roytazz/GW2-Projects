@@ -24,6 +24,13 @@ namespace GuildWars2.Worker
     {
         public string Message { get; set; }
         public int PartialProgress { get; set; }
-        public int OverallProgress { get; set; }
+        public int OverallProgress { get; set; } = -1;
+
+        public override string ToString() {
+            if(OverallProgress == -1)
+                return $"\r{Message}...{PartialProgress}%";
+            else
+                return $"\r{Message}...{PartialProgress}% out of {OverallProgress}%";
+        }
     }
 }
