@@ -1,15 +1,13 @@
 ﻿using GuildWars2.API;
 using GuildWars2.API.Model.Miscellaneous;
 using GuildWars2.Value;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GuildWars2.Worker.ValueService
 {
-    class MiniValueService : IValueService<Mini>
+    public class MiniValueService : IValueService<Mini>
     {
         public async Task<ValueResult<Mini>> CalculateValue(Mini item, bool takeHighestValue) {
             var result = await CalculateValue(new List<Mini> { item }, takeHighestValue);

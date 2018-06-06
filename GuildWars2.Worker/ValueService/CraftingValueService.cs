@@ -2,15 +2,13 @@
 using GuildWars2.API.Model;
 using GuildWars2.API.Model.Items;
 using GuildWars2.Value;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GuildWars2.Worker.ValueService
 {
-    class CraftingValueService : IValueService<Item>
+    public class CraftingValueService : IValueService<Item>
     {
         public async Task<ValueResult<Item>> CalculateValue(Item entity, bool takeHighestValue) {
             var result = await CalculateValue(new List<Item> { entity }, takeHighestValue);

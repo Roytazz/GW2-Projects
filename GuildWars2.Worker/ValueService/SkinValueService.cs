@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GuildWars2.Worker.ValueService
 {
-    class SkinValueService : IValueService<Skin>
+    public class SkinValueService : IValueService<Skin>
     {
         public async Task<ValueResult<Skin>> CalculateValue(Skin item, bool takeHighestValue) {
             var result = await CalculateValue(new List<Skin> { item }, takeHighestValue);
