@@ -15,22 +15,20 @@ namespace GuildWars2.Worker
 
         private T _obj1;
         private T _obj2;
-        private bool _waitForUser;
 
-        public DiffConsoleHelper(T obj1, T obj2, bool waitForUserInput = true) {
+        public DiffConsoleHelper(T obj1, T obj2) {
             _obj1 = obj1;
             _obj2 = obj2;
-            _waitForUser = waitForUserInput;
         }
 
-        public bool DiffObject() {
+        public bool DiffObject(bool waitForUser) {
             var left = JToken.FromObject(_obj1);
             var right = JToken.FromObject(_obj2);
             
             JToken patch = new JsonDiffPatch().Diff(left, right);
 
             if (patch != null) {
-                if (!_waitForUser)
+                if (!waitForUser)
                     return true;
 
                 Console.WriteLine(patch.ToString());

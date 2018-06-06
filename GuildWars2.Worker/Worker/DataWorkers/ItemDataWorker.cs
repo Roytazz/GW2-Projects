@@ -12,8 +12,13 @@ namespace GuildWars2.Worker.DataWorker
     public class ItemDataWorker : IDataWorker
     {
         private static readonly int MAX_ITEM_PER_PAGE = 200;
+        private bool _waitForUser;
 
         public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+
+        public ItemDataWorker(bool waitForUser = false) {
+            _waitForUser = waitForUser;
+        }
 
         public async Task Run(CancellationToken token) {
             var page = 0;
@@ -49,7 +54,7 @@ namespace GuildWars2.Worker.DataWorker
             var result = new List<Item>();
             foreach (var apiItem in apiItems) {
                 if (dbItems.Any(x => x.ID == apiItem.ID)) {
-                    var isNew = new DiffConsoleHelper<Item>(apiItem, dbItems.FirstOrDefault(x => x.ID == apiItem.ID)).DiffObject();
+                    var isNew = new DiffConsoleHelper<Item>(apiItem, dbItems.FirstOrDefault(x => x.ID == apiItem.ID)).DiffObject(_waitForUser);
                     if (isNew)
                         result.Add(apiItem);
                 }
