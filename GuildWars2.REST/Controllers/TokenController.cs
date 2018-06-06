@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +17,7 @@ namespace GuildWars2.REST.Controllers
             _config = config;
         }
 
-        [AllowAnonymous]
-        [HttpPost]
+        [AllowAnonymous, HttpPost]
         public IActionResult CreateToken([FromBody]LoginModel login) {
             if (Authenticate(login))
                 return Ok(new { token = BuildToken() });
@@ -41,7 +37,7 @@ namespace GuildWars2.REST.Controllers
         }
 
         private bool Authenticate(LoginModel login) {
-            return login.Password.Equals(_config["GW2:Password"]);
+            return login.Password.Equals(_config["GW2:Password"]);  //Obviously make this more secure, but for now it will do
         }
 
         public class LoginModel
