@@ -216,3 +216,4 @@ ModelManifest.xml
 xTest/
 
 *.d.ts
+/GuildWars2.REST/appsettings.json
