@@ -3,15 +3,13 @@ using GuildWars2.API.Model.Items;
 using GuildWars2.Data.Model.Data;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GuildWars2.Data.Database
 {
     internal class DataDbContext : DbContext
     {
-        internal const string SCHEMA_NAME = "GuildWars2.GW2Data";
+        private const string SCHEMA_NAME = "GuildWars2.GW2Data";
 
         public DbSet<Item> Item { get; set; }
 
