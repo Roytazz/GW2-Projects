@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildWars2.Worker", "GuildW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildWars2.Value", "GuildWars2.Value\GuildWars2.Value.csproj", "{D509888D-5E20-45FD-9AA7-0ABC241736E1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlDiff", "HtmlDiff\HtmlDiff.csproj", "{2E427250-591F-49E4-8D96-E99BDA5372F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,18 @@ Global
 		{D509888D-5E20-45FD-9AA7-0ABC241736E1}.Release|x64.Build.0 = Release|Any CPU
 		{D509888D-5E20-45FD-9AA7-0ABC241736E1}.Release|x86.ActiveCfg = Release|Any CPU
 		{D509888D-5E20-45FD-9AA7-0ABC241736E1}.Release|x86.Build.0 = Release|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Debug|x64.Build.0 = Debug|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Release|x64.ActiveCfg = Release|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Release|x64.Build.0 = Release|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E427250-591F-49E4-8D96-E99BDA5372F5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
