@@ -9,7 +9,7 @@ namespace GuildWars2.Data.Database
 {
     internal class UserDbContext : DbContext
     {
-        private const string SCHEMA_NAME = "GuildWars2.UserData";
+        internal const string SCHEMA_NAME = "GuildWars2.UserData";
 
         #region Tables
         public DbSet<User> User { get; set; }
