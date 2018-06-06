@@ -9,10 +9,10 @@ namespace GuildWars2.API.Network
 {
     internal class UrlBuilder
     {
-        private static readonly string BASE_URL_V1 = "https://api.guildwars2.com/v1";
-        private static readonly string BASE_URL_V2 = "https://api.guildwars2.com/v2";
-        private static readonly string BASE_URL_PROFITS = "http://gw2profits.com/json/v3";
-        private static readonly string BASE_URL_SHINIES = "https://www.gw2shinies.com/api/json";
+        private const string BASE_URL_V1 = "https://api.guildwars2.com/v1";
+        private const string BASE_URL_V2 = "https://api.guildwars2.com/v2";
+        private const string BASE_URL_PROFITS = "http://gw2profits.com/json/v3";
+        private const string BASE_URL_SHINIES = "https://www.gw2shinies.com/api/json";
 
         private int _parameterLimit = 200;
         private List<string> _directives = new List<string>();
