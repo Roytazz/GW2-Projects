@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using GuildWars2.REST.Data;
-using GuildWars2.REST.Database;
+using Old.GuildWars2.REST.Data;
+using Old.GuildWars2.REST.Database;
 
-namespace GuildWars2.REST
+namespace Old.GuildWars2.REST
 {
     public partial class Startup
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using GuildWars2.REST.Database;
-using GuildWars2.REST.Model;
+using Old.GuildWars2.REST.Database;
+using Old.GuildWars2.REST.Model;
 using GuildWars2.API.Model.Commerce;
 using GuildWars2.API.Model.Items;
 using GuildWars2.API.Model;
 
-namespace GuildWars2.REST.Data
+namespace Old.GuildWars2.REST.Data
 {
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
@@ -39,7 +39,7 @@ namespace GuildWars2.REST.Data
             AddKey<RecipeIngredient>(builder);
             AddKey<Infusion>(builder);
 
-            builder.Entity<Item>().HasKey(nameof(API.Model.Items.Item.ID));
+            builder.Entity<Item>().HasKey("ID");
             builder.Entity<ItemListingAggregated>().HasKey(nameof(ItemListingAggregated.ItemID));
 
             builder.Entity<Item>().Ignore(x => x.Flags);

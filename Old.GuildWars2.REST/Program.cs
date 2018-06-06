@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace GuildWars2.REST
+namespace Old.GuildWars2.REST
 {
     public class Program
     {

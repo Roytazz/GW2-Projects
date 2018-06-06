@@ -1,12 +1,12 @@
-﻿using GuildWars2.REST.Database;
-using GuildWars2.REST.Model;
+﻿using Old.GuildWars2.REST.Database;
+using Old.GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GuildWars2.REST.Controllers
+namespace Old.GuildWars2.REST.Controllers
 {
     public abstract class BaseController : Controller
     {

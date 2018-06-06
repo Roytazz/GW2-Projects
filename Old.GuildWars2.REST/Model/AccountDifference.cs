@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GuildWars2.REST.Model
+namespace Old.GuildWars2.REST.Model
 {
     public class UserItemStackDifference : ItemStackDifference
     {

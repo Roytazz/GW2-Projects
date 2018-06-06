@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace GuildWars2.REST.Model
+namespace Old.GuildWars2.REST.Model
 {
     public class UserItemTrend
     {

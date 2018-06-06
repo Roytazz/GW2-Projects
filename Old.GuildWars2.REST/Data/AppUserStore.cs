@@ -1,7 +1,7 @@
 ﻿using GuildWars2.API.Model.Items;
 using GuildWars2.Manager.InventoryService;
-using GuildWars2.REST.Data;
-using GuildWars2.REST.Model;
+using Old.GuildWars2.REST.Data;
+using Old.GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GuildWars2.REST.Database
+namespace Old.GuildWars2.REST.Database
 {
     public class AppUserStore : UserStore<IdentityUser>
     {

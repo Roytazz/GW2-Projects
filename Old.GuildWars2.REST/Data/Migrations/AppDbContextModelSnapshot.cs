@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using GuildWars2.REST.Data;
+using Old.GuildWars2.REST.Data;
 using GuildWars2.API.Model;
 using GuildWars2.API.Model.Items;
 
-namespace GuildWars2.REST.Data.Migrations
+namespace Old.GuildWars2.REST.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

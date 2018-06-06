@@ -1,6 +1,6 @@
-﻿using GuildWars2.REST.Auth;
-using GuildWars2.REST.Authentication;
-using GuildWars2.REST.Database;
+﻿using Old.GuildWars2.REST.Auth;
+using Old.GuildWars2.REST.Authentication;
+using Old.GuildWars2.REST.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GuildWars2.REST
+namespace Old.GuildWars2.REST
 {
     public partial class Startup
     {

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace GuildWars2.REST.Auth
+namespace Old.GuildWars2.REST.Auth
 {
     public class JwtDataFormat : ISecureDataFormat<AuthenticationTicket>
     {

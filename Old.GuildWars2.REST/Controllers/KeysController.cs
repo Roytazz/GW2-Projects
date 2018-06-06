@@ -1,12 +1,12 @@
 ﻿using GuildWars2.API;
-using GuildWars2.REST.Database;
-using GuildWars2.REST.Model;
+using Old.GuildWars2.REST.Database;
+using Old.GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GuildWars2.REST.Controllers
+namespace Old.GuildWars2.REST.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

@@ -1,5 +1,5 @@
-﻿using GuildWars2.REST.Database;
-using GuildWars2.REST.Model;
+﻿using Old.GuildWars2.REST.Database;
+using Old.GuildWars2.REST.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GuildWars2.REST.Controllers
+namespace Old.GuildWars2.REST.Controllers
 {
     [Route("api/[controller]/[Action]")]
     public class UserController : BaseController {

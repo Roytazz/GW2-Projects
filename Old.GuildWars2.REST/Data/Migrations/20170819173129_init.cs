@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace GuildWars2.REST.Data.Migrations
+namespace Old.GuildWars2.REST.Data.Migrations
 {
     public partial class init : Migration
     {

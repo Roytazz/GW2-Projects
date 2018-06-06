@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace GuildWars2.REST.Authentication
+namespace Old.GuildWars2.REST.Authentication
 {
     public class TokenProviderMiddleware
     {

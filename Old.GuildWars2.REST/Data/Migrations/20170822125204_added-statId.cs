@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace GuildWars2.REST.Data.Migrations
+namespace Old.GuildWars2.REST.Data.Migrations
 {
     public partial class addedstatId : Migration
     {
