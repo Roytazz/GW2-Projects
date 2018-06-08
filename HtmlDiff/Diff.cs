@@ -14,8 +14,8 @@ namespace HtmlDiff
         private const int MatchGranularityMaximum = 4;
 
         private readonly StringBuilder _content;
-        private string _oldText;
         private string _newText;
+        private string _oldText;
 
         private static Dictionary<string, int> _specialCaseClosingTags = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
         {
@@ -41,8 +41,8 @@ namespace HtmlDiff
         /// </summary>
         private Stack<string> _specialTagDiffStack; 
 
-        private string[] _oldWords;
         private string[] _newWords;
+        private string[] _oldWords;
         private int _matchGranularity;
         private List<Regex> _blockExpressions; 
 
@@ -111,11 +111,11 @@ namespace HtmlDiff
         public string Build()
         {
             // If there is no difference, don't bother checking for differences
-            if (_newText == _oldText)
-                return _oldText;
+            if (_oldText == _newText)
+                return _newText;
 
             SplitInputsToWords();
-            _matchGranularity = Math.Min(MatchGranularityMaximum, Math.Min(_newWords.Length, _oldWords.Length));
+            _matchGranularity = Math.Min(MatchGranularityMaximum, Math.Min(_oldWords.Length, _newWords.Length));
 
             List<Operation> operations = Operations();
             foreach (Operation item in operations) {
@@ -136,14 +136,14 @@ namespace HtmlDiff
 
         private void SplitInputsToWords()
         {
-            _newWords = WordSplitter.ConvertHtmlToListOfWords(_newText, _blockExpressions);
             _oldWords = WordSplitter.ConvertHtmlToListOfWords(_oldText, _blockExpressions);
+            _newWords = WordSplitter.ConvertHtmlToListOfWords(_newText, _blockExpressions);
         }
 
         private void PerformOperation(Operation operation)
         {
 #if DEBUG
-            operation.PrintDebugInfo(_newWords, _oldWords);
+            operation.PrintDebugInfo(_oldWords, _newWords);
 #endif
 
             switch (operation.Action)
@@ -173,20 +173,20 @@ namespace HtmlDiff
 
         private void ProcessInsertOperation(Operation operation, string cssClass)
         {
-            List<string> text = _oldWords.Where((s, pos) => pos >= operation.StartInNew && pos < operation.EndInNew).ToList();
+            List<string> text = _newWords.Where((s, pos) => pos >= operation.StartInNew && pos < operation.EndInNew).ToList();
             InsertTag("ins", cssClass, text);
         }
 
         private void ProcessDeleteOperation(Operation operation, string cssClass)
         {
-            List<string> text = _newWords.Where((s, pos) => pos >= operation.StartInOld && pos < operation.EndInOld).ToList();
+            List<string> text = _oldWords.Where((s, pos) => pos >= operation.StartInOld && pos < operation.EndInOld).ToList();
             InsertTag("del", cssClass, text);
         }
 
         private void ProcessEqualOperation(Operation operation)
         {
             string[] result =
-                _oldWords.Where((s, pos) => pos >= operation.StartInNew && pos < operation.EndInNew).ToArray();
+                _newWords.Where((s, pos) => pos >= operation.StartInNew && pos < operation.EndInNew).ToArray();
             _content.Append(String.Join("", result));
         }
 
@@ -309,7 +309,7 @@ namespace HtmlDiff
 
             var matches = MatchingBlocks();
 
-            matches.Add(new Match(_newWords.Length, _oldWords.Length, 0));
+            matches.Add(new Match(_oldWords.Length, _newWords.Length, 0));
 
             //Remove orphans from matches.
             //If distance between left and right matches is 4 times longer than length of current match then it is considered as orphan
@@ -381,11 +381,11 @@ namespace HtmlDiff
                 }
 
                 var oldDistanceInChars = Enumerable.Range(prev.EndInOld, next.StartInOld - prev.EndInOld)
-                    .Sum(i => _newWords[i].Length);
+                    .Sum(i => _oldWords[i].Length);
                 var newDistanceInChars = Enumerable.Range(prev.EndInNew, next.StartInNew - prev.EndInNew)
-                    .Sum(i => _oldWords[i].Length);
+                    .Sum(i => _newWords[i].Length);
                 var currMatchLengthInChars = Enumerable.Range(curr.StartInNew, curr.EndInNew - curr.StartInNew)
-                    .Sum(i => _oldWords[i].Length);
+                    .Sum(i => _newWords[i].Length);
                 if (currMatchLengthInChars > Math.Max(oldDistanceInChars, newDistanceInChars) * OrphanMatchThreshold) {
                     yield return curr;
                 }
@@ -400,7 +400,7 @@ namespace HtmlDiff
         private List<Match> MatchingBlocks()
         {
             var matchingBlocks = new List<Match>();
-            FindMatchingBlocks(0, _newWords.Length, 0, _oldWords.Length, matchingBlocks);
+            FindMatchingBlocks(0, _oldWords.Length, 0, _newWords.Length, matchingBlocks);
             return matchingBlocks;
         }
 
@@ -435,7 +435,7 @@ namespace HtmlDiff
                     RepeatingWordsAccuracy = RepeatingWordsAccuracy,
                     IgnoreWhitespaceDifferences = IgnoreWhitespaceDifferences
                 };
-                var finder = new MatchFinder(_newWords, _oldWords, startInOld, endInOld, startInNew, endInNew, options);
+                var finder = new MatchFinder(_oldWords, _newWords, startInOld, endInOld, startInNew, endInNew, options);
                 var match = finder.FindMatch();
                 if (match != null)
                     return match;
