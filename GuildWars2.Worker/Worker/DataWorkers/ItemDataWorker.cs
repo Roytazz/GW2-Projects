@@ -1,4 +1,5 @@
 ﻿using GuildWars2.API;
+using GuildWars2.API.Model.Commerce;
 using GuildWars2.API.Model.Items;
 using GuildWars2.Data.Endpoints;
 using Newtonsoft.Json;
@@ -20,12 +21,14 @@ namespace GuildWars2.Worker.DataWorker
 
         private bool _waitForUser;
         private bool _saveNewItems;
+        private bool _onlyUpdateNewItemListings;
 
         public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
 
-        public ItemDataWorker(bool waitForUser = false, bool saveNewItems = false) {
+        public ItemDataWorker(bool waitForUser = false, bool saveNewItems = false, bool onlyUpdateNewItemListings = false) {
             _waitForUser = waitForUser;
             _saveNewItems = saveNewItems;
+            _onlyUpdateNewItemListings = onlyUpdateNewItemListings;
         }
 
         public async Task Run(CancellationToken token) {
@@ -47,10 +50,23 @@ namespace GuildWars2.Worker.DataWorker
                 }
 
                 SetProgress("#" + page + ": Requesting ItemListings", 80);
-                var listings = await CommerceAPI.ListingsAggregated(pageResult.Select(x => x.ID).ToList());
+                var listingItemIDs = new List<int>();
+                if(_onlyUpdateNewItemListings)
+                    listingItemIDs = newItems.Select(x => x.ID).ToList();
+                else
+                    listingItemIDs = pageResult.Select(x => x.ID).ToList();
 
+                var listings = new List<ItemListingAggregated>();
+                if (listingItemIDs.Count > 0)
+                    listings = await CommerceAPI.ListingsAggregated(listingItemIDs);
+                
                 SetProgress("#" + page + ": Updating ItemListings", 90);
-                await DataAPI.AddItemSellable(pageResult, listings);
+                if (listings.Count > 0) {
+                    if (_onlyUpdateNewItemListings)
+                        await DataAPI.AddItemSellable(newItems, listings);
+                    else
+                        await DataAPI.AddItemSellable(pageResult, listings);
+                }
 
                 page++;
                 if (pageResult.Count < 200)
