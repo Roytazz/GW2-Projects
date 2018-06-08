@@ -34,7 +34,7 @@ namespace GuildWars2.Worker
                 Console.WriteLine(patch.ToString());
                 Console.WriteLine();
                 Console.WriteLine("Type 'Y' to replace item. Type 'V' to show changes.");
-                HandleUserResponse();
+                return HandleUserResponse();
             }
             return false;
         }
