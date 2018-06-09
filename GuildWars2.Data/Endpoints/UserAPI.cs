@@ -12,7 +12,7 @@ namespace GuildWars2.Data
     /// <summary>
     /// An easy acces point to communicate with the User Data DB
     /// </summary>
-    public static class UserAPI            
+    public static class UserAPI
     {
         #region Items
         public static async Task AddAccountItems(List<Item> items, string apiKey) {
@@ -140,12 +140,25 @@ namespace GuildWars2.Data
                 await db.SaveChangesAsync();
             }
         }
+
+        public async static Task<List<CategoryValue>> GetCategories(List<CategoryType> types, int userID, int accountID) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                if (!await AuthAPI.HasAcces(userID, accountID))
+                    return new List<CategoryValue>();
+
+                return await db.CategoryValue.Where(x => x.AccountID == accountID && types.Contains(x.Category))
+                            .OrderByDescending(x => x.Date)
+                            .GroupBy(x => x.Category)
+                            .Select(x => x.FirstOrDefault())
+                            .ToListAsync();
+            }
+        }
         #endregion Category
 
         private static List<Item> GetDifference(List<Item> newItems, List<Item> oldItems) {
             var result = new List<Item>();
             foreach (var newItem in newItems) {
-                if(oldItems.Any(x=>x.ItemID == newItem.ItemID && x.SkinID == newItem.SkinID && x.StatID == newItem.StatID)) {
+                if (oldItems.Any(x => x.ItemID == newItem.ItemID && x.SkinID == newItem.SkinID && x.StatID == newItem.StatID)) {
                     var oldItem = oldItems.FirstOrDefault(x => x.ItemID == newItem.ItemID && x.SkinID == newItem.SkinID && x.StatID == newItem.StatID);
                     result.Add(new Item {
                         ItemID = newItem.ItemID,
