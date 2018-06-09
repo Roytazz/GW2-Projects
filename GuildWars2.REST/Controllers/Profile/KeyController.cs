@@ -3,9 +3,9 @@ using GuildWars2.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GuildWars2.REST.Controllers
+namespace GuildWars2.REST.Controllers.Profile
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class KeyController : BaseController
     {
         [Authorize, HttpPost]

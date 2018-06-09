@@ -14,5 +14,16 @@ namespace GuildWars2.REST.Controllers
                 return Convert.ToInt32(HttpContext.User.Claims.FirstOrDefault(x => x.Subject.NameClaimType.Equals(JwtRegisteredClaimNames.Sub))?.Value);
             }
         }
+
+        public object ReturnError(string msg) {
+            return new { error = msg };
+        }
+    }
+    
+    public class UserModel
+    {
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
     }
 }

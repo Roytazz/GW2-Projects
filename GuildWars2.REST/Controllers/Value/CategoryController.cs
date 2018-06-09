@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GuildWars2.REST.Controllers.Value
 {
-    [Route("api/value/[controller]")]
+    [Route("api/v1/[controller]")]
     public class CategoriesController : BaseController
     {
         [Authorize, HttpGet]

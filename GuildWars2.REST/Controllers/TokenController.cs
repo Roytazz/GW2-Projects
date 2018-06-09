@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GuildWars2.REST.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class TokenController : BaseController
     {
         private IConfiguration _config;
@@ -24,12 +24,12 @@ namespace GuildWars2.REST.Controllers
         }
 
         [AllowAnonymous, HttpPost]
-        public async Task<IActionResult> CreateToken([FromBody]LoginModel login) {
-            var user = await AuthAPI.LoginUser(login.UserName, login.Password);
+        public async Task<IActionResult> CreateToken([FromBody]UserModel userLogin) {
+            var user = await AuthAPI.LoginUser(userLogin.UserName, userLogin.Password);
             if (user != null)
                 return Ok(new { token = BuildToken(user) });
             else
-                return Unauthorized();
+                return BadRequest(ReturnError("Username already exists"));
         }
 
         private string BuildToken(User user) {
@@ -46,18 +46,6 @@ namespace GuildWars2.REST.Controllers
               signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public class LoginModel
-        {
-            public string UserName { get; set; }
-
-            public string Password { get; set; }
-        }
-
-        public class UserModel
-        {
-            public int UserID { get; set; }
         }
     }
 }
