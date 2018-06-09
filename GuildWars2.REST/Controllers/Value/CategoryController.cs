@@ -16,26 +16,25 @@ namespace GuildWars2.REST.Controllers.Value
         [Authorize, HttpGet]
         public IActionResult GetAll() 
         {
-            return Ok(new { categories = Enum.GetNames(typeof(CategoryType)) });
+            var result = new List<object>();
+            foreach (var item in Enum.GetNames(typeof(CategoryType))) {
+                result.Add(new { id = (int)Enum.Parse(typeof(CategoryType), item), type = item });
+            }
+            return Ok(result);
         }
 
         [Authorize, HttpPost]
         public async Task<IActionResult> Get([FromBody]CategoryModel category) 
         {
-            var categories = category.Categories.Select(x => (CategoryType)Enum.Parse(typeof(CategoryType), x)).ToList();
+            var categories = category.Categories.Select(x => (CategoryType)x).ToList();
             var categoryValues = await UserAPI.GetCategories(categories, UserID, category.AccountID);
-            var result = new Dictionary<string, CategoryValue>();
-            foreach (var item in categoryValues) {
-                result[item.Category.ToString()] = item;
-            }
-            
-            return Ok(result);
+            return Ok(categoryValues);
         }
     }
 
     public class CategoryModel
     {
-        public string[] Categories { get; set; }
+        public List<int> Categories { get; set; }
 
         public int AccountID { get; set; }
     }
