@@ -10,9 +10,9 @@ namespace GuildWars2.Data.Model
         public int ItemID { get; set; }
 
         //[Key]
-        public int UserID { get; set; }
+        public int AccountID { get; set; }
 
-        [ForeignKey(nameof(UserID))]
-        public User User { get; set; }
+        [ForeignKey(nameof(AccountID))]
+        public Account Account { get; set; }
     }
 }

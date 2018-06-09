@@ -14,6 +14,8 @@ namespace GuildWars2.Data.Database
         #region Tables
         public DbSet<User> User { get; set; }
 
+        public DbSet<Account> Account { get; set; }
+
         public DbSet<Key> Key { get; set; }
 
         public DbSet<CategoryValue> CategoryValue { get; set; }
@@ -36,10 +38,10 @@ namespace GuildWars2.Data.Database
         protected override void OnModelCreating(ModelBuilder builder) {
             builder.HasDefaultSchema(SCHEMA_NAME);
 
-            builder.Entity<Dye>().HasKey(x => new { x.UserID, x.DyeID });
-            builder.Entity<Mini>().HasKey(x => new { x.UserID, x.MiniID });
-            builder.Entity<Skin>().HasKey(x => new { x.UserID, x.SkinID });
-            builder.Entity<Key>().HasKey(x => new { x.UserID, x.APIKey });
+            builder.Entity<Dye>().HasKey(x => new { x.AccountID, x.DyeID });
+            builder.Entity<Mini>().HasKey(x => new { x.AccountID, x.MiniID });
+            builder.Entity<Skin>().HasKey(x => new { x.AccountID, x.SkinID });
+            builder.Entity<Key>().HasKey(x => new { x.UserID, x.APIKey, x.AccountID });
 
             base.OnModelCreating(builder);
         }

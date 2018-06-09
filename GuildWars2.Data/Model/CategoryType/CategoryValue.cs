@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuildWars2.Data.Model
 {
@@ -7,13 +8,16 @@ namespace GuildWars2.Data.Model
         [Key]
         public int ID { get; set; }
 
-        public int UserID { get; set; }
+        public int AccountID { get; set; }
 
         public int Value { get; set; }
 
         public int Delta { get; set; }
         
         public CategoryType Category { get; set; }
+
+        [ForeignKey(nameof(AccountID))]
+        public Account Account { get; set; }
     }
 
     public enum CategoryType

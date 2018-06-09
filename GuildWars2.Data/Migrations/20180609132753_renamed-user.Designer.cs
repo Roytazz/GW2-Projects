@@ -4,14 +4,16 @@ using GuildWars2.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GuildWars2.Data.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180609132753_renamed-user")]
+    partial class renameduser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,13 +28,11 @@ namespace GuildWars2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccountGUID");
-
                     b.Property<string>("Name");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Account");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.CategoryValue", b =>
@@ -41,32 +41,30 @@ namespace GuildWars2.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountID");
-
                     b.Property<int>("Category");
 
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("Delta");
 
+                    b.Property<int>("UserID");
+
                     b.Property<int>("Value");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AccountID");
 
                     b.ToTable("CategoryValue");
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.Dye", b =>
                 {
-                    b.Property<int>("AccountID");
+                    b.Property<int>("UserID");
 
                     b.Property<int>("DyeID");
 
                     b.Property<DateTime>("Date");
 
-                    b.HasKey("AccountID", "DyeID");
+                    b.HasKey("UserID", "DyeID");
 
                     b.ToTable("Dye");
                 });
@@ -76,8 +74,6 @@ namespace GuildWars2.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountID");
 
                     b.Property<int>("Amount");
 
@@ -91,9 +87,11 @@ namespace GuildWars2.Data.Migrations
 
                     b.Property<int>("StatID");
 
+                    b.Property<int>("UserID");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("AccountID");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Item");
                 });
@@ -108,14 +106,12 @@ namespace GuildWars2.Data.Migrations
 
                     b.HasKey("UserID", "APIKey", "AccountID");
 
-                    b.HasIndex("AccountID");
-
                     b.ToTable("Key");
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.Mini", b =>
                 {
-                    b.Property<int>("AccountID");
+                    b.Property<int>("UserID");
 
                     b.Property<int>("MiniID");
 
@@ -123,37 +119,22 @@ namespace GuildWars2.Data.Migrations
 
                     b.Property<int>("ItemID");
 
-                    b.HasKey("AccountID", "MiniID");
+                    b.HasKey("UserID", "MiniID");
 
                     b.ToTable("Mini");
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.Skin", b =>
                 {
-                    b.Property<int>("AccountID");
+                    b.Property<int>("UserID");
 
                     b.Property<int>("SkinID");
 
                     b.Property<DateTime>("Date");
 
-                    b.HasKey("AccountID", "SkinID");
+                    b.HasKey("UserID", "SkinID");
 
                     b.ToTable("Skin");
-                });
-
-            modelBuilder.Entity("GuildWars2.Data.Model.User", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.WalletEntry", b =>
@@ -161,8 +142,6 @@ namespace GuildWars2.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountID");
 
                     b.Property<int>("CurrencyID");
 
@@ -170,73 +149,62 @@ namespace GuildWars2.Data.Migrations
 
                     b.Property<int>("Delta");
 
+                    b.Property<int>("UserID");
+
                     b.Property<int>("Value");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AccountID");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Wallet");
                 });
 
-            modelBuilder.Entity("GuildWars2.Data.Model.CategoryValue", b =>
-                {
-                    b.HasOne("GuildWars2.Data.Model.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("GuildWars2.Data.Model.Dye", b =>
                 {
-                    b.HasOne("GuildWars2.Data.Model.Account", "Account")
+                    b.HasOne("GuildWars2.Data.Model.Account", "User")
                         .WithMany()
-                        .HasForeignKey("AccountID")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.Item", b =>
                 {
-                    b.HasOne("GuildWars2.Data.Model.Account", "Account")
+                    b.HasOne("GuildWars2.Data.Model.Account", "User")
                         .WithMany()
-                        .HasForeignKey("AccountID")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.Key", b =>
                 {
-                    b.HasOne("GuildWars2.Data.Model.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("GuildWars2.Data.Model.User", "User")
-                        .WithMany()
+                    b.HasOne("GuildWars2.Data.Model.Account", "User")
+                        .WithMany("Keys")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.Mini", b =>
                 {
-                    b.HasOne("GuildWars2.Data.Model.Account", "Account")
+                    b.HasOne("GuildWars2.Data.Model.Account", "User")
                         .WithMany()
-                        .HasForeignKey("AccountID")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.Skin", b =>
                 {
-                    b.HasOne("GuildWars2.Data.Model.Account", "Account")
+                    b.HasOne("GuildWars2.Data.Model.Account", "User")
                         .WithMany()
-                        .HasForeignKey("AccountID")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.WalletEntry", b =>
                 {
-                    b.HasOne("GuildWars2.Data.Model.Account", "Account")
+                    b.HasOne("GuildWars2.Data.Model.Account", "User")
                         .WithMany()
-                        .HasForeignKey("AccountID")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

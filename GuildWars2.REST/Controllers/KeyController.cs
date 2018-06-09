@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace GuildWars2.REST.Controllers
 {
     [Route("api/[controller]")]
-    public class KeyController : Controller
+    public class KeyController : BaseController
     {
         [Authorize, HttpPost]
         public async Task<IActionResult> AddKey([FromBody]APIKey key)
         {
-            await UserAPI.AddUser(key.Key);
-            return Ok();
+            await AuthAPI.AddKey(UserID, key.Key);
+            return Accepted();
         }
     }
 

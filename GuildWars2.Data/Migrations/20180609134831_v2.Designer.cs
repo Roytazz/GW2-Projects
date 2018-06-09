@@ -4,14 +4,16 @@ using GuildWars2.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GuildWars2.Data.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180609134831_v2")]
+    partial class v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,8 +27,6 @@ namespace GuildWars2.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccountGUID");
 
                     b.Property<string>("Name");
 
@@ -52,8 +52,6 @@ namespace GuildWars2.Data.Migrations
                     b.Property<int>("Value");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AccountID");
 
                     b.ToTable("CategoryValue");
                 });
@@ -177,14 +175,6 @@ namespace GuildWars2.Data.Migrations
                     b.HasIndex("AccountID");
 
                     b.ToTable("Wallet");
-                });
-
-            modelBuilder.Entity("GuildWars2.Data.Model.CategoryValue", b =>
-                {
-                    b.HasOne("GuildWars2.Data.Model.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GuildWars2.Data.Model.Dye", b =>

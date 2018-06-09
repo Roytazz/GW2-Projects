@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GuildWars2.Data.Model
 {
@@ -8,8 +7,8 @@ namespace GuildWars2.Data.Model
         [Key]
         public int ID { get; set; }
         
-        public string AccountName { get; set; }
+        public string UserName { get; set; }
 
-        public List<Key> Keys { get; set; }
+        public string Password { get; set; }
     }
 }

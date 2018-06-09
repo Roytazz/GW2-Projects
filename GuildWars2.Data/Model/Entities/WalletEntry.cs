@@ -8,7 +8,7 @@ namespace GuildWars2.Data.Model
         [Key]
         public int ID { get; set; }
         
-        public int UserID { get; set; }
+        public int AccountID { get; set; }
         
         public int CurrencyID { get; set; }
 
@@ -16,7 +16,7 @@ namespace GuildWars2.Data.Model
 
         public int Delta { get; set; }
 
-        [ForeignKey(nameof(UserID))]
-        public User User { get; set; }
+        [ForeignKey(nameof(AccountID))]
+        public Account Account { get; set; }
     }
 }

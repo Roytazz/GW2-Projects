@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
+using GuildWars2.Data;
+using GuildWars2.Data.Endpoints;
+using GuildWars2.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace GuildWars2.REST.Controllers
 {
     [Route("api/[controller]")]
-    public class TokenController : Controller
+    public class TokenController : BaseController
     {
         private IConfiguration _config;
 
@@ -20,17 +24,17 @@ namespace GuildWars2.REST.Controllers
         }
 
         [AllowAnonymous, HttpPost]
-        public IActionResult CreateToken([FromBody]LoginModel login) {
-            var user = Authenticate(login);
+        public async Task<IActionResult> CreateToken([FromBody]LoginModel login) {
+            var user = await AuthAPI.LoginUser(new User { UserName = login.UserName, Password = login.Password });
             if (user != null)
                 return Ok(new { token = BuildToken(user) });
             else
                 return Unauthorized();
         }
 
-        private string BuildToken(UserModel user) {
+        private string BuildToken(User user) {
             var claims = new List<Claim> {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserID.ToString())
+                new Claim(JwtRegisteredClaimNames.Sub, user.ID.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -44,15 +48,10 @@ namespace GuildWars2.REST.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private UserModel Authenticate(LoginModel login) {
-            if (login.Password.Equals(_config["GW2:Password"]))  //Obviously make this more secure, but for now it will do
-                return new UserModel { UserID = 1 };
-
-            return null;
-        }
-
         public class LoginModel
         {
+            public string UserName { get; set; }
+
             public string Password { get; set; }
         }
 
