@@ -25,7 +25,7 @@ namespace GuildWars2.REST.Controllers
 
         [AllowAnonymous, HttpPost]
         public async Task<IActionResult> CreateToken([FromBody]LoginModel login) {
-            var user = await AuthAPI.LoginUser(new User { UserName = login.UserName, Password = login.Password });
+            var user = await AuthAPI.LoginUser(login.UserName, login.Password);
             if (user != null)
                 return Ok(new { token = BuildToken(user) });
             else
