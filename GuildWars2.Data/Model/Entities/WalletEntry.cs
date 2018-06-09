@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuildWars2.Data.Model
 {
     public class WalletEntry : DateEntry
     {
-        [Key]
+        [Key, JsonIgnore]
         public int ID { get; set; }
         
+        [JsonIgnore]
         public int AccountID { get; set; }
         
         public int CurrencyID { get; set; }
@@ -16,7 +18,7 @@ namespace GuildWars2.Data.Model
 
         public int Delta { get; set; }
 
-        [ForeignKey(nameof(AccountID))]
+        [ForeignKey(nameof(AccountID)), JsonIgnore]
         public Account Account { get; set; }
     }
 }
