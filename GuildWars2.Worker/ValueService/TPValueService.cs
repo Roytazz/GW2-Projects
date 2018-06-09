@@ -15,12 +15,15 @@ namespace GuildWars2.Worker.ValueService
         }
 
         public async Task<List<ValueResult<Item>>> CalculateValue(List<Item> items, bool takeHighestValue) {
+            var result = new List<ValueResult<Item>>();
+            if (items.Count <= 0)
+                return result;
+
             var sellableItems = await DataAPI.GetItemSellable(items.Select(x => x.ID).ToList());
             var listings = await API.CommerceAPI.ListingsAggregated(sellableItems);
             if (listings == null)
-                return null;
+                return result;
 
-            var result = new List<ValueResult<Item>>();
             foreach (var item in items) {
                 if (listings.Any(x => x.ItemID == item.ID)) {
                     var listing = listings.Where(x => x.ItemID == item.ID).FirstOrDefault();
