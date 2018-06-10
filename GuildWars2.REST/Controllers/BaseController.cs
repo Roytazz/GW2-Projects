@@ -15,7 +15,7 @@ namespace GuildWars2.REST.Controllers
             }
         }
 
-        public object ReturnError(string msg) {
+        public object ErrorMessage(string msg) {
             return new { error = msg };
         }
     }

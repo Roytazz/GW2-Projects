@@ -29,7 +29,7 @@ namespace GuildWars2.REST.Controllers
             if (user != null)
                 return Ok(new { token = BuildToken(user) });
             else
-                return BadRequest(ReturnError("Username already exists"));
+                return BadRequest(ErrorMessage("Login credentials are invalid"));
         }
 
         private string BuildToken(User user) {

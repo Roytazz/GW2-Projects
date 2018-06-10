@@ -25,17 +25,17 @@ namespace GuildWars2.REST.Controllers.Value
 
         [Authorize, HttpPost]
         public async Task<IActionResult> Index([FromBody]CategoryModel category) {
-            if (category == null)
-                return BadRequest();
-            
+            if (category == null || category.CategoriesList == null || category.CategoriesList.Count <= 0)
+                return BadRequest(ErrorMessage("All categories are invalid"));
+
             var categoryValues = await UserAPI.GetCategory(category.CategoriesList, category.APIKey);
             return Ok(categoryValues);
         }
 
         [Authorize, HttpPost("history")]
         public async Task<IActionResult> History([FromBody]CategoryModel category) {
-            if (category == null)
-                return BadRequest();
+            if (category == null || category.CategoriesList == null || category.CategoriesList.Count <= 0)
+                return BadRequest(ErrorMessage("All categories are invalid"));
             
             var categoryValues = await UserAPI.GetCategoryHistory(category.CategoriesList, category.APIKey);
             return Ok(categoryValues);

@@ -18,7 +18,7 @@ namespace GuildWars2.REST.Controllers.Profile
             if (result.Succeeded)
                 return Ok();
             else
-                return BadRequest(ReturnError(result.Message));
+                return BadRequest(ErrorMessage(result.Message));
         }
     }
 }
