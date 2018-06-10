@@ -9,11 +9,6 @@ namespace GuildWars2.Worker.ValueService
 {
     public class MiniValueService : IValueService<Mini>
     {
-        public async Task<ValueResult<Mini>> CalculateValue(Mini item, bool takeHighestValue) {
-            var result = await CalculateValue(new List<Mini> { item }, takeHighestValue);
-            return result.FirstOrDefault();
-        }
-
         public async Task<List<ValueResult<Mini>>> CalculateValue(List<Mini> items, bool takeHighestValue) {
             var miniIDs = items.Select(x => x.ItemID).ToList();
             var miniItems = await ItemAPI.Items(miniIDs);

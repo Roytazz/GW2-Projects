@@ -10,11 +10,6 @@ namespace GuildWars2.Worker.ValueService
 {
     public class CraftingValueService : IValueService<Item>
     {
-        public async Task<ValueResult<Item>> CalculateValue(Item entity, bool takeHighestValue) {
-            var result = await CalculateValue(new List<Item> { entity }, takeHighestValue);
-            return result.FirstOrDefault();
-        }
-
         public async Task<List<ValueResult<Item>>> CalculateValue(List<Item> entities, bool takeHighestValue) {
             var recipes = new List<ItemRecipeTreeNode>();
             foreach (var item in entities) {

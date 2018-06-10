@@ -10,18 +10,14 @@ namespace GuildWars2.Worker.ValueService
 {
     public class RecipeValueService : IValueService<ItemRecipeTreeNode>
     {
-        public async Task<ValueResult<ItemRecipeTreeNode>> CalculateValue(ItemRecipeTreeNode item, bool takeHighestValue) {
-            var result = await CalculateValue(new List<ItemRecipeTreeNode> { item }, takeHighestValue);
-            return result.FirstOrDefault();
-        }
-
         public async Task<List<ValueResult<ItemRecipeTreeNode>>> CalculateValue(List<ItemRecipeTreeNode> items, bool takeHighestValue) {
             var result = new List<ValueResult<ItemRecipeTreeNode>>();
             foreach (var item in items) {
                 var itemIDs = GetItemIDs(item).Select(x=>x.ItemID).Distinct().ToList();
-                var listings = await CommerceAPI.ListingsAggregated(itemIDs);
-
-                var itemPrice = new ItemPrice();
+                var listings = new List<ItemListingAggregated>();
+                if(itemIDs.Count > 0)
+                    listings = await CommerceAPI.ListingsAggregated(itemIDs);
+                
                 result.Add(new ValueResult<ItemRecipeTreeNode> { Item = item, Value = GetValue(item, takeHighestValue, listings) });
             }
             return result;    
