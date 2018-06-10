@@ -28,7 +28,7 @@ namespace GuildWars2.REST.Controllers.Value
             if (category == null)
                 return BadRequest();
             
-            var categoryValues = await UserAPI.GetCategory(category.CategoriesList, UserID, category.APIKey);
+            var categoryValues = await UserAPI.GetCategory(category.CategoriesList, category.APIKey);
             return Ok(categoryValues);
         }
 
@@ -37,7 +37,7 @@ namespace GuildWars2.REST.Controllers.Value
             if (category == null)
                 return BadRequest();
             
-            var categoryValues = await UserAPI.GetCategoryHistory(category.CategoriesList, UserID, category.APIKey);
+            var categoryValues = await UserAPI.GetCategoryHistory(category.CategoriesList, category.APIKey);
             return Ok(categoryValues);
         }
     }

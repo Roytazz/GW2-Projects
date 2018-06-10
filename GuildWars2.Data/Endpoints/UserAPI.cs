@@ -141,7 +141,7 @@ namespace GuildWars2.Data
             }
         }
 
-        public async static Task<List<CategoryValue>> GetCategory(List<CategoryType> types, int userID, string apiKey) {
+        public async static Task<List<CategoryValue>> GetCategory(List<CategoryType> types, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
                 var account = await AuthAPI.GetAccount(apiKey);
                 if (account == null)
@@ -155,8 +155,8 @@ namespace GuildWars2.Data
             }
         }
 
-        public async static Task<List<CategoryValue>> GetCategoryHistory(List<CategoryType> types, int userID, string apiKey) {
-            throw new System.Exception();
+        public async static Task<List<CategoryValue>> GetCategoryHistory(List<CategoryType> types, string apiKey) {
+            
         }
         #endregion Category
 

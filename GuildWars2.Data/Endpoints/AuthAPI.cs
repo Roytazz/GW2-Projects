@@ -12,8 +12,7 @@ namespace GuildWars2.Data
     {
         public static async Task AddKey(int userID, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = await GetUser(userID);
-                if (user == null)
+                if (await GetUser(userID) == null)
                     return;
 
                 var account = await AccountAPI.Account(apiKey);
