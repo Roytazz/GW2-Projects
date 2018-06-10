@@ -33,11 +33,8 @@ namespace GuildWars2.REST.Controllers.Value
         }
 
         [Authorize, HttpPost("history")]
-        public async Task<IActionResult> History([FromBody]CategoryModel category) {
-            if (category == null || category.CategoriesList == null || category.CategoriesList.Count <= 0)
-                return BadRequest(ErrorMessage("All categories are invalid"));
-            
-            var categoryValues = await UserAPI.GetCategoryHistory(category.CategoriesList, category.APIKey);
+        public async Task<IActionResult> History([FromBody]CategoryHistoryModel category, [FromQuery]int page = 0, [FromQuery]int pageSize = 200) {
+            var categoryValues = await UserAPI.GetCategoryHistory(category.Category, category.APIKey, page, pageSize);
             return Ok(categoryValues);
         }
     }
@@ -54,5 +51,12 @@ namespace GuildWars2.REST.Controllers.Value
                 return Categories.Select(x => (CategoryType)x).ToList();
             }
         }
+    }
+
+    public class CategoryHistoryModel
+    {
+        public string APIKey { get; set; }
+
+        public CategoryType Category { get; set; }
     }
 }
