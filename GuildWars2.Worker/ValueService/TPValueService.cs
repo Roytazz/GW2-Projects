@@ -18,7 +18,7 @@ namespace GuildWars2.Worker.ValueService
             var sellableItems = await DataAPI.GetItemSellable(items.Select(x => x.ID).ToList());
             var listings = new List<ItemListingAggregated>();
             if(sellableItems.Count > 0)
-                await API.CommerceAPI.ListingsAggregated(sellableItems);
+                listings = await API.CommerceAPI.ListingsAggregated(sellableItems);
             
             foreach (var item in items) {
                 if (listings.Any(x => x.ItemID == item.ID)) {

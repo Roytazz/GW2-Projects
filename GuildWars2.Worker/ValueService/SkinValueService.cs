@@ -20,7 +20,7 @@ namespace GuildWars2.Worker.ValueService
             var sellableItems = await DataAPI.GetItemSellable(ids);
             var allListings = new List<ItemListingAggregated>();
             if(sellableItems.Count > 0)
-                await CommerceAPI.ListingsAggregated(sellableItems);
+                allListings = await CommerceAPI.ListingsAggregated(sellableItems);
 
             var results = new List<ValueResult<Skin>>();
             foreach (var skin in skinItemGrps) {
