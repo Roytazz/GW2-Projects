@@ -5,7 +5,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using GuildWars2.Data;
-using GuildWars2.Data.Endpoints;
 using GuildWars2.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +23,7 @@ namespace GuildWars2.REST.Controllers
         }
 
         [AllowAnonymous, HttpPost]
-        public async Task<IActionResult> Create([FromBody]UserModel userLogin) {
+        public async Task<IActionResult> Get([FromBody]UserModel userLogin) {
             var user = await AuthAPI.LoginUser(userLogin.UserName, userLogin.Password);
             if (user != null)
                 return Ok(new { token = BuildToken(user) });

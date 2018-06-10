@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using GuildWars2.Data;
@@ -15,7 +14,7 @@ namespace GuildWars2.REST.Controllers.Value
     public class CategoriesController : BaseController
     {
         [Authorize, HttpGet("all")]
-        public IActionResult Index() {
+        public IActionResult All() {
             var result = new List<object>();
             foreach (var item in Enum.GetNames(typeof(CategoryType))) {
                 result.Add(new { id = (int)Enum.Parse(typeof(CategoryType), item), type = item });
@@ -24,7 +23,7 @@ namespace GuildWars2.REST.Controllers.Value
         }
 
         [Authorize, HttpPost]
-        public async Task<IActionResult> Index([FromBody]CategoryModel category) {
+        public async Task<IActionResult> Get([FromBody]CategoryModel category) {
             if (category == null || category.CategoriesList == null || category.CategoriesList.Count <= 0)
                 return BadRequest(ErrorMessage("All categories are invalid"));
 
