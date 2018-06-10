@@ -155,8 +155,18 @@ namespace GuildWars2.Data
             }
         }
 
-        public async static Task<List<CategoryValue>> GetCategoryHistory(List<CategoryType> types, string apiKey) {
-            
+        public async static Task<List<CategoryValue>> GetCategoryHistory(CategoryType type, string apiKey, int page, int pageSize) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                var account = await AuthAPI.GetAccount(apiKey);
+                if (account == null)
+                    return new List<CategoryValue>();
+
+                return await db.CategoryValue.Where(x => x.AccountID == account.ID && x.Category == type)
+                            .OrderByDescending(x => x.Date)
+                            .Skip(page * pageSize)
+                            .Take(pageSize)
+                            .ToListAsync();
+            }
         }
         #endregion Category
 
