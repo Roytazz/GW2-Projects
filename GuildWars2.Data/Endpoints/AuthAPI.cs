@@ -2,6 +2,7 @@
 using GuildWars2.Data.Database;
 using GuildWars2.Data.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,39 @@ namespace GuildWars2.Data
 {
     public class AuthAPI
     {
+        public static async Task AddKey(int userID, string apiKey) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                var user = await GetUser(userID);
+                if (user == null)
+                    return;
+
+                var account = await AccountAPI.Account(apiKey);
+                if (account != null && await db.Account.AnyAsync(x => x.Name.Equals(account.Name))) {
+                    var existingAccount = await db.Account.FirstOrDefaultAsync(x => x.Name.Equals(account.Name));
+                    db.Key.Add(new Key { AccountID = existingAccount.ID, APIKey = apiKey, UserID = userID });
+                }
+                else {
+                    await AddAccount(account);
+                    var addedAccount = await GetAccount(apiKey);
+                    db.Key.Add(new Key { AccountID = addedAccount.ID, APIKey = apiKey, UserID = userID });
+                }
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public static async Task<List<KeyInfo>> GetKeys(int userID) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                var keys = await db.Key.Where(x => x.UserID == userID).ToListAsync();
+                var result = new List<KeyInfo>();
+                foreach (var key in keys) {
+                    var account = await db.Account.FirstOrDefaultAsync(x => x.ID == key.AccountID);
+                    if(account != null)
+                        result.Add(new KeyInfo { APIKey = key.APIKey, AccountName = account?.Name });
+                }
+                return result;
+            }
+        }
+
         public static async Task<User> LoginUser(string username, string password) {
             using (var db = new UserContextFactory().CreateDbContext()) {
                 var users = await db.User.Where(x => x.UserName.Equals(username) && x.Password.Equals(password)).ToListAsync();
@@ -19,34 +53,24 @@ namespace GuildWars2.Data
             }
         }
 
-        public static async Task<bool> AddUser(User user) {
+        public static async Task<AuthResult> AddUser(string userName, string password) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                if (!await db.User.AnyAsync(x => x.UserName.Equals(user.UserName))) {
-                    db.User.Add(user);
+                if (!await db.User.AnyAsync(x => x.UserName.Equals(userName))) {
+                    db.User.Add(new User { UserName = userName, Password = password });
                     await db.SaveChangesAsync();
-                    return true;
+                    return new AuthResult { Message = "User succesfully added", Succeeded = true };
                 }
-                return false;
+                return new AuthResult { Message = "Username already exists", Succeeded = false };
             }
         }
 
-        public static async Task AddKey(int userID, string apiKey) {
+        internal static async Task<User> GetUser(int userID) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                var user = await GetUser(userID);
-                if (user == null)
-                    return;
-
-                var account = await AccountAPI.Account(apiKey);
-                if (await db.Account.AnyAsync(x => x.Name.Equals(account.Name))) {
-                    var existingAccount = await db.Account.FirstOrDefaultAsync(x => x.Name.Equals(account.Name));
-                    db.Key.Add(new Key { AccountID = existingAccount.ID, APIKey = apiKey, UserID = userID });
+                if (await db.User.AnyAsync(x => x.ID == userID)) {
+                    return await db.User.FirstOrDefaultAsync(x => x.ID == userID);
                 }
-                else {
-                    await AddAccount(account);
-                    var addedAccount = await GetAccount(apiKey);
-                    db.Key.Add(new Key { AccountID = addedAccount.ID, APIKey = apiKey, UserID = userID });
-                }
-                await db.SaveChangesAsync();
+                else
+                    return null;
             }
         }
 
@@ -69,21 +93,18 @@ namespace GuildWars2.Data
                     return null;
             }
         }
+    }
 
-        internal static async Task<User> GetUser(int userID) {
-            using (var db = new UserContextFactory().CreateDbContext()) {
-                if (await db.User.AnyAsync(x => x.ID == userID)) {
-                    return await db.User.FirstOrDefaultAsync(x => x.ID == userID);
-                }
-                else
-                    return null;
-            }
-        }
+    public class KeyInfo
+    {
+        public string APIKey { get; set; }
 
-        internal static async Task<bool> HasAcces(int userID, int accountID) {
-            using (var db = new UserContextFactory().CreateDbContext()) {
-                return await db.Key.AnyAsync(x => x.UserID == userID && x.AccountID == accountID);
-            }
-        }
+        public string AccountName { get; set; }
+    }
+
+    public class AuthResult
+    {
+        public bool Succeeded { get; set; }
+        public string Message { get; set; }
     }
 }

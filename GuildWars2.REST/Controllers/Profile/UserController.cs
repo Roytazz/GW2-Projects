@@ -12,13 +12,13 @@ namespace GuildWars2.REST.Controllers.Profile
     [Route("api/v1/[controller]")]
     public class UserController : BaseController
     {
-        [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody]UserModel user) {
-            var result = await AuthAPI.AddUser(new User { UserName = user.UserName, Password = user.Password });
-            if (result)
+        [HttpPost("add")]
+        public async Task<IActionResult> Add([FromBody]UserModel user) {
+            var result = await AuthAPI.AddUser(user.UserName, user.Password);
+            if (result.Succeeded)
                 return Ok();
             else
-                return BadRequest();
+                return BadRequest(ReturnError(result.Message));
         }
     }
 }
