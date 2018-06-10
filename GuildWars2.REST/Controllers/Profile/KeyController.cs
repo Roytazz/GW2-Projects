@@ -17,8 +17,8 @@ namespace GuildWars2.REST.Controllers.Profile
 
         [Authorize, HttpGet]
         public async Task<IActionResult> Get() {
-            var userKeys = await AuthAPI.GetKeys(UserID);
-            return Ok(new { keys = userKeys });
+            var keys = await AuthAPI.GetKeys(UserID);
+            return Ok(keys);
         }
     }
 
