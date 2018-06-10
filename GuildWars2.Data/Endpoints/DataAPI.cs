@@ -17,7 +17,7 @@ namespace GuildWars2.Data.Endpoints
             using(var db = new DataContextFactory().CreateDbContext()) {
                 var existingItems = await db.Item.Where(x => items.Select(y=>y.ID).Contains(x.ID)).ToListAsync();
                 foreach (var item in items) {
-                    if (db.Item.Any(x => x.ID == item.ID)) 
+                    if (await db.Item.AnyAsync(x => x.ID == item.ID)) 
                         db.Item.Remove(existingItems.FirstOrDefault(x=>x.ID == item.ID));
                     
                     db.Item.Add(item);
