@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuildWars2.Data.Model
 {
@@ -8,9 +9,10 @@ namespace GuildWars2.Data.Model
         public int SkinID { get; set; }
 
         //[Key]
+        [JsonIgnore]
         public int AccountID { get; set; }
 
-        [ForeignKey(nameof(AccountID))]
+        [ForeignKey(nameof(AccountID)), JsonIgnore]
         public Account Account { get; set; }
     }
 }
