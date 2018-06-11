@@ -3,6 +3,7 @@ using GuildWars2.Data.Database;
 using GuildWars2.Data.Endpoints;
 using GuildWars2.Data.Model;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,6 +32,19 @@ namespace GuildWars2.Data
                 await db.SaveChangesAsync();
             }
         }
+
+        public async static Task<List<Item>> GetAccountItems(CategoryValueType category, string apiKey, int page, int pageSize) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                var account = await AuthAPI.GetAccount(apiKey);
+                if (account == null)
+                    return new List<Item>();
+
+                return await db.Item.Where(x => x.AccountID == account.ID && x.Category == category)
+                            .Skip(page * pageSize)
+                            .Take(pageSize)
+                            .ToListAsync();
+            }
+        }
         #endregion Items
 
         #region Dyes
@@ -53,6 +67,19 @@ namespace GuildWars2.Data
                     db.Dye.Add(new Dye { DyeID = dye.ID, AccountID = account.ID });
                 }
                 await db.SaveChangesAsync();
+            }
+        }
+
+        public async static Task<List<Dye>> GetDyes(string apiKey, int page, int pageSize) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                var account = await AuthAPI.GetAccount(apiKey);
+                if (account == null)
+                    return new List<Dye>();
+
+                return await db.Dye.Where(x => x.AccountID == account.ID)
+                            .Skip(page * pageSize)
+                            .Take(pageSize)
+                            .ToListAsync();
             }
         }
         #endregion Dyes
@@ -79,6 +106,19 @@ namespace GuildWars2.Data
                 await db.SaveChangesAsync();
             }
         }
+
+        public async static Task<List<Mini>> GetMinis(string apiKey, int page, int pageSize) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                var account = await AuthAPI.GetAccount(apiKey);
+                if (account == null)
+                    return new List<Mini>();
+
+                return await db.Mini.Where(x => x.AccountID == account.ID)
+                            .Skip(page * pageSize)
+                            .Take(pageSize)
+                            .ToListAsync();
+            }
+        }
         #endregion Minis
 
         #region Skins
@@ -101,6 +141,19 @@ namespace GuildWars2.Data
                     db.Skin.Add(new Skin { SkinID = skin.ID, AccountID = account.ID });
                 }
                 await db.SaveChangesAsync();
+            }
+        }
+
+        public async static Task<List<Skin>> GetSkins(string apiKey, int page, int pageSize) {
+            using (var db = new UserContextFactory().CreateDbContext()) {
+                var account = await AuthAPI.GetAccount(apiKey);
+                if (account == null)
+                    return new List<Skin>();
+
+                return await db.Skin.Where(x => x.AccountID == account.ID)
+                            .Skip(page * pageSize)
+                            .Take(pageSize)
+                            .ToListAsync();
             }
         }
         #endregion Skins
