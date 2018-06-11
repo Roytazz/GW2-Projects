@@ -12,7 +12,7 @@ namespace GuildWars2.Data
     {
         public static async Task AddKey(int userID, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                if (await GetUser(userID) == null)
+                if (apiKey == null || apiKey.Equals(string.Empty) || await GetUser(userID) == null)
                     return;
 
                 var account = await AccountAPI.Account(apiKey);
@@ -21,7 +21,7 @@ namespace GuildWars2.Data
                     db.Key.Add(new Key { AccountID = existingAccount.ID, APIKey = apiKey, UserID = userID });
                 }
                 else {
-                    await AddAccount(account);
+                    await AddAccount(account.Name, account.ID);
                     var addedAccount = await GetAccount(apiKey);
                     db.Key.Add(new Key { AccountID = addedAccount.ID, APIKey = apiKey, UserID = userID });
                 }
@@ -73,10 +73,10 @@ namespace GuildWars2.Data
             }
         }
 
-        internal static async Task AddAccount(API.Model.Account.Account account) {
+        internal static async Task AddAccount(string accountName, string accountGUID) {
             using (var db = new UserContextFactory().CreateDbContext()) {
-                if (!await db.Account.AnyAsync(x => x.Name.Equals(account.Name))) {
-                    db.Account.Add(new Account { Name = account.Name, AccountGUID = account.ID });
+                if (!await db.Account.AnyAsync(x => x.Name.Equals(accountName))) {
+                    db.Account.Add(new Account { Name = accountName, AccountGUID = accountGUID });
                     await db.SaveChangesAsync();
                 }
             }
