@@ -115,14 +115,14 @@ namespace GuildWars2.Worker
             Characters = GroupItems(CharacterItems(characterResult));
 
             var bankResult = await AccountAPI.Bank(apiKey);
-            Bank = GroupItems(GetItems(bankResult.Cast<Equipment>().ToList()));
+            Bank = GroupItems(GetItems(bankResult.Cast<Equipment>().ToList(), Data.Model.CategoryValueType.Bank));
 
             var sharedResult = await AccountAPI.SharedInventory(apiKey);
-            SharedInventory = GroupItems(GetItems(sharedResult.Cast<Equipment>().ToList()));
+            SharedInventory = GroupItems(GetItems(sharedResult.Cast<Equipment>().ToList(), Data.Model.CategoryValueType.SharedInventory));
             
-            MaterialStorage = GroupItems(GetItems(await AccountAPI.MaterialStorage(apiKey)));
-            DeliveryBox = GroupItems(GetItems(GetDeliveryBox(await CommerceAPI.DeliveryBox(apiKey))));
-            GuildBank = GroupItems(GetItems(await GetGuildInventory(await AccountAPI.Account(apiKey), apiKey)));
+            DeliveryBox = GroupItems(GetItems(GetDeliveryBox(await CommerceAPI.DeliveryBox(apiKey)), Data.Model.CategoryValueType.DeliveryBox));
+            MaterialStorage = GroupItems(GetItems(await AccountAPI.MaterialStorage(apiKey), Data.Model.CategoryValueType.MaterialStorage));
+            GuildBank = GroupItems(GetItems(await GetGuildInventory(await AccountAPI.Account(apiKey), apiKey), Data.Model.CategoryValueType.GuildBank));
         }
 
         public List<Data.Model.Item> Total() {
@@ -138,11 +138,12 @@ namespace GuildWars2.Worker
         }
 
         private List<Data.Model.Item> GroupItems(List<Data.Model.Item> items) {
-            return items.GroupBy(x => new { x.ItemID, x.StatID, x.SkinID })
+            return items.GroupBy(x => new { x.ItemID, x.StatID, x.SkinID, x.Category })
                 .Select(x => new Data.Model.Item {
                     ItemID = x.Key.ItemID,
                     StatID = x.Key.StatID,
                     SkinID = x.Key.SkinID,
+                    Category = x.Key.Category,
                     Amount = x.Sum(y => y.Amount)
                 }).ToList();
         }
@@ -153,16 +154,16 @@ namespace GuildWars2.Worker
             List<Data.Model.Item> items = new List<Data.Model.Item>();
 
             foreach (var character in Characters) {
-                items.AddRange(GetItems(character.Equipment));
+                items.AddRange(GetItems(character.Equipment, Data.Model.CategoryValueType.Characters));
                 foreach (var bag in character.Bags) {
                     if(bag != null)
-                        items.AddRange(GetItems(bag.Inventory.Cast<Equipment>().ToList()));
+                        items.AddRange(GetItems(bag.Inventory.Cast<Equipment>().ToList(), Data.Model.CategoryValueType.Characters));
                 }
             }
             return items;
         }
 
-        private List<Data.Model.Item> GetItems(List<Equipment> equipment) {
+        private List<Data.Model.Item> GetItems(List<Equipment> equipment, Data.Model.CategoryValueType categoryType) {
             List<Data.Model.Item> result = new List<Data.Model.Item>();
             foreach (var equipmentPiece in equipment) {
                 if (equipmentPiece == null)
@@ -172,11 +173,13 @@ namespace GuildWars2.Worker
                     Amount = GetAmount(equipmentPiece),
                     ItemID = equipmentPiece.ID,
                     SkinID = equipmentPiece.Skin,
+                    Category = categoryType,
                     StatID = equipmentPiece.Stats != null ? equipmentPiece.Stats.ID : 0
                 });
                 if (equipmentPiece.Infusions != null) {
                     foreach (var infusion in equipmentPiece.Infusions) {
                         result.Add(new Data.Model.Item {
+                            Category = categoryType,
                             Amount = 1,
                             ItemID = infusion
                         });
@@ -186,6 +189,7 @@ namespace GuildWars2.Worker
                 if (equipmentPiece.Upgrades != null) {
                     foreach (var upgrades in equipmentPiece.Upgrades) {
                         result.Add(new Data.Model.Item {
+                            Category = categoryType,
                             Amount = 1,
                             ItemID = upgrades
                         });
@@ -195,13 +199,14 @@ namespace GuildWars2.Worker
             return result;
         }
 
-        private List<Data.Model.Item> GetItems(List<Material> materials) {
+        private List<Data.Model.Item> GetItems(List<Material> materials, Data.Model.CategoryValueType categoryType) {
             List<Data.Model.Item> result = new List<Data.Model.Item>();
             foreach (var material in materials) {
                 if (material == null || material.Count == 0)
                     continue;
 
                 result.Add(new Data.Model.Item {
+                    Category = categoryType,
                     Amount = material.Count,
                     ItemID = material.ID
                 });
@@ -209,13 +214,14 @@ namespace GuildWars2.Worker
             return result;
         }
 
-        private List<Data.Model.Item> GetItems(List<ItemStack> items) {
+        private List<Data.Model.Item> GetItems(List<ItemStack> items, Data.Model.CategoryValueType categoryType) {
             List<Data.Model.Item> result = new List<Data.Model.Item>();
             foreach (var item in items) {
                 if (item == null)
                     continue;
 
                 result.Add(new Data.Model.Item {
+                    Category = categoryType,
                     Amount = item.Count,
                     ItemID = item.ID
                 });

@@ -173,12 +173,13 @@ namespace GuildWars2.Data
         private static List<Item> GetDifference(List<Item> newItems, List<Item> oldItems) {
             var result = new List<Item>();
             foreach (var newItem in newItems) {
-                if (oldItems.Any(x => x.ItemID == newItem.ItemID && x.SkinID == newItem.SkinID && x.StatID == newItem.StatID)) {
-                    var oldItem = oldItems.FirstOrDefault(x => x.ItemID == newItem.ItemID && x.SkinID == newItem.SkinID && x.StatID == newItem.StatID);
+                if (oldItems.Any(x => x.Equals(newItem))) {
+                    var oldItem = oldItems.FirstOrDefault(x => x.Equals(newItem));
                     result.Add(new Item {
                         ItemID = newItem.ItemID,
                         SkinID = newItem.SkinID,
                         StatID = newItem.StatID,
+                        Category = newItem.Category,
                         Amount = newItem.Amount,
                         Delta = newItem.Amount - oldItem.Amount
                     });
@@ -189,12 +190,13 @@ namespace GuildWars2.Data
             }
 
             foreach (var oldItem in oldItems) {
-                if (!newItems.Any(x => x.ItemID == oldItem.ItemID && x.SkinID == oldItem.SkinID && x.StatID == oldItem.StatID)) {
+                if (!newItems.Any(x => x.Equals(oldItem))) { 
                     if (oldItem.Amount != 0) {          //Dont want to add another entry with 0 amount, to prevent endless 0-amount entries for items that dont exist anymore.
                         result.Add(new Item {
                             ItemID = oldItem.ItemID,
                             SkinID = oldItem.SkinID,
                             StatID = oldItem.StatID,
+                            Category = oldItem.Category,
                             Amount = 0,
                             Delta = oldItem.Amount * -1
                         });

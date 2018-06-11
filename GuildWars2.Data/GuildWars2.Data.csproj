@@ -8,6 +8,7 @@
     <Compile Remove="Migrations\20180609133036_renamed-user-2.cs" />
     <Compile Remove="Migrations\20180609133729_renamed-user-2.cs" />
     <Compile Remove="Migrations\20180609141257_v2.2.cs" />
+    <Compile Remove="Migrations\20180611001900_added-categorytype-on-item.cs" />
   </ItemGroup>
 
   <ItemGroup>
