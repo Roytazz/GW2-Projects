@@ -127,14 +127,13 @@ namespace GuildWars2.Worker
 
         public List<Data.Model.Item> Total() {
             List<Data.Model.Item> items = new List<Data.Model.Item>();
-
             items.AddRange(Characters);
             items.AddRange(Bank);
             items.AddRange(SharedInventory);
             items.AddRange(DeliveryBox);
             items.AddRange(MaterialStorage);
             items.AddRange(GuildBank);
-            return GroupItems(items);
+            return items;
         }
 
         private List<Data.Model.Item> GroupItems(List<Data.Model.Item> items) {
