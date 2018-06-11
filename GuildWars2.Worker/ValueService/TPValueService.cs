@@ -23,9 +23,9 @@ namespace GuildWars2.Worker.ValueService
             foreach (var item in items) {
                 if (listings.Any(x => x.ItemID == item.ID)) {
                     var listing = listings.Where(x => x.ItemID == item.ID).FirstOrDefault();
-                    if (takeHighestValue) 
+                    if (takeHighestValue && listing.Sells.UnitPrice > listing.Buys.UnitPrice)   //Extra check in case there are no sells and only buys. Sells is 0 if there are none 
                         result.Add(new ValueResult<Item> { Item = item, Value = listing.Sells?.Price });
-                    else 
+                    else
                         result.Add(new ValueResult<Item> { Item = item, Value = listing.Buys?.Price });
                 }
                 else
