@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace HtmlDiff
+namespace GuildWars2.Worker.Helper
 {
-    public class HtmlDiff
+    public class HtmlDiffHelper
     {
         /// <summary>
         /// This value defines balance between speed and memory utilization. The higher it is the faster it works and more memory consumes.
@@ -87,7 +88,7 @@ namespace HtmlDiff
         /// </summary>
         /// <param name="oldText">The old text.</param>
         /// <param name="newText">The new text.</param>
-        public HtmlDiff(string oldText, string newText)
+        public HtmlDiffHelper(string oldText, string newText)
         {
             RepeatingWordsAccuracy = 1d; //by default all repeating words should be compared
 
@@ -101,7 +102,7 @@ namespace HtmlDiff
 
         public static string Execute(string oldText, string newText)
         {
-            return new HtmlDiff(oldText, newText).Build();
+            return new HtmlDiffHelper(oldText, newText).Build();
         }
 
         /// <summary>
@@ -442,5 +443,267 @@ namespace HtmlDiff
             }
             return null;
         }
+    }
+
+    public class Operation
+    {
+        public Operation(Action action, int startInOld, int endInOld, int startInNew, int endInNew) {
+            Action = action;
+            StartInOld = startInOld;
+            EndInOld = endInOld;
+            StartInNew = startInNew;
+            EndInNew = endInNew;
+        }
+
+        public Action Action { get; set; }
+        public int StartInOld { get; set; }
+        public int EndInOld { get; set; }
+        public int StartInNew { get; set; }
+        public int EndInNew { get; set; }
+
+
+#if DEBUG
+
+        public void PrintDebugInfo(string[] oldWords, string[] newWords) {
+            var oldText = string.Join("", oldWords.Where((s, pos) => pos >= this.StartInOld && pos < this.EndInOld).ToArray());
+            var newText = string.Join("", newWords.Where((s, pos) => pos >= this.StartInNew && pos < this.EndInNew).ToArray());
+            Debug.WriteLine(string.Format(@"Operation: {0}, Old Text: '{1}', New Text: '{2}'", Action.ToString(), oldText, newText));
+        }
+
+#endif
+    }
+
+    public class WordSplitter
+    {
+        /// <summary>
+        /// Converts Html text into a list of words
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="blockExpressions"></param>
+        /// <returns></returns>
+        public static string[] ConvertHtmlToListOfWords(string text, List<Regex> blockExpressions) {
+            var mode = Mode.Character;
+            var currentWord = new List<char>();
+            var words = new List<string>();
+
+            Dictionary<int, int> blockLocations = FindBlocks(text, blockExpressions);
+
+            bool isBlockCheckRequired = blockLocations.Any();
+            bool isGrouping = false;
+            int groupingUntil = -1;
+
+            for (int index = 0; index < text.Length; index++) {
+                var character = text[index];
+
+                // Don't bother executing block checks if we don't have any blocks to check for!
+                if (isBlockCheckRequired) {
+                    // Check if we have completed grouping a text sequence/block
+                    if (groupingUntil == index) {
+                        groupingUntil = -1;
+                        isGrouping = false;
+                    }
+
+                    // Check if we need to group the next text sequence/block
+                    if (blockLocations.TryGetValue(index, out int until)) {
+                        isGrouping = true;
+                        groupingUntil = until;
+                    }
+
+                    // if we are grouping, then we don't care about what type of character we have, it's going to be treated as a word
+                    if (isGrouping) {
+                        currentWord.Add(character);
+                        mode = Mode.Character;
+                        continue;
+                    }
+                }
+
+                switch (mode) {
+                    case Mode.Character:
+
+                        if (Utils.IsStartOfTag(character)) {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add('<');
+                            mode = Mode.Tag;
+                        }
+                        else if (Utils.IsStartOfEntity(character)) {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                            mode = Mode.Entity;
+                        }
+                        else if (Utils.IsWhiteSpace(character)) {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                            mode = Mode.Whitespace;
+                        }
+                        else if (Utils.IsWord(character)
+                            && (currentWord.Count == 0 || Utils.IsWord(currentWord.Last()))) {
+                            currentWord.Add(character);
+                        }
+                        else {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                        }
+
+                        break;
+                    case Mode.Tag:
+
+                        if (Utils.IsEndOfTag(character)) {
+                            currentWord.Add(character);
+                            words.Add(new string(currentWord.ToArray()));
+                            currentWord.Clear();
+
+                            mode = Utils.IsWhiteSpace(character) ? Mode.Whitespace : Mode.Character;
+                        }
+                        else {
+                            currentWord.Add(character);
+                        }
+
+                        break;
+                    case Mode.Whitespace:
+
+                        if (Utils.IsStartOfTag(character)) {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                            mode = Mode.Tag;
+                        }
+                        else if (Utils.IsStartOfEntity(character)) {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                            mode = Mode.Entity;
+                        }
+                        else if (Utils.IsWhiteSpace(character)) {
+                            currentWord.Add(character);
+                        }
+                        else {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                            mode = Mode.Character;
+                        }
+
+                        break;
+                    case Mode.Entity:
+                        if (Utils.IsStartOfTag(character)) {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                            mode = Mode.Tag;
+                        }
+                        else if (char.IsWhiteSpace(character)) {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                            mode = Mode.Whitespace;
+                        }
+                        else if (Utils.IsEndOfEntity(character)) {
+                            var switchToNextMode = true;
+                            if (currentWord.Count != 0) {
+                                currentWord.Add(character);
+                                words.Add(new string(currentWord.ToArray()));
+
+                                //join &nbsp; entity with last whitespace
+                                if (words.Count > 2
+                                    && Utils.IsWhiteSpace(words[words.Count - 2])
+                                    && Utils.IsWhiteSpace(words[words.Count - 1])) {
+                                    var w1 = words[words.Count - 2];
+                                    var w2 = words[words.Count - 1];
+                                    words.RemoveRange(words.Count - 2, 2);
+                                    currentWord.Clear();
+                                    currentWord.AddRange(w1);
+                                    currentWord.AddRange(w2);
+                                    mode = Mode.Whitespace;
+                                    switchToNextMode = false;
+                                }
+                            }
+                            if (switchToNextMode) {
+                                currentWord.Clear();
+                                mode = Mode.Character;
+                            }
+                        }
+                        else if (Utils.IsWord(character)) {
+                            currentWord.Add(character);
+                        }
+                        else {
+                            if (currentWord.Count != 0)
+                                words.Add(new string(currentWord.ToArray()));
+
+                            currentWord.Clear();
+                            currentWord.Add(character);
+                            mode = Mode.Character;
+                        }
+                        break;
+                }
+            }
+            if (currentWord.Count != 0)
+                words.Add(new string(currentWord.ToArray()));
+
+            return words.ToArray();
+        }
+
+        /// <summary>
+        /// Finds any blocks that need to be grouped
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="blockExpressions"></param>
+        private static Dictionary<int, int> FindBlocks(string text, List<Regex> blockExpressions) {
+            Dictionary<int, int> blockLocations = new Dictionary<int, int>();
+
+            if (blockExpressions == null)
+                return blockLocations;
+
+            foreach (var exp in blockExpressions) {
+                var matches = exp.Matches(text);
+                foreach (System.Text.RegularExpressions.Match match in matches) {
+                    try {
+                        blockLocations.Add(match.Index, match.Index + match.Length);
+                    }
+                    catch {
+                        throw new ArgumentException("One or more block expressions result in a text sequence that overlaps. Current expression: " + exp.ToString());
+                    }
+                }
+            }
+            return blockLocations;
+        }
+    }
+
+    public enum Mode
+    {
+        Character,
+        Tag,
+        Whitespace,
+        Entity,
+    }
+
+    public enum Action
+    {
+        Equal,
+        Delete,
+        Insert,
+        None,
+        Replace
     }
 }

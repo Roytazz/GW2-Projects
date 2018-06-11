@@ -2,6 +2,7 @@
 using GuildWars2.API.Model.Commerce;
 using GuildWars2.API.Model.Items;
 using GuildWars2.Data.Endpoints;
+using GuildWars2.Worker.Helper;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,64 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace HtmlDiff
+namespace GuildWars2.Worker.Helper
 {
+    public class Match
+    {
+        public Match(int startInOld, int startInNew, int size)
+        {
+            StartInOld = startInOld;
+            StartInNew = startInNew;
+            Size = size;
+        }
+
+        public int StartInOld { get; set; }
+        public int StartInNew { get; set; }
+        public int Size { get; set; }
+
+        public int EndInOld
+        {
+            get { return StartInOld + Size; }
+        }
+
+        public int EndInNew
+        {
+            get { return StartInNew + Size; }
+        }
+
+
+#if DEBUG
+
+        public void PrintWordsFromOld(string [] oldWords)
+        {
+            var text = string.Join("", oldWords.Where((s, pos) => pos >= this.StartInOld && pos < this.EndInOld).ToArray());
+            Debug.WriteLine("OLD: " + text);
+        }
+
+        public void PrintWordsFromNew(string [] newWords)
+        {
+            var text = string.Join("", newWords.Where((s, pos) => pos >= this.StartInNew && pos < this.EndInNew).ToArray());
+            Debug.WriteLine("NEW: " + text);
+        }
+
+#endif
+    }
+
+    internal struct MatchOptions
+    {
+        /// <summary>
+        /// Match granularity, defines how many words are joined into single block
+        /// </summary>
+        public int BlockSize { get; set; }
+
+        public double RepeatingWordsAccuracy { get; set; }
+
+        public bool IgnoreWhitespaceDifferences { get; set; }
+
+    }
+
     /// <summary>
     /// Finds the longest match in given texts. It uses indexing with fixed granularity that is used to compare blocks of text.
     /// </summary>
@@ -27,8 +82,7 @@ namespace HtmlDiff
         /// <param name="startInNew"></param>
         /// <param name="endInNew"></param>
         /// <param name="options"></param>
-        public MatchFinder(string[] oldWords, string[] newWords, int startInOld, int endInOld, int startInNew, int endInNew, MatchOptions options)
-        {
+        public MatchFinder(string[] oldWords, string[] newWords, int startInOld, int endInOld, int startInNew, int endInNew, MatchOptions options) {
             _oldWords = oldWords;
             _newWords = newWords;
             _startInOld = startInOld;
@@ -38,8 +92,7 @@ namespace HtmlDiff
             _options = options;
         }
 
-        private void IndexNewWords()
-        {
+        private void IndexNewWords() {
             _wordIndices = new Dictionary<string, List<int>>();
             var block = new Queue<string>(_options.BlockSize);
             for (int i = _startInNew; i < _endInNew; i++) {
@@ -50,17 +103,15 @@ namespace HtmlDiff
                 if (key == null)
                     continue;
 
-                List<int> indicies;
-                if (_wordIndices.TryGetValue(key, out indicies)) 
+                if (_wordIndices.TryGetValue(key, out List<int> indicies))
                     indicies.Add(i);
                 else
                     _wordIndices.Add(key, new List<int> { i });
-                
+
             }
         }
 
-        private static string PutNewWord(Queue<string> block, string word, int blockSize)
-        {
+        private static string PutNewWord(Queue<string> block, string word, int blockSize) {
             block.Enqueue(word);
             if (block.Count > blockSize)
                 block.Dequeue();
@@ -80,8 +131,7 @@ namespace HtmlDiff
         /// </summary>
         /// <param name="word"></param>
         /// <returns></returns>
-        private string NormalizeForIndex(string word)
-        {
+        private string NormalizeForIndex(string word) {
             word = Utils.StripAnyAttributes(word);
             if (_options.IgnoreWhitespaceDifferences && Utils.IsWhiteSpace(word))
                 return " ";
@@ -89,8 +139,7 @@ namespace HtmlDiff
             return word;
         }
 
-        public Match FindMatch()
-        {
+        public Match FindMatch() {
             IndexNewWords();
             RemoveRepeatingWords();
 
@@ -140,8 +189,7 @@ namespace HtmlDiff
         /// and as result the diff algoritm takes less time. But the side effect is that it may detect false differences of
         /// the repeating words.
         /// </summary>
-        private void RemoveRepeatingWords()
-        {
+        private void RemoveRepeatingWords() {
             var threshold = _newWords.Length * _options.RepeatingWordsAccuracy;
             var repeatingWords = _wordIndices.Where(i => i.Value.Count > threshold).Select(i => i.Key).ToArray();
             foreach (var w in repeatingWords) {

@@ -7,7 +7,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace GuildWars2.Worker
+namespace GuildWars2.Worker.Helper
 {
     internal class DiffConsoleHelper<T>
     {
@@ -66,7 +66,7 @@ namespace GuildWars2.Worker
             html.Append("<html><head><style>");
             html.Append("table{border:1pxsolid#d9d9d9;}     td{border:1pxsolid#d9d9d9;padding:3px;}     ins{background-color:#cfc;text-decoration:inherit;}     del{color:#999;background-color:#FEC8C8;}     ins.mod{background-color:#FFE1AC;}");
             html.Append("</style></head><body><div>");
-            html.Append(new HtmlDiff.HtmlDiff(JsonConvert.SerializeObject(_obj1), JsonConvert.SerializeObject(_obj2)).Build());
+            html.Append(new HtmlDiffHelper(JsonConvert.SerializeObject(_obj1), JsonConvert.SerializeObject(_obj2)).Build());
             html.Append("</div></body></html>");
 
             using (FileStream fs = new FileStream(FILE_LOCATION, FileMode.Create)) {

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace HtmlDiff
+namespace GuildWars2.Worker.Helper
 {
     public static class Utils
     {
