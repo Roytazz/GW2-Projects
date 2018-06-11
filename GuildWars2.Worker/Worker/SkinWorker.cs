@@ -36,7 +36,7 @@ namespace GuildWars2.Worker
                 var values = await ValueFactory.CalculateValue(currentSkins);
                 if (values.Count > 0) {
                     SetProgress("Saving total skin value", 95, overallProgress);
-                    await UserAPI.AddCategoryEntry(CategoryType.Skins, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
+                    await UserAPI.AddCategoryEntry(CategoryValueType.Skins, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
                 }
             }
         }

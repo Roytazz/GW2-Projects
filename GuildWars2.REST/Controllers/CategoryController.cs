@@ -16,8 +16,8 @@ namespace GuildWars2.REST.Controllers.Value
         [Authorize, HttpGet("all")]
         public IActionResult All() {
             var result = new List<object>();
-            foreach (var item in Enum.GetNames(typeof(CategoryType))) {
-                result.Add(new { id = (int)Enum.Parse(typeof(CategoryType), item), type = item });
+            foreach (var item in Enum.GetNames(typeof(CategoryValueType))) {
+                result.Add(new { id = (int)Enum.Parse(typeof(CategoryValueType), item), type = item });
             }
             return Ok(result);
         }
@@ -25,14 +25,17 @@ namespace GuildWars2.REST.Controllers.Value
         [Authorize, HttpPost]
         public async Task<IActionResult> Get([FromBody]CategoryModel category) {
             if (category == null || category.CategoriesList == null || category.CategoriesList.Count <= 0)
-                return BadRequest(ErrorMessage("All categories are invalid"));
+                return BadRequest(ErrorMessage("categories are invalid/missing"));
 
-            var categoryValues = await UserAPI.GetCategory(category.CategoriesList, category.APIKey);
+            var categoryValues = await UserAPI.GetCategoriesTop(category.CategoriesList, category.APIKey);
             return Ok(categoryValues);
         }
 
         [Authorize, HttpPost("history")]
         public async Task<IActionResult> History([FromBody]CategoryHistoryModel category, [FromQuery]int page = 0, [FromQuery]int pageSize = 200) {
+            if (category == null)
+                return BadRequest(ErrorMessage("category is missing"));
+
             var categoryValues = await UserAPI.GetCategoryHistory(category.Category, category.APIKey, page, pageSize);
             return Ok(categoryValues);
         }
@@ -45,9 +48,9 @@ namespace GuildWars2.REST.Controllers.Value
         public string APIKey { get; set; }
 
         [JsonIgnore]
-        public List<CategoryType> CategoriesList {
+        public List<CategoryValueType> CategoriesList {
             get {
-                return Categories.Select(x => (CategoryType)x).ToList();
+                return Categories.Select(x => (CategoryValueType)x).ToList();
             }
         }
     }
@@ -56,6 +59,6 @@ namespace GuildWars2.REST.Controllers.Value
     {
         public string APIKey { get; set; }
 
-        public CategoryType Category { get; set; }
+        public CategoryValueType Category { get; set; }
     }
 }

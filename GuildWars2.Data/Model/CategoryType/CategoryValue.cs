@@ -16,13 +16,13 @@ namespace GuildWars2.Data.Model
 
         public int Delta { get; set; }
         
-        public CategoryType Category { get; set; }
+        public CategoryValueType Category { get; set; }
 
         [ForeignKey(nameof(AccountID)), JsonIgnore]
         public Account Account { get; set; }
     }
 
-    public enum CategoryType
+    public enum CategoryValueType
     {
         Characters = 0,
         Bank = 1,

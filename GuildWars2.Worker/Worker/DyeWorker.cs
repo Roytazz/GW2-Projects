@@ -37,7 +37,7 @@ namespace GuildWars2.Worker
                 var values = await ValueFactory.CalculateValue(currentDyes);
                 if (values.Count > 0) {
                     SetProgress("Saving total dye value", 90, overallProgress);
-                    await UserAPI.AddCategoryEntry(CategoryType.Dyes, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
+                    await UserAPI.AddCategoryEntry(CategoryValueType.Dyes, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
                 }
             }
         }

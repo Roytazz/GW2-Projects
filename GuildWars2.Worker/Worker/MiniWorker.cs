@@ -37,7 +37,7 @@ namespace GuildWars2.Worker
                 var values = await ValueFactory.CalculateValue(currentMinis);
                 if (values.Count > 0) {
                     SetProgress("Saving total mini value", 90, overallProgress);
-                    await UserAPI.AddCategoryEntry(CategoryType.Minis, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
+                    await UserAPI.AddCategoryEntry(CategoryValueType.Minis, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
                 }
             }
         }

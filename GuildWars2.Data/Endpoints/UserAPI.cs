@@ -125,7 +125,7 @@ namespace GuildWars2.Data
         #endregion Wallet
 
         #region Category
-        public async static Task AddCategoryEntry(CategoryType type, int value, string apiKey) {
+        public async static Task AddCategoryEntry(CategoryValueType type, int value, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
                 var account = await AuthAPI.GetAccount(apiKey);
                 if (account == null)
@@ -141,7 +141,7 @@ namespace GuildWars2.Data
             }
         }
 
-        public async static Task<List<CategoryValue>> GetCategory(List<CategoryType> types, string apiKey) {
+        public async static Task<List<CategoryValue>> GetCategoriesTop(List<CategoryValueType> types, string apiKey) {
             using (var db = new UserContextFactory().CreateDbContext()) {
                 var account = await AuthAPI.GetAccount(apiKey);
                 if (account == null)
@@ -155,7 +155,7 @@ namespace GuildWars2.Data
             }
         }
 
-        public async static Task<List<CategoryValue>> GetCategoryHistory(CategoryType type, string apiKey, int page, int pageSize) {
+        public async static Task<List<CategoryValue>> GetCategoryHistory(CategoryValueType type, string apiKey, int page, int pageSize) {
             using (var db = new UserContextFactory().CreateDbContext()) {
                 var account = await AuthAPI.GetAccount(apiKey);
                 if (account == null)
