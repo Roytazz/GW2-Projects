@@ -26,14 +26,21 @@ namespace GuildWars2.Data.Model
         public Account Account { get; set; }
 
         public override bool Equals(object obj) {
-            if(obj.GetType() != typeof(Item))
-                return false;
+            return Equals(obj as Item);
+        }
 
-            var item = obj as Item;
+        public bool Equals(Item item) {
+            if(item == null)
+                return false;
+            
             return ItemID == item.ItemID
                 && SkinID == item.SkinID
                 && StatID == item.StatID
                 && Category == item.Category;
+        }
+
+        public override int GetHashCode() {
+            return (ItemID.GetHashCode() + SkinID.GetHashCode() + StatID.GetHashCode() + Category.GetHashCode()).GetHashCode();
         }
     }
 }
