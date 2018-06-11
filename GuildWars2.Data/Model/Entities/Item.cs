@@ -13,9 +13,11 @@ namespace GuildWars2.Data.Model
         public int AccountID { get; set; }
 
         public int ItemID { get; set; }
-        
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int StatID { get; set; }
-        
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int SkinID { get; set; }
 
         public CategoryValueType Category { get; set; }
