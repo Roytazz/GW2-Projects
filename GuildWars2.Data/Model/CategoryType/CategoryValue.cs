@@ -24,14 +24,15 @@ namespace GuildWars2.Data.Model
 
     public enum CategoryValueType
     {
-        Characters = 0,
-        Bank = 1,
-        GuildBank = 2,
-        MaterialStorage = 3,
-        SharedInventory = 4,
-        Skins = 5,
-        Dyes = 6,
-        Minis = 7,
-        DeliveryBox = 8
+        Default = 0,
+        Characters = 1,
+        Bank = 2,
+        GuildBank = 3,
+        MaterialStorage = 4,
+        SharedInventory = 5,
+        Skins = 6,
+        Dyes = 7,
+        Minis = 8,
+        DeliveryBox = 9
     }
 }
