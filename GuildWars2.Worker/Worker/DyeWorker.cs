@@ -12,13 +12,18 @@ namespace GuildWars2.Worker
 {
     public class DyeWorker : IUserWorker
     {
-        public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+        public event EventHandler<WorkerStartedEventArgs> WorkerStarted;
+        public event EventHandler<WorkerProgressEventArgs> ProgressChanged;
+        public event EventHandler<WorkerFinishedEventArgs> WorkerFinished;
 
         public async Task Run(CancellationToken token, params string[] apiKeys) {
             await Run(token, apiKeys.ToList());
         }
 
         public async Task Run(CancellationToken token, List<string> apiKeys) {
+            WorkerStarted?.Invoke(this, new WorkerStartedEventArgs { WorkerType = GetType(), KeyAmount = apiKeys.Count });
+            var startTime = DateTime.Now;
+
             foreach (var apiKey in apiKeys) {
                 token.ThrowIfCancellationRequested();
                 var overallProgress = (int)Math.Round(((double)apiKeys.IndexOf(apiKey) / apiKeys.Count) * 100, 0);
@@ -40,6 +45,7 @@ namespace GuildWars2.Worker
                     await UserAPI.AddCategoryEntry(CategoryValueType.Dyes, values.Where(x => x.Value != null).Sum(x => x.Value.Coins), apiKey);
                 }
             }
+            WorkerFinished?.Invoke(this, new WorkerFinishedEventArgs { WorkerType = GetType(), Duration = DateTime.Now - startTime });
         }
 
         private async Task<List<API.Model.Items.Item>> GetAccountDyes(string apiKey) {
@@ -49,7 +55,7 @@ namespace GuildWars2.Worker
         }
 
         private void SetProgress(string msg, int partialProgress, int overallProgress) {
-            ProgressChanged?.Invoke(this, new ProgressChangedEventArgs { Message = msg, PartialProgress = partialProgress, OverallProgress = overallProgress });
+            ProgressChanged?.Invoke(this, new WorkerProgressEventArgs { Message = msg, PartialProgress = partialProgress, OverallProgress = overallProgress });
         }
     }
 }

@@ -17,13 +17,42 @@ namespace GuildWars2.Worker
 
     interface IWorker
     {
-        event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+        event EventHandler<WorkerStartedEventArgs> WorkerStarted;
+        event EventHandler<WorkerProgressEventArgs> ProgressChanged;
+        event EventHandler<WorkerFinishedEventArgs> WorkerFinished;
     }
 
-    public class ProgressChangedEventArgs
+    public class WorkerStartedEventArgs
+    {
+        public Type WorkerType { get; set; }
+
+        public int KeyAmount { get; set; } = -1;
+
+        public override string ToString() {
+            if(KeyAmount == -1)
+                return $"Starting {nameof(WorkerType)}...";
+            else
+                return $"Starting {nameof(WorkerType)} with {KeyAmount} API-Keys...";
+        }
+    }
+
+    public class WorkerFinishedEventArgs
+    {
+        public Type WorkerType { get; set; }
+
+        public TimeSpan Duration { get; set; }
+
+        public override string ToString() {
+            return $"{nameof(WorkerType)} done in {Math.Round(Duration.TotalSeconds, 1)} seconds!";
+        }
+    }
+
+    public class WorkerProgressEventArgs
     {
         public string Message { get; set; }
+
         public int PartialProgress { get; set; }
+
         public int OverallProgress { get; set; } = -1;
 
         public override string ToString() {

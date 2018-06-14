@@ -24,7 +24,9 @@ namespace GuildWars2.Worker.DataWorker
         private bool _saveNewItems;
         private bool _onlyUpdateNewItemListings;
 
-        public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+        public event EventHandler<WorkerStartedEventArgs> WorkerStarted;
+        public event EventHandler<WorkerProgressEventArgs> ProgressChanged;
+        public event EventHandler<WorkerFinishedEventArgs> WorkerFinished;
 
         public ItemDataWorker(bool waitForUser = false, bool saveNewItems = false, bool onlyUpdateNewItemListings = false) {
             _waitForUser = waitForUser;
@@ -33,7 +35,10 @@ namespace GuildWars2.Worker.DataWorker
         }
 
         public async Task Run(CancellationToken token) {
+            WorkerStarted?.Invoke(this, new WorkerStartedEventArgs { WorkerType = GetType() });
+            var startTime = DateTime.Now;
             var page = 0;
+
             while (true) {
                 token.ThrowIfCancellationRequested();
 
@@ -73,6 +78,7 @@ namespace GuildWars2.Worker.DataWorker
                 if (pageResult.Count < 200)
                     break;
             }
+            WorkerFinished?.Invoke(this, new WorkerFinishedEventArgs { WorkerType = GetType(), Duration = DateTime.Now - startTime });
         }
 
         private List<Item> GetNewItems(List<Item> apiItems, List<Item> dbItems) {
@@ -96,7 +102,7 @@ namespace GuildWars2.Worker.DataWorker
         }
 
         private void SetProgress(string msg, int partialProgress) {
-            ProgressChanged?.Invoke(this, new ProgressChangedEventArgs { Message = msg, PartialProgress = partialProgress });
+            ProgressChanged?.Invoke(this, new WorkerProgressEventArgs { Message = msg, PartialProgress = partialProgress });
         }
 
         private void WriteNewItems(List<Item> newItems) {
