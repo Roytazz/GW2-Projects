@@ -1,7 +1,6 @@
 ﻿using GuildWars2.API.Items;
 using GuildWars2.API.Model;
 using GuildWars2.API.Model.Items;
-using GuildWars2.Value;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace GuildWars2.Worker.Values
             }
 
             var result = new List<ValueResult<Item>>();
-            var values = await Value.ValueFactory.CalculateValue(recipes, takeHighestValue);
+            var values = await ValueFactory.CalculateValue(recipes, takeHighestValue);
             foreach (var item in entities) {
                 result.Add(new ValueResult<Item> {
                     Item = item,

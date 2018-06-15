@@ -1,7 +1,6 @@
 ﻿using GuildWars2.API.Model.Commerce;
 using GuildWars2.API.Model.Items;
 using GuildWars2.Data.Endpoints;
-using GuildWars2.Value;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

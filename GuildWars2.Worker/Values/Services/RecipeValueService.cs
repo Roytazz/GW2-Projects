@@ -1,5 +1,4 @@
-﻿using GuildWars2.Value;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using GuildWars2.API.Items;
