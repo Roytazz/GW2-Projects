@@ -42,12 +42,10 @@ namespace GuildWars2.REST.Controllers.Value
 
         [Authorize, HttpPost("items")]
         public async Task<IActionResult> Items([FromBody]CategoryModel category, [FromQuery]int page = 0, [FromQuery]int pageSize = 200) {
-            if (category == null)
+            if (category == null || category.Category == CategoryValueType.Default)
                 return BadRequest(ErrorMessage("category is missing"));
 
             switch (category.Category) {
-                case CategoryValueType.Default:
-                    return BadRequest(ErrorMessage("category is invalid"));
                 case CategoryValueType.Skins:
                     return Ok(await UserAPI.GetSkins(category.APIKey, page, pageSize));
                 case CategoryValueType.Dyes:
