@@ -30,9 +30,9 @@ namespace GuildWars2.Worker
 
         public override string ToString() {
             if(KeyAmount == -1)
-                return $"Starting {nameof(WorkerType)}...";
+                return $"Starting {WorkerType.Name}...";
             else
-                return $"Starting {nameof(WorkerType)} with {KeyAmount} API-Keys...";
+                return $"Starting {WorkerType.Name} with {KeyAmount} API-Keys...";
         }
     }
 
@@ -43,7 +43,7 @@ namespace GuildWars2.Worker
         public TimeSpan Duration { get; set; }
 
         public override string ToString() {
-            return $"{nameof(WorkerType)} done in {Math.Round(Duration.TotalSeconds, 1)} seconds!";
+            return $"{WorkerType.Name} done in {Math.Round(Duration.TotalSeconds, 1)} seconds!";
         }
     }
 
