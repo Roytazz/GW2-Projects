@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GuildWars2.Worker.ValueService
+namespace GuildWars2.Worker.Values.Services
 {
     public class TPValueService : IValueService<Item>
     {

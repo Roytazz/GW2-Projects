@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GuildWars2.Worker.ValueService
+namespace GuildWars2.Worker.Values
 {
     public class CraftingValueService : IValueService<Item>
     {
@@ -19,7 +19,7 @@ namespace GuildWars2.Worker.ValueService
             }
 
             var result = new List<ValueResult<Item>>();
-            var values = await ValueFactory.CalculateValue(recipes, takeHighestValue);
+            var values = await Value.ValueFactory.CalculateValue(recipes, takeHighestValue);
             foreach (var item in entities) {
                 result.Add(new ValueResult<Item> {
                     Item = item,

@@ -6,7 +6,7 @@ using GuildWars2.API.Items;
 using GuildWars2.API;
 using GuildWars2.API.Model.Commerce;
 
-namespace GuildWars2.Worker.ValueService
+namespace GuildWars2.Worker.Values.Services
 {
     public class RecipeValueService : IValueService<ItemRecipeTreeNode>
     {

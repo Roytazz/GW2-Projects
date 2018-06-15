@@ -12,7 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GuildWars2.API\GuildWars2.API.csproj" />
     <ProjectReference Include="..\GuildWars2.Data\GuildWars2.Data.csproj" />
-    <ProjectReference Include="..\GuildWars2.Value\GuildWars2.Value.csproj" />
   </ItemGroup>
 
   <ItemGroup>

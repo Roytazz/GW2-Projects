@@ -4,7 +4,7 @@ using GuildWars2.API.Model.Character;
 using GuildWars2.API.Model.Commerce;
 using GuildWars2.API.Model.Items;
 using GuildWars2.Data;
-using GuildWars2.Value;
+using GuildWars2.Worker.Values;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
 
-namespace GuildWars2.Value
+namespace GuildWars2.Worker.Values
 {
     public static class ValueFactory
     {
