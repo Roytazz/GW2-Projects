@@ -21,7 +21,7 @@ namespace GuildWars2.Worker
         }
 
         public async Task Run(CancellationToken token, List<string> apiKeys) {
-            WorkerStarted?.Invoke(this, new WorkerStartedEventArgs { WorkerType = GetType(), KeyAmount = apiKeys.Count });
+            WorkerStarted?.Invoke(this, new WorkerStartedEventArgs { WorkerType = GetType() });
             var startTime = DateTime.Now;
 
             foreach (var apiKey in apiKeys) {

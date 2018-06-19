@@ -15,6 +15,11 @@ namespace GuildWars2.Worker
         Task Run(CancellationToken token);
     }
 
+    interface IResultUserWorker<T> : IWorker
+    {
+        Task<T> Run(CancellationToken token, string apiKey);
+    }
+
     interface IWorker
     {
         event EventHandler<WorkerStartedEventArgs> WorkerStarted;
@@ -26,13 +31,8 @@ namespace GuildWars2.Worker
     {
         public Type WorkerType { get; set; }
 
-        public int KeyAmount { get; set; } = -1;
-
         public override string ToString() {
-            if(KeyAmount == -1)
-                return $"Starting {WorkerType.Name}...";
-            else
-                return $"Starting {WorkerType.Name} with {KeyAmount} API-Keys...";
+            return $"Starting {WorkerType.Name}...";
         }
     }
 
@@ -57,9 +57,9 @@ namespace GuildWars2.Worker
 
         public override string ToString() {
             if(OverallProgress == -1)
-                return $"\r{Message}...{PartialProgress}%";
+                return $"\t{Message}...{PartialProgress}%";
             else
-                return $"\r{Message}...{PartialProgress}% out of {OverallProgress}%";
+                return $"\t{Message}...{PartialProgress}% out of {OverallProgress}%";
         }
     }
 }
