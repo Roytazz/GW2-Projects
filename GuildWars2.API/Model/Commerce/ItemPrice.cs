@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace GuildWars2.API.Model.Commerce
 {
@@ -43,5 +44,16 @@ namespace GuildWars2.API.Model.Commerce
         public static bool operator <(ItemPrice e1, ItemPrice e2) => e1.CompareTo(e2) < 0;
 
         public static bool operator >(ItemPrice e1, ItemPrice e2) => e1.CompareTo(e2) > 0;
+
+        public override string ToString() {
+            var result = new StringBuilder();
+            if (Gold > 0)
+                result.Append($"{Gold}g ");
+            if(Silver > 0 || (Silver == 0 && Gold != 0))
+                result.Append($"{Silver}s ");
+
+            result.Append($"{Copper}c ");
+            return result.ToString();
+        }
     }
 }
