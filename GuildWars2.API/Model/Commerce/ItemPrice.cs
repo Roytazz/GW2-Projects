@@ -52,7 +52,7 @@ namespace GuildWars2.API.Model.Commerce
             if(Silver > 0 || (Silver == 0 && Gold != 0))
                 result.Append($"{Silver}s ");
 
-            result.Append($"{Copper}c ");
+            result.Append($"{Copper}c");
             return result.ToString();
         }
     }
