@@ -4,12 +4,17 @@ using System.Linq;
 using GuildWars2.API.Items;
 using GuildWars2.API;
 using GuildWars2.API.Model.Commerce;
+using LazyCache;
+using System;
 
 namespace GuildWars2.Worker.Values.Services
 {
     public class RecipeValueService : IValueService<ItemRecipeTreeNode>
     {
         public async Task<List<ValueResult<ItemRecipeTreeNode>>> CalculateValue(List<ItemRecipeTreeNode> items, bool takeHighestValue) {
+            var cachedItems = await CheckCache(items);
+            items = items.Where(x => !cachedItems.Select(y => y.Item.ItemID).Contains(x.ItemID)).ToList();
+
             var result = new List<ValueResult<ItemRecipeTreeNode>>();
             foreach (var item in items) {
                 var itemIDs = GetItemIDs(item).Select(x=>x.ItemID).Distinct().ToList();
@@ -19,6 +24,9 @@ namespace GuildWars2.Worker.Values.Services
                 
                 result.Add(new ValueResult<ItemRecipeTreeNode> { Item = item, Value = GetValue(item, takeHighestValue, listings) });
             }
+            AddCache(result);
+
+            result.AddRange(cachedItems);
             return result;    
         }
 
@@ -63,6 +71,30 @@ namespace GuildWars2.Worker.Values.Services
 
 
             return itemPrice != null ? new ItemPrice(itemPrice.Coins * node.ItemCount) : null;
+        }
+
+        private async Task<List<ValueResult<ItemRecipeTreeNode>>> CheckCache(List<ItemRecipeTreeNode> entities) {
+#pragma warning disable CS0618
+            IAppCache cache = new CachingService();
+#pragma warning restore CS0618
+
+            var result = new List<ValueResult<ItemRecipeTreeNode>>();
+            foreach (var entity in entities) {
+                var item = await cache.GetAsync<ValueResult<ItemRecipeTreeNode>>($"{nameof(RecipeValueService)}-{entity.ItemID}");
+                if (item != null)
+                    result.Add(item);
+            }
+            return result;
+        }
+
+        private void AddCache(List<ValueResult<ItemRecipeTreeNode>> entities) {
+#pragma warning disable CS0618
+            IAppCache cache = new CachingService();
+#pragma warning restore CS0618
+
+            foreach (var entity in entities) {
+                cache.GetOrAdd($"{nameof(RecipeValueService)}-{entity.Item.ItemID}", () => entity, new TimeSpan(0, 5, 0));
+            }
         }
     }
     
