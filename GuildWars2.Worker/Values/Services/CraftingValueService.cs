@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using static GuildWars2.Worker.Helper.CacheManager;
+
 namespace GuildWars2.Worker.Values
 {
     public class CraftingValueService : IValueService<Item>
@@ -47,7 +49,7 @@ namespace GuildWars2.Worker.Values
 
             var result = new List<ValueResult<Item>>();
             foreach (var entity in entities) {
-                var item = await cache.GetAsync<ValueResult<Item>>($"{nameof(CraftingValueService)}-{entity.ID}");
+                var item = await cache.GetAsync<ValueResult<Item>>(GenerateKey(GetType(), entity.ID));
                 if (item != null)
                     result.Add(item);
             }
@@ -60,7 +62,7 @@ namespace GuildWars2.Worker.Values
 #pragma warning restore CS0618
 
             foreach (var entity in entities) {
-                cache.GetOrAdd($"{nameof(CraftingValueService)}-{entity.Item.ID}", () => entity, new TimeSpan(0,5,0));
+                cache.GetOrAdd(GenerateKey(GetType(), entity.Item.ID), () => entity, CACHE_DURATION);
             }
         }
     }

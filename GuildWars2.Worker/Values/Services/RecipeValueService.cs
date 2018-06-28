@@ -7,6 +7,8 @@ using GuildWars2.API.Model.Commerce;
 using LazyCache;
 using System;
 
+using static GuildWars2.Worker.Helper.CacheManager;
+
 namespace GuildWars2.Worker.Values.Services
 {
     public class RecipeValueService : IValueService<ItemRecipeTreeNode>
@@ -80,7 +82,7 @@ namespace GuildWars2.Worker.Values.Services
 
             var result = new List<ValueResult<ItemRecipeTreeNode>>();
             foreach (var entity in entities) {
-                var item = await cache.GetAsync<ValueResult<ItemRecipeTreeNode>>($"{nameof(RecipeValueService)}-{entity.ItemID}");
+                var item = await cache.GetAsync<ValueResult<ItemRecipeTreeNode>>(GenerateKey(GetType(), entity.ItemID));
                 if (item != null)
                     result.Add(item);
             }
@@ -93,7 +95,7 @@ namespace GuildWars2.Worker.Values.Services
 #pragma warning restore CS0618
 
             foreach (var entity in entities) {
-                cache.GetOrAdd($"{nameof(RecipeValueService)}-{entity.Item.ItemID}", () => entity, new TimeSpan(0, 5, 0));
+                cache.GetOrAdd(GenerateKey(GetType(), entity.Item.ItemID), () => entity, CACHE_DURATION);
             }
         }
     }

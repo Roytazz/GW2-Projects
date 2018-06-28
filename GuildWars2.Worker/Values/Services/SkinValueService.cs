@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using static GuildWars2.Worker.Helper.CacheManager;
+
 namespace GuildWars2.Worker.Values.Services
 {
     public class SkinValueService : IValueService<Skin>
@@ -57,7 +59,7 @@ namespace GuildWars2.Worker.Values.Services
 
             var result = new List<ValueResult<Skin>>();
             foreach (var entity in entities) {
-                var item = await cache.GetAsync<ValueResult<Skin>>($"{nameof(SkinValueService)}-{entity.ID}");
+                var item = await cache.GetAsync<ValueResult<Skin>>(GenerateKey(GetType(), entity.ID));
                 if (item != null)
                     result.Add(item);
             }
@@ -70,7 +72,7 @@ namespace GuildWars2.Worker.Values.Services
 #pragma warning restore CS0618
 
             foreach (var entity in entities) {
-                cache.GetOrAdd($"{nameof(SkinValueService)}-{entity.Item.ID}", () => entity, new TimeSpan(0, 5, 0));
+                cache.GetOrAdd(GenerateKey(GetType(), entity.Item.ID), () => entity, CACHE_DURATION);
             }
         }
     }

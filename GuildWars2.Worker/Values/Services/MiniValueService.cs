@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using static GuildWars2.Worker.Helper.CacheManager;
+
 namespace GuildWars2.Worker.Values.Services
 {
     public class MiniValueService : IValueService<Mini>
@@ -43,7 +45,7 @@ namespace GuildWars2.Worker.Values.Services
 
             var result = new List<ValueResult<Mini>>();
             foreach (var entity in entities) {
-                var item = await cache.GetAsync<ValueResult<Mini>>($"{nameof(MiniValueService)}-{entity.ID}");
+                var item = await cache.GetAsync<ValueResult<Mini>>(GenerateKey(GetType(), entity.ID));
                 if (item != null)
                     result.Add(item);
             }
@@ -56,7 +58,7 @@ namespace GuildWars2.Worker.Values.Services
 #pragma warning restore CS0618
 
             foreach (var entity in entities) {
-                cache.GetOrAdd($"{nameof(MiniValueService)}-{entity.Item.ID}", () => entity, new TimeSpan(0, 5, 0));
+                cache.GetOrAdd(GenerateKey(GetType(), entity.Item.ID), () => entity, CACHE_DURATION);
             }
         }
     }
