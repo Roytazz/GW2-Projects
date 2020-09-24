@@ -1,4 +1,4 @@
-# GW2-Value-Cruncher  [![License](https://img.shields.io/badge/License-Apache%20License%202.0-blue.svg)](https://img.shields.io/badge/License-Apache%20License%202.0-blue.svg)
+# GW2-Projects  [![License](https://img.shields.io/badge/License-Apache%20License%202.0-blue.svg)](https://img.shields.io/badge/License-Apache%20License%202.0-blue.svg)
 
 A place for some of my GW2 projects. They might be finished or they might not be finished.
 
